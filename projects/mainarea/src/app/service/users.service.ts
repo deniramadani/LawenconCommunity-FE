@@ -6,9 +6,12 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class UsersService {
-  constructor(private http : HttpClient){}
+  constructor(private http: HttpClient) { }
 
-  generateCode(data : any) : Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/verification-code/generate`,data)
+  generateCode(data: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/verification-code/generate`, data)
+  }
+  login(data: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/login`, data)
   }
 }
