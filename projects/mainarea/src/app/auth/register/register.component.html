@@ -1,0 +1,65 @@
+<div class="bg-gray-200">
+  <div class="flex flex-wrap align-items-center justify-content-center card-container yellow-container"
+    style="min-height: 500px;">
+    <div class="grid p-4">
+      <div class="col-12 lg:col-1"></div>
+      <div class="col-12 md:col-12 lg:col-4 lg:offset-2 p-0"><img class="max-w-full min-h-full"
+          src="../../../assets/img/register-img.png" alt="Image"></div>
+      <div class="p-card col-12 md:col-12 lg:col-6">
+        <div class=" p-card-header">
+          <div class="px-5 mt-3">
+            <p class="text-lg font-bold">Sign Up</p>
+            <hr class="mt-3">
+            <form [formGroup]="dataRegister">
+              <div class="col-12">
+                <div class="p-fluid p-formgrid grid">
+                  <div class="field col-12 md:col-6"><label htmlfor="fullname">Fullname</label><input pinputtext=""
+                      id="fullname" type="text" class="p-inputtext p-component p-element">
+                  </div>
+                  <div class="field col-12 md:col-6"><label htmlfor="email">Email</label><input formControlName="email"
+                      pinputtext="" id="email" type="email" class="p-inputtext p-component p-element"></div>
+                  <div class="field col-12 md:col-6"><label htmlfor="password">Password</label><input pinputtext=""
+                      id="password" type="password" class="p-inputtext p-component p-element"></div>
+                  <div class="field col-12 md:col-6"><label htmlfor="confirm-password">Confirm Password</label><input
+                      pinputtext="" id="confirm-password" value="{{confirmPassword}}" type="password"
+                      class="p-inputtext p-component p-element">
+                  </div>
+                  <pre>{{dataRegister.value | json}}</pre>
+                </div>
+
+                <p-button (click)="showBasicDialog2()" type="submit" class="ml-2" styleClass="p-button-sm"
+                  label="Sign Up">
+                </p-button>
+                <p-dialog header="Verification" [(visible)]="displayBasic2" [style]="{width: '30vw'}">
+
+                  <div class="p-card-header">
+                    <div class="text-center">
+                      <img src="https://cdn-icons-png.flaticon.com/512/4979/4979649.png" class="w-3" alt="">
+                    </div>
+                    <h5 class="text-center text-xl mt-2">OTP Verification</h5>
+                  </div>
+                  <div class="p-card-header">
+                    <div class="p-card p-3 bg-teal-100 mt-3">
+                      <p>We’ve send a verification code to your email - example@mail.com</p>
+                      <p class="mt-2">Please check yout email!</p>
+                    </div>
+                    <div class="p-inputgroup mt-3 px-4"><input type="text" pinputtext="" placeholder="Verification Code"
+                        class="p-inputtext p-component p-element">
+                      <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"></button>
+                    </div>
+                  </div>
+                  <hr class="mt-3">
+
+                </p-dialog>
+              </div>
+
+              <p class="mb-5 pb-lg-2 mt-4 text-center" style="color: #0a0a0a;">Have an account? <a
+                  (click)="showBasicDialog2()" id="btn-register" class="font-italic p-link" style="color: #616164;">Sign
+                  In</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

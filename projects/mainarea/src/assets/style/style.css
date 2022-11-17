@@ -1,0 +1,28 @@
+*{
+  margin: 0;
+  font-family:font-primary ;
+ 
+}
+body{
+  background: #ebe9e7 !important;
+}
+
+.bg-color-primary{
+  background: #4da0ee !important;
+}
+
+.bg-color-white{
+  background: #74BAFB !important;
+}
+
+.ui-menubar	{
+  font-weight: bold;
+  background-color: #5baef1;
+}
+.ui-state-hover {cursor:hand;}
+
+.ui-menubar	{
+  font-weight: bold;
+  background-color: #5baef1;
+}
+.ui-state-hover {cursor:hand;}
