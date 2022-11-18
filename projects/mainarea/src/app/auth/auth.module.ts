@@ -7,13 +7,13 @@ import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import { VerificationCodeComponent } from "./verification-code/verification-code.component";
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 @NgModule({
   declarations : [
     LoginComponent,RegisterComponent,VerificationCodeComponent
   ],
   imports : [
-    AuthRouting,CardModule,ButtonModule,DialogModule,BrowserAnimationsModule,ReactiveFormsModule
+    AuthRouting,CardModule,ButtonModule,DialogModule,BrowserAnimationsModule,ReactiveFormsModule,FormsModule
   ],
   exports : [
     LoginComponent,RegisterComponent,VerificationCodeComponent

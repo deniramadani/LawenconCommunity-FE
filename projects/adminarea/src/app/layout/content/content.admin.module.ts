@@ -16,4 +16,4 @@ import { ContentAdminComponent } from "./content.admin.component"
   exports: [ContentAdminComponent,FooterComponent,HeaderComponent,SidebarComponent],
  
 })
-export class ContentModule { }
+export class ContentAdminModule { }

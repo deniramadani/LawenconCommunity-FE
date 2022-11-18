@@ -11,6 +11,12 @@ export class UsersService {
   generateCode(data: any): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/verification-code/generate`, data)
   }
+  validateCode(data: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/verification-code/validate`, data)
+  }
+  register(data: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/register/member`, data)
+  }
   login(data: any): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/login`, data)
   }

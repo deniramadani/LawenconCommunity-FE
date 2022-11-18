@@ -7,7 +7,7 @@ import { VerificationCodeComponent } from "./verification-code/verification-code
 const routes : Routes = [
   {
     path : '',
-    redirectTo : '/members',
+    redirectTo : '/members/login',
     pathMatch : 'full'
   },
 
@@ -15,10 +15,6 @@ const routes : Routes = [
     path : 'admin',
 
     children : [
-        {  
-          path : '',
-          component : LoginComponent
-        },
         {  
           path : 'login',
           component : LoginComponent
@@ -34,10 +30,6 @@ const routes : Routes = [
 
     children : [
         {  
-          path : '',
-          component : LoginComponent
-        },
-         {  
           path : 'login',
           component : LoginComponent
         },

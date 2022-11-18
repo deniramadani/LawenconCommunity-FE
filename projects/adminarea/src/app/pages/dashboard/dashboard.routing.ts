@@ -1,14 +1,12 @@
-import { ContentChildren, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ContentAdminComponent } from "../../layout/content/content.admin.component";
-import { ContentModule } from "../../layout/content/content.admin.module";
 import { DashboardComponent } from "./dashboard.component";
 
 const routes : Routes = [
-    {
-        path : '',
-        component : DashboardComponent
-    }
+    // {
+    //     path : 'dashboard',
+    //     component : DashboardComponent
+    // }
 ]
 
 @NgModule({
@@ -16,7 +14,7 @@ const routes : Routes = [
         RouterModule.forChild(routes)
     ],
     exports : [
-        RouterModule,ContentModule
+        RouterModule
     ]
 })
 export class DashboardRouting { }

@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
