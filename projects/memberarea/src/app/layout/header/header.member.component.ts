@@ -1,34 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, SelectItem} from 'primeng/api';
 @Component({
   selector: 'member-header',
   templateUrl: './header.member.component.html',
 })
+
 export class HeaderMemberComponent {
 
-  items: MenuItem[] = [
-    {
-        label: 'File',
-        items: [{
-                label: 'New', 
-                icon: 'pi pi-fw pi-plus',
-                items: [
-                    {label: 'Project'},
-                    {label: 'Other'},
-                ]
-            },
-            {label: 'Open'},
-            {label: 'Quit'}
-        ]
-    },
-    {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-            {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-            {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-        ]
-    }
+ 
+  listItems: SelectItem[] = [
+    {label: 'pi pi-user', value: 'v1'},
+    {label: 'pi pi-plus', value: 'v2'}
   ]
+  
+  selectedItem!: string;
+
+
 
 }

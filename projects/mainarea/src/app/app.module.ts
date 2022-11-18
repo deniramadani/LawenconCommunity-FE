@@ -6,15 +6,17 @@ import { AppRouting } from './app.routing';
 import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
+import { PagesError404Component } from './not-found/pages-error404.component';
+import {ButtonModule} from 'primeng/button';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,PagesError404Component
   ],
   imports: [
     BrowserModule,
     AppRouting,
-    HttpClientModule,
+    HttpClientModule,ButtonModule,
+
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],

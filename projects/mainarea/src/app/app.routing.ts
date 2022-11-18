@@ -10,6 +10,7 @@ import { ContentMemberModule } from "projects/memberarea/src/app/layout/content/
 import { MemberAreaModule } from "projects/memberarea/src/app/memberarea.module";
 import { membersAreaRoutes } from "projects/memberarea/src/app/memberarea.routing";
 import { AuthModule } from "./auth/auth.module";
+import { PagesError404Component } from "./not-found/pages-error404.component";
 
 export const mainRoutes : Routes = [
     ...adminAreaRoutes,...membersAreaRoutes,
@@ -32,6 +33,11 @@ export const mainRoutes : Routes = [
         path : 'login',
         loadChildren : ()=> import('./auth/auth.module').then(u => u.AuthModule)
     },
+    {
+        path : '**',
+        component : PagesError404Component
+    }, 
+
 ]
 
 @NgModule({

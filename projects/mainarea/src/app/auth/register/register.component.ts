@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit,OnDestroy {
   }
 
   btnGenerateCode() {
-
     if(this.dataRegister.get('password')?.value == this.dataRegister.get('confirmPassword')?.value){
       console.log(this.dataRegister.value);
           this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).subscribe(result => {
@@ -57,6 +56,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
         if(result){
           this.insertDataSubscription = this.userService.register(this.dataRegister.value).subscribe(result =>{
             this.displayBasic2 = false;
+            this.router.navigateByUrl('/')
           })
         }
     })

@@ -8,6 +8,7 @@ import { UsersService } from '../../service/users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['../../app.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private loginSubscription?: Subscription
