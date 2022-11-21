@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { Observable } from "rxjs"
 import { HttpClient } from '@angular/common/http'
+import {User} from '../../../../interface/user'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,5 +21,9 @@ export class UsersService {
   }
   login(data: any): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/login`, data)
+  }
+
+  getAllUsersById(id : string) : Observable<User> {
+    return this.http.get<User>(`${BASE_URL.BASE_URL}/users/${id}`)
   }
 }

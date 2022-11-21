@@ -1,15 +1,13 @@
 <div class="mt-8 p-3">
   <div class="grid">
-    <div class="col-12 lg:col-3 p-3">
+    <div class="col-12 lg:col-3 py-3 px-5">
       <h6>My Profile</h6>
       <div class="">
-        <div class="card p-5 text-center">
-          <p-avatar class="px-5"
-            image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQim4NdsO0MrEypXEyyeWCnN6HkGEpHVGWL4w&usqp=CAU"
-            styleClass="w-full h-full" shape="circle">
+        <div class="card px-4 text-center">
+          <p-avatar class="px-5 mt-5" image="{{fileDownload}}{{fotoProfile}}" styleClass="w-6 h-4rem" shape="circle">
           </p-avatar>
-          <h5 class="text-lg mt-3">Fullname</h5>
-          <p class="text-secondary">example position</p>
+          <h5 class="text-lg mt-3">{{fullname}}</h5>
+          <p class="text-secondary text-sm">{{position}}</p>
           <hr>
           <div class="grid">
             <div class="col-4 lg:col-4 sm:col-4">
@@ -22,18 +20,128 @@
               ig
             </div>
           </div>
-          <div class="mt-4">
-            <p class="text-left text-sm"> <i class="pi pi-user"></i> Personal Details</p>
-            <ul class="text-left">
-              <li>examplae@gmail.com</li>
-            </ul>
+          <div class="text-left mt-4">
+            <p class="text-sm"> <i class="pi pi-user"></i> Personal Details</p>
+            <div class="px-2 text-xs text-left">
+              <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
+                {{email}}</p>
+              <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
+                {{phoneNumber}}</p>
+              <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
+                {{age}} Tahun</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 lg:col-6 pt-3 pb-3">
+      <h6>Thread & Discuss</h6>
+      <div class="p-card text-right">
+        <div class="col-12 lg:col-12">
+          <button pButton pRipple type="button" (click)="createNewThread()" styleClass="p-button-sm"
+            label="Create New Thread" icon="pi pi-pencil" class="p-button-outlined p-button-rounded p-0 p-2"></button>
+        </div>
+      </div>
+      <hr>
+      <div class="p-card mt-4 p-0">
+        <div class="p-card-header">
+          <div class="grid px-3 pt-3">
+            <div class="col-6 lg:col-6 sm:col-6 pb-0">
+              <div class="grid">
+                <div class="col-3 lg:col-3 p-0 text-center">
+                  <p-avatar styleClass="w-7 h-3rem"
+                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5S7x-uPyVGyBxjUf5jqXgtILiU-6nprBTDw&usqp=CAU"
+                    shape="circle">
+                  </p-avatar>
+                </div>
+                <div class="col-9 lg:col-9 p-0">
+                  <label class="text-lg font-semibold">Fullname</label>
+                  <p class="text-secondary font-italic text-xs">7 hours ago</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 lg:col-6 sm:col-6 text-right">
+              <p-tag styleClass="mr-2" severity="info" [rounded]="true"><a class="p-link text-white"
+                  style="font-size: 0.6rem ;">Hr
+                  Recrutment</a></p-tag>
+              <p-tag styleClass="mr-2" severity="info" [rounded]="true"><a class="p-link text-white"
+                  style="font-size: 0.6rem ;">Hr
+                  Recrutment</a></p-tag>
+              <a class="text-black" role="button"><i class="pi pi-ellipsis-v"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="p-card-content px-3 pb-0">
+          <div class="col-12 lg:col-12 sm:col-12 py-0">
+            <label class="text-lg font-semibold">Title Post</label>
+          </div>
+          <div class="col-12 lg:col-12 sm:col-12 py-1 pr-2">
+            <p class="text-md">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum similique maiores
+              perferendis inventore modi adipisci magni vitae dicta corrupti corporis, dolorem quae omnis! Repellat qui
+              doloremque veniam placeat, recusandae impedit dolor reiciendis officia eos, modi, quisquam a aut. Aut
+              ipsum perspiciatis et recusandae impedit eos deserunt totam error dicta expedita veritatis eligendi soluta
+              ullam dolore placeat sapiente distinctio quis temporibus amet ipsam possimus, voluptatum accusamus.
+              Recusandae, deserunt repellendus eaque iste, libero ut veritatis maiores at sequi quisquam rerum amet
+              explicabo ipsam? Similique inventore iste aut unde quos facilis labore tempora impedit officiis! Quae et
+              suscipit, labore similique quia sed fuga.</p>
           </div>
         </div>
 
+        <div class="p-card-footer p-0">
+          <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
+            <p-avatarGroup styleClass="mb-3">
+              <p-avatar size="small" shape="circle"> <img src="assets/icons/man.png" alt="" srcset="">
+              </p-avatar>
+              <p-avatar size="small" shape="circle"> <img src="assets/icons/user.png" alt="" srcset="">
+              </p-avatar>
+              <p-avatar size="small" shape="circle"> <img src="assets/icons/woman.png" alt="" srcset="">
+              </p-avatar>
+              <p-avatar label="+12" shape="circle" size="small" styleClass="p-3"
+                [style]="{'background-color':'#9c27b0', 'color': '#ffffff'}"></p-avatar>
+            </p-avatarGroup>
+          </div>
+          <hr>
+          <div class="col-12 lg:col-12 sm:col-12 py-1 pr-2">
+            <div class="grid ">
+              <div class="col-9 lg:col-9 sm:col-9 py-1 pr-2 text-center">
+                <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
+                  <i class="pi pi-thumbs-up"></i>
+                  <span class="ml-2 font-bold">Like</span>
+                </p-button>
+                <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
+                  <i class="pi pi-comments"></i>
+                  <span class="ml-2 font-bold">Comment</span>
+                </p-button>
+              </div>
+              <div class="col-3 lg:col-3 sm:col-3 py-1 text-right">
+                <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
+                  <i class="pi pi-bookmark"></i>
+                  <span class="ml-2 font-bold">Save</span>
+                </p-button>
+              </div>
+            </div>
 
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-12 lg:col-6">2</div>
-    <div class="col-12 lg:col-3">3</div>
+
+    <div class="col-12 lg:col-3">
+      <div class=" px-5">
+        <h6>Article</h6>
+        <div class="pt-1" *ngFor="let d of data">
+          <img class="w-full" src="{{fileDownload}}{{d.file.id}}" alt="">
+          <div class="card px-3">
+            <p class="text-lg mt-3">{{d.title}}</p>
+            <p class="text-sm">{{d.content}}</p>
+            <p class="text-secondary text-xs p-0">Post by Admin Community </p>
+            <p class="text-secondary font-italic text-right" style="font-size: 0.7rem;">{{calculateDiff(d.createdAt)}}
+              days ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,25 +1,31 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
    <div class="d-flex align-items-center justify-content-between"> <a routerLink="/members/home"
-         class="logo d-flex align-items-center"> <img src="assets/icons/Logo.png" alt="" class="w-6 h-full"><span
+         class="logo d-flex align-items-center"> <img src="" alt="" class="w-6 h-full"><span
             class="d-none d-lg-block text-base">Community</span> </a>
    </div>
    <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-         <li class="nav-item pe-2 ">
-            <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="bi bi-house-door"></i>
+         <li class="nav-item">
+            <a class="nav-link nav-profile d-flex align-items-center" routerLink="/members/home" role="button"> <i
+                  class="bi bi-house-door"></i>
                <span class="d-none d-md-block ps-2">Home</span> </a>
          </li>
 
-         <li class="nav-item pe-2 ">
+         <li class="nav-item">
             <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="bi bi-calendar-plus"></i>
                <span class="d-none d-md-block ps-2">Event & Course</span> </a>
+         </li>
+
+         <li class="nav-item">
+            <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="pi pi-star"></i>
+               <span class="d-none d-md-block ps-2">My Activity</span> </a>
          </li>
 
          <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQim4NdsO0MrEypXEyyeWCnN6HkGEpHVGWL4w&usqp=CAU"
-                  alt="Profile" class="rounded-circle w-full"> <span
-                  class="d-none d-md-block dropdown-toggle ps-2">Sambo</span> </a>
+                  alt="Profile" class="rounded-circle w-5"> <span
+                  class="d-none d-md-block dropdown-toggle ps-2">Profile</span> </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                <li class="dropdown-header">
                   <h6>Ferdy Sambo</h6>
@@ -28,7 +34,7 @@
                <li>
                   <hr class="dropdown-divider">
                </li>
-               <li> <a class="dropdown-item d-flex align-items-center" routerLink="/user-profile"> <i
+               <li> <a class="dropdown-item d-flex align-items-center" routerLink="/profile/members"> <i
                         class="bi bi-person"></i> <span>My Profile</span> </a></li>
                <li>
                   <hr class="dropdown-divider">

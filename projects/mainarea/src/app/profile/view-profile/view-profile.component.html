@@ -1,0 +1,100 @@
+<div class="mt-8 p-3">
+  <div class="grid">
+    <div class="col-12 lg:col-3 py-5 px-5">
+      <h4 class="text-lg font-semibold">Setting</h4>
+      <div class="card py-3">
+        <ul class="sidebar-nav" id="sidebar-nav">
+          <li class="nav-item"> <a class="nav-link collapsed" role="button" routerLink="/profile/members"> <i
+                class="bi bi-pencil-square"></i>
+              <span>Edit Profile</span> </a></li>
+          <li class="nav-item"> <a class="nav-link collapsed" role="button"> <i class="bi bi-file-earmark-lock"></i>
+              <span>Change Password</span> </a></li>
+          <li class="nav-item"> <a class="nav-link collapsed" role="button"> <i class="bi bi-box-arrow-left"></i>
+              <span>Log Out</span> </a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-12 lg:col-8 py-5 px-5">
+      <h4 class="text-lg font-semibold">Edit Profile</h4>
+      <div class="">
+        <div class="card px-4">
+
+          <form class="mt-2">
+            <h5 class="text-lg mt-5">Detail Profile</h5>
+            <div class="text-center">
+              <p-avatar
+                image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQim4NdsO0MrEypXEyyeWCnN6HkGEpHVGWL4w&usqp=CAU"
+                styleClass="w-3 h-7rem" shape="circle">
+              </p-avatar>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-12"><label for="fullname" class="text-sm">Fullname</label>
+                <input pinputtext="" formControlName="fullname" value="{{fullname}}" id="fullname" type="text"
+                  class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6"><label for="email" class="text-sm">Email</label>
+                <input pinputtext="" id="email" type="email" value="{{email}}" disabled value="example@gmail.com"
+                  readonly class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6"><label for="phone" class="text-sm">Phone Number</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span><input
+                    type="text" value="{{phoneNumber}}" id="phone" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field col-12"><label for="address" class="text-sm">Address</label>
+                <textarea [rows]="5" [cols]="30" id="address" value="{{address}}" pInputTextarea
+                  [autoResize]="true"></textarea>
+              </div>
+            </div>
+
+            <h5 class="text-lg mt-5">Profession</h5>
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-12"><label for="company" class="text-sm">Company</label>
+                <input pinputtext="" id="company" value="{{company}}" type="text"
+                  class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6">
+                <label for="lastname2" class="text-sm">Select Industry</label>
+                <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName" optionValue="id"
+                  name="industryName" id="industryName" formControlName="industryName" placeholder="{{industryUser}}">
+                </p-dropdown>
+              </div>
+              <div class="field col-12 md:col-6">
+                <label for="lastname2" class="text-sm">Select Position</label>
+                <p-dropdown [options]="positions" styleClass="w-full" optionLabel="positionName" optionValue="id"
+                  name="positionName" id="positionName" formControlName="positionName" placeholder="{{positionUser}}">
+                </p-dropdown>
+              </div>
+            </div>
+
+            <h5 class="text-lg mt-5">Social Media</h5>
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-instagram"></i></span><input
+                    type="text" value="@user" id="instagram" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-linkedin"></i></span><input
+                    type="text" value="@user" id="linkedIn" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-facebook"></i></span><input
+                    type="text" value="@user" id="facebook" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="field col-12 md:col-12 text-center">
+              <p-button label="Save" styleClass="p-button-sm w-6" icon="pi pi-check" iconPos="right"></p-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 lg:col-1 p-5">
+    </div>
+  </div>
