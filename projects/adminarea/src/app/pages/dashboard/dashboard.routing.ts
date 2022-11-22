@@ -1,12 +1,32 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { DashboardComponent } from "./dashboard.component";
+import { DashboardAdminComponent } from "./admin/dashboard.admin.component";
 
 const routes : Routes = [
-    // {
-    //     path : 'dashboard',
-    //     component : DashboardComponent
-    // }
+
+    {
+        path : 'admin',
+        children : [
+            {
+                path : '',
+                component : DashboardAdminComponent
+            }
+        ]
+    },
+
+    {
+        path : 'super-admin',
+        children : [
+            {
+                path : '',
+                component : DashboardAdminComponent
+            }
+        ]
+    }
+    
+
+
+
 ]
 
 @NgModule({

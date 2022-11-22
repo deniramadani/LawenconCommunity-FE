@@ -1,22 +1,18 @@
 import { Routes } from '@angular/router';
-import { ContentAdminComponent } from './layout/content/content.admin.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ContentAdminComponent } from './layout/content/admin/content.admin.component';
+
 
 export const adminAreaRoutes: Routes = [
-  // {
-  //   path : 'admin',
-  //   component : ContentAdminComponent,
-  //   loadChildren : ()=> import('../app/pages/dashboard/dashboard.module').then(u => u.DashboardModule)
-  // },
-  {
-    path : 'admin',
-    component : ContentAdminComponent,
-    children : [
-        {  
-          path : 'dashboard',
-          component : DashboardComponent
-        },
-    ]
-  },
+  
+    {
+      path : 'dashboard',
+      component : ContentAdminComponent,
+      loadChildren : ()=> import('../app/pages/dashboard/dashboard.module').then(u => u.DashboardModule)
+    },
+    {
+      path : 'article',
+      component : ContentAdminComponent,
+      loadChildren : ()=> import('../app/pages/article/article.module').then(u => u.ArticleModule)
+    }
 
 ];

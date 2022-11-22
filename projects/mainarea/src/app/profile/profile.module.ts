@@ -10,7 +10,11 @@ import { AvatarModule } from 'primeng/avatar';
 import {DropdownModule} from 'primeng/dropdown';
 import {TreeSelectModule} from 'primeng/treeselect';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-
+import {ImageModule} from 'primeng/image';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from "@angular/forms";
+import {CalendarModule} from 'primeng/calendar';
 @NgModule({
   declarations : [
     ViewProfileComponent,UpdateProfileComponent,ChangePasswordComponent
@@ -23,7 +27,12 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
       AvatarModule,
       DropdownModule,
       TreeSelectModule,
-      InputTextareaModule
+      InputTextareaModule,
+      ImageModule,
+      FileUploadModule,
+      HttpClientModule,
+      ReactiveFormsModule,
+      CalendarModule
 
   ],
   exports : [

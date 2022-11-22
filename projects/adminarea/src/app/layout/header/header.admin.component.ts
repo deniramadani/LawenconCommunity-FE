@@ -4,10 +4,10 @@ import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-header-admin',
+  templateUrl: './header.admin.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderAdminComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document, private apiService : ApiService,private router : Router) { }
 

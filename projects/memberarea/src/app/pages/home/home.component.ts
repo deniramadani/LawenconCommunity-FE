@@ -15,9 +15,6 @@ import { BASE_URL } from 'projects/api/BaseUrl';
 export class HomeComponent implements OnInit,OnDestroy {
   private getAllUserSubscription? : Subscription
   private getAllArticleSubscription? : Subscription
-  
-  
-  constructor(private articleService : ArticleService,private router : Router,private apiService : ApiService , private userService : UsersService){}
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   fileid : string = ''
   data: Article[] = [];
@@ -27,6 +24,8 @@ export class HomeComponent implements OnInit,OnDestroy {
   phoneNumber : string = ''
   age : string = ''
   fotoProfile : string = ''
+ 
+  constructor(private articleService : ArticleService,private router : Router,private apiService : ApiService , private userService : UsersService){}
 
   ngOnInit(): void {
     const id = this.apiService.getIdUser()
@@ -46,7 +45,7 @@ export class HomeComponent implements OnInit,OnDestroy {
       }
 
       if(result.dateOfBirth != null){
-        this.age = String(this.getAge(result.dateOfBirth))
+        this.age = `${ String(this.getAge(result.dateOfBirth))} tahun`
       }else{
         this.age = '-'
       }
@@ -55,8 +54,8 @@ export class HomeComponent implements OnInit,OnDestroy {
       
     })
 
-    this.getAllArticleSubscription = this.articleService.getArticle().subscribe(result => {
-      this.data = result   
+    this.getAllArticleSubscription = this.articleService.getArticle(0,4).subscribe(result => {
+      this.data = result
     })
   }
   
@@ -80,7 +79,7 @@ export class HomeComponent implements OnInit,OnDestroy {
 }
 
   createNewThread(){
-    this.router.navigateByUrl('/members/thread')
+    this.router.navigateByUrl('/thread')
   }
 
   ngOnDestroy(): void {

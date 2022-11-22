@@ -1,29 +1,26 @@
 import { Routes } from '@angular/router';
 import { ContentMemberComponent } from './layout/content/content.member.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CommentComponent } from './pages/thread/comment/comment.component';
-import { PostingComponent } from './pages/thread/posting/posting.component';
-
 export const membersAreaRoutes: Routes = [
+
   {
-    path : 'members',
+    path: "home",
     component : ContentMemberComponent,
-    children : [
-        {  
-          path : 'home',
-          component : HomeComponent
-        },
-        {  
-          path : 'thread',
-          component : PostingComponent
-        },
-        {  
-          path : 'thread/:id',
-          component : CommentComponent
-        },
-    ]
+    loadChildren: () => import("./pages/home/home.module").then(d => d.HomeModule)
   },
-
-
+  {
+    path: "thread",
+    component : ContentMemberComponent,
+    loadChildren: () => import("./pages/thread/thread.module").then(d => d.ThreadModule)
+  },
+  {
+    path: "events-courses",
+    component : ContentMemberComponent,
+    loadChildren: () => import("./pages/event-course/event-course.module").then(d => d.EventCourseModule)
+  },
+  {
+    path: "payment",
+    component : ContentMemberComponent,
+    loadChildren: () => import("./pages/payment/payment.module").then(d => d.PaymentModule)
+  },
 
 ];

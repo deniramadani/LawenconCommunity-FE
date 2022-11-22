@@ -1,20 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {MenuItem, SelectItem} from 'primeng/api';
+import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 @Component({
   selector: 'member-header',
   templateUrl: './header.member.component.html',
 })
 
 export class HeaderMemberComponent {
+  constructor(private apiService : ApiService,private router : Router){}
 
- 
-  listItems: SelectItem[] = [
-    {label: 'pi pi-user', value: 'v1'},
-    {label: 'pi pi-plus', value: 'v2'}
-  ]
-  
-  selectedItem!: string;
-
-
-
+  logOut(){
+    this.apiService.logout()
+    this.router.navigateByUrl('/members/login')
+  }
 }

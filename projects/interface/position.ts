@@ -1,5 +1,5 @@
 export interface Position { 
-	 id : string
+	id : string
 	 positionName: string 
 } 
 

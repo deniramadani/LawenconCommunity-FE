@@ -19,19 +19,29 @@
       <h4 class="text-lg font-semibold">Edit Profile</h4>
       <div class="">
         <div class="card px-4">
-
-          <form class="mt-2">
+          <form class="mt-2" [formGroup]="dataUpdate" (ngSubmit)="updateProfile()">
             <h5 class="text-lg mt-5">Detail Profile</h5>
             <div class="text-center">
-              <p-avatar
-                image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQim4NdsO0MrEypXEyyeWCnN6HkGEpHVGWL4w&usqp=CAU"
-                styleClass="w-3 h-7rem" shape="circle">
-              </p-avatar>
+              <div class="bg-gray-300 border-round p-3 grid">
+                <div class="col-6 lg:col-6">
+                  <p-image src="{{fileDownload}}{{fotoProfile}}" imageClass="border-round-xl border-blue-500"
+                    alt="Image" width="300">
+                  </p-image>
+                </div>
+                <div class="col-6 lg:col-6 flex align-items-end justify-content-center">
+                  <p-fileUpload #fubauto mode="basic" styleClass="bg-blue-400" name="demo[]" url="./upload.php"
+                    accept="image/*" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Change Foto">
+                  </p-fileUpload>
+                </div>
+              </div>
             </div>
-            <div class="p-fluid p-formgrid grid">
-              <div class="field col-12 md:col-12"><label for="fullname" class="text-sm">Fullname</label>
+            <div class="p-fluid p-formgrid grid mt-2">
+              <div class="field col-12 md:col-6"><label for="fullname" class="text-sm">Fullname</label>
                 <input pinputtext="" formControlName="fullname" value="{{fullname}}" id="fullname" type="text"
                   class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6"><label for="fullname" class="text-sm">Date Of Birth </label>
+                <p-calendar dateFormat="yyyy-dd-MM" [showIcon]="true" placeholder="{{bod}}" inputId="icon"></p-calendar>
               </div>
               <div class="field col-12 md:col-6"><label for="email" class="text-sm">Email</label>
                 <input pinputtext="" id="email" type="email" value="{{email}}" disabled value="example@gmail.com"
@@ -88,7 +98,8 @@
             </div>
             <hr>
             <div class="field col-12 md:col-12 text-center">
-              <p-button label="Save" styleClass="p-button-sm w-6" icon="pi pi-check" iconPos="right"></p-button>
+              <p-button label="Save" type="submit" styleClass="p-button-sm w-6" icon="pi pi-check" iconPos="right">
+              </p-button>
             </div>
           </form>
         </div>

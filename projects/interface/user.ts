@@ -4,7 +4,7 @@ import { Position } from './position'
 import { File } from './file' 
 import { UserType } from './user-type' 
 
-export interface User extends Position,File{ 
+export interface User extends Position,Industry { 
 	 fullname: string 
 	 email: string 
 	 password: string 
@@ -18,5 +18,6 @@ export interface User extends Position,File{
 	 position: Position 
 	 photo: File 
 	 userType: UserType 
+	 oldPassword: string 
 } 
 

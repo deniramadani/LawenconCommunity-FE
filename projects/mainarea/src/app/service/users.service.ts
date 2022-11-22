@@ -22,7 +22,9 @@ export class UsersService {
   login(data: any): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/login`, data)
   }
-
+  updateProfile(data: any): Observable<any> {
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/users`, data)
+  }
   getAllUsersById(id : string) : Observable<User> {
     return this.http.get<User>(`${BASE_URL.BASE_URL}/users/${id}`)
   }

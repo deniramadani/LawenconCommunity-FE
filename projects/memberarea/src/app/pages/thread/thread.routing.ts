@@ -6,11 +6,11 @@ import { PostingComponent } from "./posting/posting.component"
 
 const routes : Routes = [
     {
-        path : 'thread',
+        path : '',
         component : PostingComponent
     },
     {
-        path : 'thread/:id',
+        path : 'aa/:id',
         component : CommentComponent,
     },
 ]

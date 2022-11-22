@@ -1,10 +1,9 @@
 import { Product } from './product' 
 
-export interface Schedule { 
-	 dateStart: string 
-	 dateEnd: string 
-	 timeStart: string 
-	 timeEnd: string 
+export interface Schedule extends Product{ 
+	 id : string
+	 dateTimeStart: string 
+	 dateTimeEnd: string 
 	 product: Product 
 } 
 

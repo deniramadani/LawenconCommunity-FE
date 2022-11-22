@@ -5,13 +5,15 @@ import { Position } from '../../../../../interface/position'
 import { IndustryService } from '../../service/industry.service';
 import { Industry } from '../../../../../interface/industry'
 import { ApiService } from '../../service/api.service';
-import { User } from '../../../../../interface/user'
 import { UsersService } from '../../service/users.service';
+import { BASE_URL } from 'projects/api/BaseUrl';
+import { Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
 })
 export class ViewProfileComponent implements OnInit,OnDestroy{
+  fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   private positionsSubscription? : Subscription
   private industrySubscription? : Subscription
   private dataUserSubscription? : Subscription
@@ -28,7 +30,16 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   company:string=''
   positionUser :string =''
   industryUser :string =''
-  constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService){}
+  bod : string =''
+  dataUpdate = this.fb.group({
+    fullname : ['',[Validators.required]],
+    email : ['',[Validators.required]],
+    phoneNumber : ['',[Validators.required]],
+    address : ['',[Validators.required]],
+    company : ['',[Validators.required]],
+  }) 
+
+  constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
 
       this.positionsSubscription = this.positionService.getPosition().subscribe(result => {
@@ -72,10 +83,18 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         this.company = result.company
         this.industryUser = result.industry.industryName
         this.positionUser = result.position.positionName
+        this.bod = result.dateOfBirth
       })
 
     }
- 
+
+  updateProfile(){
+
+  }
+
+  onBasicUploadAuto(event:any) {
+      console.log("berhasil");
+  }
   ngOnDestroy(): void {
     this.positionsSubscription?.unsubscribe()
     this.industrySubscription?.unsubscribe()

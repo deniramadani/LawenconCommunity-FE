@@ -1,18 +1,19 @@
 import { NgModule } from "@angular/core";
-import { DashboardComponent } from "./dashboard.component";
+
 import { DashboardRouting } from "./dashboard.routing";
 import {CardModule} from 'primeng/card';
 import { ContentAdminModule } from "../../layout/content/content.admin.module";
+import { DashboardAdminComponent } from "./admin/dashboard.admin.component";
 
 @NgModule({
     declarations : [
-        DashboardComponent
+        DashboardAdminComponent
     ],
     imports : [
-        DashboardRouting,CardModule,ContentAdminModule
+        DashboardRouting,CardModule
     ],
     exports : [
-        DashboardComponent
+        DashboardAdminComponent
     ]
 })
 export class DashboardModule { }

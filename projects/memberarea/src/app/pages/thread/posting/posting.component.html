@@ -5,7 +5,7 @@
       <p-breadcrumb [model]="items" [home]="home" styleClass="p-0 px-3 py-1 bg-blue-100"></p-breadcrumb>
       <div class="mt-3">
         <div class="card px-4">
-          <form class="mt-2" [formGroup]="dataPosting">
+          <form class="mt-2" [formGroup]="dataPosting" (ngSubmit)="insertPosting()">
             <div class="p-fluid p-formgrid grid">
               <h5 class="text-lg mt-5"> <i class="pi pi-comments"></i> Create Thread</h5>
               <div class="field col-12 md:col-12"><label for="fullname" class="text-sm">Title</label>
@@ -20,15 +20,7 @@
               <div class="col-9 md:col-9 lg:col-9 text-left">
                 <div class="grid">
                   <div class="col-10 lg:col-10 sm:col-10">
-                    <!-- <input class="form-control" type="file" id="file" multiple (change)="fileUpload($event)"> -->
-
-                    <!-- <input type="file" class="custom-file-input form-control" id="files" multiple
-                      (change)="detectFiles($event)" accept="image/x-png,image/jpeg"> -->
-                    <!-- <p-fileUpload name="myfile[]" accept="image/*" [multiple]="true" [auto]="true"
-                      (change)="fileUpload($event)">
-                    </p-fileUpload> -->
                     <input class="form-control" type="file" id="file" multiple (change)="fileUpload($event)">
-
                   </div>
                   <div class="col-2 lg:col-2 sm:col-2">
                     <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
@@ -36,12 +28,11 @@
                       <span class="ml-2 font-bold text-secondary">Polling</span>
                     </p-button>
                   </div>
-
                 </div>
               </div>
               <div class="col-3 md:col-3 lg:col-3 text-right">
-                <p-button label="Post" [disabled]="!dataPosting.valid" type="submit" (click)="insertPosting()"
-                  styleClass="p-button-sm" icon="pi pi-book" iconPos="left">
+                <p-button label="Post" [disabled]="!dataPosting.valid" type="submit" styleClass="p-button-sm"
+                  icon="pi pi-book" iconPos="left">
                 </p-button>
               </div>
             </div>

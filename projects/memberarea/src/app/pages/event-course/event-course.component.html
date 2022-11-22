@@ -1,0 +1,132 @@
+<div class="container pt-5">
+  <div class="w-full body-color mt-8">
+    <div class="grid">
+      <div class="col-12 lg:col-3 sm:col-12 px-5">
+        <div class="card px-4 text-center ">
+          <h5 class="text-lg mt-3">aaa</h5>
+          <p class="text-secondary text-sm">aa</p>
+          <hr>
+          <div class="grid">
+            <div class="col-4 lg:col-4 sm:col-4">
+              Fb
+            </div>
+            <div class="col-4 lg:col-4 sm:col-4">
+              linkedIn
+            </div>
+            <div class="col-4 lg:col-4 sm:col-4">
+              ig
+            </div>
+          </div>
+          <div class="text-left mt-4">
+            <p class="text-sm"> <i class="pi pi-user"></i> Personal Details</p>
+            <div class="px-2 text-xs text-left">
+              <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
+                a</p>
+              <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
+                a</p>
+              <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
+                a</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 lg:col-9 sm:col-9">
+        <div class="grid">
+          <div class="col-12 lg:col-12 pb-0">
+            <div class="grid title-event">
+              <div class="col-6 lg:col-6 text-left pb-0">
+                <h3 class="text-lg font-semibold"> <i><img src="https://cdn-icons-png.flaticon.com/512/1968/1968779.png"
+                      style="width: 5%;" alt=""></i> Events
+                </h3>
+              </div>
+              <div class="col-6 lg:col-6 text-right">
+                <a class="a-link text-xs text-secondary font-italic underline" role="button">Views All</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 lg:col-12">
+            <div class="grid">
+              <div class="col-12 lg:col-4" *ngFor="let d of dataEvent" role="button" routerLink="/payment">
+                <img class="w-full" src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                <div class="card p-3 pb-1">
+                  <div class="grid">
+                    <div class="col-8 lg:col-8 sm:col-8">
+                      <p class="text-lg font-semibold">{{d.product.title}}</p>
+                    </div>
+                    <div class="col-4 lg:col-4 sm:col-4 text-right">
+                      <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                          style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </div>
+                  </div>
+                  <table class="pt-0">
+                    <tbody class="p-0">
+                      <tr>
+                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
+                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
+                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                      </tr>
+                      <tr>
+                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                            date : 'E, dd MMM yyyy'}} </small></td>
+                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 lg:col-12 pb-0">
+            <div class="grid title-event">
+              <div class="col-6 lg:col-6 text-left pb-0">
+                <h3 class="text-lg font-semibold"> <i><img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png"
+                      style="width: 5%;" alt=""></i> Course
+                </h3>
+              </div>
+              <div class="col-6 lg:col-6 text-right">
+                <a class="a-link text-xs text-secondary font-italic underline" role="button">Views All</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 lg:col-12">
+            <div class="grid">
+              <div class="col-12 lg:col-4" *ngFor="let d of dataCourse" role="button" routerLink="/payment">
+                <img class="w-full" src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                <div class="card p-3 pb-1">
+                  <div class="grid">
+                    <div class="col-8 lg:col-8 sm:col-8">
+                      <p class="text-lg font-semibold">{{d.product.title}}</p>
+                    </div>
+                    <div class="col-4 lg:col-4 sm:col-4 text-right">
+                      <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                          style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </div>
+                  </div>
+                  <table class="pt-0">
+                    <tbody class="p-0">
+                      <tr>
+                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
+                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
+                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                      </tr>
+                      <tr>
+                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                            date : 'E, dd MMM yyyy'}} </small></td>
+                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

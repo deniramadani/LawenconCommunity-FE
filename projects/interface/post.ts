@@ -1,6 +1,6 @@
 import { User } from './user' 
 import { PostType } from './post-type' 
-import { File } from './file' 
+import { PostAttachment } from './post-attachment' 
 import { PostPollingOption } from './post-polling-option' 
 
 export interface Post { 
@@ -8,8 +8,12 @@ export interface Post {
 	 body: string 
 	 user: User 
 	 postType: PostType 
-	 file: File[] 
+	 file: PostAttachment[] 
 	 question: string 
+	 totalLike: number 
+	 like_id: string 
+	 bookmark_id: string 
+	 totalComment: number 
 	 postPollingOption: PostPollingOption[] 
 } 
 

@@ -10,7 +10,11 @@ import { Article } from '../../../../interface/article'
 export class ArticleService {
   constructor(private http: HttpClient) { }
 
-  getArticle(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${BASE_URL.BASE_URL}/articles`)
+  getArticle(start : number , limit : number): Observable<Article[]> {
+    return this.http.get<Article[]>(`${BASE_URL.BASE_URL}/articles?start=${start}&limit=${limit}`)
+  }
+
+  insertArticle(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/articles`, data)
   }
 }

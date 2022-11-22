@@ -1,19 +1,19 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
    <div class="d-flex align-items-center justify-content-between"> <a routerLink="/members/home"
-         class="logo d-flex align-items-center"> <img src="" alt="" class="w-6 h-full"><span
-            class="d-none d-lg-block text-base">Community</span> </a>
+         class="logo d-flex align-items-center"> <img src="../../../assets/icons/logo-community.png" alt=""
+            class="h-full"><span class="d-none d-lg-block text-base">Community</span> </a>
    </div>
    <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
          <li class="nav-item">
-            <a class="nav-link nav-profile d-flex align-items-center" routerLink="/members/home" role="button"> <i
+            <a class="nav-link nav-profile d-flex align-items-center" routerLink="/home" role="button"> <i
                   class="bi bi-house-door"></i>
                <span class="d-none d-md-block ps-2">Home</span> </a>
          </li>
 
          <li class="nav-item">
             <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="bi bi-calendar-plus"></i>
-               <span class="d-none d-md-block ps-2">Event & Course</span> </a>
+               <span class="d-none d-md-block ps-2" routerLink="/events-courses">Event & Course</span> </a>
          </li>
 
          <li class="nav-item">
@@ -39,7 +39,7 @@
                <li>
                   <hr class="dropdown-divider">
                </li>
-               <li> <a class="dropdown-item d-flex align-items-center" role="button">
+               <li> <a class="dropdown-item d-flex align-items-center" (click)="logOut()" role="button">
                      <i class="bi bi-box-arrow-right"></i> <span>Sign
                         Out</span> </a></li>
             </ul>
