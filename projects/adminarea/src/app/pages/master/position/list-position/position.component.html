@@ -1,0 +1,41 @@
+<main id="main" class="main">
+    <div class="container">
+        <div class="grid mt-3">
+            <div class="col-12 lg:col-9 sm:col-9">
+                <h2 class="text-4xl">List Of Positions</h2>
+            </div>
+            <div class="col-12 lg:col-3 sm:col-3 text-right">
+                <button pButton class="p-button-sm btn-custom  " type=" button" id="insertPosition"
+                    name="insertPosition" routerLink="/master/positions/new"><span><i class="pi pi-plus"
+                            style="font-size: 12px"></i>
+                        New</span></button>
+            </div>
+
+        </div>
+
+        <p-table [value]="positions" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>No</th>
+                    <th>Position Name</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-position>
+                <tr>
+                    <td class="text-center">{{position.no}}</td>
+                    <td>{{position.positionName}}</td>
+                    <td class="text-center">
+                        <div>
+                            <button pButton type="button" class="p-button-text" pTooltip="Update"
+                                routerLink="/master/positions/{{position.id}}"><i class="pi pi-file-edit"></i></button>
+                            <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i
+                                    class="pi pi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</main>

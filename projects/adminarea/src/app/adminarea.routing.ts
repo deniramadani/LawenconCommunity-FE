@@ -3,7 +3,7 @@ import { ContentAdminComponent } from './layout/content/admin/content.admin.comp
 
 
 export const adminAreaRoutes: Routes = [
-  
+
     {
       path : 'dashboard',
       component : ContentAdminComponent,
@@ -13,6 +13,13 @@ export const adminAreaRoutes: Routes = [
       path : 'article',
       component : ContentAdminComponent,
       loadChildren : ()=> import('../app/pages/article/article.module').then(u => u.ArticleModule)
+    },
+    
+    {
+      path : 'master',
+      component : ContentAdminComponent,
+      loadChildren : ()=> import('../app/pages/master/master.module').then(u => u.MasterModule)
     }
+    
 
 ];

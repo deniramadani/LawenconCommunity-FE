@@ -2,11 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AdminareaModule } from "projects/adminarea/src/app/adminarea.module";
 import { adminAreaRoutes } from "projects/adminarea/src/app/adminarea.routing";
-import { ContentAdminComponent } from "projects/adminarea/src/app/layout/content/admin/content.admin.component";
 import { ContentAdminModule } from "projects/adminarea/src/app/layout/content/content.admin.module";
-import { ContentSuperAdminComponent } from "projects/adminarea/src/app/layout/content/super-admin/content.super-admin.component";
-
-import { ContentMemberComponent } from "projects/memberarea/src/app/layout/content/content.member.component";
 import { ContentMemberModule } from "projects/memberarea/src/app/layout/content/content.member.module";
 import { MemberAreaModule } from "projects/memberarea/src/app/memberarea.module";
 import { membersAreaRoutes } from "projects/memberarea/src/app/memberarea.routing";
@@ -16,11 +12,12 @@ import { ProfileModule } from "./profile/profile.module";
 
 export const mainRoutes : Routes = [
     ...adminAreaRoutes,...membersAreaRoutes,
-      {
-        path : '',
-        redirectTo : '/login',
-        pathMatch : 'full'
-      },
+    {
+    path : '',
+    redirectTo : '/login',
+    pathMatch : 'full'
+    },
+      
     {
         path : 'login',
         loadChildren : ()=> import('./auth/auth.module').then(u => u.AuthModule)
@@ -33,6 +30,7 @@ export const mainRoutes : Routes = [
         path : '**',
         component : PagesError404Component
     }, 
+    
     
 ]
 

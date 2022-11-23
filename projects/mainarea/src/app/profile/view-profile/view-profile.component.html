@@ -19,7 +19,7 @@
       <h4 class="text-lg font-semibold">Edit Profile</h4>
       <div class="">
         <div class="card px-4">
-          <form class="mt-2" [formGroup]="dataUpdate" (ngSubmit)="updateProfile()">
+          <form class="mt-2" [formGroup]="dataUpdate">
             <h5 class="text-lg mt-5">Detail Profile</h5>
             <div class="text-center">
               <div class="bg-gray-300 border-round p-3 grid">
@@ -73,10 +73,11 @@
               <div class="field col-12 md:col-6">
                 <label for="lastname2" class="text-sm">Select Position</label>
                 <p-dropdown [options]="positions" styleClass="w-full" optionLabel="positionName" optionValue="id"
-                  name="positionName" id="positionName" formControlName="positionName" placeholder="{{positionUser}}">
+                  name="id" id="positionName" formControlName="id" placeholder="{{positionUser}}">
                 </p-dropdown>
               </div>
             </div>
+
 
             <h5 class="text-lg mt-5">Social Media</h5>
             <div class="p-fluid p-formgrid grid">
@@ -97,8 +98,10 @@
               </div>
             </div>
             <hr>
+
             <div class="field col-12 md:col-12 text-center">
-              <p-button label="Save" type="submit" styleClass="p-button-sm w-6" icon="pi pi-check" iconPos="right">
+              <p-button label="Save" (click)="updateProfile()" type="submit" styleClass="p-button-sm w-full"
+                icon="pi pi-check" iconPos="right">
               </p-button>
             </div>
           </form>

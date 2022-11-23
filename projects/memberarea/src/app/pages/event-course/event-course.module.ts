@@ -12,10 +12,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { EventCourseRouting } from "./event-course.routing";
-import { EventCourseComponent } from "./event-course.component";
+
+import { EventCourseComponent } from "./list/event-course.component";
+import { PaymentComponent } from "./payment/payment.component";
 @NgModule({
   declarations : [
-    EventCourseComponent
+    EventCourseComponent,PaymentComponent
   ],
   imports : [
       EventCourseRouting,
@@ -34,7 +36,7 @@ import { EventCourseComponent } from "./event-course.component";
 
   ],
   exports : [
-    EventCourseComponent
+    EventCourseComponent,PaymentComponent
   ]
 })
 export class EventCourseModule{}

@@ -36,7 +36,13 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     email : ['',[Validators.required]],
     phoneNumber : ['',[Validators.required]],
     address : ['',[Validators.required]],
-    company : ['',[Validators.required]],
+    company: ['', [Validators.required]],
+    industryId: this.fb.group({
+      id : ['']
+    }),
+    positionId: this.fb.group({
+      id : ['']
+    })
   }) 
 
   constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
@@ -89,7 +95,13 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     }
 
   updateProfile(){
+    console.log(this.dataUpdate.value);
+    
+  }
 
+  getPosisitonId(id: string) {
+    console.log(id);
+    
   }
 
   onBasicUploadAuto(event:any) {

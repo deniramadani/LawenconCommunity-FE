@@ -17,4 +17,6 @@ export class ArticleService {
   insertArticle(data: any): Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/articles`, data)
   }
+
+  
 }

@@ -1,0 +1,95 @@
+<div class="container pb-5">
+  <div class="mt-8 pb-8">
+    <div class="pagetitle">
+      <h3>Payment</h3>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/events-courses">Event & Course</a></li>
+          <li class="breadcrumb-item active">Payment</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="grid">
+      <div class="col-12 lg:col-8 pt-3 pb-3">
+        <h6 class="text-xl">Description</h6>
+        <div class="p-card ">
+          <div class="flex justify-content-between px-3 pt-3">
+            <div><img
+                src="http://linov-comunity-prod.oss-ap-southeast-5.aliyuncs.com/public/provider/linov.png?OSSAccessKeyId=LTAI5tHd9RaPrbL1md88gb1Q&amp;Expires=1669135934&amp;Signature=HAuZB1d9f3aWBcWI9ywJBWKb4b8%3D"
+                class="w-3">LinovHR</div>
+            <div>
+              <span class="event-type p-2"><img src="/img/icon/ic_medal.png"> Events </span>
+            </div>
+          </div>
+          <div class="mt-4"><img
+              src="http://linov-comunity-prod.oss-ap-southeast-5.aliyuncs.com/public/training/banner/jUKbcCLUYcAJROwExEcesydMqKZBGOGE5iELCEeF.png?OSSAccessKeyId=LTAI5tHd9RaPrbL1md88gb1Q&amp;Expires=1669135934&amp;Signature=SXgcnfB9epzinrZy5H%2ByTGGEjHA%3D"
+              class="w-12" style="max-height: 360px; object-fit: cover;"></div>
+
+          <div class="content px-3 py-2">
+            <p class="text-xl font-semibold text-black">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque,
+              commodi.</p>
+            <hr>
+            <div class="grid">
+              <div class="col-6 pb-2 flex"><img src="/img/icon/ic_stack.png" class="px-3 icon-event">
+                <div><label class="text-sm">Speacker</label>
+                  <h5 class="text-secondary text-sm" style="margin-top: 5px;"><b>john</b></h5>
+                </div>
+              </div>
+              <div class="col-6 pb-2 flex"><img src="/img/icon/ic_calendar.png" class="px-3 icon-event">
+                <div><label class="text-sm">SCHEDULE</label>
+                  <h5 class="text-sm" style="color: rgb(53, 53, 53); margin-top: 5px;"><strong>Rabu, 30 November 2022
+                      18:30 -
+                      19:50</strong></h5>
+                </div>
+              </div>
+              <div class="col-6 pb-2 flex"><img src="/img/icon/ic_level.png" class="px-3 icon-event">
+                <div><label class="text-sm">LOCATION</label>
+                  <h5 class="text-secondary text-sm" style="margin-top: 5px; text-transform: capitalize;"><b>Zoom
+                      Webinar</b>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-4 p-3">
+        <h6>Order</h6>
+        <div class="p-card p-3">
+          <h5 class="text-lg">Detail Order</h5>
+          <hr>
+          <div class="grid">
+
+            <div class="col-12 pb-2 flex">
+              <div>
+                <span class="event-type p-2"><img src="https://cdn-icons-png.flaticon.com/512/981/981769.png"
+                    class="w-1"> Total
+                  Payment :
+                </span>
+                <span>Rp.120000</span>
+              </div>
+            </div>
+            <div class="col-12 py-2 px-3 border-round text-black text-md">
+              <label class="font-bold">Bank Bca</label>
+              <hr>
+              <span class="text-sm">No Rekening :</span>
+              <p class="text-black font-semibold text-lg" style="letter-spacing: 3px;">141215123</p>
+              <hr>
+              <label class="text-sm font-italic ">make payments and upload proof of payment</label>
+            </div>
+          </div>
+          <form class="text-center mt-3 px-3" [formGroup]="insertPayment" (ngSubmit)="payment()">
+            <input class="form-control" name="photoId" accept="image/*" chooseLabel="Upload Image" type="file"
+              (change)="fileUpload($event)" />
+            <button pButton pRipple type="button" [disabled]="!insertPayment.valid" styleClass="p-button-sm"
+              type="submit" label="Send Payment"
+              class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

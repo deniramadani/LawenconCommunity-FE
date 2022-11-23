@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import  { Subscription } from 'rxjs'
-import { ProductsService } from '../../service/products.service';
-import { Schedule } from '../../../../../interface/schedule'
+import { ProductsService } from '../../../service/products.service';
+import { Schedule } from '../../../../../../interface/schedule'
 import { BASE_URL } from 'projects/api/BaseUrl';
 
 @Component({

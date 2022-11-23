@@ -5,8 +5,22 @@ import { NewArticleComponent } from "./new.article/new.article.component";
 
 const routes : Routes = [
 
+    // {
+    //     path : '',
+    //     children : [
+    //         {
+    //             path : '',
+    //             component : ListArticleComponent
+    //         },
+    //         {
+    //             path : 'new',
+    //             component : NewArticleComponent
+    //         }
+    //     ]
+    // }
+
     {
-        path : '',
+        path : 'list',
         component : ListArticleComponent
     },
     {

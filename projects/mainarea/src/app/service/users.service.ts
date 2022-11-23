@@ -28,4 +28,10 @@ export class UsersService {
   getAllUsersById(id : string) : Observable<User> {
     return this.http.get<User>(`${BASE_URL.BASE_URL}/users/${id}`)
   }
+
+  getAllUsers(start : number , limit : number): Observable<User[]> {
+    return this.http.get<User[]>(`${BASE_URL.BASE_URL}/users?start=${start}&limit=${limit}`)
+  }
+
+
 }

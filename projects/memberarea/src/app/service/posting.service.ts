@@ -12,4 +12,8 @@ export class PostingService {
   postInsetBasic(data: any): Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/posts/basic`, data)
   }
+
+  paymentProduct(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/payments`, data)
+  }
 }

@@ -1,17 +1,17 @@
+import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { RouterModule } from "@angular/router"
 import { SidebarAdminComponent } from "./admin/sidebar.admin.component"
-import { SidebarSuperAdminComponent } from "./super-admin/sidebar.component"
 
 
 @NgModule({
   declarations: [
-    SidebarAdminComponent,SidebarSuperAdminComponent
+    SidebarAdminComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,CommonModule
   ],
-  exports: [SidebarAdminComponent,SidebarSuperAdminComponent],
+  exports: [SidebarAdminComponent],
  
 })
 export class SidebarAdminModule { }

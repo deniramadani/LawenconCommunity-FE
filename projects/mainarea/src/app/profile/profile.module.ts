@@ -32,7 +32,7 @@ import {CalendarModule} from 'primeng/calendar';
       FileUploadModule,
       HttpClientModule,
       ReactiveFormsModule,
-      CalendarModule
+      CalendarModule,ReactiveFormsModule
 
   ],
   exports : [

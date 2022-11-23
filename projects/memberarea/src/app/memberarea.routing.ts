@@ -3,6 +3,11 @@ import { ContentMemberComponent } from './layout/content/content.member.componen
 export const membersAreaRoutes: Routes = [
 
   {
+    path : '',
+    redirectTo : '/login',
+    pathMatch : 'full'
+  },
+  {
     path: "home",
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/home/home.module").then(d => d.HomeModule)
@@ -16,11 +21,6 @@ export const membersAreaRoutes: Routes = [
     path: "events-courses",
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/event-course/event-course.module").then(d => d.EventCourseModule)
-  },
-  {
-    path: "payment",
-    component : ContentMemberComponent,
-    loadChildren: () => import("./pages/payment/payment.module").then(d => d.PaymentModule)
   },
 
 ];

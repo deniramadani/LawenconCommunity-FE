@@ -36,14 +36,14 @@ export class PostingComponent implements OnInit,OnDestroy {
     this.items = [
         {
           label: 'Home',
-          routerLink: '/members/home'
+          routerLink: '/home'
         },
         {
           label: 'Thread',
-          routerLink: '/members/thread'
+          routerLink: '/thread'
         },
     ];
-    this.home = {icon: 'pi pi-home', routerLink: '/members/home'};
+    this.home = {icon: 'pi pi-home', routerLink: '/home'};
   }
 
  
