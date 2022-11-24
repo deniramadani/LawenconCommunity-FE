@@ -9,13 +9,18 @@ import { TooltipModule } from 'primeng/tooltip'
 import { InputTextModule } from 'primeng/inputtext'
 import { TableModule } from 'primeng/table'
 import { ButtonModule } from 'primeng/button'
+import { ReactiveFormsModule } from "@angular/forms";
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
 
     declarations : [
         InsertPositionComponent,ListPositionComponent,UpdatePositionComponent
     ],
     imports : [
-        PositionRouting,CardModule,TooltipModule,ButtonModule,TableModule,InputTextModule
+        PositionRouting, CardModule, TooltipModule,
+        ButtonModule, TableModule, InputTextModule, ReactiveFormsModule,
+        CheckboxModule,ConfirmDialogModule
     ],
     exports : [
         InsertPositionComponent,ListPositionComponent,UpdatePositionComponent

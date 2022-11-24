@@ -2,19 +2,18 @@
     <div class="container">
         <div class="grid mt-3">
             <div class="col-12 lg:col-9 sm:col-9">
-                <h2 class="text-4xl">List Of Positions</h2>
+                <h2 class="text-4xl">Data Users</h2>
             </div>
             <div class="col-12 lg:col-3 sm:col-3 text-right">
                 <button pButton class="p-button-sm btn-custom  " type=" button" id="insertPosition"
-                    name="insertPosition" routerLink="/master/positions/new"><span><i class="pi pi-plus"
+                    name="insertPosition" routerLink="/master/users/new"><span><i class="pi pi-plus"
                             style="font-size: 12px"></i>
                         New</span></button>
             </div>
 
         </div>
-
-        <p-table [showCurrentPageReport]="true" [value]="users"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both">
+        <p-table [value]="dataUsers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 5%; text-align: center">No</th>
@@ -22,7 +21,6 @@
                     <th style="width: 15%">Email</th>
                     <th style="width: 10%">Company</th>
                     <th style="width: 10%">Industry</th>
-                    <th style="width: 10%">Position</th>
                     <th style="width: 10%">Role</th>
                     <th style="width: 10%; text-align: center;">Profile Picture</th>
                     <th style="width: 10%; text-align: center;">Status</th>
@@ -31,18 +29,18 @@
             </ng-template>
             <ng-template pTemplate="body" let-user let-i="rowIndex">
                 <tr>
-                    <td style="text-align: center ;">{{i+1}}</td>
+                    <td>{{i + 1}}</td>
                     <td>{{user.fullname}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.company}}</td>
-                    <td>{{user.industryName}}</td>
+                    <td>{{user.industry}}</td>
                     <td>2</td>
                     <td>2</td>
-                    <td style="text-align: center ;"><img class="photoProfile profile-pic" src="" alt="user pic"></td>
+                    <td style="text-align: center ;"><img class="photoProfile profile-pic" src="" alt="user-pic"></td>
                     <td>
                         <div class="flex flex-row">
                             <button pButton type="button" class="p-button-text" pTooltip="Update"
-                                routerLink="/users/edit/{{user.id}}"><i class="pi pi-file-edit"></i></button>
+                                routerLink="/master/users/{{user.id}}"><i class="pi pi-pencil"></i></button>
                             <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i
                                     class=" pi pi-trash"></i></button>
                         </div>

@@ -10,6 +10,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload'
+import { CheckboxModule } from 'primeng/checkbox';
 @NgModule({
     declarations : [
         ListArticleComponent,NewArticleComponent, UpdateArticleComponent
@@ -23,7 +24,8 @@ import { FileUploadModule } from 'primeng/fileupload'
         FormsModule,
         InputTextareaModule,
         FileUploadModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CheckboxModule
     ],
     exports : [
        ListArticleComponent,NewArticleComponent, UpdateArticleComponent

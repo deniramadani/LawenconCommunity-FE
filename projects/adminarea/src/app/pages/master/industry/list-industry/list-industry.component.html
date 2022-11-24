@@ -1,9 +1,8 @@
-<p>list-industry works!</p>
 <main id="main" class="main">
     <div class="container">
         <div class="grid mt-3">
             <div class="col-12 lg:col-9 sm:col-9">
-                <h2 class="text-4xl">List Of Industry</h2>
+                <h2 class="text-4xl">Data Industry</h2>
             </div>
             <div class="col-12 lg:col-3 sm:col-3 text-right">
                 <button pButton class="p-button-sm btn-custom  " type=" button" id="insertPosition"
@@ -13,7 +12,7 @@
             </div>
         </div>
 
-        <p-table [value]="industries" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        <p-table [value]="dataindustry" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
             <ng-template pTemplate="header">
                 <tr>
@@ -22,15 +21,16 @@
                     <th class="text-center">Action</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-industry>
+            <ng-template pTemplate="body" let-industry let-i="rowIndex">
                 <tr>
-                    <td class="text-center">{{industry.no}}</td>
+                    <td class="text-center">{{i+1}}</td>
                     <td>{{industry.industryName}}</td>
                     <td class="text-center">
                         <div>
                             <button pButton type="button" class="p-button-text" pTooltip="Update"
-                                routerLink="/master/positions/{{industry.id}}"><i class="pi pi-file-edit"></i></button>
-                            <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i
+                                routerLink="/master/industries/{{industry.id}}"><i class="pi pi-pencil"></i></button>
+                            <button pButton type="button" class="p-button-text text-red-500"
+                                (click)="clickConfirmDelete('top',industry.id)" pTooltip="Delete"><i
                                     class="pi pi-trash"></i></button>
                         </div>
                     </td>
@@ -38,4 +38,5 @@
             </ng-template>
         </p-table>
     </div>
+    <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="industryId"></p-confirmDialog>
 </main>

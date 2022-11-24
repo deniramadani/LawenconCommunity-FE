@@ -4,13 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs'
 import { PostingService } from '../../../service/posting.service';
+import {Schedule} from '../../../../../../interface/schedule'
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
 })
 export class PaymentComponent implements OnInit,OnDestroy {
   private insertPaymentSubscription?: Subscription
-  idProduct : string = ''
+  
+  idProduct: string = ''
+  dataSchedule : any = new Object
   insertPayment = this.fb.group({
     product: this.fb.group({
       id : ['',[Validators.required]]
@@ -24,18 +27,16 @@ export class PaymentComponent implements OnInit,OnDestroy {
   
   ngOnInit(): void {
     this.insertPaymentSubscription = this.activedParam.params.subscribe(id => {
-       this.idProduct = String(Object.values(id))
-      
+      this.idProduct = String(Object.values(id))
     })
+
+    
   }
 
   payment() {
-  
     this.insertPaymentSubscription = this.postService.paymentProduct(this.insertPayment.value).subscribe(result => {
       this.router.navigateByUrl('/events-courses')
     })
-   
-    
   }
 
   fileUpload(event : any) : void {

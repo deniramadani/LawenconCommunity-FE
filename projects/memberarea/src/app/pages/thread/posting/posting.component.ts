@@ -66,7 +66,7 @@ export class PostingComponent implements OnInit,OnDestroy {
       }
     });
     this.insertPostBasicSubscription = this.postService.postInsetBasic(this.dataPosting.value).subscribe(result => {
-        this.router.navigateByUrl('/members/home')
+        this.router.navigateByUrl('/home')
     })
   }  
 

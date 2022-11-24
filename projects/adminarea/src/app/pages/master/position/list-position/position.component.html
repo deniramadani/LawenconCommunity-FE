@@ -2,7 +2,7 @@
     <div class="container">
         <div class="grid mt-3">
             <div class="col-12 lg:col-9 sm:col-9">
-                <h2 class="text-4xl">List Of Positions</h2>
+                <h2 class="text-4xl">Data Positions</h2>
             </div>
             <div class="col-12 lg:col-3 sm:col-3 text-right">
                 <button pButton class="p-button-sm btn-custom  " type=" button" id="insertPosition"
@@ -13,7 +13,7 @@
 
         </div>
 
-        <p-table [value]="positions" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        <p-table [value]="dataPosition" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
             <ng-template pTemplate="header">
                 <tr>
@@ -22,15 +22,16 @@
                     <th class="text-center">Action</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-position>
+            <ng-template pTemplate="body" let-position let-i="rowIndex">
                 <tr>
-                    <td class="text-center">{{position.no}}</td>
+                    <td class="text-center">{{i+1}}</td>
                     <td>{{position.positionName}}</td>
                     <td class="text-center">
                         <div>
                             <button pButton type="button" class="p-button-text" pTooltip="Update"
-                                routerLink="/master/positions/{{position.id}}"><i class="pi pi-file-edit"></i></button>
-                            <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i
+                                routerLink="/master/positions/{{position.id}}"><i class="pi pi-pencil"></i></button>
+                            <button pButton type="button" (click)="clickConfirmDelete('top',position.id)"
+                                class="p-button-text text-red-500" pTooltip="Delete"><i
                                     class="pi pi-trash"></i></button>
                         </div>
                     </td>
@@ -38,4 +39,5 @@
             </ng-template>
         </p-table>
     </div>
+    <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="positionId"></p-confirmDialog>
 </main>

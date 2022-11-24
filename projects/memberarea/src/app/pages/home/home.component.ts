@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     const id = this.apiService.getIdUser()
-    this.getAllUserSubscription = this.userService.getAllUsersById(String(id)).subscribe(result => {
+    this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
       this.email = result.email
       if(result.position.positionName != null){

@@ -11,27 +11,36 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   generateCode(data: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/verification-code/generate`, data)
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/verification-code/generate`, data)
   }
   validateCode(data: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/verification-code/validate`, data)
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/verification-code/validate`, data)
   }
   register(data: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/register/member`, data)
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/register/member`, data)
   }
   login(data: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/login`, data)
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/login`, data)
   }
   updateProfile(data: any): Observable<any> {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/users`, data)
   }
-  getAllUsersById(id : string) : Observable<User> {
+  getUsersById(id : string) : Observable<User> {
     return this.http.get<User>(`${BASE_URL.BASE_URL}/users/${id}`)
   }
 
   getAllUsers(start : number , limit : number): Observable<User[]> {
     return this.http.get<User[]>(`${BASE_URL.BASE_URL}/users?start=${start}&limit=${limit}`)
   }
+
+  insertUser(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/users/`, data)
+  }
+
+  insertUpdate(data: any): Observable<any> {
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/users/`, data)
+  }
+
 
 
 }

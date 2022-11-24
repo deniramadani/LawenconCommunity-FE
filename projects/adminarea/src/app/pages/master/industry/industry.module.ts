@@ -7,16 +7,21 @@ import { TableModule } from 'primeng/table'
 import { ButtonModule } from 'primeng/button';
 import { InsertIndustryComponent } from './insert-industry/insert-industry.component';
 import { UpdateIndustryComponent } from './update-industry/update-industry.component'
+import { ReactiveFormsModule } from "@angular/forms";
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
     declarations : [
 
   
     ListIndustryComponent,
-          InsertIndustryComponent,
-          UpdateIndustryComponent
+    InsertIndustryComponent,
+    UpdateIndustryComponent
   ],
     imports : [
-        IndustryRouting,ButtonModule,TableModule,InputTextModule,TooltipModule
+        IndustryRouting, ButtonModule, TableModule,
+        InputTextModule, TooltipModule, ReactiveFormsModule,
+        CheckboxModule,ConfirmDialogModule
     ],
     exports : [
       

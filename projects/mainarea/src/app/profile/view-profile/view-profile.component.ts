@@ -48,7 +48,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
 
-      this.positionsSubscription = this.positionService.getPosition().subscribe(result => {
+      this.positionsSubscription = this.positionService.getPosition(0,100).subscribe(result => {
         this.dataPosition = result
           for (let i = 0; i < result.length ; i++) {
             this.positions.push({
@@ -58,7 +58,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
           }
       })
 
-      this.industrySubscription = this.industryService.getIndustry().subscribe(result => {
+      this.industrySubscription = this.industryService.getIndustry(0,100).subscribe(result => {
         this.dataIndustry = result
         for (let i = 0; i < result.length ; i++) {
           this.industries.push({
@@ -69,7 +69,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
       })
 
       const id = this.apiService.getIdUser()
-      this.dataUserSubscription = this.userService.getAllUsersById(String(id)).subscribe(result => {
+      this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
         this.fullname = result.fullname
         this.email = result.email
         if(result.position.positionName != null){

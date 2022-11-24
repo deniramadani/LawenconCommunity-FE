@@ -1,1 +1,99 @@
-<p>update-users works!</p>
+<main id="main" class="main">
+    <div class="container mt-3">
+        <div class="pagetitle">
+            <h1>Update</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/master/users">List User</a></li>
+                    <li class="breadcrumb-item active">Update</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card bg-white col-10 lg:col-10 md:col-10 p-3">
+            <h3 class="text-center text-3xl mt-4">Update Data Users</h3>
+            <form class="mt-2" [formGroup]="dataUpdate" (ngSubmit)="update()">
+                <div class="p-fluid p-formgrid grid mt-2">
+                    <div class="field col-12 md:col-6"><label for="fullname" class="text-sm">Fullname</label>
+                        <input pinputtext="" id="fullname" formControlName="fullname" type="text"
+                            class="p-inputtext p-component p-element">
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="email" class="text-sm">Email</label>
+                        <input pinputtext="" formControlName="email" id="email" type="email"
+                            class="p-inputtext p-component p-element">
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="fullname" class="text-sm">Date Of Birth </label>
+                        <p-calendar dateFormat="yy-dd-MM" placeholder="{{dataUser.dateOfBirth}}"
+                            formControlName="dateOfBirth" [showIcon]="true" inputId="icon">
+                        </p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="phone" class="text-sm">Phone Number</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-phone"></i></span><input formControlName="phoneNumber" type="text"
+                                id="phone" class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field col-12"><label for="address" class="text-sm">Address</label>
+                        <textarea [rows]="5" [cols]="30" formControlName="address" id="address" pInputTextarea
+                            [autoResize]="true"></textarea>
+                    </div>
+                </div>
+
+                <h5 class="text-lg mt-5">Profession</h5>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-12"><label for="company" class="text-sm">Company</label>
+                        <input pinputtext="" id="company" formControlName="company" type="text"
+                            class="p-inputtext p-component p-element">
+                    </div>
+
+                    <div class="field col-12 md:col-6" formGroupName="industry">
+                        <label for="lastname2" class="text-sm">Select Industry</label>
+                        <p-dropdown [options]="dataIndustry" [(ngModel)]="selectedidIndustry" styleClass=" w-full"
+                            placeholder="{{dataUser.industry.industryName}}" formControlName="id"
+                            optionLabel="industryName" optionValue="id" name="id" id="positionName">
+                        </p-dropdown>
+
+                    </div>
+
+
+                    <div class="field col-12 md:col-6" formGroupName="position">
+                        <label for="lastname2" class="text-sm">Select Position</label>
+                        <p-dropdown [options]="dataPosition" [(ngModel)]="selectedidPosition" styleClass=" w-full"
+                            placeholder="{{dataUser.position.positionName}}" formControlName="id"
+                            optionLabel="positionName" optionValue="id" name="id" id="positionName">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <h5 class="text-lg mt-5">Social Media</h5>
+                <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
+                    <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon">
+                                <i class="pi pi-instagram"></i></span>
+                            <input formControlName="instagram" type="text" id="instagram"
+                                class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-linkedin"></i></span><input formControlName="linkedin" type="text"
+                                id="instagram" class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-facebook"></i></span><input formControlName="facebook" type="text"
+                                id="facebook" class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <pre>{{dataUpdate.value | json }}</pre>
+                <div class="field col-12 md:col-12 text-center">
+                    <p-button label="Submit" type="submit" styleClass="p-button-sm w-full" icon="pi pi-check"
+                        iconPos="right">
+                    </p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

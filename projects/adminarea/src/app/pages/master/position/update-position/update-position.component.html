@@ -11,13 +11,21 @@
         </div>
         <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
             <h3 class="text-center text-3xl mt-4">Update Data Position</h3>
-            <form class="formgrid grid mx-4 md:mx-6 my-5">
+            <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="dataUpdate" (ngSubmit)="update()">
                 <div class="field col-12 md:col-12">
                     <label for="positionName">Position Name<span class="text-red-500">*</span></label>
-                    <input pInputText class="w-full" type="text" id="positionName" name="positionName" required>
+                    <input pInputText class="w-full" formControlName="positionName" type="text" id="positionName"
+                        name="positionName" required>
+                </div>
+
+
+                <div class="field-checkbox col-12 md:col-6">
+                    <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
+                    <label for="binary">Active</label>
                 </div>
                 <div class="field col-12 ">
-                    <button pButton type="submit" id="btnSubmitPosition" name="btnSubmitPosition">Save</button>
+                    <button pButton type="submit" [disabled]="!dataUpdate.valid" id="btnSubmitPosition"
+                        name="btnSubmitPosition">Save</button>
                 </div>
             </form>
 

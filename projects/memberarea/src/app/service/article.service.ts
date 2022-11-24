@@ -18,5 +18,12 @@ export class ArticleService {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/articles`, data)
   }
 
+  updateArticle(data: any): Observable<any> {
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/articles`, data)
+  }
+
+  getArticleById(id : string): Observable<Article> {
+    return this.http.get<Article>(`${BASE_URL.BASE_URL}/articles/${id}`)
+  }
   
 }

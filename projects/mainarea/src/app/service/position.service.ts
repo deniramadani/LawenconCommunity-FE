@@ -9,7 +9,22 @@ import { Position } from '../../../../interface/position'
 export class PositionService {
   constructor(private http: HttpClient) { }
 
-  getPosition(): Observable<Position[]> {
-    return this.http.get<Position[]>(`${BASE_URL.BASE_URL}/positions`)
+  getPosition(start : number , limit : number): Observable<Position[]> {
+    return this.http.get<Position[]>(`${BASE_URL.BASE_URL}/positions?start=${start}&limit=${limit}`)
+  }
+
+  insertPosition(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/positions`, data)
+  }
+  
+  updatePosition(data: any): Observable<any> {
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/positions`, data)
+  }
+  positionGetById(id : string): Observable<Position> {
+    return this.http.get<Position>(`${BASE_URL.BASE_URL}/positions/${id}`)
+  }
+
+  deletePosition(id : string): Observable<Position> {
+    return this.http.delete<Position>(`${BASE_URL.BASE_URL}/positions/${id}`)
   }
 }

@@ -3,8 +3,9 @@ import { Industry } from './industry'
 import { Position } from './position' 
 import { File } from './file' 
 import { UserType } from './user-type' 
+import { UserSocmed } from './user-socmed'
 
-export interface User extends Position,Industry { 
+export interface User extends Position,File,Role,Industry,UserType,UserSocmed { 
 	 fullname: string 
 	 email: string 
 	 password: string 
@@ -17,7 +18,10 @@ export interface User extends Position,Industry {
 	 industry: Industry 
 	 position: Position 
 	 photo: File 
-	 userType: UserType 
-	 oldPassword: string 
+	userType: UserType 
+	userSocmed : UserSocmed
+	oldPassword: string 
+	isActive: boolean
+	version : number
 } 
 
