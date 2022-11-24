@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" infinite-scroll (scrolled)="onScroll()">
   <div class="mt-8 p-0">
     <div class="grid">
       <div class="col-12 lg:col-3 py-3 pr-5">
@@ -45,84 +45,149 @@
           </div>
         </div>
         <hr>
-        <div class="p-card mt-4 p-0">
+        <div *ngFor="let post of posts" class="p-card mt-4 p-0">
           <div class="p-card-header">
             <div class="grid px-3 pt-3">
               <div class="col-6 lg:col-6 sm:col-6 pb-0">
                 <div class="grid">
                   <div class="col-3 lg:col-3 p-0 text-center">
-                    <p-avatar styleClass="w-7 h-3rem"
-                      image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5S7x-uPyVGyBxjUf5jqXgtILiU-6nprBTDw&usqp=CAU"
-                      shape="circle">
+                    <p-avatar styleClass="w-7 h-3rem" image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
                     </p-avatar>
                   </div>
                   <div class="col-9 lg:col-9 p-0">
-                    <label class="text-lg font-semibold">Fullname</label>
-                    <p class="text-secondary font-italic text-xs">7 hours ago</p>
+                    <label class="text-lg font-semibold">{{post.user.fullname}}</label>
+                    <p class="text-secondary font-italic text-xs">{{calculateDiff(post.createdAt)}} days ago</p>
                   </div>
                 </div>
               </div>
-              <div class="col-6 lg:col-6 sm:col-6 text-right">
-                <p-tag styleClass="mr-2" severity="info" [rounded]="true"><a class="p-link text-white"
-                    style="font-size: 0.6rem ;">Hr
-                    Recrutment</a></p-tag>
-                <p-tag styleClass="mr-2" severity="info" [rounded]="true"><a class="p-link text-white"
-                    style="font-size: 0.6rem ;">Hr
-                    Recrutment</a></p-tag>
-                <a class="text-black" role="button"><i class="pi pi-ellipsis-v"></i>
-                </a>
-              </div>
+
             </div>
           </div>
           <div class="p-card-content px-3 pb-0">
             <div class="col-12 lg:col-12 sm:col-12 py-0">
-              <label class="text-lg font-semibold">Title Post</label>
+              <label class="text-lg font-semibold">{{post.title}}</label>
             </div>
             <div class="col-12 lg:col-12 sm:col-12 py-1 pr-2">
-              <p class="text-md">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum similique maiores
-                perferendis inventore modi adipisci magni vitae dicta corrupti corporis, dolorem quae omnis! Repellat
-                qui
-                doloremque veniam placeat, recusandae impedit dolor reiciendis officia eos, modi, quisquam a aut. Aut
-                ipsum perspiciatis et recusandae impedit eos deserunt totam error dicta expedita veritatis eligendi
-                soluta
-                ullam dolore placeat sapiente distinctio quis temporibus amet ipsam possimus, voluptatum accusamus.
-                Recusandae, deserunt repellendus eaque iste, libero ut veritatis maiores at sequi quisquam rerum amet
-                explicabo ipsam? Similique inventore iste aut unde quos facilis labore tempora impedit officiis! Quae et
-                suscipit, labore similique quia sed fuga.</p>
+              <p class="text-md">{{post.body}}</p>
             </div>
+            <div *ngIf="post.postType.postTypeCode == polling;">
+              <div *ngIf="post.optionId != null; then voted else notVoted"></div>
+            </div>
+
+            <ng-template #voted>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header bg-primary-200  text-black ">
+                    <p> <b>{{post.question}}</b> </p>
+                  </div>
+                  <div class="card-body mt-3">
+                    <div class="grid">
+                      <ng-container *ngFor="let option of post.postPollingOption">
+                        <div *ngIf="post.optionId == option.id; then choosed else notChoosed"></div>
+                        <ng-template #choosed>
+                          <div class="col-12 bg-primary-900 shadow mb-1 bg-body rounded  text-white ">
+                            <div class="grid w-full">
+                              <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                {{option.content }}
+                              </div>
+                              <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                {{option.totalResponse}}
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template #notChoosed>
+                          <div class="col-12 bg-primary shadow mb-1 bg-body rounded ">
+                            <div class="grid w-full">
+                              <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                {{option.content }}
+                              </div>
+                              <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                {{option.totalResponse}}
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #notVoted>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header bg-primary-300 text-white">
+                    <p>{{post.question}}</p>
+                    <div class="grid">
+                      <button *ngFor="let option of post.postPollingOption" pButton pRipple
+                        class="col-12 p-button-raised p-button-info mb-2" (click)="choose(option.id)" type="button">
+                        <div class="grid w-full">
+                          <div class="col-12 lg:col-12 sm:col-12 text-left">
+                            {{option.content}}
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+
+
+
           </div>
+
+
 
           <div class="p-card-footer p-0">
             <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
-              <p-avatarGroup styleClass="mb-3">
-                <p-avatar size="small" shape="circle"> <img src="assets/icons/man.png" alt="" srcset="">
-                </p-avatar>
-                <p-avatar size="small" shape="circle"> <img src="assets/icons/user.png" alt="" srcset="">
-                </p-avatar>
-                <p-avatar size="small" shape="circle"> <img src="assets/icons/woman.png" alt="" srcset="">
-                </p-avatar>
-                <p-avatar label="+12" shape="circle" size="small" styleClass="p-3"
-                  [style]="{'background-color':'#9c27b0', 'color': '#ffffff'}"></p-avatar>
-              </p-avatarGroup>
+              <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes &nbsp;&nbsp;{{post.totalComment}}
+                Comments</p>
             </div>
             <hr>
-            <div class="col-12 lg:col-12 sm:col-12 py-1 pr-2">
+            <div class="col-12 lg:col-12 sm:col-12  pr-2">
               <div class="grid ">
-                <div class="col-9 lg:col-9 sm:col-9 py-1 pr-2 text-center">
-                  <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
-                    <i class="pi pi-thumbs-up"></i>
-                    <span class="ml-2 font-bold">Like</span>
-                  </p-button>
+                <div class="col-9 lg:col-9 sm:col-9 pr-2 ">
+                  <div *ngIf="post.likeId != null; then thenBlock else elseBlock"></div>
+                  <ng-template #thenBlock>
+                    <p-button (click)="cancelLike(post.likeId)"
+                      styleClass="p-button-outlined p-button-text text-red-600 p-button-sm">
+                      <i class="pi pi-thumbs-down "></i>
+                      <span class="ml-2 font-bold">Unlike</span>
+                    </p-button>
+                  </ng-template>
+                  <ng-template #elseBlock>
+                    <p-button (click)="like(post.id)"
+                      styleClass="p-button-outlined p-button-text text-blue-400 p-button-sm">
+                      <i class="pi pi-thumbs-up"></i>
+                      <span class="ml-2 font-bold">Like</span>
+                    </p-button>
+                  </ng-template>
+
                   <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
                     <i class="pi pi-comments"></i>
                     <span class="ml-2 font-bold">Comment</span>
                   </p-button>
                 </div>
-                <div class="col-3 lg:col-3 sm:col-3 py-1 text-right">
-                  <p-button styleClass="p-button-outlined p-button-text text-black p-button-sm">
-                    <i class="pi pi-bookmark"></i>
-                    <span class="ml-2 font-bold">Save</span>
-                  </p-button>
+                <div class=" col-3 lg:col-3 sm:col-3 py-1 text-right">
+                  <div *ngIf="post.bookmarkId != null; then cancelBookmark else saveBookmark"></div>
+                  <ng-template #cancelBookmark>
+                    <p-button (click)="unbookmark(post.bookmarkId)"
+                      styleClass="p-button-outlined p-button-text text-red-600 p-button-sm">
+                      <i class="pi pi-bookmark "></i>
+                      <span class="ml-2 font-bold">Unsave</span>
+                    </p-button>
+                  </ng-template>
+                  <ng-template #saveBookmark>
+                    <p-button (click)="bookmark(post.id)"
+                      styleClass="p-button-outlined p-button-text text-black p-button-sm">
+                      <i class="pi pi-bookmark"></i>
+                      <span class="ml-2 font-bold">Save</span>
+                    </p-button>
+                  </ng-template>
                 </div>
               </div>
 

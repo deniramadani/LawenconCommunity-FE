@@ -1,8 +1,9 @@
-import { Post } from './post' 
-import { User } from './user' 
+import { Post } from './post'
+import { User } from './user'
 
-export interface PostLike { 
-	 post: Post 
-	 user: User 
-} 
+export interface PostLike {
+	id: string
+	post: Post
+	user: User
+}
 
