@@ -12,14 +12,23 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { EventCourseRouting } from "./event-course.routing";
-
+import {AccordionModule} from 'primeng/accordion';
 import { EventCourseComponent } from "./list/event-course.component";
 import { PaymentComponent } from "./payment/payment.component";
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from "primeng/card"
+import { InputTextModule } from "primeng/inputtext"
+import { TableModule } from 'primeng/table'
+import { MenuModule } from 'primeng/menu'
+import { TabMenuModule } from 'primeng/tabmenu'
+import { CalendarModule } from "primeng/calendar"
+
 @NgModule({
   declarations : [
     EventCourseComponent,PaymentComponent
   ],
-  imports : [
+  imports: [
+    CardModule,InputTextModule,TableModule,MenuModule,TabMenuModule,CalendarModule,
       EventCourseRouting,
       ContentMemberModule,
       ButtonModule,
@@ -32,7 +41,9 @@ import { PaymentComponent } from "./payment/payment.component";
       HttpClientModule,
       ReactiveFormsModule,
       TagModule,
-      CommonModule
+      CommonModule,
+      AccordionModule,
+      DialogModule
 
   ],
   exports : [

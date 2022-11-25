@@ -11,16 +11,19 @@ import { ThreadRouting } from "./thread.routing";
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {TableModule} from 'primeng/table';
+import { CommonModule } from "@angular/common";
+import {SplitButtonModule} from 'primeng/splitbutton';
 @NgModule({
   declarations : [
     CommentComponent,PostingComponent
   ],
   imports : [
-      ThreadRouting,
-      ContentMemberModule,
-      ButtonModule,
-      AvatarModule,
+      ThreadRouting,TableModule,
+      ContentMemberModule,FormsModule,
+      ButtonModule,CommonModule,
+      AvatarModule,SplitButtonModule,
       DropdownModule,
       TreeSelectModule,
       InputTextareaModule,

@@ -1,0 +1,73 @@
+<main id="main" class="main">
+    <div class="container">
+        <div class="w-full body-color">
+            <div class=" flex justify-content-center flex-wrap">
+                <div class="grid w-full lg:w-12 ">
+                    <h1 class="text-center w-full mt-5 mb-2">
+                        <div class=" flex justify-content-start mb-5">
+                            <div
+                                class="border-circle main-color text-white flex align-items-center justify-content-center w-3rem h-3rem">
+                                <i class="fa-solid fa-users text-xl"></i>
+                            </div>
+
+                            <h2 class="text-3xl">
+                                <i class="pi pi-money-bill text-2xl text-green-500"></i> List Payment Event & Course
+                            </h2>
+                        </div>
+                    </h1>
+                </div>
+                <div class="grid w-full lg:w-12">
+                    <div class="table w-full">
+                        <p-table [value]="dataPaymentProduct" [paginator]="true" [rows]="10"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="check" class="text-center"><i class="pi pi-check"></i></th>
+                                    <th pSortableColumn="no" class="text-center">No.</th>
+                                    <th pSortableColumn="trxCode">Trx Code</th>
+                                    <th pSortableColumn="fullName">Fullname</th>
+                                    <th pSortableColumn="typeProduct">Type Product</th>
+                                    <th pSortableColumn="stsApprove">Verified</th>
+                                    <th pSortableColumn="proofOfPayment" class="text-center">Proof of Payment</th>
+                                    <th pSortableColumn="action" class="text-center">Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-data let-i="rowIndex">
+                                <tr>
+                                    <td>
+                                        <p-checkbox name="groupname" value="{{data.id}}" [(ngModel)]="selectedValues">
+                                        </p-checkbox>
+                                    </td>
+                                    <td class="text-center">{{i + 1}}</td>
+                                    <td>{{data.transactionCode}}</td>
+                                    <td>{{data.user.fullname}}</td>
+                                    <td>{{data.product.title}}</td>
+                                    <td style="text-align: center ;">
+                                        <div *ngIf="data.approval; else elseBlock">
+                                            <i class="pi pi-check-circle text-green-500"></i>
+                                        </div>
+                                        <ng-template #elseBlock>
+                                            <i class="pi pi-times text-danger"></i>
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <button pButton type="button" class="p-button-secondary p-button-sm"
+                                            label="DOWNLOAD">
+                                            <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button pButton type="button" label="APPROVE">
+                                            <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

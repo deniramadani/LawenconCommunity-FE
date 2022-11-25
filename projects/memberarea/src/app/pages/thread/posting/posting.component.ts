@@ -18,7 +18,12 @@ export class PostingComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
   home!: MenuItem;
   uploadedFiles: any[] = [];
-
+  typePost: any[] = []
+  selectedTypePost: string = ''
+  btnUploadFile: boolean = true
+  btnPolling : boolean = false
+  form_polling : boolean = false
+  inputs: any[] = []
   dataPosting = this.fb.group({
     title: ['', [Validators.required]],
     body: ['', [Validators.required]],
@@ -27,11 +32,21 @@ export class PostingComponent implements OnInit, OnDestroy {
     }),
     file: this.fb.array([])
   })
+  dataOptions = this.fb.group({
+    details : this.fb.array([])
+  })
+  buttonActions: {[id:string]: MenuItem[]} = {};  
 
   constructor(private router: Router, private apiService: ApiService, private postService: PostingService, private fileService: FileService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+
+    this.typePost = [
+      {name: 'Basic', id: 'BSC'},
+      {name: 'Polling', id: 'POLL'},
+      {name: 'Premium', id: 'PRM'},
+    ]
     this.items = [
       {
         label: 'Home',
@@ -43,11 +58,35 @@ export class PostingComponent implements OnInit, OnDestroy {
       },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/home' };
+    
+  }
+
+  getTypePosting(id: string) {
+    console.log(id);
+    
+    if (id == 'BSC') {
+      this.btnUploadFile = true
+      this.form_polling == false
+    }
+    else if (id == 'POLL') {
+      this.form_polling == true
+      this.btnUploadFile = false
+    } 
   }
 
 
   get detailFoto(): FormArray {
     return this.dataPosting.get('file') as FormArray
+  }
+
+  
+
+  showFormPolling() {
+    this.form_polling = true
+  }
+
+  closeForm() {
+    this.form_polling = false
   }
 
   fileUpload(event: any) {
@@ -73,5 +112,19 @@ export class PostingComponent implements OnInit, OnDestroy {
     this.insertPostBasicSubscription?.unsubscribe()
   }
 
+  addOption() {
+    const newUserReq = this.fb.group({
+      option : ['', Validators.required],
+    })
+    this.details.push(newUserReq)
+  }
+
+  get details() : FormArray {
+    return this.dataOptions.get('details') as FormArray
+  }
+  
+  removeReactive(i : number) {
+    this.details.removeAt(i)
+  }
 
 }

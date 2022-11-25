@@ -1,38 +1,110 @@
-<div class="container pt-5">
+<div class="pt-5 px-6">
   <div class="w-full body-color mt-8">
     <div class="grid">
-      <div class="col-12 lg:col-3 sm:col-12 pr-5">
-        <div class="card px-4 text-center ">
-          <h5 class="text-lg mt-3">aaa</h5>
-          <p class="text-secondary text-sm">aa</p>
+      <div class="col-12 lg:col-3 sm:col-12 pr-3">
+        <div class="card px-2 text-center ">
+          <button (click)="showInsertProduct()" pButton pRipple type="button" styleClass="p-button-sm" type="submit"
+            label="Create Event & Course" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
           <hr>
-          <div class="grid">
-            <div class="col-4 lg:col-4 sm:col-4">
-              Fb
-            </div>
-            <div class="col-4 lg:col-4 sm:col-4">
-              linkedIn
-            </div>
-            <div class="col-4 lg:col-4 sm:col-4">
-              ig
-            </div>
-          </div>
-          <div class="text-left mt-4">
-            <p class="text-sm"> <i class="pi pi-user"></i> Personal Details</p>
-            <div class="px-2 text-xs text-left">
-              <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
-                a</p>
-              <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
-                a</p>
-              <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
-                a</p>
-            </div>
+          <div class="py-2">
+            <p-accordion [multiple]="true">
+              <p-accordionTab header="Course Benefits">
+                <p>At veronus.</p>
+              </p-accordionTab>
+              <p-accordionTab header="Don't Know What To Ask?">
+                <p>Lorem ipsum dolor </p>
+              </p-accordionTab>
+              <p-accordionTab header="Ask Career Advice">
+                <p>Sed ut perspiciatis etur, adipisci velit, sed quia non numquam eius modi.</p>
+              </p-accordionTab>
+
+            </p-accordion>
 
           </div>
         </div>
       </div>
-      <div class="col-12 lg:col-9 sm:col-9">
+      <div class="col-12 lg:col-9 sm:col-9 pt-3">
         <div class="grid">
+          <div class="col-12 lg:col-12 pb-0" *ngIf="showFormInsert">
+            <div class="grid w-full bg-white px-3">
+              <form class="w-full mx-3 border-0 md:px-4 my-3" [formGroup]="dataInsert" (ngSubmit)="insert()">
+                <div class="grid">
+                  <div class="col-10 lg:col-10 text-left">
+                    <h3 class="text-xl">Create Your Event & Course </h3>
+                  </div>
+                  <div class="col-2 lg:col-2 text-right">
+                    <i class="pi pi-times" pTooltip="Close" role="button" (click)="closeForm()"></i>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="formgrid grid">
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="title">Title<span class="text-red-500">*</span></label>
+                    <input pInputText id="title" formControlName="title" name="title" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <div formGroupName="productType">
+                      <label for="title">Product Type<span class="text-red-500">*</span></label>
+                      <p-dropdown [options]="usertypes" [(ngModel)]="selectedProductType" styleClass=" w-full"
+                        placeholder="Select Type" formControlName="id" optionLabel="userTypeName" optionValue="id"
+                        name="id" id="name">
+                      </p-dropdown>
+                    </div>
+
+                  </div>
+                  <div class="field col-12 md:col-12" formGroupName="product">
+                    <label for="articleContent">Content<span class="text-red-500">*</span></label>
+                    <textarea rows="8" pInputTextarea class="w-full" formControlName="content" id="articleContent"
+                      name="articleContent"></textarea>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="location">Provider<span class="text-red-500">*</span></label>
+                    <input pInputText id="provider" formControlName="provider" name="provider" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="locations">Locations<span class="text-red-500">*</span></label>
+                    <input pInputText id="locations" formControlName="location" name="locations" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-3" formGroupName="product">
+                    <label for="price">Price<span class="text-red-500">*</span></label>
+                    <input pInputText id="price" formControlName="price" name="price" type="number"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+
+                  <div class="field col-12 md:col-9">
+                    <label for="finishSchedule" class="w-full">Upload Foto<span class="text-red-500">*</span></label>
+                    <p-fileUpload id="file" name="file" accept="image/*" [customUpload]="true"
+                      (uploadHandler)="fileUpload($event)">
+                    </p-fileUpload>
+                  </div>
+
+                  <div class="field col-12 md:col-6">
+                    <label for="beginSchedule" class="w-full">Start Schedule<span class="text-red-500">*</span></label>
+                    <p-calendar [showTime]="true" class="w-full" formControlName="dateTimeStart" inputId="beginSchedule"
+                      clas styleClass="calendar">
+                    </p-calendar>
+                  </div>
+                  <div class="field col-12 md:col-6">
+                    <label for="finishSchedule" class="w-full">Finish Schedule<span
+                        class="text-red-500">*</span></label>
+                    <p-calendar [showTime]="true" class="w-full" formControlName="dateTimeEnd" inputId="finishSchedule"
+                      clas styleClass="calendar">
+                    </p-calendar>
+                  </div>
+                  <div class="col-12 my-3">
+                    <button pButton type="submit" [disabled]="!dataInsert.valid" label="SUBMIT"
+                      class="p-button-sm"></button>
+                  </div>
+                </div>
+                <pre>{{dataInsert.value | json}}</pre>
+              </form>
+            </div>
+
+          </div>
           <div class="col-12 lg:col-12 pb-0">
             <div class="grid title-event">
               <div class="col-6 lg:col-6 text-left pb-0">
@@ -131,4 +203,58 @@
       </div>
     </div>
   </div>
+  <!-- <p-dialog header="Create Your Event & Course" [(visible)]="display" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '60vw'}" [draggable]="false" [resizable]="true">
+    <hr>
+    <form>
+      <div class="formgrid grid w-full">
+
+        <div class="field col-12 md:col-6">
+          <label for="title">Title<span class="text-red-500">*</span></label>
+          <input pInputText id="title" formControlName="title" name="title" type="text" class="w-full p-inputtext-sm"
+            required>
+        </div>
+
+
+
+        <div class="field col-12 md:col-12">
+          <label for="articleContent">Content<span class="text-red-500">*</span></label>
+          <textarea rows="8" pInputTextarea class="w-full" formControlName="content" id="articleContent"
+            name="articleContent"></textarea>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label for="provider">Provider<span class="text-red-500">*</span></label>
+          <input pInputText id="provider" formControlName="provider" name="provider" type="text"
+            class="w-full p-inputtext-sm" required>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label for="price">Price<span class="text-red-500">*</span></label>
+          <input pInputText id="price" formControlName="price" name="price" type="number" class="w-full p-inputtext-sm"
+            required>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label for="endTime" class="w-full">Finish Schedule<span class="text-red-500">*</span></label>
+          <p-calendar [showTime]="true" class="w-full" inputId="endTime" clas styleClass="calendar">
+          </p-calendar>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label for="endTime" class="w-full">Finish Schedule<span class="text-red-500">*</span></label>
+          <p-calendar [showTime]="true" class="w-full" inputId="endTime" clas styleClass="calendar">
+          </p-calendar>
+        </div>
+
+        <div class="col-12 my-3">
+          <button pButton type="submit" id="activity-submit" label="SUBMIT" class="main-color"></button>
+        </div>
+      </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+      <p-button (click)="display=false" label="Yes" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog> -->
 </div>

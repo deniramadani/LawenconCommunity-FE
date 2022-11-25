@@ -1,26 +1,29 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
-   <div class="d-flex align-items-center justify-content-between"> <a routerLink="/members/home"
+   <div class="d-flex align-items-center justify-content-between"> <a routerLink="/home"
          class="logo d-flex align-items-center"> <img src="../../../assets/icons/logo-community.png" alt=""
             class="h-full"><span class="d-none d-lg-block text-base">Community</span> </a>
    </div>
+   <a class="p-link" (click)="showFormPayment()"><span class="text-xs underline font-italic text-yellow-500">Start to
+         premium</span></a>
    <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
          <li class="nav-item">
-            <a class="nav-link nav-profile d-flex align-items-center" routerLink="/home" role="button"> <i
+            <a class="nav-link nav-profile  px-2  d-flex align-items-center" routerLink="/home" role="button"> <i
                   class="bi bi-house-door"></i>
                <span class="d-none d-md-block ps-2">Home</span> </a>
          </li>
-
+         |
          <li class="nav-item">
-            <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="bi bi-calendar-plus"></i>
+            <a class="nav-link nav-profile px-2 d-flex align-items-center" role="button"> <i
+                  class="bi bi-calendar-plus"></i>
                <span class="d-none d-md-block ps-2" routerLink="/events-courses">Event & Course</span> </a>
          </li>
-
+         |
          <li class="nav-item">
-            <a class="nav-link nav-profile d-flex align-items-center" role="button"> <i class="pi pi-star"></i>
+            <a class="nav-link nav-profile  px-2  d-flex align-items-center" role="button"> <i class="pi pi-star"></i>
                <span class="d-none d-md-block ps-2">My Activity</span> </a>
          </li>
-
+         |
          <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQim4NdsO0MrEypXEyyeWCnN6HkGEpHVGWL4w&usqp=CAU"
@@ -45,5 +48,60 @@
             </ul>
          </li>
       </ul>
+      <p-dialog header="Start Premium Members" [(visible)]="displayPayment" [breakpoints]="{'960px': '75vw'}"
+         [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
+         <div class="flex flex-wrap">
+            <div class="w-full lg:w-6 p-4 lg:p-7" style="background-color: rgba(114, 158, 240, 0.7)">
+               <div class="text-xl text-900 font-500 mb-3">Premium Member Benefits</div>
+               <p class="text-600 line-height-3 mt-0 mb-6">Quis vel eros donec ac odio tempor orci dapibus. In hac
+                  habitasse platea dictumst quisque.</p>
+               <ul class="list-none p-0 m-0">
+                  <li class="flex align-items-start mb-4">
+                     <div>
+                        <span class="flex align-items-center justify-content-center bg-purple-400"
+                           style="width:38px;height:38px;border-radius:10px">
+                           <i class="text-xl text-white pi pi-inbox"></i>
+                        </span>
+                     </div>
+                     <div class="ml-3">
+                        <span class="font-medium text-900">Show all posts</span>
+                        <p class="mt-2 mb-0 text-600 line-height-3">premium updates to get wider posts and increase your
+                           relationships</p>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="w-full lg:w-6 p-4 lg:p-7 surface-card">
+
+               <div class="grid">
+                  <div class="col-12 pb-2 flex">
+                     <div>
+                        <span class="event-type p-2"><img src="https://cdn-icons-png.flaticon.com/512/981/981769.png"
+                              class="w-1"> Total
+                           Payment :
+                        </span>
+                        <span>Rp. 200.000</span>
+                     </div>
+                  </div>
+                  <div class="col-12 py-2 px-3 border-round text-black text-md">
+                     <label class="font-bold">Bank Bca</label>
+                     <hr>
+                     <span class="text-sm">No Rekening :</span>
+                     <p class="text-black font-semibold text-lg" style="letter-spacing: 3px;">141215123</p>
+                     <hr>
+                     <label class="text-sm font-italic ">make payments and upload proof of payment</label>
+                  </div>
+               </div>
+               <form class="text-center mt-3 px-3">
+                  <p-fileUpload mode="basic" url="./upload.php" accept="image/*"
+                     styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image"></p-fileUpload>
+                  <button pButton icon="pi pi-send" pRipple type="button" styleClass="p-button-sm" type="submit"
+                     label="Send Payment" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+               </form>
+
+            </div>
+         </div>
+      </p-dialog>
    </nav>
+
 </header>

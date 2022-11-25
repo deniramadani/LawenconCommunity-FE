@@ -19,5 +19,9 @@ export class ProductsService {
     return this.http.get<Schedule[]>(`${BASE_URL.BASE_URL}/products/courses?start=${start}&limit=${limit}`)
   }
 
+  insertProduct(data: any): Observable<Schedule>{
+    return this.http.post<Schedule>(`${BASE_URL.BASE_URL}/products`,data)
+  }
+
   
 }

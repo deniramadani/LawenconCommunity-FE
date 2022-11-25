@@ -21,28 +21,28 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   industries: any[] = []
   dataPosition : Position[] = []
   dataIndustry : Industry[] = []
-  fullname:string = ''
-  email:string =''
-  position:string = ''
-  phoneNumber:string = ''
-  fotoProfile:string=''
-  address:string=''
-  company:string=''
-  positionUser :string =''
-  industryUser :string =''
-  bod : string =''
+  selectedPosition: string = ''
+  selectedIndustry: string = ''
   dataUpdate = this.fb.group({
+    id : ['',[Validators.required]],
     fullname : ['',[Validators.required]],
     email : ['',[Validators.required]],
     phoneNumber : ['',[Validators.required]],
     address : ['',[Validators.required]],
     company: ['', [Validators.required]],
+    dateOfBirth :  ['', [Validators.required]],
     industryId: this.fb.group({
-      id : ['']
+      id : this.selectedPosition
     }),
     positionId: this.fb.group({
-      id : ['']
+      id : this.selectedIndustry
+    }),
+    userSocmed: this.fb.group({
+      facebook : ['', [Validators.required]],
+      instagram : ['', [Validators.required]],
+      linkedin :['', [Validators.required]],
     })
+
   }) 
 
   constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
@@ -69,27 +69,21 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
       })
 
       const id = this.apiService.getIdUser()
-      this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
-        this.fullname = result.fullname
-        this.email = result.email
-        if(result.position.positionName != null){
-          this.position = result.position.positionName
-        }else{
-          this.position = '-'
+    this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
+      this.dataUpdate.patchValue({
+          id : result.id,
+          fullname: result.fullname,
+          email: result.email,
+        company: result.company,
+        address: result.address,
+        phoneNumber: result.phoneNumber,
+        userSocmed: {
+          facebook : result.userSocmed.facebook,
+          instagram : result.userSocmed.instagram,
+          linkedin : result.userSocmed.linkedin
         }
-  
-        if(result.phoneNumber != null){
-          this.phoneNumber = result.phoneNumber
-        }else{
-          this.phoneNumber = '-'
-        }
-   
-        this.fotoProfile = result.photo.id
-        this.address = result.address
-        this.company = result.company
-        this.industryUser = result.industry.industryName
-        this.positionUser = result.position.positionName
-        this.bod = result.dateOfBirth
+        })
+
       })
 
     }

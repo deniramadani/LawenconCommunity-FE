@@ -7,7 +7,7 @@ import {CardModule} from 'primeng/card';
 
 @NgModule({
   imports: [
-    HomeModule,ContentMemberModule,ThreadModule,CardModule,
+    HomeModule,ContentMemberModule,ThreadModule,CardModule
   ],
   exports : [
     HomeModule,ContentMemberModule,ThreadModule,

@@ -8,10 +8,14 @@ import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 })
 
 export class HeaderMemberComponent {
+  displayPayment : boolean = false
   constructor(private apiService : ApiService,private router : Router){}
 
   logOut(){
     this.apiService.logout()
     this.router.navigateByUrl('/members/login')
   }
+  showFormPayment() {
+    this.displayPayment = true;
+}
 }

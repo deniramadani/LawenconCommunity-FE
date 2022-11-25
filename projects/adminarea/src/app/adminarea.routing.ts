@@ -19,6 +19,11 @@ export const adminAreaRoutes: Routes = [
       path : 'master',
       component : ContentAdminComponent,
       loadChildren : ()=> import('../app/pages/master/master.module').then(u => u.MasterModule)
+  },
+    {
+      path : 'payment',
+      component : ContentAdminComponent,
+      loadChildren : ()=> import('../app/pages/payment/payment.module').then(u => u.PaymentModule)
     }
     
 

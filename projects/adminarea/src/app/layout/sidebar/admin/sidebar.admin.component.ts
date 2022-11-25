@@ -11,6 +11,7 @@ export class SidebarAdminComponent implements OnInit,OnDestroy {
   dashboardA = false
   dashboardSA = false
   approve = false
+  information_report = false
   constructor(private apiService : ApiService) { }
   
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class SidebarAdminComponent implements OnInit,OnDestroy {
     if (codeRole == 'ROLSA') {
       this.dashboardSA = true
       this.master = true
+      this.information_report = true
      
     } else if (codeRole == 'ROLAM') {
       this.dashboardA = true
