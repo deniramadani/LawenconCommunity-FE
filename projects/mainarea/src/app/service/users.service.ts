@@ -37,7 +37,7 @@ export class UsersService {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/users/`, data)
   }
 
-  insertUpdate(data: any): Observable<any> {
+  userUpdate(data: any): Observable<any> {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/users/`, data)
   }
 

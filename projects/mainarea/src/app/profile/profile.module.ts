@@ -15,6 +15,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import {CalendarModule} from 'primeng/calendar';
+import { CommonModule } from "@angular/common";
 @NgModule({
   declarations : [
     ViewProfileComponent,UpdateProfileComponent,ChangePasswordComponent
@@ -31,7 +32,7 @@ import {CalendarModule} from 'primeng/calendar';
       ImageModule,
       FileUploadModule,
       HttpClientModule,
-      ReactiveFormsModule,
+      ReactiveFormsModule,CommonModule,
       CalendarModule,ReactiveFormsModule
 
   ],
