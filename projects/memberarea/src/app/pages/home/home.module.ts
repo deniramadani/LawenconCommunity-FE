@@ -12,7 +12,8 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { ImageModule } from 'primeng/image';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         FormsModule,
         CommonModule,
         InfiniteScrollModule,
+        ImageModule,
+        TooltipModule
     ],
     exports: [
         HomeComponent

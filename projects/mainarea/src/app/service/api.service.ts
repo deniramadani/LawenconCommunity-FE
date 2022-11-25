@@ -17,6 +17,14 @@ export class ApiService {
     }
     return result
   }
+  getUserType(): string | null {
+    const data = localStorage.getItem('data')
+    let result: null | string = ''
+    if (data) {
+      result = JSON.parse(data).userTypeCode
+    }
+    return result
+  }
 
   getProfileName(): string | null {
     const data = localStorage.getItem('data')

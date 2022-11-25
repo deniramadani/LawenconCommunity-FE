@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { Observable } from "rxjs"
 import { HttpClient } from '@angular/common/http'
-import {User} from '../../../../interface/user'
+import { User } from '../../../../interface/user'
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +25,11 @@ export class UsersService {
   updateProfile(data: any): Observable<any> {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/users`, data)
   }
-  getUsersById(id : string) : Observable<User> {
+  getUsersById(id: string): Observable<User> {
     return this.http.get<User>(`${BASE_URL.BASE_URL}/users/${id}`)
   }
 
-  getAllUsers(start : number , limit : number): Observable<User[]> {
+  getAllUsers(start: number, limit: number): Observable<User[]> {
     return this.http.get<User[]>(`${BASE_URL.BASE_URL}/users?start=${start}&limit=${limit}`)
   }
 

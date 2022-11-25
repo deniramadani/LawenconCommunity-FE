@@ -12,6 +12,8 @@ import { PostLike } from 'projects/interface/post-like';
 import { FormBuilder } from '@angular/forms';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { PollingService } from '../../service/polling.service';
+import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -35,8 +37,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   fileid: string = ''
   data: Article[] = []
   posts: Post[] = []
-  limit: number = 2
+  limit: number = 5
   start: number = 0
+  userType: string | null = this.apiService.getUserType()
   fullname: string = ''
   position: string = ''
   email: string = ''
@@ -44,7 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   age: string = ''
   fotoProfile: string = ''
 
-  constructor(private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
     this.init();
   }
@@ -54,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
       this.email = result.email
+      this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
         this.position = result.position.positionName
       } else {
@@ -87,45 +91,77 @@ export class HomeComponent implements OnInit, OnDestroy {
   calculateDiff(sentDate: string) {
     var date1: any = new Date(sentDate);
     var date2: any = new Date();
-    var diffDays: any = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
-    return diffDays;
-  }
-
-
-  cancelLike(id: string) {
-    this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
-      this.init()
-    })
-  }
-
-  like(id: string) {
-    const postLike = this.fb.group({
-      post: {
-        id: id
+    var diff: any = Math.floor((date2 - date1) / (1000));
+    if (diff < 60) {
+      return diff + " seconds ago";
+    } else {
+      diff = Math.floor(diff / 60)
+      if (diff < 60) {
+        return diff + " minutes ago";
+      } else {
+        diff = Math.floor(diff / 60)
+        if (diff < 24) {
+          return diff + " hours ago";
+        } else {
+          diff = Math.floor(diff / 24)
+          return diff + " days ago"
+        }
       }
-    })
-
-    this.likeSubscription = this.postService.like(postLike.value).subscribe(() => {
-      this.init()
-    })
+    }
   }
 
-  unbookmark(id: string) {
-    this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
-      this.init()
-    })
+
+  cancelLike(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
+        this.init()
+      })
+    }
   }
 
-  bookmark(id: string) {
-    const postBookmark = this.fb.group({
-      post: {
-        id: id
-      }
-    })
+  like(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      const postLike = this.fb.group({
+        post: {
+          id: id
+        }
+      })
 
-    this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
-      this.init()
-    })
+      this.likeSubscription = this.postService.like(postLike.value).subscribe(() => {
+        this.init()
+      })
+    }
+
+  }
+
+  unbookmark(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
+        this.init()
+      })
+    }
+  }
+
+  bookmark(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      const postBookmark = this.fb.group({
+        post: {
+          id: id
+        }
+      })
+
+      this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
+        this.init()
+      })
+    }
   }
 
   choose(id: string) {
@@ -156,7 +192,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   addLimit(): void {
-    this.limit += 2
+    this.limit += 5
   }
 
 
