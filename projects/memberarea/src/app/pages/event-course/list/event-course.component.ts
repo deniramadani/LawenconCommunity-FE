@@ -7,6 +7,8 @@ import { FormBuilder,Validators } from '@angular/forms';
 import { UserTypeService } from '../../../service/user.type.service';
 import { UserType } from "../../../../../../interface/user-type";
 import { Router } from '@angular/router';
+import { ProductTypeService } from '../../../service/product.type.service';
+import { ProductType } from 'projects/interface/product-type';
 @Component({
   selector: 'app-event-course',
   templateUrl: './event-course.component.html',
@@ -15,21 +17,21 @@ import { Router } from '@angular/router';
 export class EventCourseComponent implements OnInit,OnDestroy {
   private getAllEventSubscription? : Subscription
   private getAllCourseSubscription?: Subscription
-  private getAllUserTypeSubscription?: Subscription
+  private getAllProductTypeSubscription?: Subscription
   private insertProductSubscription? : Subscription
   dataEvent : Schedule[]= []
   dataCourse: Schedule[] = []
   showFormInsert: boolean = false;
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   productType: any[] = []
-  dataUserType: UserType[] = []
+  dataProductType: ProductType[] = []
   resultExtension!: string
   resultFile !: string
-  usertypes : any [] = []
+  productTypes : any [] = []
   selectedProductType : string = ''
   dataInsert = this.fb.group({
-    dateTimeStart: [''],
-    dateTimeEnd : [''],
+    dateTimeStart: ['',[Validators.required]],
+    dateTimeEnd : ['',[Validators.required]],
     product: this.fb.group({
       title: ['',[Validators.required]],
       content: ['',[Validators.required]],
@@ -45,18 +47,18 @@ export class EventCourseComponent implements OnInit,OnDestroy {
       }),
     })
   })
-  constructor(private router : Router,private userTypeService : UserTypeService,private productService : ProductsService,private fb : FormBuilder) { }
+  constructor(private router : Router,private productTypeService : ProductTypeService,private productService : ProductsService,private fb : FormBuilder) { }
   
 
   ngOnInit(): void {
 
-    this.getAllUserTypeSubscription = this.userTypeService.getAllUserType().subscribe(result => {
-      this.dataUserType = result
+    this.getAllProductTypeSubscription = this.productTypeService.getAllProductType().subscribe(result => {
+      this.dataProductType = result
       for (let i = 0; i < result.length ; i++) {
-        this.usertypes.push({
-            id : this.dataUserType[i].id,
-          userTypeCode: this.dataUserType[i].userTypeCode,
-          userTypeName : this.dataUserType[i].userTypeName
+        this.productTypes.push({
+            id : this.dataProductType[i].id,
+            productTypeName: this.dataProductType[i].productTypeName,
+        
         })
       }
       console.log(result);
@@ -84,10 +86,8 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     this.showFormInsert = false
   }
   insert() {
-   
-
     this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
-      this.router.navigateByUrl('/events-courses')
+      this.showFormInsert = false
     })
   }
 
@@ -121,7 +121,9 @@ export class EventCourseComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
    this.getAllEventSubscription?.unsubscribe()
-    this.getAllCourseSubscription?.unsubscribe()
-    this.getAllUserTypeSubscription?.unsubscribe()
+   this.getAllCourseSubscription?.unsubscribe()
+    this.getAllProductTypeSubscription?.unsubscribe()
+    this.insertProductSubscription?.unsubscribe()
+
   }
 }

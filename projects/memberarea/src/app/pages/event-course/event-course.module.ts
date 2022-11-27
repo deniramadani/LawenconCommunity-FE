@@ -21,11 +21,13 @@ import { InputTextModule } from "primeng/inputtext"
 import { TableModule } from 'primeng/table'
 import { MenuModule } from 'primeng/menu'
 import { TabMenuModule } from 'primeng/tabmenu'
-import { CalendarModule } from "primeng/calendar"
+import { CalendarModule } from "primeng/calendar";
+import { EventComponent } from './event/event.component';
+import { CourseComponent } from './course/course.component'
 
 @NgModule({
   declarations : [
-    EventCourseComponent,PaymentComponent
+    EventCourseComponent,PaymentComponent, EventComponent, CourseComponent
   ],
   imports: [
     CardModule,InputTextModule,TableModule,MenuModule,TabMenuModule,CalendarModule,

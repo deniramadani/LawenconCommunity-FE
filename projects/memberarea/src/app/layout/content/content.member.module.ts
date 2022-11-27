@@ -7,13 +7,18 @@ import {MenubarModule} from 'primeng/menubar';
 import {ButtonModule} from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { StyleClassModule } from 'primeng/styleclass'
 @NgModule({
   declarations: [
     ContentMemberComponent,FooterComponent,HeaderMemberComponent
   ],
   imports: [
-    RouterModule,MenubarModule,ButtonModule,DropdownModule,DialogModule,FileUploadModule
+    RouterModule, MenubarModule, ButtonModule,
+    DropdownModule, DialogModule, FileUploadModule,
+    AvatarModule, AvatarGroupModule,StyleClassModule
   ],
   exports: [ContentMemberComponent,FooterComponent,HeaderMemberComponent],
  

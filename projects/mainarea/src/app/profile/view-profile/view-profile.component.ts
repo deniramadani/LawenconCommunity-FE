@@ -8,9 +8,14 @@ import { ApiService } from '../../service/api.service';
 import { UsersService } from '../../service/users.service';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { Validators, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
+  providers: [
+    DatePipe
+  ],
 })
 export class ViewProfileComponent implements OnInit,OnDestroy{
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
@@ -18,6 +23,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   private industrySubscription? : Subscription
   private dataUserSubscription?: Subscription
   private updateUserSubscription?: Subscription
+  date : any 
   positions: any[] = []
   industries: any[] = []
   dataPosition : Position[] = []
@@ -28,7 +34,10 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   instagram: string = ''
   linkedin: string = ''
   fotoId: string = ''
-  
+  myDate: any 
+  bod :  any
+  formChangePassword : boolean = false
+  formEditProfile : boolean = true
   dataUpdate = this.fb.group({
     id : ['',[Validators.required]],
     fullname : ['',[Validators.required]],
@@ -54,15 +63,13 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
 
   }) 
 
-  constructor(private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
+  constructor(private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
-
-     
 
     const id = this.apiService.getIdUser()
     this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       console.log(result);
-      
+      this.bod = result.dateOfBirth
       this.fotoId = result.photo.id
       if (result.userSocmed != null) {
         this.facebook = result.userSocmed.facebook
@@ -89,6 +96,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         userType: {
           id : result.userType.id
         },
+        dateOfBirth : result.dateOfBirth,
         userSocmed: {
           facebook: result.userSocmed.facebook,
           instagram: result.userSocmed.instagram,
@@ -102,7 +110,11 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
    this.getAllPosition()
    this.getAllIndustry()
   }
-
+  onSelectMethod(event : any) {
+    let d = new Date(Date.parse(event));
+    this.myDate = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;  
+    this.bod = this.datePipe.transform(this.myDate, "yyyy-MM-dd")
+  }
   getAllPosition() {
     this.positionsSubscription = this.positionService.getPosition(0,100).subscribe(result => {
       this.dataPosition = result
@@ -114,6 +126,15 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         }
     })
 
+  }
+
+  btnShowFormChangePassword() {
+    this.formChangePassword = true
+    this,this.formEditProfile = false
+  }
+  btnShowFormEditProfile() {
+    this.formEditProfile = true
+    this.formChangePassword = false
   }
 
   getAllIndustry() {
@@ -129,9 +150,9 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   }
 
   update() {
-    // this.dataUpdate.patchValue({
-    //   dateOfBirth : this.date
-    // })
+    this.dataUpdate.patchValue({
+      dateOfBirth : String(this.bod)
+    })
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {
 
     })

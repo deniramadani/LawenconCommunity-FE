@@ -1,107 +1,149 @@
-<div class="mt-8 p-3">
+<div class="px-5 py-8">
   <div class="grid">
-    <div class="col-12 lg:col-3 py-5 px-5">
-      <h4 class="text-lg font-semibold">Setting</h4>
-      <div class="card py-3">
-        <ul class="sidebar-nav" id="sidebar-nav">
-          <li class="nav-item"> <a class="nav-link collapsed" role="button" routerLink="/profile/members"> <i
-                class="bi bi-pencil-square"></i>
-              <span>Edit Profile</span> </a></li>
-          <li class="nav-item"> <a class="nav-link collapsed" role="button"> <i class="bi bi-file-earmark-lock"></i>
-              <span>Change Password</span> </a></li>
-          <li class="nav-item"> <a class="nav-link collapsed" role="button"> <i class="bi bi-box-arrow-left"></i>
-              <span>Log Out</span> </a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="col-12 lg:col-8 py-5">
-      <h4 class="text-lg font-semibold">Edit Profile</h4>
-      <form [formGroup]="dataUpdate">
-        <div class="grid formgrid p-fluid card p-5">
-          <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Fullname</label>
-            <input pinputtext="" formControlName="fullname" id="fullname" name="fullname" type="text"
-              class="p-inputtext p-component p-element">
-          </div>
-          <div class="field mb-4 col-12">
-            <label for="avatar" class="font-medium text-900">Foto Profile</label>
-            <div class="flex align-items-center">
-              <p-avatar image="{{fileDownload}}{{fotoId}}" styleClass="mr-2" size="large" shape="circle">
-              </p-avatar>
-              <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*"
-                styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image"></p-fileUpload>
-            </div>
-          </div>
-
-          <div class="p-fluid p-formgrid grid mt-2">
-            <div class="field col-12 md:col-6"><label for="bod" class="font-medium text-900">Date Of Birth </label>
-              <p-calendar dateFormat="yy-dd-MM" [showIcon]="true" id="bod" formControlName="dateOfBirth" inputId="icon">
-              </p-calendar>
-            </div>
-            <div class="field col-12 md:col-6"><label for="email" class="font-medium text-900">Email</label>
-              <input pinputtext="" id="email" type="email" formControlName="email" readonly
-                class="p-inputtext p-component p-element">
-            </div>
-            <div class="field col-12 md:col-6"><label for="phone" class="font-medium text-900">Phone Number</label>
-              <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span><input
-                  type="text" formControlName="phoneNumber" id="phone" class="p-inputtext p-component p-element">
+    <div class="col-12 lg:col-2"></div>
+    <div class="col-12 lg:col-8 pr-3">
+      <div *ngIf="formEditProfile">
+        <h4 class="text-xl font-semibold">Profile</h4>
+        <form [formGroup]="dataUpdate">
+          <div class="grid formgrid p-fluid card p-5">
+            <div class="flex align-items-center justify-content-between">
+              <h5>Personal Detail</h5>
+              <div>
+                <i class="pi pi-cog text-xl" (click)="btnShowFormChangePassword()" pTooltip="Change Password"
+                  tooltipPosition="left" role="button"></i>
               </div>
+
+            </div>
+            <hr>
+            <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Fullname</label>
+              <input pinputtext="" formControlName="fullname" id="fullname" name="fullname" type="text"
+                class="p-inputtext p-component p-element">
             </div>
             <div class="field mb-4 col-12">
-              <label for="bio" class="font-medium text-900">Address</label>
-              <textarea id="bio" type="text" pInputTextarea rows="5" formControlName="address"
-                [autoResize]="true"></textarea>
+              <label for="avatar" class="font-medium text-900">Foto Profile</label>
+              <div class="flex align-items-center">
+                <p-avatar image="{{fileDownload}}{{fotoId}}" styleClass="mr-2" size="large" shape="circle">
+                </p-avatar>
+                <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*"
+                  styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image"></p-fileUpload>
+              </div>
             </div>
-          </div>
-          <h5 class="text-lg mt-5">Profession</h5>
-          <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-12"><label for="company" class="text-sm">Company</label>
-              <input pinputtext="" id="company" formControlName="company" type="text"
-                class="p-inputtext p-component p-element">
-            </div>
-            <div class="field col-12 md:col-6" formGroupName="industry">
-              <label for="lastname2" class="text-sm">Select Industry</label>
-              <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry" styleClass="w-full"
-                optionLabel="industryName" optionValue="id" name="industryName" id="industryName"
-                formControlName="industryName" formControlName="id">
-              </p-dropdown>
-            </div>
-            <div class="field col-12 md:col-6" formGroupName="position">
-              <label for="lastname2" class="text-sm">Select Position</label>
-              <p-dropdown [options]="positions" [(ngModel)]="selectedPosition" styleClass="w-full"
-                optionLabel="positionName" optionValue="id" name="id" id="positionName" formControlName="id">
-              </p-dropdown>
-            </div>
-          </div>
 
-          <h5 class="text-lg mt-5">Social Media</h5>
-          <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
-            <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
-              <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-instagram"></i></span><input
-                  type="text" id="instagram" formControlName="instagram" class=" p-inputtext p-component p-element">
+            <div class="p-fluid p-formgrid grid mt-2">
+              <div class="field col-12 md:col-6"><label for="bod" class="font-medium text-900">Date Of Birth </label>
+                <!-- <p-calendar dateFormat="yy-mm-dd" [showIcon]="true" id="bod" formControlName="dateOfBirth"
+                  inputId="icon">
+                </p-calendar> -->
+                <p-calendar [ngModel]="myDate" placeholder="{{bod}}" (onSelect)="onSelectMethod($event)"
+                  [showIcon]="true" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}" inputId="icon">
+                </p-calendar>
+              </div>
+              <div class="field col-12 md:col-6"><label for="email" class="font-medium text-900">Email</label>
+                <input pinputtext="" id="email" type="email" formControlName="email" readonly
+                  class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6"><label for="phone" class="font-medium text-900">Phone Number</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span><input
+                    type="text" formControlName="phoneNumber" id="phone" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field mb-4 col-12">
+                <label for="bio" class="font-medium text-900">Address</label>
+                <textarea id="bio" type="text" pInputTextarea rows="5" formControlName="address"
+                  [autoResize]="true"></textarea>
               </div>
             </div>
-            <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
-              <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-linkedin"></i></span><input
-                  type="text" id="linkedIn" formControlName="linkedin" class="p-inputtext p-component p-element">
+            <h4 class="text-lg font-semibold mt-3">Profesional</h4>
+            <hr>
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-12"><label for="company" class="text-sm">Company</label>
+                <input pinputtext="" id="company" formControlName="company" type="text"
+                  class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 md:col-6" formGroupName="industry">
+                <label for="lastname2" class="text-sm">Select Industry</label>
+                <p-dropdown [options]="industries" [(ngModel)]="selectedIndustry" styleClass="w-full"
+                  optionLabel="industryName" optionValue="id" name="industryName" id="industryName"
+                  formControlName="industryName" formControlName="id">
+                </p-dropdown>
+              </div>
+              <div class="field col-12 md:col-6" formGroupName="position">
+                <label for="lastname2" class="text-sm">Select Position</label>
+                <p-dropdown [options]="positions" [(ngModel)]="selectedPosition" styleClass="w-full"
+                  optionLabel="positionName" optionValue="id" name="id" id="positionName" formControlName="id">
+                </p-dropdown>
               </div>
             </div>
-            <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
-              <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-facebook"></i></span><input
-                  type="text" id="facebook" formControlName="facebook" class="p-inputtext  p-component p-element">
-              </div>
-            </div>
-          </div>
-          <hr>
 
-          <div class="field col-12 md:col-12 text-center">
-            <p-button label="Save" (click)="update()" type="submit" styleClass="p-button-sm w-full" icon="pi pi-check"
-              iconPos="right">
-            </p-button>
+            <h4 class="text-lg font-semibold mt-3">Sosial Media</h4>
+            <hr>
+            <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
+              <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-instagram"></i></span><input
+                    type="text" id="instagram" formControlName="instagram" class=" p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-linkedin"></i></span><input
+                    type="text" id="linkedIn" formControlName="linkedin" class="p-inputtext p-component p-element">
+                </div>
+              </div>
+              <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
+                <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-facebook"></i></span><input
+                    type="text" id="facebook" formControlName="facebook" class="p-inputtext  p-component p-element">
+                </div>
+              </div>
+            </div>
+            <hr>
+
+            <div class="field col-12 md:col-12 text-center">
+              <p-button label="Save" (click)="update()" type="submit" styleClass="p-button-sm w-full" icon="pi pi-check"
+                iconPos="right">
+              </p-button>
+            </div>
           </div>
+          <pre>{{dataUpdate.value | json}}</pre>
+        </form>
+      </div>
+
+      <div *ngIf="formChangePassword">
+        <div class="pagetitle">
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item text-lg"><a (click)="btnShowFormEditProfile()" role="button">Back to
+                  profile</a></li>
+              <li class="breadcrumb-item text-lg active">Change Password</li>
+            </ol>
+          </nav>
         </div>
-        <pre>{{dataUpdate.value | json}}</pre>
-      </form>
+        <div class="card">
+          <form class="formgrid grid justify-content-center mt-5 px-5">
+            <div class="field col-12 md:col-12">
+              <label for="curentPassword">Old Password<span class="text-red-500">*</span></label>
+              <p-password id="curentPassword" name="curentPassword" type="password" styleClass="w-full"
+                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+            </div>
+
+            <div class="field col-12 md:col-6">
+              <label for="newPassword">New Password<span class="text-red-500">*</span></label>
+              <p-password id="newPassword" name="newPassword" type="password" styleClass="w-full"
+                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+            </div>
+            <div class="field col-12 md:col-6">
+              <label for="confirmNewPassword">Confirm New Password<span class="text-red-500">*</span></label>
+              <p-password id="confirmNewPassword" name="confirmNewPassword" type="password" styleClass="w-full"
+                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+            </div>
+            <div class="field ccol-12 md:col-7 flex flex-row gap-2 justify-content-end mt-2">
+              <button pButton pRipple type="button" styleClass="p-button-sm" type="submit" label="Change Password"
+                class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
 
     </div>
+    <div class="col-12 lg:col-2"></div>
   </div>
+</div>

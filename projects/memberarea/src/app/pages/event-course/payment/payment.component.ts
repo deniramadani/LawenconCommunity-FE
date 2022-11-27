@@ -5,15 +5,18 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs'
 import { PostingService } from '../../../service/posting.service';
 import {Schedule} from '../../../../../../interface/schedule'
+import { ProductsService } from '../../../service/products.service';
+import { BASE_URL } from 'projects/api/BaseUrl';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
 })
 export class PaymentComponent implements OnInit,OnDestroy {
   private insertPaymentSubscription?: Subscription
-  
+  private getProductByIdSubcription?: Subscription
+  detailProduct : any = new Object
   idProduct: string = ''
-  dataSchedule : any = new Object
+  fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   insertPayment = this.fb.group({
     product: this.fb.group({
       id : ['',[Validators.required]]
@@ -23,11 +26,15 @@ export class PaymentComponent implements OnInit,OnDestroy {
       fileExtensions : ['',[Validators.required]]
     })
   })
-  constructor(private toast : ToastrService,private router : Router,private activedParam : ActivatedRoute,private fb : FormBuilder,private postService : PostingService) {}
+  constructor(private productService : ProductsService,private toast : ToastrService,private router : Router,private activedParam : ActivatedRoute,private fb : FormBuilder,private postService : PostingService) {}
   
   ngOnInit(): void {
     this.insertPaymentSubscription = this.activedParam.params.subscribe(id => {
       this.idProduct = String(Object.values(id))
+      this.getProductByIdSubcription = this.productService.productGetById(String(Object.values(id))).subscribe(result => {
+        console.log(result);
+        this.detailProduct = result
+      })
     })
 
     
@@ -67,5 +74,6 @@ export class PaymentComponent implements OnInit,OnDestroy {
   
   ngOnDestroy(): void {
     this.insertPaymentSubscription?.unsubscribe()
+    this.getProductByIdSubcription?.unsubscribe()
   }
 }

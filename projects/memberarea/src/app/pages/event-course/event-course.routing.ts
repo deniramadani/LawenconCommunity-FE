@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
+import { CourseComponent } from "./course/course.component"
+import { EventComponent } from "./event/event.component"
 import { EventCourseComponent } from "./list/event-course.component"
 import { PaymentComponent } from "./payment/payment.component"
 
@@ -12,6 +14,14 @@ const routes : Routes = [
     {
         path : 'payment/:id',
         component : PaymentComponent
+    },
+    {
+        path : 'events',
+        component : EventComponent
+    },
+    {
+        path : 'courses',
+        component : CourseComponent
     },
 
 ]

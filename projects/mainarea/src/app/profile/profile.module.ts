@@ -1,9 +1,7 @@
 import { NgModule } from "@angular/core"
 import { ContentAdminModule } from "projects/adminarea/src/app/layout/content/content.admin.module";
 import { ContentMemberModule } from "projects/memberarea/src/app/layout/content/content.member.module";
-import { ChangePasswordComponent } from "./change-password/change-password.component";
 import { ProfileRouting } from "./profile.routing";
-import { UpdateProfileComponent } from "./update-profile/update-profile.component";
 import { ViewProfileComponent } from './view-profile/view-profile.component'
 import {ButtonModule} from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -13,17 +11,20 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ImageModule} from 'primeng/image';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {CalendarModule} from 'primeng/calendar';
 import { CommonModule } from "@angular/common";
+import { PasswordModule } from "primeng/password"
+import { SpeedDialModule } from 'primeng/speeddial';
+
 @NgModule({
   declarations : [
-    ViewProfileComponent,UpdateProfileComponent,ChangePasswordComponent
+    ViewProfileComponent
   ],
   imports : [
-      ProfileRouting,
-      ContentAdminModule,
-      ContentMemberModule,
+      ProfileRouting,PasswordModule,
+      ContentAdminModule,SpeedDialModule,
+      ContentMemberModule,FormsModule,
       ButtonModule,
       AvatarModule,
       DropdownModule,
@@ -37,7 +38,7 @@ import { CommonModule } from "@angular/common";
 
   ],
   exports : [
-    ViewProfileComponent,UpdateProfileComponent,ChangePasswordComponent
+    ViewProfileComponent
   ]
 })
 export class ProfileModule{}

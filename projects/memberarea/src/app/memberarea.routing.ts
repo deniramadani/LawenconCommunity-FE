@@ -22,5 +22,15 @@ export const membersAreaRoutes: Routes = [
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/event-course/event-course.module").then(d => d.EventCourseModule)
   },
+  {
+    path: "my-activity",
+    component : ContentMemberComponent,
+    loadChildren: () => import("./pages/my-activity/my.activity.module").then(d => d.MyActivityModule)
+  },
+  {
+    path: "view",
+    component : ContentMemberComponent,
+    loadChildren: () => import("./pages/people.profile/peaple.profile.module").then(d => d.PeopleProfileModule)
+  },
 
 ];

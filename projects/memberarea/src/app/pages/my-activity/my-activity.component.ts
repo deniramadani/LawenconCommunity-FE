@@ -1,26 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { BASE_URL } from 'projects/api/BaseUrl';
+import { Article } from 'projects/interface/article';
+import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
+import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
-import { Subscription } from 'rxjs'
+import { Subscription } from 'rxjs';
+import { Post } from '../../../../..//interface/post';
 import { ArticleService } from '../../service/article.service';
-import { Article } from '../../../../../interface/article';
-import { BASE_URL } from 'projects/api/BaseUrl';
-import { Post } from 'projects/interface/post';
-import { PostingService } from '../../service/posting.service';
-import { PostLike } from 'projects/interface/post-like';
-import { FormBuilder } from '@angular/forms';
-import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { PollingService } from '../../service/polling.service';
-import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
-import { ToastrService } from 'ngx-toastr';
+import { PostingService } from '../../service/posting.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-my-activity',
+  templateUrl: './my-activity.component.html',
 })
-
-export class HomeComponent implements OnInit, OnDestroy {
+export class MyActivityComponent implements OnInit,OnDestroy {
   private getAllUserSubscription?: Subscription
   private getAllArticleSubscription?: Subscription
   private getAllPostSubscription?: Subscription
@@ -182,6 +180,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
+
     return age;
   }
 

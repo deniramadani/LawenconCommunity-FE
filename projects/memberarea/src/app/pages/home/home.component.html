@@ -1,8 +1,8 @@
-<div class="container " style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
-  <div class="mt-8 p-0">
+<div class="px-5 py-8" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
+  <div class="mt-2 p-0">
     <div class="grid">
       <div class="col-12 lg:col-3 py-3 pr-5">
-        <h6>My Profile</h6>
+        <h6 class="text-xl">My Profile</h6>
         <div class="">
           <div class="card px-4 text-center">
             <p-avatar class="px-5 mt-5" image="{{fileDownload}}{{fotoProfile}}" styleClass="w-5rem h-5rem"
@@ -13,17 +13,20 @@
             <hr>
             <div class="grid">
               <div class="col-4 lg:col-4 sm:col-4">
-                Fb
+                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
+                </p-avatar>
               </div>
               <div class="col-4 lg:col-4 sm:col-4">
-                linkedIn
+                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
+                </p-avatar>
               </div>
               <div class="col-4 lg:col-4 sm:col-4">
-                ig
+                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
+                </p-avatar>
               </div>
             </div>
             <div class="text-left mt-4">
-              <p class="text-sm"> <i class="pi pi-user"></i> Personal Details</p>
+              <p class="text-sm"> <i class="pi pi-user mr-2"></i>Personal Details</p>
               <div class="px-2 text-xs text-left">
                 <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
                   {{email}}</p>
@@ -38,7 +41,7 @@
         </div>
       </div>
       <div class="col-12 lg:col-6 pt-3 pb-3 ">
-        <h6>Thread & Discuss</h6>
+        <h6 class="text-xl">Thread & Discuss</h6>
         <div class="p-card text-right ">
           <div class="col-12 lg:col-12">
             <button pButton pRipple type="button" (click)="createNewThread()" styleClass="p-button-sm"
@@ -153,14 +156,7 @@
                   </div>
                 </div>
               </ng-template>
-
-
-
-
             </div>
-
-
-
             <div class="p-card-footer p-0">
               <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
                 <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes &nbsp;&nbsp;{{post.totalComment}}
@@ -184,7 +180,7 @@
                     </ng-template>
                   </div>
                   <div class="col-1 lg:col-1 sm:col-1 ">
-                    <span type="button" class="h4 text-black">
+                    <span type="button" class="h4 text-black" routerLink="/home/comment/{{post.id}}">
                       <i class="bi bi-chat-right-text-fill "></i>
                     </span>
                   </div>
@@ -210,16 +206,24 @@
         </div>
       </div>
 
-      <div class="col-12 lg:col-3 px-5">
-        <h6>Article</h6>
-        <div class="" *ngFor="let d of data">
-          <img class="w-full" src="{{fileDownload}}{{d.file.id}}" alt="">
-          <div class="card px-3 pb-0">
-            <p class="text-sm font-semibold mt-3">{{d.title}}</p>
-            <p class="text-xs">{{d.content}}</p>
-            <p class="text-secondary text-xs p-0">Post by Admin Community </p>
-            <p class="text-secondary font-italic text-right" style="font-size: 0.7rem;">{{calculateDiff(d.createdAt)}}
-            </p>
+      <div class="col-12 lg:col-3 px-5 py-2">
+        <h6 class="text-xl">Article</h6>
+        <div class="col-12 lg:col-12 p-0 pb-3" *ngFor="let d of data">
+          <div class="shadow-2 border-round h-full surface-card">
+            <img src="{{fileDownload}}{{d.file.id}}" alt="article image" class="h-10rem w-full">
+            <div class="py-2 px-3 flex flex-column">
+              <span class="block text-xl font-medium text-blue-600">{{d.title}}</span>
+              <p class="text-md text-900 font-medium mb-3 mt-1 line-height-3">{{d.content}}</p>
+              <div class="flex">
+                <div class="">
+                  <div class="text-xs font-semibold text-600 mb-1">Post by Admin Community</div>
+                  <div class="text-xs flex align-items-center text-secondary">
+                    <i class="pi pi-send mr-1 text-xs"></i>
+                    <span>{{calculateDiff(d.createdAt)}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
