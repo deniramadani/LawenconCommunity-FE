@@ -40,7 +40,7 @@ export class PostingService {
     return this.http.get<Post>(`${BASE_URL.BASE_URL}/posts/${id}`)
   }
 
-  getCommentByIdPost(id: string): Observable<Comment>{
-    return this.http.get<Comment>(`${BASE_URL.BASE_URL}/comments/post/${id}`)
+  getCommentByIdPost(id: string): Observable<Comment[]>{
+    return this.http.get<Comment[]>(`${BASE_URL.BASE_URL}/comments/post/${id}`)
   }
 }

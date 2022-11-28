@@ -36,6 +36,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   fileid: string = ''
   data: Article[] = []
   posts: any = new Object
+  comment : any = new Object
   limit: number = 5
   start: number = 0
   userType: string | null = this.apiService.getUserType()
@@ -77,19 +78,20 @@ export class CommentComponent implements OnInit, OnDestroy{
 
       this.fotoProfile = result.photo.id
 
+
     })
 
-        this.features = [
-          {
-            image: 'https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGljb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-          },
-          {
-            image: 'https://images.unsplash.com/photo-1531214159280-079b95d26139?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2FydG9vbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-          },
-          {
-            image: 'https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-          },
-        ];
+        // this.features = [
+          // {
+          //   image: '',
+          // },
+          // {
+          //   image: 'https://images.unsplash.com/photo-1531214159280-079b95d26139?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2FydG9vbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+          // },
+          // {
+          //   image: 'https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+          // },
+        // ];
 
     this.getAllArticleSubscription = this.articleService.getArticle(0, 4).subscribe(result => {
       this.data = result
@@ -99,13 +101,20 @@ export class CommentComponent implements OnInit, OnDestroy{
       this.postService.getPostById(String(Object.values(id))).subscribe(result => {
         console.log(result);
         this.posts = result
-      })
 
+        this.features.push({
+          image : result.file
+        })
+
+      })
+    })
+  
+    
+    this.getCommetByIdSubcription = this.activedParam.params.subscribe(id => {
       this.postService.getCommentByIdPost(String(Object.values(id))).subscribe(result => {
+        this.comment = result
         console.log(result);
-        
       })
-
     })
 
    
@@ -204,6 +213,7 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.unlikeSubscription?.unsubscribe()
     this.likeSubscription?.unsubscribe()
     this.pollingSubscription?.unsubscribe()
+    this.getCommetByIdSubcription?.unsubscribe()
   }
 
 }

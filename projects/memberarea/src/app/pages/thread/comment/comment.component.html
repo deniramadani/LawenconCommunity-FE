@@ -2,16 +2,7 @@
     <div class="grid mt-3">
         <div class="col-12 lg:col-9 ">
             <div class="p-card">
-                <div class="p-card-header">
-                    <p-carousel [value]="features" styleClass="mt-4">
-                        <ng-template let-feature pTemplate="item">
-                            <div class="text-center mt-3">
-                                <img src="{{feature.image}}" alt="Image" class="w-full h-full border-round">
-                            </div>
-                        </ng-template>
-                    </p-carousel>
-                </div>
-                <div class="p-card-content px-6">
+                <div class="p-card-header p-3">
 
                     <div class="border-noround bg-gray-100 border-round p-3">
                         <div class="p-card-header">
@@ -156,7 +147,7 @@
                                             <span type="button" (click)="like(posts.id, posts.postType.postTypeCode)"
                                                 class=" text-black">
                                                 <i class="bi bi-heart h4"></i>
-                                                <i class="text-sm text-600">Like</i>
+                                                <i class="text-sm text-600 pe-2">Like</i>
                                             </span>
                                         </ng-template>
                                     </div>
@@ -166,12 +157,30 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="p-card-content px-6">
+
+                    <div class="py-1 pr-2">
+                        <!-- <ng-container *ngFor="let attachment of posts.file"> -->
+                        <!-- <p-image src="{{fileDownload}}{{attachment.file.id}}" alt="Image" width="250"
+                                [preview]="true">
+                            </p-image> -->
+                        <!-- </ng-container> -->
+                        <p-carousel [value]="features">
+                            <ng-template let-feature pTemplate="item">
+                                <div class="text-center mt-3">
+                                    <img src="{{fileDownload}}{{feature.image}}" alt="Image"
+                                        class="w-full h-20rem border-round">
+                                </div>
+                            </ng-template>
+                        </p-carousel>
+                    </div>
 
 
 
 
-                    <hr>
-                    <div class="grid bg-gray-50 border-round p-3">
+                    <div class="grid border-round p-3">
                         <div class="col-12 md:col-12">
                             <div class="p-fluid pr-0">
                                 <label for="message" class="font-medium"> <i class="pi pi-comments"></i>
@@ -187,25 +196,23 @@
                         </div>
                     </div>
 
-                    <div class="grid mt-4">
-                        <div class="col-12 lg:col-12">
+                    <div class="grid">
+                        <div class="col-12 lg:col-12" *ngFor="let c of comment">
                             <div class="p-2">
                                 <div class="border-1 surface-border border-round p-3">
                                     <div class="flex">
                                         <p-avatar image="assets/images/blocks/avatars/circle/avatar-f-3.png"
                                             shape="circle"></p-avatar>
                                         <div class="ml-2">
-                                            <div class="text-sm font-bold text-900 mb-1">Sambo</div>
+                                            <div class="text-sm font-bold text-900 mb-1">{{c.user.fullname}}</div>
                                             <div class="text-xs flex align-items-center text-700">
 
-                                                <span>Mon , 22-11-2022</span>
+                                                <span>{{c.createdAt | date : 'E, dd-MM-yyyy'}}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="m-0 p-0 line-height-3 mt-2 text-600">
-                                        Orci porta non pulvinar neque laoreet suspendisse interdum consectetur.
-                                        Vitae
-                                        elementum curabitur vitae nunc sed velit dignissim sodales ut.
+                                    <p class="m-0 p-0 line-height-3 mt-3 text-600">
+                                        {{c.content}}
                                     </p>
                                 </div>
                             </div>

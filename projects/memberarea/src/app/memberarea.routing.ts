@@ -27,5 +27,4 @@ export const membersAreaRoutes: Routes = [
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/people.profile/peaple.profile.module").then(d => d.PeopleProfileModule)
   },
-
 ];
