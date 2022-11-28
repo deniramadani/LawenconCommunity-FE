@@ -11,35 +11,67 @@
                             </div>
 
                             <h2 class="text-3xl">
-                                <i class="pi pi-money-bill text-2xl text-green-500"></i> Member List
+                                <i class="pi pi-money-bill text-2xl text-green-500"></i> List Payment Event & Course
                             </h2>
                         </div>
                     </h1>
                 </div>
                 <div class="grid w-full lg:w-12">
                     <div class="table w-full">
-                        <p-table styleClass="p-datatable-sm" [tableStyle]="{'min-width': '50rem'}" [rows]="5"
-                            class="w-full">
+                        <p-table [value]="dataPaymentPremium" [paginator]="true" [rows]="10"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <!-- <th pSortableColumn="check" class="text-center"><i class="pi pi-check"></i></th> -->
                                     <th pSortableColumn="no" class="text-center">No.</th>
-                                    <th pSortableColumn="fullName">Trx Code</th>
-                                    <th pSortableColumn="fullName">Full Name</th>
+                                    <th pSortableColumn="trxCode">Trx Code</th>
+                                    <th pSortableColumn="fullName">Fullname</th>
+                                    <th pSortableColumn="typeProduct">Type Product</th>
+                                    <th pSortableColumn="stsApprove">Verified</th>
                                     <th pSortableColumn="proofOfPayment" class="text-center">Proof of Payment</th>
                                     <th pSortableColumn="action" class="text-center">Action</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-data let-i="rowIndex">
                                 <tr>
+                                    <!-- <td>
+                                        <p-checkbox name="groupname" value="{{data.id}}" [(ngModel)]="selectedValues">
+                                        </p-checkbox>
+                                    </td> -->
                                     <td class="text-center">{{i + 1}}</td>
-                                    <td>{{data.fullName}}</td>
+                                    <td>{{data.transactionCode}}</td>
+                                    <td>{{data.user.fullname}}</td>
+                                    <td>{{data.product.productType.productTypeName}}</td>
+                                    <td style="text-align: center ;">
+                                        <div *ngIf="data.approval; else elseBlock">
+                                            <i class="pi pi-check-circle text-green-500"></i>
+                                        </div>
+                                        <ng-template #elseBlock>
+                                            <i class="pi pi-times text-danger"></i>
+                                        </ng-template>
+                                    </td>
                                     <td class="text-center">
+
                                         <a class="a-link text-1000 text-sm underline font-italic"
                                             role="button">Download</a>
                                     </td>
                                     <td class="text-center">
-                                        <button pButton type="button" label="APPROVE">
-                                            <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                        <!-- <div class="flex">
+                                            <button pButton type="button" label="APPROVE">
+                                                <i class="fa-solid fa-pen text-sm mr-2 pe-2"></i>
+                                            </button>
+                                            <button pButton type="button" label="Rejected">
+                                                <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                            </button>
+                                        </div> -->
+
+                                        <button pButton type="button" label="Approve"
+                                            class="p-button-text text-green-500" pTooltip="Approve"><i
+                                                class="pi pi-check-square mr-2"></i></button>
+                                        <button pButton type="button" label="Rejected"
+                                            class="p-button-text text-red-500" pTooltip="Rejected"><i
+                                                class="pi pi-ban mr-2"></i>
                                         </button>
                                     </td>
                                 </tr>

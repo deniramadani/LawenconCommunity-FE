@@ -19,9 +19,8 @@ export class PaymentService {
     return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/event-and-course?start=${start}&limit=${limit}`)
   }
 
-
-
-  
-
+  getAllPaymentSubscribe(start : number , limit : number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/subscribe?start=${start}&limit=${limit}`)
+  }
 
 }
