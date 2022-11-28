@@ -7,7 +7,7 @@ import { UpdateArticleComponent } from "./update-article/update-article.componen
 const routes : Routes = [
 
     {
-        path : '',
+        path : 'list',
         component : ListArticleComponent
     },
     {

@@ -49,9 +49,9 @@
             <div
                class="hidden static lg:absolute  w-full surface-overlay left-0 top-100 shadow-none lg:shadow-2 origin-top border-round pl-3 lg:pl-0">
                <ul class="list-none px-1 py-2 m-0">
-                  <li class="dropdown-header text-center">
+                  <li class="dropdown-header text-center w-full">
                      <h6>{{fullname}}</h6>
-                     <span>Web Developer</span>
+                     <!-- <span>{{position}}</span> -->
                   </li>
                   <li>
                      <hr class="dropdown-divider">
@@ -115,9 +115,10 @@
                <label class="text-sm font-italic ">make payments and upload proof of payment</label>
             </div>
          </div>
-         <form class="text-center mt-3 px-3">
-            <p-fileUpload mode="basic" url="./upload.php" accept="image/*" styleClass="p-button-outlined p-button-plain"
-               chooseLabel="Upload Image"></p-fileUpload>
+         <form class="text-center mt-3 px-3" [formGroup]="dataPremium" (ngSubmit)="submit()">
+            <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+               styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)" chooseLabel="Upload Image">
+            </p-fileUpload>
             <button pButton icon="pi pi-send" pRipple type="button" styleClass="p-button-sm" type="submit"
                label="Send Payment" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
          </form>

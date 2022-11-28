@@ -23,7 +23,7 @@
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="check" class="text-center"><i class="pi pi-check"></i></th>
+                                    <!-- <th pSortableColumn="check" class="text-center"><i class="pi pi-check"></i></th> -->
                                     <th pSortableColumn="no" class="text-center">No.</th>
                                     <th pSortableColumn="trxCode">Trx Code</th>
                                     <th pSortableColumn="fullName">Fullname</th>
@@ -35,14 +35,14 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-data let-i="rowIndex">
                                 <tr>
-                                    <td>
+                                    <!-- <td>
                                         <p-checkbox name="groupname" value="{{data.id}}" [(ngModel)]="selectedValues">
                                         </p-checkbox>
-                                    </td>
+                                    </td> -->
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{data.transactionCode}}</td>
                                     <td>{{data.user.fullname}}</td>
-                                    <td>{{data.product.title}}</td>
+                                    <td>{{data.product.productType.productTypeName}}</td>
                                     <td style="text-align: center ;">
                                         <div *ngIf="data.approval; else elseBlock">
                                             <i class="pi pi-check-circle text-green-500"></i>
@@ -52,14 +52,26 @@
                                         </ng-template>
                                     </td>
                                     <td class="text-center">
-                                        <button pButton type="button" class="p-button-secondary p-button-sm"
-                                            label="DOWNLOAD">
-                                            <i class="fa-solid fa-pen text-sm mr-2"></i>
-                                        </button>
+
+                                        <a class="a-link text-1000 text-sm underline font-italic"
+                                            role="button">Download</a>
                                     </td>
                                     <td class="text-center">
-                                        <button pButton type="button" label="APPROVE">
-                                            <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                        <!-- <div class="flex">
+                                            <button pButton type="button" label="APPROVE">
+                                                <i class="fa-solid fa-pen text-sm mr-2 pe-2"></i>
+                                            </button>
+                                            <button pButton type="button" label="Rejected">
+                                                <i class="fa-solid fa-pen text-sm mr-2"></i>
+                                            </button>
+                                        </div> -->
+
+                                        <button pButton type="button" label="Approve"
+                                            class="p-button-text text-green-500" pTooltip="Approve"><i
+                                                class="pi pi-check-square mr-2"></i></button>
+                                        <button pButton type="button" label="Rejected"
+                                            class="p-button-text text-red-500" pTooltip="Rejected"><i
+                                                class="pi pi-ban mr-2"></i>
                                         </button>
                                     </td>
                                 </tr>
