@@ -12,6 +12,8 @@ import { PaymentService } from '../../../service/payment.service';
 export class PaymentPremiumComponent implements OnInit, OnDestroy {
 
   private getAllPaymentSubscribeSubscription?: Subscription
+  private approvePaymentSubscription?: Subscription
+  private rejectPaymentSubscription?: Subscription
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   dataPaymentPremium: Payment[] = []
   selectedValues: string[] = []
@@ -24,13 +26,29 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
       this.dataPaymentPremium = result
     })
   }
-
+  
   ngOnInit(): void {
     this.onInit()
   }
 
+  approve(id: string){
+    this.approvePaymentSubscription = this.paymentService.paymentApprove(id).subscribe(() =>{
+      console.log(id)
+      this.onInit()
+    })
+  }
+
+  reject(id: string){
+    this.rejectPaymentSubscription = this.paymentService.paymentRejected(id).subscribe(() =>{
+      console.log(id);
+      this.onInit()
+    })
+  }
+
   ngOnDestroy(): void {
     this.getAllPaymentSubscribeSubscription?.unsubscribe()
+    this.approvePaymentSubscription?.unsubscribe()
+    this.rejectPaymentSubscription?.unsubscribe()
   }
 
 }

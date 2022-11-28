@@ -15,6 +15,12 @@ export class PostingService {
   postInsertBasic(data: any): Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/posts/basic`, data)
   }
+  postInsertPolling(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/posts/polling`, data)
+  }
+  postInsertPremium(data: any): Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/posts/premium`, data)
+  }
 
   paymentProduct(data: any): Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/payments`, data)
@@ -36,7 +42,7 @@ export class PostingService {
     return this.http.post(`${BASE_URL.BASE_URL}/post-bookmarks`, data)
   }
 
-  getPostById(id: string): Observable<Post>{
+  getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(`${BASE_URL.BASE_URL}/posts/${id}`)
   }
 

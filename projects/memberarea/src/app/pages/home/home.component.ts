@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
+  loader = false
   fileid: string = ''
   data: Article[] = []
   posts: Post[] = []
@@ -45,6 +46,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   phoneNumber: string = ''
   age: string = ''
   fotoProfile: string = ''
+  images: any = []
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+
 
   constructor(private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
@@ -53,6 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   init(): void {
     const id = this.apiService.getIdUser()
+    this.loader = false
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
       this.email = result.email
@@ -109,12 +127,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  premiumPost(id: string) {
+    if (this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.router.navigateByUrl(`/detail/${id}`)
+    }
+  }
 
   cancelLike(id: string, type: string) {
     if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
       this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
     } else {
       this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
+        this.loader = true
         this.init()
       })
     }

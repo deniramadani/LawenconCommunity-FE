@@ -54,25 +54,16 @@
                                     <td class="text-center">
 
                                         <a class="a-link text-1000 text-sm underline font-italic"
-                                            role="button">Download</a>
+                                            href="{{fileDownload}}{{data.file.id}}" role="button">Download</a>
                                     </td>
-                                    <td class="text-center">
-                                        <!-- <div class="flex">
-                                            <button pButton type="button" label="APPROVE">
-                                                <i class="fa-solid fa-pen text-sm mr-2 pe-2"></i>
-                                            </button>
-                                            <button pButton type="button" label="Rejected">
-                                                <i class="fa-solid fa-pen text-sm mr-2"></i>
-                                            </button>
-                                        </div> -->
-
-                                        <button pButton type="button" label="Approve"
-                                            class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                class="pi pi-check-square mr-2"></i></button>
-                                        <button pButton type="button" label="Rejected"
+                                    <td class=" text-center">
+                                        <button pButton type="button" label="Rejected" (click)="reject(data.id)"
                                             class="p-button-text text-red-500" pTooltip="Rejected"><i
                                                 class="pi pi-ban mr-2"></i>
                                         </button>
+                                        <button pButton type="button" label="Approve" (click)="approve(data.id)"
+                                            class="p-button-text text-green-500" pTooltip="Approve"><i
+                                                class="pi pi-check-square mr-2"></i></button>
                                     </td>
                                 </tr>
                             </ng-template>
