@@ -11,6 +11,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StyleClassModule } from 'primeng/styleclass'
+import { ReactiveFormsModule } from "@angular/forms"
 @NgModule({
   declarations: [
     ContentMemberComponent,FooterComponent,HeaderMemberComponent
@@ -18,7 +19,7 @@ import { StyleClassModule } from 'primeng/styleclass'
   imports: [
     RouterModule, MenubarModule, ButtonModule,
     DropdownModule, DialogModule, FileUploadModule,
-    AvatarModule, AvatarGroupModule,StyleClassModule
+    AvatarModule, AvatarGroupModule,StyleClassModule,ReactiveFormsModule
   ],
   exports: [ContentMemberComponent,FooterComponent,HeaderMemberComponent],
  

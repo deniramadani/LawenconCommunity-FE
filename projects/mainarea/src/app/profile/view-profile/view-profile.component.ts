@@ -28,8 +28,8 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   industries: any[] = []
   dataPosition : Position[] = []
   dataIndustry : Industry[] = []
-  selectedPosition: string = ''
-  selectedIndustry: string = ''
+  selectedPosition: any 
+  selectedIndustry: any 
   facebook : string = ''
   instagram: string = ''
   linkedin: string = ''
@@ -75,6 +75,8 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     this.getAllIndustry()
     const id = this.apiService.getIdUser()
     this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
+      console.log(result);
+      
       this.bod = result.dateOfBirth
       if (result.photo != null) {
         this.fotoId = result.photo.id
@@ -94,10 +96,14 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
 
       if (result.position != null) {
         this.selectedPosition = result.position.id
+      } else {
+        this.selectedPosition = null
       }
 
       if (result.industry != null) {
         this.selectedIndustry = result.industry.id
+      } else {
+        this.selectedIndustry = null
       }
    
      
@@ -109,10 +115,10 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         address: result.address,
         phoneNumber: result.phoneNumber,
         // industry: {
-        //   id : this.selectedIndustry
+        //   id : result.industry.id
         // },
         // position: {
-        //   id : this.selectedPosition,
+        //   id : result.position.id
         // },
         userType: {
           id : result.userType.id

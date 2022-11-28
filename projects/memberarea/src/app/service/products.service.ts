@@ -31,7 +31,7 @@ export class ProductsService {
   }
 
   paymentSubcription(data: any): Observable<any>{
-    return this.http.post<any>(`${BASE_URL.BASE_URL}/payments/subscriptions`,data)
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/payments`,data)
   }
-  
+
 }

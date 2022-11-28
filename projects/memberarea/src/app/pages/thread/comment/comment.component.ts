@@ -27,6 +27,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   private unlikeSubscription?: Subscription
   private likeSubscription?: Subscription
   private pollingSubscription?: Subscription
+  private getCommetByIdSubcription?: Subscription
   features : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -99,7 +100,16 @@ export class CommentComponent implements OnInit, OnDestroy{
         console.log(result);
         this.posts = result
       })
+
+      this.postService.getCommentByIdPost(String(Object.values(id))).subscribe(result => {
+        console.log(result);
+        
+      })
+
     })
+
+   
+
   }
 
   calculateDiff(sentDate: string) {
@@ -152,9 +162,6 @@ export class CommentComponent implements OnInit, OnDestroy{
 
   }
 
- 
-
-  
   choose(id: string) {
     const postPollingResponse = this.fb.group({
       postPollingOption: {

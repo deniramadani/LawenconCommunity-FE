@@ -11,6 +11,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { CommonModule } from "@angular/common";
 import {CheckboxModule} from 'primeng/checkbox';
 import { FormsModule } from "@angular/forms";
+import { DialogModule } from 'primeng/dialog';
+
 @NgModule({
     declarations : [
   
@@ -22,8 +24,8 @@ import { FormsModule } from "@angular/forms";
         CardModule, InputTextModule,
         TableModule,CheckboxModule,
         ButtonModule,FormsModule,
-        ImageModule,
-        TabViewModule
+        ImageModule,DialogModule,
+        TabViewModule,
     ],
     exports : [
       
