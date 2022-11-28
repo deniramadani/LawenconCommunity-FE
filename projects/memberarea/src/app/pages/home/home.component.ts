@@ -8,7 +8,6 @@ import { Article } from '../../../../../interface/article';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostingService } from '../../service/posting.service';
-import { PostLike } from 'projects/interface/post-like';
 import { FormBuilder } from '@angular/forms';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { PollingService } from '../../service/polling.service';

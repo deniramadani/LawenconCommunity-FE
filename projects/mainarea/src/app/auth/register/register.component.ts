@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
         if(result){
           this.insertDataSubscription = this.userService.register(this.dataRegister.value).subscribe(result =>{
             this.displayBasic2 = false;
-            this.router.navigateByUrl('/')
+            this.router.navigateByUrl('/members/login')
           })
         }
     })

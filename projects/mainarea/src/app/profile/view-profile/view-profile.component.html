@@ -78,17 +78,20 @@
             <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
               <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
                 <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-instagram"></i></span><input
-                    type="text" id="instagram" formControlName="instagram" class=" p-inputtext p-component p-element">
+                    type="text" id="instagram" [(ngModel)]="instagram" formControlName="instagram"
+                    class=" p-inputtext p-component p-element">
                 </div>
               </div>
               <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
                 <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-linkedin"></i></span><input
-                    type="text" id="linkedIn" formControlName="linkedin" class="p-inputtext p-component p-element">
+                    type="text" id="linkedIn" [(ngModel)]="linkedin" formControlName="linkedin"
+                    class="p-inputtext p-component p-element">
                 </div>
               </div>
               <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
                 <div class="p-inputgroup"><span class="p-inputgroup-addon"><i class="pi pi-facebook"></i></span><input
-                    type="text" id="facebook" formControlName="facebook" class="p-inputtext  p-component p-element">
+                    type="text" id="facebook" [(ngModel)]="facebook" formControlName="facebook"
+                    class="p-inputtext  p-component p-element">
                 </div>
               </div>
             </div>

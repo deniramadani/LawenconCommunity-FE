@@ -86,13 +86,19 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         });
       }
      
-      
-     
       if (result.userSocmed != null) {
         this.facebook = result.userSocmed.facebook
         this.instagram = result.userSocmed.instagram
         this.linkedin = result.userSocmed.linkedin
       } 
+
+      if (result.position != null) {
+        this.selectedPosition = result.position.id
+      }
+
+      if (result.industry != null) {
+        this.selectedIndustry = result.industry.id
+      }
    
      
       this.dataUpdate.patchValue({
@@ -102,21 +108,21 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         company: result.company,
         address: result.address,
         phoneNumber: result.phoneNumber,
-        industry: {
-          id : this.selectedIndustry
-        },
-        position: {
-          id : this.selectedPosition,
-        },
+        // industry: {
+        //   id : this.selectedIndustry
+        // },
+        // position: {
+        //   id : this.selectedPosition,
+        // },
         userType: {
           id : result.userType.id
         },
         dateOfBirth : result.dateOfBirth,
-        userSocmed: {
-          facebook: result.userSocmed.facebook,
-          instagram: result.userSocmed.instagram,
-          linkedin : result.userSocmed.linkedin
-        },
+        // userSocmed: {
+        //   facebook : result.userSocmed.facebook,
+        //   instagram: result.userSocmed.instagram,
+        //   linkedin : result.userSocmed.linkedin
+        // },
       })
 
     })
@@ -198,6 +204,22 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         dateOfBirth : this.bod
       })
     }
+
+    this.dataUpdate.patchValue({
+      userSocmed: {
+        instagram: this.instagram,
+        facebook: this.facebook,
+        linkedin : this.linkedin
+      },
+      industry: {
+        id: this.selectedIndustry
+      },
+      position: {
+        id : this.selectedPosition
+      }
+
+    })
+
     
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {
       this.onInit()

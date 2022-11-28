@@ -14,4 +14,8 @@ export class PaymentService {
   getAllPaymentProduct(start : number , limit : number): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments?start=${start}&limit=${limit}`)
   }
+
+  
+
+
 }
