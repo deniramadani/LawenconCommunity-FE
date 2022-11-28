@@ -1,15 +1,15 @@
-<header id="header" class="header fixed-top d-flex align-items-center w-full px-5">
+<header id="header" class="header fixed-top d-flex align-items-center justify-content-end w-full px-5 gap-3">
+   <img src="../../../assets/icons/logo-community.png" alt="Image" height="45" class="">
    <a pRipple class="cursor-pointer  block lg:hidden align-self-center text-700" pStyleClass="@next" enterClass="hidden"
-      leaveToClass="hidden" [hideOnOutsideClick]="true" style="float: right ;">
-      <i class="pi pi-bars text-4xl"></i>
+      leaveToClass="hidden" [hideOnOutsideClick]="true">
+      <i class="pi pi-bars text-4xl justify-content-end" [style]="{'float':'right'}"></i>
    </a>
 
    <div
       class="flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
-
       <ul class="list-none p-0 m-0 flex select-none align-items-center flex-column lg:flex-row">
-         <img src="../../../assets/icons/logo-community.png" alt="Image" height="45" class="mr-0 mt-2">
-         <a class="p-link ml-4" (click)="showFormPayment()">
+
+         <a class="p-link lg:ml-4" (click)="showFormPayment()">
             <span class="text-xs underline font-italic text-yellow-500">Start to premium</span>
          </a>
       </ul>

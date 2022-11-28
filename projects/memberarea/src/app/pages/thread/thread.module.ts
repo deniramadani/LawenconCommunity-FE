@@ -14,13 +14,25 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {TableModule} from 'primeng/table';
 import { CommonModule } from "@angular/common";
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { CarouselModule } from 'primeng/carousel';
+import { CardModule } from "primeng/card";
+import { BadgeModule } from 'primeng/badge';
+
+import { TagModule } from 'primeng/tag';
+
+import { AvatarGroupModule } from 'primeng/avatargroup';
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ImageModule } from 'primeng/image';
+import { TooltipModule } from 'primeng/tooltip';
+
 @NgModule({
   declarations : [
     CommentComponent,PostingComponent
   ],
   imports : [
-      ThreadRouting,TableModule,
+      ThreadRouting,TableModule,CarouselModule,BadgeModule,TagModule,CardModule,
       ContentMemberModule,FormsModule,
       ButtonModule,CommonModule,
       AvatarModule,SplitButtonModule,

@@ -23,7 +23,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   private industrySubscription? : Subscription
   private dataUserSubscription?: Subscription
   private updateUserSubscription?: Subscription
-  date : any 
+ 
   positions: any[] = []
   industries: any[] = []
   dataPosition : Position[] = []
@@ -35,7 +35,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   linkedin: string = ''
   fotoId: string = ''
   myDate: any 
-  bod :  any
+  bod: any
   formChangePassword : boolean = false
   formEditProfile : boolean = true
   dataUpdate = this.fb.group({
@@ -59,25 +59,40 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     }),
     userType: this.fb.group({
       id : ['']
+    }),
+    photo: this.fb.group({
+      fileEncode : [''],
+      fileExtensions : [''],
     })
-
   }) 
 
   constructor(private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
-
+    this.onInit()
+  }
+  onInit() {
+    this.getAllPosition()
+    this.getAllIndustry()
     const id = this.apiService.getIdUser()
     this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
-      console.log(result);
       this.bod = result.dateOfBirth
-      this.fotoId = result.photo.id
+      if (result.photo != null) {
+        this.fotoId = result.photo.id
+        this.dataUpdate.patchValue({
+          photo: {
+            fileEncode: result.photo.fileEncode,
+            fileExtensions : result.photo.fileExtensions
+          }
+        });
+      }
+     
+      
+     
       if (result.userSocmed != null) {
         this.facebook = result.userSocmed.facebook
         this.instagram = result.userSocmed.instagram
         this.linkedin = result.userSocmed.linkedin
-      } else {
-        
-      }
+      } 
    
      
       this.dataUpdate.patchValue({
@@ -101,19 +116,22 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
           facebook: result.userSocmed.facebook,
           instagram: result.userSocmed.instagram,
           linkedin : result.userSocmed.linkedin
-        }
-       
+        },
       })
-      console.log(this.dataUpdate.value);
+
     })
 
-   this.getAllPosition()
-   this.getAllIndustry()
   }
-  onSelectMethod(event : any) {
-    let d = new Date(Date.parse(event));
-    this.myDate = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;  
-    this.bod = this.datePipe.transform(this.myDate, "yyyy-MM-dd")
+
+  onSelectMethod(event: any) {
+    if (event != null) {
+      let d = new Date(Date.parse(event));
+      this.myDate = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;  
+      this.bod = this.datePipe.transform(this.myDate, "yyyy-MM-dd")
+    } else {
+      this.bod = ""
+    }
+   
   }
   getAllPosition() {
     this.positionsSubscription = this.positionService.getPosition(0,100).subscribe(result => {
@@ -127,6 +145,31 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     })
 
   }
+
+  fileUpload(event: any): void {
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(event.files[0])
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      }
+      reader.onerror = error => reject(error)
+    })
+
+    toBase64(event.files[0].name).then(result => {
+    
+        this.dataUpdate.patchValue({
+          photo: {
+            fileEncode: result.substring(result.indexOf(",") + 1, result.length),
+            fileExtensions :  result.split(";")[0].split('/')[1]
+          }
+        });
+     
+      
+    })
+  }
+
+
 
   btnShowFormChangePassword() {
     this.formChangePassword = true
@@ -150,17 +193,19 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   }
 
   update() {
-    this.dataUpdate.patchValue({
-      dateOfBirth : String(this.bod)
-    })
+    if (this.bod != null) {
+      this.dataUpdate.patchValue({
+        dateOfBirth : this.bod
+      })
+    }
+    
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {
-
+      this.onInit()
     })
   }
 
   getPosisitonId(id: string) {
     console.log(id);
-    
   }
 
   onBasicUploadAuto(event:any) {

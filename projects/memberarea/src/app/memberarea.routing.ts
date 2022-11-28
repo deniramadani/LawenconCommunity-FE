@@ -3,11 +3,6 @@ import { ContentMemberComponent } from './layout/content/content.member.componen
 export const membersAreaRoutes: Routes = [
 
   {
-    path : '',
-    redirectTo : '/login',
-    pathMatch : 'full'
-  },
-  {
     path: "home",
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/home/home.module").then(d => d.HomeModule)

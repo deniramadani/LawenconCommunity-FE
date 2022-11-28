@@ -24,16 +24,14 @@
               <div class="flex align-items-center">
                 <p-avatar image="{{fileDownload}}{{fotoId}}" styleClass="mr-2" size="large" shape="circle">
                 </p-avatar>
-                <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*"
-                  styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image"></p-fileUpload>
+                <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                  styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
+                  chooseLabel="Upload Image"></p-fileUpload>
               </div>
             </div>
 
             <div class="p-fluid p-formgrid grid mt-2">
               <div class="field col-12 md:col-6"><label for="bod" class="font-medium text-900">Date Of Birth </label>
-                <!-- <p-calendar dateFormat="yy-mm-dd" [showIcon]="true" id="bod" formControlName="dateOfBirth"
-                  inputId="icon">
-                </p-calendar> -->
                 <p-calendar [ngModel]="myDate" placeholder="{{bod}}" (onSelect)="onSelectMethod($event)"
                   [showIcon]="true" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}" inputId="icon">
                 </p-calendar>

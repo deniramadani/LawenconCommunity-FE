@@ -26,5 +26,9 @@ export class ProductsService {
     return this.http.post<Schedule>(`${BASE_URL.BASE_URL}/products`,data)
   }
 
+  getIdSubcription(): Observable<Schedule> {
+    return this.http.get<Schedule>(`${BASE_URL.BASE_URL}/products/subscribe`)
+  }
+
   
 }

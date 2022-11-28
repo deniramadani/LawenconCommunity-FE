@@ -36,8 +36,9 @@ export class FilterTokenInterceptor implements HttpInterceptor{
                 error : err => {
                     if(err instanceof HttpErrorResponse) {
                         this.toast.error(err.error.message, 'Information ')
-                        if(err.error.message == 'Invalid Token'){
-                            this.router.navigate(['/login'])
+                        if (err.error.message === 'Invalid token') {
+                            this.router.navigateByUrl('/login/members')
+                            // this.router.navigate(['/login/members'])
                         }
                     }
                 }

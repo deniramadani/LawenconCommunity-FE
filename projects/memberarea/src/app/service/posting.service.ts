@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BASE_URL } from 'projects/api/BaseUrl';
+import { Post } from 'projects/interface/post';
 import { PostLike } from 'projects/interface/post-like';
 import { Observable } from 'rxjs';
 
@@ -32,5 +33,9 @@ export class PostingService {
   }
   bookmark(data: any): Observable<any> {
     return this.http.post(`${BASE_URL.BASE_URL}/post-bookmarks`, data)
+  }
+
+  getPostById(id: string): Observable<Post>{
+    return this.http.get<Post>(`${BASE_URL.BASE_URL}/posts/${id}`)
   }
 }
