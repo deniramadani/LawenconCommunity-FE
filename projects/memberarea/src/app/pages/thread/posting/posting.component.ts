@@ -21,21 +21,24 @@ export class PostingComponent implements OnInit, OnDestroy {
   typePost: any[] = []
   selectedTypePost: string = ''
   btnUploadFile: boolean = true
-  btnPolling : boolean = false
-  form_polling : boolean = false
+  btnPolling: boolean = false
+  form_polling: boolean = false
+  type: string = ''
   inputs: any[] = []
   dataPosting = this.fb.group({
     title: ['', [Validators.required]],
     body: ['', [Validators.required]],
+    question: [''],
     user: this.fb.group({
       id: [''],
     }),
-    file: this.fb.array([])
+    pfile: this.fb.array([]),
+    postPollingOption: this.fb.array([])
   })
   dataOptions = this.fb.group({
-    details : this.fb.array([])
+    details: this.fb.array([])
   })
-  buttonActions: {[id:string]: MenuItem[]} = {};  
+  buttonActions: { [id: string]: MenuItem[] } = {};
 
   constructor(private router: Router, private apiService: ApiService, private postService: PostingService, private fileService: FileService, private fb: FormBuilder) {
   }
@@ -43,9 +46,9 @@ export class PostingComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.typePost = [
-      {name: 'Basic', id: 'BSC'},
-      {name: 'Polling', id: 'POLL'},
-      {name: 'Premium', id: 'PRM'},
+      { name: 'Basic', id: 'BSC' },
+      { name: 'Polling', id: 'POLL' },
+      { name: 'Premium', id: 'PRM' },
     ]
     this.items = [
       {
@@ -58,28 +61,28 @@ export class PostingComponent implements OnInit, OnDestroy {
       },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/home' };
-    
+
   }
 
   getTypePosting(id: string) {
-    console.log(id);
-    
-    if (id == 'BSC') {
+    this.type = id
+
+    if (id != 'POLL') {
       this.btnUploadFile = true
       this.form_polling == false
     }
     else if (id == 'POLL') {
       this.form_polling == true
       this.btnUploadFile = false
-    } 
+    }
   }
 
 
   get detailFoto(): FormArray {
-    return this.dataPosting.get('file') as FormArray
+    return this.dataPosting.get('pfile') as FormArray
   }
 
-  
+
 
   showFormPolling() {
     this.form_polling = true
@@ -103,9 +106,19 @@ export class PostingComponent implements OnInit, OnDestroy {
         id: this.apiService.getIdUser()
       }
     });
-    this.insertPostBasicSubscription = this.postService.postInsertBasic(this.dataPosting.value).subscribe(result => {
-      this.router.navigateByUrl('/home')
-    })
+    if (this.type == "BSC") {
+      this.insertPostBasicSubscription = this.postService.postInsertBasic(this.dataPosting.value).subscribe(result => {
+        this.router.navigateByUrl('/home')
+      })
+    } else if (this.type == "POLL") {
+      this.insertPostBasicSubscription = this.postService.postInsertPolling(this.dataPosting.value).subscribe(result => {
+        this.router.navigateByUrl('/home')
+      })
+    } else {
+      this.insertPostBasicSubscription = this.postService.postInsertPremium(this.dataPosting.value).subscribe(result => {
+        this.router.navigateByUrl('/home')
+      })
+    }
   }
 
   ngOnDestroy(): void {
@@ -114,16 +127,16 @@ export class PostingComponent implements OnInit, OnDestroy {
 
   addOption() {
     const newUserReq = this.fb.group({
-      option : ['', Validators.required],
+      option: ['', Validators.required],
     })
     this.details.push(newUserReq)
   }
 
-  get details() : FormArray {
+  get details(): FormArray {
     return this.dataOptions.get('details') as FormArray
   }
-  
-  removeReactive(i : number) {
+
+  removeReactive(i: number) {
     this.details.removeAt(i)
   }
 

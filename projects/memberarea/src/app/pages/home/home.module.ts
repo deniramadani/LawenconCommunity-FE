@@ -14,6 +14,10 @@ import { CommonModule } from "@angular/common";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageModule } from 'primeng/image';
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { GalleriaModule } from 'primeng/galleria';
+
+
 
 @NgModule({
     declarations: [
@@ -33,7 +37,10 @@ import { TooltipModule } from 'primeng/tooltip';
         CommonModule,
         InfiniteScrollModule,
         ImageModule,
-        TooltipModule
+        TooltipModule,
+        ProgressSpinnerModule,
+        GalleriaModule,
+
     ],
     exports: [
         HomeComponent
