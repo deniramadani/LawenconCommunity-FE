@@ -23,12 +23,13 @@ export class PaymentService {
     return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/subscribe?start=${start}&limit=${limit}`)
   }
 
-  paymentApprove(id : string): Observable<Payment> {
-    return this.http.get<Payment>(`${BASE_URL.BASE_URL}/payments/valid//${id}`)
+  paymentApprove(id : string): Observable<any> {
+    return this.http.put(`${BASE_URL.BASE_URL}/payments/valid?id=${id}`,id)
+    // return this.http.put(`${BASE_URL.BASE_URL}/payments/valid?id=${id}`)
   }
 
   paymentRejected(id : string): Observable<Payment> {
-    return this.http.get<Payment>(`${BASE_URL.BASE_URL}/payments/invalid//${id}`)
+    return this.http.put<Payment>(`${BASE_URL.BASE_URL}/payments/invalid?id=${id}`,id)
   }
 
 }

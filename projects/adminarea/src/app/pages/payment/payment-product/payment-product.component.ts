@@ -11,6 +11,8 @@ import { BASE_URL } from 'projects/api/BaseUrl';
 })
 export class PaymentProductComponent implements OnInit,OnDestroy {
   private getAllEventCourseSubscription?: Subscription
+  private paymentApproveSubscription?: Subscription
+  private paymentRejectedSubscription?: Subscription
   dataPaymentProduct: Payment[] = []
   selectedValues: string[] = [];
   dataProduct: any[] = []
@@ -19,9 +21,25 @@ export class PaymentProductComponent implements OnInit,OnDestroy {
  
 
   ngOnInit(): void {
+   this.oninit()
+  }
+
+  oninit() {
     this.getAllEventCourseSubscription = this.paymentService.getAllPaymentEventCourse(0, 20).subscribe(result => {
       console.log(result);
       this.dataPaymentProduct = result
+    })
+  }
+
+  approve(id: string) {
+    this.paymentApproveSubscription = this.paymentService.paymentApprove(id).subscribe(() => {
+      this.oninit()
+    })
+  }
+
+  rejected(id: string) {
+    this.paymentRejectedSubscription = this.paymentService.paymentRejected(id).subscribe(() => {
+      this.oninit()
     })
   }
 
@@ -29,6 +47,8 @@ export class PaymentProductComponent implements OnInit,OnDestroy {
     
   }
   ngOnDestroy(): void {
-   this.getAllEventCourseSubscription?.unsubscribe()
+    this.getAllEventCourseSubscription?.unsubscribe()
+    this.paymentApproveSubscription?.unsubscribe()
+    this.paymentRejectedSubscription?.unsubscribe()
   }
 }

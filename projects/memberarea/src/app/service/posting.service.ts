@@ -4,6 +4,7 @@ import { BASE_URL } from 'projects/api/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostLike } from 'projects/interface/post-like';
 import { Observable } from 'rxjs';
+import { Comment } from "../../../../interface/comment";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class PostingService {
 
   getPostById(id: string): Observable<Post>{
     return this.http.get<Post>(`${BASE_URL.BASE_URL}/posts/${id}`)
+  }
+
+  getCommentByIdPost(id: string): Observable<Comment>{
+    return this.http.get<Comment>(`${BASE_URL.BASE_URL}/comments/post/${id}`)
   }
 }

@@ -25,7 +25,7 @@ import { DialogModule } from 'primeng/dialog';
         TableModule,CheckboxModule,
         ButtonModule,FormsModule,
         ImageModule,DialogModule,
-        TabViewModule
+        TabViewModule,
     ],
     exports : [
       
