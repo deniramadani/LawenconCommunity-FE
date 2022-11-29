@@ -1,22 +1,47 @@
-<div class="p-6" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
+<div class="container py-6" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
     <div class="grid mt-6 flex">
         <div class="col-12 lg:col-3 sm:col-3">
-            <div class="p-card p-3">
-                a
+            <div class="surface-card shadow-2 border-round select-none">
+                <ul class="list-none p-2 m-0">
+                    <li>
+                        <a pRipple (click)="showPost()"
+                            class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
+                            <i class="bi bi-file-earmark-richtext-fill mr-2 text-700"></i>
+                            <span class="font-medium text-700 ">Post</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple (click)="showMyActivity()"
+                            class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
+                            <i class="bi bi-pencil-square mr-2 text-700"></i>
+                            <span class="font-medium text-700">My Activities</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple
+                            class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
+                            <i class="bi bi-hourglass-split mr-2 text-700"></i>
+                            <span class="font-medium text-700">On Going</span>
+                        </a>
+                    </li>
+
+                </ul>
             </div>
         </div>
-        <div class="col-12 lg:col-9 sm:col-9">
+        <div class="col-12 lg:col-9 sm:col-9" *ngIf="posting">
+            <h4 class="text-700"> <i class="bi bi-file-earmark-richtext-fill mr-2 text-700 mr-2 text-700"></i>Posting
+            </h4>
             <p-tabView styleClass="tabview-custom">
                 <p-tabPanel>
                     <ng-template pTemplate="header">
                         <i class="pi pi-book mr-2 mt-1 text-xl"></i>
-                        <span>Theread</span>
+                        <span>Thread</span>
                     </ng-template>
-                    <div *ngFor="let post of posts" class="col-12 lg:col-12 py-3 ">
-                        <div class="p-card p-0 border-noround bg-gray-100">
+                    <div *ngFor="let post of posts" class="col-12 lg:col-12 py-3">
+                        <div class="p-card p-0 border-noround  shadow-3">
                             <div class="p-card-header">
-                                <div class="grid px-3 pt-3 ">
-                                    <div class="col-12 lg:col-12 sm:col-12 pb-0 ">
+                                <div class="grid px-3 pt-3">
+                                    <div class="col-12 lg:col-12 sm:col-12 pb-0">
                                         <div class="grid">
                                             <div
                                                 class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
@@ -25,19 +50,32 @@
                                                 </p-avatar>
                                             </div>
                                             <div class="col-9 lg:col-9 p-0 m-0">
-                                                <label class=" font-semibold">{{post.user.fullname}}</label>
+                                                <label class=" font-semibold ">{{post.user.fullname}}</label>
                                                 <div class="text-secondary font-italic text-xs">
                                                     {{calculateDiff(post.createdAt)}} </div>
                                             </div>
-                                            <div
-                                                class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
+                                            <div class="col-1 lg:col-1 p-0 text-center flex  justify-content-center">
                                                 <div *ngIf="post.postType.postTypeCode == premium; then premiums ">
                                                 </div>
                                                 <ng-template #premiums>
-                                                    <p-tag icon="bi bi-star-fill" severity="warning" value="Premium"
-                                                        [rounded]="true"></p-tag>
+                                                    <p-tag icon="bi bi-star-fill" class="mr-2" severity="warning"
+                                                        value="Premium" [rounded]="true"></p-tag>
                                                 </ng-template>
+
                                             </div>
+
+
+                                            <div class="col-1 lg:col-1 p-0 text-center">
+                                                <p-tag icon="pi pi-trash" role="button"
+                                                    (click)="clickConfirmDelete('top',post.id)" class="ml-2"
+                                                    severity="danger" [rounded]="true">
+                                                </p-tag>
+
+                                            </div>
+
+
+
+
                                         </div>
                                     </div>
 
@@ -49,14 +87,26 @@
                                     <label class="text-lg font-semibold">{{post.title}}</label>
                                 </div>
                                 <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 p-0 ">
-                                    <p class="text-md">{{post.body}}</p>
+                                    <p
+                                        class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                                        {{post.body}}</p>
+
                                 </div>
-                                <div class="col-12 lg:col-12 sm:col-12 py-1 pr-2">
-                                    <ng-container *ngFor="let attachment of post.file">
-                                        <p-image src="{{fileDownload}}{{attachment.file.id}}" alt="Image" width="250"
-                                            [preview]="true">
-                                        </p-image>
-                                    </ng-container>
+                                <div class=" col-10 offset-1 lg:offset-1 md:offset-1 lg:col-10 sm:col-10 py-3 px-2
+                                            text-center">
+                                    <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
+                                        [containerStyle]="{'max-width': '100%'}" [numVisible]="5">
+                                        <ng-template pTemplate="item" let-item>
+                                            <img src="{{fileDownload}}{{item.file.id}}"
+                                                style="width: 100%; height: 300px; display: block;" />
+                                        </ng-template>
+                                        <ng-template pTemplate="thumbnail" let-item>
+                                            <div class="grid grid-nogutter justify-content-center">
+                                                <img src="{{fileDownload}}{{item.file.id}}" class="w-full p-3"
+                                                    style="height: 100px;" />
+                                            </div>
+                                        </ng-template>
+                                    </p-galleria>
                                 </div>
 
 
@@ -108,8 +158,8 @@
                                     </div>
                                 </ng-template>
                                 <ng-template #notVoted>
-                                    <div class="col-12">
-                                        <div class="card">
+                                    <div class="col-12 lg:px-7 bg-gray-200">
+                                        <div class="card  mt-3">
                                             <div class="card-header bg-primary-300 text-white  mb-3">
                                                 <p>{{post.question}}</p>
                                             </div>
@@ -130,6 +180,7 @@
                                     </div>
                                 </ng-template>
                             </div>
+
                             <div class="p-card-footer p-0">
                                 <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
                                     <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes
@@ -140,7 +191,7 @@
                                 <div class="col-12 lg:col-12 sm:col-12 ">
                                     <div class="grid px-3">
                                         <div class="col-1 lg:col-1 sm:col-1 ">
-                                            <div *ngIf="post.likeId != null; then thenBlock else elseBlock"></div>
+                                            <div *ngIf="post.likeId != null ; then thenBlock else elseBlock"></div>
                                             <ng-template #thenBlock>
                                                 <span type="button"
                                                     (click)="cancelLike(post.likeId, post.postType.postTypeCode)"
@@ -156,7 +207,202 @@
                                             </ng-template>
                                         </div>
                                         <div class="col-1 lg:col-1 sm:col-1 ">
-                                            <span type="button" class="h4 text-black">
+                                            <span type="button" class="h4 text-black"
+                                                routerLink="/thread/detail/{{post.id}}">
+                                                <i class="bi bi-chat-right-text-fill "></i>
+                                            </span>
+                                        </div>
+                                        <div class="col-10 lg:col-10 sm:col-10 text-right ">
+                                            <div *ngIf=" post.bookmarkId !=null; then cancelBookmark else saveBookmark">
+                                            </div>
+                                            <ng-template #cancelBookmark>
+                                                <span type="button"
+                                                    (click)="unbookmark(post.bookmarkId, post.postType.postTypeCode)"
+                                                    class=" text-black">
+                                                    <i class="bi bi-bookmark-fill  h4"></i>
+                                                </span>
+                                            </ng-template>
+                                            <ng-template #saveBookmark>
+                                                <span type="button"
+                                                    (click)="bookmark(post.id, post.postType.postTypeCode)"
+                                                    class="h4 text-black">
+                                                    <i class="bi bi-bookmark  "></i>
+                                                </span>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="Header II">
+                    <ng-template pTemplate="header">
+                        <i class="pi pi-heart-fill mr-2 mt-1 text-xl"></i>
+                        <span>Like</span>
+                    </ng-template>
+                    <div *ngFor="let post of postsLike" class="col-12 lg:col-12 py-3">
+                        <div class="p-card p-0 border-noround  shadow-3">
+                            <div class="p-card-header">
+                                <div class="grid px-3 pt-3">
+                                    <div class="col-12 lg:col-12 sm:col-12 pb-0">
+                                        <div class="grid">
+                                            <div
+                                                class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
+                                                <p-avatar styleClass="w-2rem h-2rem"
+                                                    image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
+                                                </p-avatar>
+                                            </div>
+                                            <div class="col-9 lg:col-9 p-0 m-0">
+                                                <label class=" font-semibold">{{post.user.fullname}}</label>
+                                                <div class="text-secondary font-italic text-xs">
+                                                    {{calculateDiff(post.createdAt)}} </div>
+                                            </div>
+                                            <div
+                                                class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
+                                                <div *ngIf="post.postType.postTypeCode == premium; then premiums ">
+                                                </div>
+                                                <ng-template #premiums>
+                                                    <p-tag icon="bi bi-star-fill" severity="warning" value="Premium"
+                                                        [rounded]="true"></p-tag>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="p-card-content p-0">
+
+                                <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 px-0 py-3">
+                                    <label class="text-lg font-semibold">{{post.title}}</label>
+                                </div>
+                                <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 p-0 ">
+                                    <p
+                                        class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                                        {{post.body}}</p>
+
+                                </div>
+                                <div class=" col-10 offset-1 lg:offset-1 md:offset-1 lg:col-10 sm:col-10 py-3 px-2
+                                            text-center">
+                                    <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
+                                        [containerStyle]="{'max-width': '100%'}" [numVisible]="5">
+                                        <ng-template pTemplate="item" let-item>
+                                            <img src="{{fileDownload}}{{item.file.id}}"
+                                                style="width: 100%; height: 300px; display: block;" />
+                                        </ng-template>
+                                        <ng-template pTemplate="thumbnail" let-item>
+                                            <div class="grid grid-nogutter justify-content-center">
+                                                <img src="{{fileDownload}}{{item.file.id}}" class="w-full p-3"
+                                                    style="height: 100px;" />
+                                            </div>
+                                        </ng-template>
+                                    </p-galleria>
+                                </div>
+
+
+
+                                <div *ngIf="post.postType.postTypeCode == polling;">
+                                    <div *ngIf="post.optionId != null; then voted else notVoted"></div>
+                                </div>
+
+                                <ng-template #voted>
+                                    <div class="col-12">
+                                        <p-card sub header="{{post.question}}">
+
+                                            <div class="card-body mt-3">
+                                                <div class="grid">
+                                                    <ng-container *ngFor="let option of post.postPollingOption">
+                                                        <div
+                                                            *ngIf="post.optionId == option.id; then choosed else notChoosed">
+                                                        </div>
+                                                        <ng-template #choosed>
+                                                            <div
+                                                                class="col-12 bg-primary-900 shadow mb-1 bg-body rounded  text-white ">
+                                                                <div class="grid w-full">
+                                                                    <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                                                        {{option.content }}
+                                                                    </div>
+                                                                    <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                                                        {{option.totalResponse}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-template #notChoosed>
+                                                            <div class="col-12 bg-primary shadow mb-1 bg-body rounded ">
+                                                                <div class="grid w-full">
+                                                                    <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                                                        {{option.content }}
+                                                                    </div>
+                                                                    <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                                                        {{option.totalResponse}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-template>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+
+                                        </p-card>
+                                    </div>
+                                </ng-template>
+                                <ng-template #notVoted>
+                                    <div class="col-12 lg:px-7 bg-gray-200">
+                                        <div class="card  mt-3">
+                                            <div class="card-header bg-primary-300 text-white  mb-3">
+                                                <p>{{post.question}}</p>
+                                            </div>
+                                            <div class="card-body text-black">
+                                                <div class="grid">
+                                                    <button *ngFor="let option of post.postPollingOption" pButton
+                                                        pRipple class="col-12 p-button-raised p-button-info mb-2"
+                                                        (click)="choose(option.id)" type="button">
+                                                        <div class="grid w-full">
+                                                            <div class="col-12 lg:col-12 sm:col-12 text-left">
+                                                                {{option.content}}
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                            <div class="p-card-footer p-0">
+                                <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
+                                    <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes
+                                        &nbsp;&nbsp;{{post.totalComment}}
+                                        Comments</p>
+                                </div>
+                                <hr>
+                                <div class="col-12 lg:col-12 sm:col-12 ">
+                                    <div class="grid px-3">
+                                        <div class="col-1 lg:col-1 sm:col-1 ">
+                                            <div *ngIf="post.likeId != null ; then thenBlock else elseBlock"></div>
+                                            <ng-template #thenBlock>
+                                                <span type="button"
+                                                    (click)="cancelLike(post.likeId, post.postType.postTypeCode)"
+                                                    class="text-red-600 ">
+                                                    <i class="bi bi-heart-fill h4"></i>
+                                                </span>
+                                            </ng-template>
+                                            <ng-template #elseBlock>
+                                                <span type="button" (click)="like(post.id, post.postType.postTypeCode)"
+                                                    class=" text-black">
+                                                    <i class="bi bi-heart h4"></i>
+                                                </span>
+                                            </ng-template>
+                                        </div>
+                                        <div class="col-1 lg:col-1 sm:col-1 ">
+                                            <span type="button" class="h4 text-black"
+                                                routerLink="/thread/detail/{{post.id}}">
                                                 <i class="bi bi-chat-right-text-fill "></i>
                                             </span>
                                         </div>
@@ -185,31 +431,265 @@
                         </div>
                     </div>
                 </p-tabPanel>
-                <p-tabPanel header="Header II">
-                    <ng-template pTemplate="header">
-                        <i class="pi pi-heart-fill mr-2 mt-1 text-xl"></i>
-                        <span>Like</span>
-                    </ng-template>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
-                </p-tabPanel>
                 <p-tabPanel header="Header III">
                     <ng-template pTemplate="header">
                         <i class="pi pi-bookmark-fill mr-2 mt-1 text-xl"></i>
                         <span>Bookmark</span>
                     </ng-template>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
-                        est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    <div *ngFor="let post of postsBookmark" class="col-12 lg:col-12 py-3">
+                        <div class="p-card p-0 border-noround  shadow-3">
+                            <div class="p-card-header">
+                                <div class="grid px-3 pt-3">
+                                    <div class="col-12 lg:col-12 sm:col-12 pb-0">
+                                        <div class="grid">
+                                            <div
+                                                class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
+                                                <p-avatar styleClass="w-2rem h-2rem"
+                                                    image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
+                                                </p-avatar>
+                                            </div>
+                                            <div class="col-9 lg:col-9 p-0 m-0">
+                                                <label class=" font-semibold">{{post.user.fullname}}</label>
+                                                <div class="text-secondary font-italic text-xs">
+                                                    {{calculateDiff(post.createdAt)}} </div>
+                                            </div>
+                                            <div
+                                                class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
+                                                <div *ngIf="post.postType.postTypeCode == premium; then premiums ">
+                                                </div>
+                                                <ng-template #premiums>
+                                                    <p-tag icon="bi bi-star-fill" severity="warning" value="Premium"
+                                                        [rounded]="true"></p-tag>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="p-card-content p-0">
+
+                                <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 px-0 py-3">
+                                    <label class="text-lg font-semibold">{{post.title}}</label>
+                                </div>
+                                <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 p-0 ">
+                                    <p
+                                        class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                                        {{post.body}}</p>
+
+                                </div>
+                                <div class=" col-10 offset-1 lg:offset-1 md:offset-1 lg:col-10 sm:col-10 py-3 px-2
+                                            text-center">
+                                    <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
+                                        [containerStyle]="{'max-width': '100%'}" [numVisible]="5">
+                                        <ng-template pTemplate="item" let-item>
+                                            <img src="{{fileDownload}}{{item.file.id}}"
+                                                style="width: 100%; height: 300px; display: block;" />
+                                        </ng-template>
+                                        <ng-template pTemplate="thumbnail" let-item>
+                                            <div class="grid grid-nogutter justify-content-center">
+                                                <img src="{{fileDownload}}{{item.file.id}}" class="w-full p-3"
+                                                    style="height: 100px;" />
+                                            </div>
+                                        </ng-template>
+                                    </p-galleria>
+                                </div>
+
+
+
+                                <div *ngIf="post.postType.postTypeCode == polling;">
+                                    <div *ngIf="post.optionId != null; then voted else notVoted"></div>
+                                </div>
+
+                                <ng-template #voted>
+                                    <div class="col-12">
+                                        <p-card sub header="{{post.question}}">
+
+                                            <div class="card-body mt-3">
+                                                <div class="grid">
+                                                    <ng-container *ngFor="let option of post.postPollingOption">
+                                                        <div
+                                                            *ngIf="post.optionId == option.id; then choosed else notChoosed">
+                                                        </div>
+                                                        <ng-template #choosed>
+                                                            <div
+                                                                class="col-12 bg-primary-900 shadow mb-1 bg-body rounded  text-white ">
+                                                                <div class="grid w-full">
+                                                                    <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                                                        {{option.content }}
+                                                                    </div>
+                                                                    <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                                                        {{option.totalResponse}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-template #notChoosed>
+                                                            <div class="col-12 bg-primary shadow mb-1 bg-body rounded ">
+                                                                <div class="grid w-full">
+                                                                    <div class="col-11 lg:col-11 sm:col-11 text-left">
+                                                                        {{option.content }}
+                                                                    </div>
+                                                                    <div class="col-1 lg:col-1 sm:col-1  text-left">
+                                                                        {{option.totalResponse}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-template>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+
+                                        </p-card>
+                                    </div>
+                                </ng-template>
+                                <ng-template #notVoted>
+                                    <div class="col-12 lg:px-7 bg-gray-200">
+                                        <div class="card  mt-3">
+                                            <div class="card-header bg-primary-300 text-white  mb-3">
+                                                <p>{{post.question}}</p>
+                                            </div>
+                                            <div class="card-body text-black">
+                                                <div class="grid">
+                                                    <button *ngFor="let option of post.postPollingOption" pButton
+                                                        pRipple class="col-12 p-button-raised p-button-info mb-2"
+                                                        (click)="choose(option.id)" type="button">
+                                                        <div class="grid w-full">
+                                                            <div class="col-12 lg:col-12 sm:col-12 text-left">
+                                                                {{option.content}}
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                            <div class="p-card-footer p-0">
+                                <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
+                                    <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes
+                                        &nbsp;&nbsp;{{post.totalComment}}
+                                        Comments</p>
+                                </div>
+                                <hr>
+                                <div class="col-12 lg:col-12 sm:col-12 ">
+                                    <div class="grid px-3">
+                                        <div class="col-1 lg:col-1 sm:col-1 ">
+                                            <div *ngIf="post.likeId != null ; then thenBlock else elseBlock"></div>
+                                            <ng-template #thenBlock>
+                                                <span type="button"
+                                                    (click)="cancelLike(post.likeId, post.postType.postTypeCode)"
+                                                    class="text-red-600 ">
+                                                    <i class="bi bi-heart-fill h4"></i>
+                                                </span>
+                                            </ng-template>
+                                            <ng-template #elseBlock>
+                                                <span type="button" (click)="like(post.id, post.postType.postTypeCode)"
+                                                    class=" text-black">
+                                                    <i class="bi bi-heart h4"></i>
+                                                </span>
+                                            </ng-template>
+                                        </div>
+                                        <div class="col-1 lg:col-1 sm:col-1 ">
+                                            <span type="button" class="h4 text-black"
+                                                routerLink="/thread/detail/{{post.id}}">
+                                                <i class="bi bi-chat-right-text-fill "></i>
+                                            </span>
+                                        </div>
+                                        <div class="col-10 lg:col-10 sm:col-10 text-right ">
+                                            <div *ngIf=" post.bookmarkId !=null; then cancelBookmark else saveBookmark">
+                                            </div>
+                                            <ng-template #cancelBookmark>
+                                                <span type="button"
+                                                    (click)="unbookmark(post.bookmarkId, post.postType.postTypeCode)"
+                                                    class=" text-black">
+                                                    <i class="bi bi-bookmark-fill  h4"></i>
+                                                </span>
+                                            </ng-template>
+                                            <ng-template #saveBookmark>
+                                                <span type="button"
+                                                    (click)="bookmark(post.id, post.postType.postTypeCode)"
+                                                    class="h4 text-black">
+                                                    <i class="bi bi-bookmark  "></i>
+                                                </span>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </p-tabPanel>
             </p-tabView>
-
         </div>
+
+        <div class="col-12 lg:col-9 sm:col-9" *ngIf="my_activity">
+            <h4 class="text-700"> <i class="bi bi-pencil-square mr-2 text-700"></i> My Activities</h4>
+            <div class="card p-2">
+                <p-panel header="My Events" [toggleable]="true">
+                    <div class="grid">
+                        <div class="col-12 lg:col-6 sm:col-6 p-3" *ngFor="let d of dataEvent">
+                            <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image"
+                                class="border-round-left w-full" style="max-height: 234px;">
+                            <div class="p-4 p-card">
+                                <div class="flex justify-content-between mb-3">
+                                    <span class="text-orange-500 font-medum">{{d.product.title}}</span>
+                                    <!-- <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span> -->
+                                </div>
+
+                                <table class="pt-0">
+                                    <tbody class="p-0">
+                                        <tr>
+                                            <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                                    {{d.product.location}}</small>
+                                            </td>
+                                            <td class="pt-1" p><small><i class="bi bi-alarm ml-3"></i> {{d.dateTimeStart
+                                                    |
+                                                    date :
+                                                    'hh:mm'}} -
+                                                    {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pt-1"><small><i class="bi bi-calendar-date"></i>
+                                                    {{d.dateTimeStart |
+                                                    date : 'E, dd MMM yyyy'}} </small></td>
+                                            <td class="pt-1"><small><i class="bi bi-coin ml-3"></i>
+                                                    {{d.product.price}}</small></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <div class="line-height-3 text-700 text-sm mb-3 mt-2">{{d.product.content}}</div>
+                                <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                                <hr>
+                                <div class="flex align-items-center">
+                                    <p-avatar image="{{fileDownload}}{{d.product.ownerId.photo.id}}" shape="circle">
+                                    </p-avatar>
+                                    <span
+                                        class="font-bold text-sm block ml-2 text-blue-600">{{d.product.ownerId.fullname}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </p-panel>
+
+                <p-panel header="My Courses" [toggleable]="true" class="mt-2">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </p-panel>
+            </div>
+        </div>
+
 
     </div>
 </div>

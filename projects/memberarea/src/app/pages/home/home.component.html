@@ -61,7 +61,8 @@
                       </p-avatar>
                     </div>
                     <div class="col-9 lg:col-9 p-0 m-0">
-                      <label class=" font-semibold">{{post.user.fullname}}</label>
+                      <label class=" font-semibold" routerLink="/view/profile/{{post.user.id}}"
+                        role="button">{{post.user.fullname}}</label>
                       <div class="text-secondary font-italic text-xs">{{calculateDiff(post.createdAt)}} </div>
                     </div>
                     <div class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
@@ -173,6 +174,7 @@
                 </div>
               </ng-template>
             </div>
+
             <div class="p-card-footer p-0">
               <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
                 <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes &nbsp;&nbsp;{{post.totalComment}}
@@ -218,6 +220,8 @@
 
               </div>
             </div>
+
+
           </div>
         </div>
       </div>

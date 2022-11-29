@@ -20,21 +20,16 @@ import { CardModule } from "primeng/card";
 import { BadgeModule } from 'primeng/badge';
 
 import { TagModule } from 'primeng/tag';
-
-import { AvatarGroupModule } from 'primeng/avatargroup';
-
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ImageModule } from 'primeng/image';
-import { TooltipModule } from 'primeng/tooltip';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { GalleriaModule } from 'primeng/galleria';
 @NgModule({
   declarations : [
     CommentComponent,PostingComponent
   ],
   imports : [
       ThreadRouting,TableModule,CarouselModule,BadgeModule,TagModule,CardModule,
-      ContentMemberModule,FormsModule,
-      ButtonModule,CommonModule,
+      ContentMemberModule,FormsModule,ProgressSpinnerModule,GalleriaModule,
+      ButtonModule,CommonModule,ReactiveFormsModule,
       AvatarModule,SplitButtonModule,
       DropdownModule,
       TreeSelectModule,

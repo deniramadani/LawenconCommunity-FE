@@ -14,17 +14,19 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageModule } from 'primeng/image';
 import { TooltipModule } from 'primeng/tooltip';
 import { MyActivityComponent } from "./my-activity.component";
-
-import {TabViewModule} from 'primeng/tabview';
+import { PanelMenuModule } from 'primeng/panelmenu'
+import { TabViewModule } from 'primeng/tabview';
+import {PanelModule} from 'primeng/panel';
+import { GalleriaModule } from 'primeng/galleria';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
     declarations: [
-  
         MyActivityComponent
     ],
     imports: [
-        MyActivityRouting,TabViewModule,
-        CardModule,
-        ContentMemberModule,
+        MyActivityRouting,TabViewModule,GalleriaModule,
+        CardModule,PanelMenuModule,ConfirmDialogModule,
+        ContentMemberModule,PanelModule,
         AvatarModule,
         BadgeModule,
         ButtonModule,

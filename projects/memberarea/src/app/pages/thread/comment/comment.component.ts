@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BASE_URL } from 'projects/api/BaseUrl';
@@ -28,6 +28,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   private likeSubscription?: Subscription
   private pollingSubscription?: Subscription
   private getCommetByIdSubcription?: Subscription
+  private insertCommentSubscription?: Subscription
   features : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -35,7 +36,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   polling = PostTypeConst.POLLING
   fileid: string = ''
   data: Article[] = []
-  posts: any = new Object
+  post: any = new Object
   comment : any = new Object
   limit: number = 5
   start: number = 0
@@ -46,6 +47,26 @@ export class CommentComponent implements OnInit, OnDestroy{
   phoneNumber: string = ''
   age: string = ''
   fotoProfile: string = ''
+  dataComment = this.fb.group({
+    content: ['', [Validators.required]],
+    post: this.fb.group({
+      id : ['']
+    })
+  })
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
 
   constructor(private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
@@ -81,18 +102,6 @@ export class CommentComponent implements OnInit, OnDestroy{
 
     })
 
-        // this.features = [
-          // {
-          //   image: '',
-          // },
-          // {
-          //   image: 'https://images.unsplash.com/photo-1531214159280-079b95d26139?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2FydG9vbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-          // },
-          // {
-          //   image: 'https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-          // },
-        // ];
-
     this.getAllArticleSubscription = this.articleService.getArticle(0, 4).subscribe(result => {
       this.data = result
     })
@@ -100,10 +109,16 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.getPostByIdSubscription = this.activedParam.params.subscribe(id => {
       this.postService.getPostById(String(Object.values(id))).subscribe(result => {
         console.log(result);
-        this.posts = result
+        this.post = result
 
         this.features.push({
           image : result.file
+        })
+
+        this.dataComment.patchValue({
+          post: {
+            id : result.id
+          }
         })
 
       })
@@ -119,6 +134,13 @@ export class CommentComponent implements OnInit, OnDestroy{
 
    
 
+  }
+
+  replay() {
+    
+    this.insertCommentSubscription = this.postService.insertComment(this.dataComment.value).subscribe(() => {
+        this.init()
+    })
   }
 
   calculateDiff(sentDate: string) {

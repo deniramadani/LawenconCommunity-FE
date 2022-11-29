@@ -9,6 +9,7 @@ import { UserType } from "../../../../../../interface/user-type";
 import { Router } from '@angular/router';
 import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from 'projects/interface/product-type';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-event-course',
   templateUrl: './event-course.component.html',
@@ -27,6 +28,8 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   dataProductType: ProductType[] = []
   resultExtension!: string
   resultFile !: string
+  startDate: string = ''
+  endDate : string =''
   productTypes : any [] = []
   selectedProductType : string = ''
   dataInsert = this.fb.group({
@@ -58,7 +61,6 @@ export class EventCourseComponent implements OnInit,OnDestroy {
         this.productTypes.push({
             id : this.dataProductType[i].id,
             productTypeName: this.dataProductType[i].productTypeName,
-        
         })
       }
       console.log(result);
@@ -79,6 +81,11 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     })
   }
 
+  getTimeZone() {
+    var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+    return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+  }
+
   showInsertProduct() {
     this.showFormInsert = true;
   }
@@ -86,6 +93,14 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     this.showFormInsert = false
   }
   insert() {
+  //   function getTimeZone() {
+  //     var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+      
+  //     return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+  //   }
+
+  // this.dataInsert.controls.dateTimeStart.setValue(formatDate(this.dataInsert.value.dateTimeStart ?? '', `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
+  // this.dataInsert.controls.dateTimeEnd.setValue(formatDate(this.dataInsert.value.dateTimeEnd ?? '', `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
     this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
       this.showFormInsert = false
     })
