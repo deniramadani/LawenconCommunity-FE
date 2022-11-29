@@ -6,6 +6,7 @@ import { PostingService } from '../../../service/posting.service';
 import { Subscription } from 'rxjs'
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-posting',
@@ -32,7 +33,8 @@ export class PostingComponent implements OnInit, OnDestroy {
     user: this.fb.group({
       id: [''],
     }),
-    pfile: this.fb.array([]),
+    pfile: this.fb.array([
+    ]),
     postPollingOption: this.fb.array([])
   })
   dataOptions = this.fb.group({
@@ -40,7 +42,7 @@ export class PostingComponent implements OnInit, OnDestroy {
   })
   buttonActions: { [id: string]: MenuItem[] } = {};
 
-  constructor(private router: Router, private apiService: ApiService, private postService: PostingService, private fileService: FileService, private fb: FormBuilder) {
+  constructor(private toast: ToastrService, private router: Router, private apiService: ApiService, private postService: PostingService, private fileService: FileService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -70,8 +72,13 @@ export class PostingComponent implements OnInit, OnDestroy {
     if (id != 'POLL') {
       this.btnUploadFile = true
       this.form_polling == false
+      this.removeAll()
+
     }
     else if (id == 'POLL') {
+      for (let i = 0; i < 2; i++) {
+        this.addOption()
+      }
       this.form_polling == true
       this.btnUploadFile = false
     }
@@ -127,17 +134,26 @@ export class PostingComponent implements OnInit, OnDestroy {
 
   addOption() {
     const newUserReq = this.fb.group({
-      option: ['', Validators.required],
+      content: [''],
     })
-    this.details.push(newUserReq)
+    this.postPollingOption.push(newUserReq)
   }
 
-  get details(): FormArray {
-    return this.dataOptions.get('details') as FormArray
+  get postPollingOption(): FormArray {
+    return this.dataPosting.get('postPollingOption') as FormArray
   }
 
   removeReactive(i: number) {
-    this.details.removeAt(i)
+    if (i < 2) {
+      this.toast.error('Option For Polling min 2 Options.', 'Remove Failed')
+    }
+    else {
+      this.postPollingOption.removeAt(i)
+    }
   }
+  removeAll() {
+    this.postPollingOption.value.length = 0
+  }
+
 
 }
