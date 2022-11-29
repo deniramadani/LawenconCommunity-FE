@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   init(): void {
     const id = this.apiService.getIdUser()
-    this.loader = false
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
       this.email = result.email
@@ -102,6 +101,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
     this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).subscribe(result => {
       this.posts = result
+      this.loader = false
     })
   }
 
@@ -140,7 +140,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
     } else {
       this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
-        this.loader = true
         this.init()
       })
     }
@@ -168,6 +167,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
     } else {
       this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
+        this.loader = true
         this.init()
       })
     }
@@ -190,6 +190,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   choose(id: string) {
+    this.loader = true
     const postPollingResponse = this.fb.group({
       postPollingOption: {
         id: id

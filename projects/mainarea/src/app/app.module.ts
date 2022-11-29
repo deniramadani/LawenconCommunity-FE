@@ -7,12 +7,12 @@ import { FilterTokenInterceptor } from './filter/filter-token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { PagesError404Component } from './not-found/pages-error404.component';
-import {ButtonModule} from 'primeng/button';
-import {CardModule} from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
-    AppComponent,PagesError404Component,
+    AppComponent, PagesError404Component
   ],
   imports: [
     BrowserModule,

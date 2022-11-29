@@ -16,12 +16,11 @@ import { ImageModule } from 'primeng/image';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GalleriaModule } from 'primeng/galleria';
-
-
+import { TimeAgoPipe } from "projects/mainarea/src/app/pipe/time-ago.pipe";
 
 @NgModule({
     declarations: [
-        HomeComponent
+        HomeComponent, TimeAgoPipe
     ],
     imports: [
         HomeRouting,
@@ -40,7 +39,6 @@ import { GalleriaModule } from 'primeng/galleria';
         TooltipModule,
         ProgressSpinnerModule,
         GalleriaModule,
-
     ],
     exports: [
         HomeComponent

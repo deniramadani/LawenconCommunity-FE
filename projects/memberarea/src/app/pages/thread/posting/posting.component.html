@@ -46,19 +46,6 @@
                   </div>
 
                   <div formArrayName="postPollingOption">
-                    <!-- <div class="p-inputgroup p-2">
-                      <input type="text" pinputtext="" placeholder="Option 1" class="p-inputtext p-component p-element">
-                      <button type="button" pbutton="" pripple="" label="Search" class="p-element p-button p-component">
-                        <i class="pi pi-times" pTooltip="Close" role="button"></i>
-                      </button>
-                    </div>
-                    <div class="p-inputgroup p-2">
-                      <input type="text" pinputtext="" placeholder="Option 2" class="p-inputtext p-component p-element">
-                      <button (click)="closeForm()" type="button" pbutton="" pripple="" label="Search"
-                        class="p-element p-button p-component">
-                        <i class="pi pi-times" pTooltip="Close" role="button"></i>
-                      </button>
-                    </div> -->
                     <div *ngFor="let data of postPollingOption.controls; index as i" [formGroupName]="i">
                       <div class="p-inputgroup p-2">
                         <input type="text" pinputtext="" formControlName="content" placeholder="Option {{i+1}}"
@@ -83,7 +70,6 @@
             </div>
           </form>
         </div>
-        <pre>{{dataPosting.value | json}}</pre>
       </div>
     </div>
     <div class="col-12 lg:col-2 sm:col-2 p-0"></div>
