@@ -16,8 +16,8 @@
           </div>
           <form class="mt-2" [formGroup]="dataPosting" (ngSubmit)="insertPosting()">
             <div class="p-fluid p-formgrid grid pb-0">
-              <div class=" field col-12 md:col-12"><label for="fullname" class="text-sm">Title</label>
-                <input pinputtext="" formControlName="title" id="fullname" type="text"
+              <div class=" field col-12 md:col-12"><label for="title" class="text-sm">Title</label>
+                <input pinputtext="" formControlName="title" id="title" type="text"
                   class="p-inputtext p-component p-element">
               </div>
               <div class="field col-12 pb-0"><label for="address" class="text-sm">Description</label>
@@ -38,46 +38,41 @@
                       <i class="pi pi-times" pTooltip="Close" role="button" (click)="closeForm()"></i>
                     </div>
                   </div>
-                  <form [formGroup]="dataOptions" class="ml-3">
-                    <div class="p-fluid p-formgrid grid">
-                      <div class="field col-12 md:col-12"><label for="fullname" class="text-lg">Question</label>
-                        <input pinputtext="" formControlName="title" id="fullname" type="text"
-                          class="p-inputtext p-component p-element bg-gray-200">
-                      </div>
+                  <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-12"><label for="question" class="text-lg">Question</label>
+                      <input pinputtext="" formControlName="question" id="question" type="text"
+                        class="p-inputtext p-component p-element bg-gray-200">
                     </div>
+                  </div>
 
-                    <div formArrayName="details">
-                      <div class="p-inputgroup p-2">
-                        <input type="text" pinputtext="" placeholder="Option 1"
-                          class="p-inputtext p-component p-element">
-                        <button type="button" pbutton="" pripple="" label="Search"
-                          class="p-element p-button p-component">
-                          <i class="pi pi-times" pTooltip="Close" role="button"></i>
-                        </button>
-                      </div>
-                      <div class="p-inputgroup p-2">
-                        <input type="text" pinputtext="" placeholder="Option 2"
-                          class="p-inputtext p-component p-element">
-                        <button (click)="closeForm()" type="button" pbutton="" pripple="" label="Search"
-                          class="p-element p-button p-component">
-                          <i class="pi pi-times" pTooltip="Close" role="button"></i>
-                        </button>
-                      </div>
-                      <div *ngFor="let data of details.controls; index as i" [formGroupName]="i">
-                        <div class="p-inputgroup p-2">
-                          <input type="text" pinputtext="" placeholder="Option {{i+3}}"
-                            class="p-inputtext p-component p-element">
-                          <button type="button" pbutton="" (click)="removeReactive(i)" pripple="" label="Search"
-                            class="p-element p-button p-component">
-                            <i class="pi pi-times" pTooltip="Delete" role="button"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <button (click)="addOption()"
-                        class="p-element p-button p-button-secondary p-button-sm p-component ml-2">Add
-                        Option</button>
+                  <div formArrayName="postPollingOption">
+                    <!-- <div class="p-inputgroup p-2">
+                      <input type="text" pinputtext="" placeholder="Option 1" class="p-inputtext p-component p-element">
+                      <button type="button" pbutton="" pripple="" label="Search" class="p-element p-button p-component">
+                        <i class="pi pi-times" pTooltip="Close" role="button"></i>
+                      </button>
                     </div>
-                  </form>
+                    <div class="p-inputgroup p-2">
+                      <input type="text" pinputtext="" placeholder="Option 2" class="p-inputtext p-component p-element">
+                      <button (click)="closeForm()" type="button" pbutton="" pripple="" label="Search"
+                        class="p-element p-button p-component">
+                        <i class="pi pi-times" pTooltip="Close" role="button"></i>
+                      </button>
+                    </div> -->
+                    <div *ngFor="let data of postPollingOption.controls; index as i" [formGroupName]="i">
+                      <div class="p-inputgroup p-2">
+                        <input type="text" pinputtext="" formControlName="content" placeholder="Option {{i+1}}"
+                          class="p-inputtext p-component p-element">
+                        <button type="button" pbutton="" (click)="removeReactive(i)" pripple="" label="Search"
+                          class="p-element p-button p-component">
+                          <i class="pi pi-times" pTooltip="Delete" role="button"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" (click)="addOption()"
+                      class="p-element p-button p-button-secondary p-button-sm p-component ml-2">Add
+                      Option</button>
+                  </div>
                 </div>
               </ng-template>
             </div>

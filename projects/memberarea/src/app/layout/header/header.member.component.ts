@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {MenuItem, SelectItem} from 'primeng/api';
+import { MenuItem, SelectItem } from 'primeng/api';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { Subscription } from "rxjs";
@@ -13,37 +13,37 @@ import { ProductsService } from '../../service/products.service';
   templateUrl: './header.member.component.html',
 })
 
-export class HeaderMemberComponent implements OnInit,OnDestroy {
+export class HeaderMemberComponent implements OnInit, OnDestroy {
   private getIdPremiumSubscription?: Subscription
-  private insertPaymentPremiumSubscription? : Subscription
+  private insertPaymentPremiumSubscription?: Subscription
   displayPayment: boolean = false
   photoId: string = String(this.apiService.getProfileFoto())
-  position : string = String(this.apiService.getPosition())
-  fullname : string =String(this.apiService.getProfileName())
+  position: string = String(this.apiService.getPosition())
+  fullname: string = String(this.apiService.getProfileName())
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   id: string = ''
   result: string = ''
-  premium : boolean = false
+  premium: boolean = false
   dataPremium = this.fb.group({
     product: this.fb.group({
-      id : ['']
+      id: ['']
     }),
     file: this.fb.group({
       fileEncode: [''],
-      fileExtensions : ['']
+      fileExtensions: ['']
     })
   })
-  constructor(private toast : ToastrService,private fb : FormBuilder,private apiService : ApiService,private router : Router,private productService : ProductsService){}
+  constructor(private toast: ToastrService, private fb: FormBuilder, private apiService: ApiService, private router: Router, private productService: ProductsService) { }
   ngOnInit(): void {
     const typeUser = String(this.apiService.getTypeUser())
     console.log(typeUser);
-    
+
     // if (typeUser == 'UTCBS') {
     //   this.premium = true
     // }
   }
-  
-  logOut(){
+
+  logOut() {
     this.apiService.logout()
     this.router.navigateByUrl('/members/login')
   }
@@ -72,25 +72,25 @@ export class HeaderMemberComponent implements OnInit,OnDestroy {
     })
 
     toBase64(event.files[0].name).then(result => {
-        console.log(result);
+      console.log(result);
       this.result = result
       this.dataPremium.patchValue({
-          product: {
-            id : this.id
-          },
-          file: {
-            fileEncode: result.substring(result.indexOf(",") + 1, result.length),
-            fileExtensions :  result.split(";")[0].split('/')[1]
-          }
-        });
-     
-      
+        product: {
+          id: this.id
+        },
+        file: {
+          fileEncode: result.substring(result.indexOf(",") + 1, result.length),
+          fileExtensions: result.split(";")[0].split('/')[1]
+        }
+      });
+
+
     })
   }
-  
+
   ngOnDestroy(): void {
     this.getIdPremiumSubscription?.unsubscribe()
     this.insertPaymentPremiumSubscription?.unsubscribe()
   }
-  
+
 }

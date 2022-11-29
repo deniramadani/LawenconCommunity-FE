@@ -84,7 +84,8 @@
               <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 p-0 ">
                 <div *ngIf="post.postType.postTypeCode == premium; then limit else nolimit "></div>
                 <ng-template #limit>
-                  <p class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                  <p
+                    class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis md:text-overflow-clip lg:text-overflow-clip">
                     {{post.body}}</p>
                   <a type="button" (click)="premiumPost(post.id)">Read more -></a>
                 </ng-template>
