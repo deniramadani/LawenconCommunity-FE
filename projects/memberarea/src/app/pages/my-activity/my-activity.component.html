@@ -17,11 +17,23 @@
                             <span class="font-medium text-700">My Activities</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a pRipple (click)="showOrders()"
+                            class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
+                            <i class="bi bi-cart4 mr-2 text-700"></i>
+                            <span class="font-medium text-700">Activity Orders</span>
+                        </a>
+                    </li>
+
+
+
+
                     <li>
                         <a pRipple (click)="showOnGoing()"
                             class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
                             <i class="bi bi-hourglass-split mr-2 text-700"></i>
-                            <span class="font-medium text-700">Payment</span>
+                            <span class="font-medium text-700">Trasaction History</span>
                         </a>
                     </li>
 
@@ -629,13 +641,12 @@
             <h4 class="text-700"> <i class="{{icon}} mr-2 text-700"></i>{{title}}</h4>
             <div class="card p-2">
                 <p-panel header="My Events" [toggleable]="true">
-                    <!-- <h3>Contoh {{dataEvent[1].product.title}}</h3> -->
-                    <div class="grid p-0 bg-blue-100 border-round">
+                    <div class="grid p-0 border-round">
 
-                        <div class="col-12 lg:col-6 sm:col-6 p-3" *ngFor="let d of dataEvent">
+                        <div class="col-12 lg:col-6 sm:col-6 p-3 " *ngFor="let d of dataEvent">
                             <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image"
                                 class="border-round-left w-full" style="max-height: 234px;">
-                            <div class="p-4 p-card">
+                            <div class="p-4 p-card  bg-blue-50">
                                 <div class="flex justify-content-between mb-3">
                                     <span class="text-orange-500 font-medum">{{d.product.title}}</span>
                                     <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span>
@@ -680,11 +691,11 @@
                 </p-panel>
 
                 <p-panel header="My Courses" [toggleable]="true" class="mt-2">
-                    <div class="grid p-0 bg-yellow-100 border-round">
+                    <div class="grid p-0  border-round">
                         <div class="col-12 lg:col-6 sm:col-6 p-3" *ngFor="let d of dataCourse">
                             <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image"
                                 class="border-round-left w-full" style="max-height: 234px;">
-                            <div class="p-4 p-card">
+                            <div class="p-4 p-card bg-yellow-50">
                                 <div class="flex justify-content-between mb-3">
                                     <span class="text-orange-500 font-medum">{{d.product.title}}</span>
                                     <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span>
@@ -730,43 +741,107 @@
             </div>
         </div>
 
-
         <div class="col-12 lg:col-9 sm:col-9" *ngIf="on_going">
             <h4 class="text-700"> <i class="{{icon}} mr-2 text-700"></i>{{title}}</h4>
             <div class="card p-2">
+                <div class="grid nogutter p-3">
+                    <div class="col-12 p-3 text-center" *ngIf="empty">
+                        <h5 class="text-900 text-xl">Data is empty</h5>
+                    </div>
+                    <div class="col-12 lg:col-4" *ngFor="let p of payments">
+                        <div class="shadow-2 border-round h-full surface-card">
+                            <img src="{{fileDownload}}{{p.product.photo.id}}" alt="Image"
+                                class="block w-full border-round-top h-12rem">
+                            <div class="p-3">
+                                <p-tag severity="blue" styleClass="px-3"
+                                    value="{{p.product.productType.productTypeName}}" [rounded]="true">
+                                </p-tag>
 
-                <div class="p-3">
-                    <!-- <p class="mt-0 p-0 mb-5 text-600 text-2xl">Exclusive Selection</p> -->
-                    <div class="grid -mt-3 -ml-3 -mr-3">
-                        <div class="col-12 md:col-6 lg:col-4">
-                            <div class="p-2">
-                                <div class="shadow-2 p-4 surface-card border-round">
-                                    <div class="relative mb-3">
-                                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute"
-                                            style="border-radius: 1.5rem; left: 1rem; top: 1rem">Category</span>
-                                        <img src="assets/images/blocks/ecommerce/productlist/product-list-4-1.png"
-                                            class="w-full" />
+                                <div class="text-xl text-900 font-medium mb-3 mt-1 line-height-3 ">{{p.product.content}}
+                                </div>
+                                <span class="text-primary text-xl font-medium">$ {{p.product.price }} </span>
+                                <div class="flex mt-2 justify-content-between ">
+
+                                    <div class="ml-2 flex ">
+                                        <p-avatar image="{{fileDownload}}{{p.product.ownerId.photo.id}}" shape="circle">
+                                        </p-avatar>
+                                        <div class="text-xs font-bold text-900 mb-1 ml-2">{{p.product.ownerId.fullname
+                                            }}</div>
                                     </div>
-                                    <div class="flex justify-content-between align-items-center mb-3">
-                                        <span class="text-900 font-medium text-xl">Product Name</span>
-                                        <span>
-                                            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
-                                            <span class="font-medium">5.0</span>
-                                        </span>
+
+                                    <div class="justify-content-end" *ngIf="p.approval; else elseBlock">
+
+                                        <p class="text-xs text-green"> <i
+                                                class="pi pi-check-circle text-green-500 pe-2"></i>Approved</p>
                                     </div>
-                                    <p class="mt-0 mb-3 text-600 line-height-3">
-                                        Enim nec dui nunc mattis enim ut tellus. Tincidunt arcu.
-                                    </p>
-                                    <span class="text-primary text-xl font-medium">$140.00</span>
+                                    <ng-template #elseBlock>
+
+                                        <p class="text-xs text-danger"><i
+                                                class="pi pi-spinner text-danger pe-1"></i>Pending</p>
+
+                                    </ng-template>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-12 lg:col-9 sm:col-9" *ngIf="orders">
+            <h4 class="text-700"> <i class="bi bi-cart4-2 text-700 mr-2 text-700"></i>Activity
+                Orders
+            </h4>
+            <div class="surface-card grid grid-nogutter border-round shadow-2 p-3">
+                <div class="col-12">
+                    <div *ngFor="let o of dataOrders"
+                        class="bg-gray-100 p-2 mb-2 border-round flex flex-column lg:flex-row justify-content-between align-items-center">
+                        <div class="flex flex-column lg:flex-row justify-content-center align-items-center px-2">
+                            <img src="{{fileDownload}}{{o.product.photo.id}}" alt="product"
+                                class="w-8rem h-6rem mr-3 flex-shrink-0" />
+                            <div class="flex flex-column my-auto text-center md:text-left">
+                                <span class="text-900 font-medium my-1 lg:mt-0">{{o.product.content}}</span>
+                                <p-tag severity="warning" styleClass="px-5 mb-2"
+                                    value="{{o.product.productType.productTypeName}}" [rounded]="true">
+                                </p-tag>
+                                <span class="text-900 font-xs lg:mt-0 cursor-pointer"
+                                    routerLink="/view/profile/{{o.user.id}}">Order by
+                                    {{o.user.fullname}}</span>
+                                <span class="text-primary text-xl font-medium">{{o.product.price | currency:'Rp. ' }}
+                                </span>
 
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="o.approval; else elseBlock">
+                            <div class="bg-green-50 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center"
+                                [style.border-radius]="'2.5rem'">
+                                <span
+                                    class="bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2"
+                                    style="min-width:2rem; min-height: 2rem">
+                                    <i class="pi pi-check"></i>
+                                </span>
+                                <span class="text-green-500 text-sm">
+                                    Ordered on {{o.createdAt | date : 'E, dd MMM yyyy HH:mm'}}</span>
+                            </div>
+                        </div>
+                        <ng-template #elseBlock>
+
+                            <div class="bg-red-300 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center"
+                                [style.border-radius]="'2.5rem'">
+                                <span class="text-white">Pending</span>
+
+                            </div>
+                        </ng-template>
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

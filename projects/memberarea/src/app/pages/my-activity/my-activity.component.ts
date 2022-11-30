@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
 import { BASE_URL } from 'projects/api/BaseUrl';
 import { Article } from 'projects/interface/article';
+import { Payment } from 'projects/interface/payment';
 import { Schedule } from 'projects/interface/schedule';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
@@ -36,6 +37,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   private getEventByUserIdSubscription?: Subscription
   private getCourseByUserIdSubscription?: Subscription
   private getEventCourseBoughtSubscription?: Subscription
+  private getActivityOrdersSubscription?: Subscription
+
   items : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -47,7 +50,9 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   postsLike: Post[] = []
   postsBookmark: Post[] = []
   dataEvent: Schedule[] = []
-  dataCourse : Schedule [] = []
+  dataCourse: Schedule[] = []
+  payments: Payment[] = []
+  dataOrders : Payment[] = []
   limit: number = 5
   start: number = 0
   title: string = ''
@@ -69,7 +74,9 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   ];
   posting: boolean = true
   product: boolean = false
-  on_going : boolean = false
+  on_going: boolean = false
+  empty: boolean = false
+  orders : boolean = false
   postId : string = ''
   constructor(private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
@@ -96,12 +103,15 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   showPost() {
     this.posting = true
     this.product = false
+    this.on_going = false
+    this.orders = false
   }
 
   showMyActivity() {
     this.product = true
     this.posting = false
     this.on_going = false
+    this.orders = false
     this.title = 'My Activities'
     this.icon = 'bi bi-pencil-square'
 
@@ -114,15 +124,34 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     })
   }
 
+  showOrders() {
+    this.product = false
+    this.posting = false
+    this.on_going = false
+    this.orders = true
+    this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
+      console.log(result);
+      this.dataOrders = result
+    })
+  }
+
   showOnGoing() {
     this.product = false
     this.posting = false
     this.on_going = true
-    this.title = 'Payment History'
+    this.orders = false
+    this.title = 'Trasaction History'
     this.icon = 'bi bi-hourglass-split'
     this.getEventCourseBoughtSubscription = this.postService.getEventCourseBought(this.start, this.limit).subscribe(result => {
+      if (result.length <= 0) {
+        this.empty = true
+      } else {
+        this.payments = result
+      }
       console.log(result);
+      
     })
+   
   }
 
   clickConfirmDelete(position: string, id: string,) {
@@ -268,5 +297,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.deletePostSubscription?.unsubscribe()
     this.getEventByUserIdSubscription?.unsubscribe()
     this.getCourseByUserIdSubscription?.unsubscribe()
+    this.getEventCourseBoughtSubscription?.unsubscribe()
   }
 }

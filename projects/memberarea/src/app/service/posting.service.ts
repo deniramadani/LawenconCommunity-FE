@@ -91,5 +91,9 @@ export class PostingService {
   getEventCourseBought(start: number, limit: number): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/users?start=${start}&limit=${limit}`)
   }
-  
+
+  getActivityOrders(start: number, limit: number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/owners?start=${start}&limit=${limit}`)
+  }
+
 }

@@ -10,7 +10,8 @@
     </div>
     <hr>
     <div class="grid mt-5 px-5">
-        <div class="col-12 lg:col-4 sm:col-4 p-3" *ngFor="let d of data">
+        <div class="col-12 lg:col-4 sm:col-4 p-3" *ngFor="let d of data" role="button"
+            routerLink="/events-courses/payment/{{d.product.id}}">
 
             <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image" class="border-round-left w-full"
                 style="max-height: 234px;">

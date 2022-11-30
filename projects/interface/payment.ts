@@ -8,6 +8,7 @@ export interface Payment extends Product,User,File {
 	 approval: boolean 
 	 user: User 
 	 product: Product 
-	 file: File 
+	file: File 
+	createdAt : string
 } 
 
