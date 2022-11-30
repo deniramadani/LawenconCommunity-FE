@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   email: string = ''
   phoneNumber: string = ''
   age: string = ''
-  fotoProfile: string = ''
+  fotoProfile: string | null = null;
   images: any = []
   responsiveOptions: any[] = [
     {
@@ -91,8 +91,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.age = '-'
       }
-
-      this.fotoProfile = result.photo.id
+      if (result.photo != null) {
+        this.fotoProfile = result.photo.id
+      }
 
     })
 

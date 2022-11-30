@@ -5,9 +5,18 @@
         <h6 class="text-xl">My Profile</h6>
         <div class="">
           <div class="card px-4 text-center">
-            <p-avatar class="px-5 mt-5" image="{{fileDownload}}{{fotoProfile}}" styleClass="w-5rem h-5rem"
-              shape="circle">
-            </p-avatar>
+            <div *ngIf="fotoProfile == null; then default else photoProfile"></div>
+            <ng-template #default>
+              <p-avatar class="px-5 mt-5" image="../../../../assets/img/default.jpg" styleClass="w-5rem h-5rem"
+                shape="circle">
+              </p-avatar>
+            </ng-template>
+            <ng-template #photoProfile>
+              <p-avatar class="px-5 mt-5" image="{{fileDownload}}{{fotoProfile}}" styleClass="w-5rem h-5rem"
+                shape="circle">
+              </p-avatar>
+
+            </ng-template>
             <h5 class="text-lg mt-3">{{fullname}}</h5>
             <p class="text-secondary text-sm">{{position}}</p>
             <hr>
@@ -56,9 +65,16 @@
                 <div class="col-12 lg:col-12 sm:col-12 pb-0">
                   <div class="grid">
                     <div class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
-                      <p-avatar styleClass="w-2rem h-2rem" image="{{fileDownload}}{{post.user.photo.id}}"
-                        shape="circle">
-                      </p-avatar>
+                      <div *ngIf="post.user.photo == null; then default1 else photoProfile2"></div>
+                      <ng-template #default1>
+                        <p-avatar styleClass="w-2rem h-2rem" image="../../../../assets/img/default.jpg" shape="circle">
+                        </p-avatar>
+                      </ng-template>
+                      <ng-template #photoProfile2>
+                        <p-avatar styleClass="w-2rem h-2rem" image="{{fileDownload}}{{post.user.photo.id}}"
+                          shape="circle">
+                        </p-avatar>
+                      </ng-template>
                     </div>
                     <div class="col-9 lg:col-9 p-0 m-0">
                       <label class=" font-semibold" routerLink="/view/profile/{{post.user.id}}"
