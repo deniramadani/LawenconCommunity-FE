@@ -1,77 +1,23 @@
-<!-- <div class="">
-    <div class="px-4 py-8 md:px-6 lg:px-8 bg-gray-200">
-        <div class="grid grid-nogutter -ml-3 -mr-3 ">
-            <div class="col-12 lg:col-6 p-3">
-                <div class="flex flex-column justify-content-between h-full w-full border-round bg-no-repeat bg-cover bg-center"
-                    style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.primefaces.org/primeblocks-ng/assets/images/blocks/ecommerce/productoverview/product-overview-2-1.png);">
-                    <div class="p-4 align-self-start">
-                        <div class="text-white text-2xl font-bold mb-2">Category Title</div>
-                        <span class="text-white text-lg line-height-3">Quis varius quam quisque id diam. A pellentesque
-                            sit amet porttitor eget. Vitae purus faucibus ornare suspendisse sed nisi lacus.</span>
-                    </div>
-                    <div class="p-4 align-self-end">
-                        <a tabindex="0"
-                            class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Shop
-                            Now<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 lg:col-6">
-                <div class="grid grid-nogutter lg:flex-column">
-                    <div class="col-12 p-3">
-                        <div class="flex flex-column justify-content-between h-3 w-full border-round bg-no-repeat bg-cover bg-center h-20rem"
-                            style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.primefaces.org/primeblocks-ng/assets/images/blocks/ecommerce/productoverview/product-overview-2-1.png);">
-                            <div class="p-4 align-self-start">
-                                <div class="text-white text-2xl font-bold mb-2">Category Title</div>
-                                <span class="text-white text-lg line-height-3">Quis varius quam quisque id diam</span>
-                            </div>
-                            <div class="p-4 align-self-end">
-                                <a tabindex="0"
-                                    class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Shop
-                                    Now<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 p-3">
-                        <div class="flex flex-column justify-content-between h-3 w-full border-round bg-no-repeat bg-cover bg-center h-20rem"
-                            style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.primefaces.org/primeblocks-ng/assets/images/blocks/ecommerce/productoverview/product-overview-2-1.png);">
-                            <div class="p-4 align-self-start">
-                                <div class="text-white text-2xl font-bold mb-2">Category Title</div>
-                                <span class="text-white text-lg line-height-3">Vitae purus faucibus ornare</span>
-                            </div>
-                            <div class="p-4 align-self-end">
-                                <a tabindex="0"
-                                    class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Shop
-                                    Now<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="container py-6">
+<div class="container py-6" infinite-scroll (scrolled)="onScroll()">
     <div class="grid grid-nogutter card mt-6">
-        <div class="col-4 lg:col-4 sm:col-4 p-3">
-            <div class="flex flex-column justify-content-between h-full w-full border-round bg-no-repeat bg-cover bg-center h-14rem"
-                style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.primefaces.org/primeblocks-ng/assets/images/blocks/ecommerce/productoverview/product-overview-2-1.png);">
-                <div class="p-4 align-self-start">
-                    <div class="text-white text-2xl font-bold mb-2">Category Title</div>
-                    <span class="text-white text-lg line-height-3">Quis varius quam quisque id diam</span>
+        <div class="grid">
+            <ng-container *ngFor="let d of data;">
+                <div class="col-12 lg:col-4 sm:col-4 p-3">
+                    <div class="flex flex-column justify-content-between h-full w-full border-round bg-no-repeat bg-cover bg-center h-14rem"
+                        style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url({{fileDownload}}{{d.file.id}});">
+                        <div class="p-4 align-self-start">
+                            <div class="text-white text-2xl font-bold mb-2">{{d.title}}</div>
+                            <span class="text-white text-lg line-height-3">{{d.content}}</span>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            <a tabindex="0" pRipple
+                                class="text-white font-medium cursor-pointer p-2 flex align-items-center border-round">Show
+                                Now
+                                <i class="pi pi-arrow-right ml-2"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-4 align-self-end">
-                    <!-- <a tabindex="0"
-                        class="text-xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Show
-                        Now<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a> -->
-                    <a tabindex="0" pRipple
-                        class="text-white font-medium cursor-pointer p-2 flex align-items-center border-round">Show Now
-                        <i class="pi pi-arrow-right ml-2"></i></a>
-                </div>
-            </div>
+            </ng-container>
         </div>
-
-
     </div>
 </div>

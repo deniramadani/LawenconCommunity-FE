@@ -23,6 +23,7 @@ import { TabMenuModule } from 'primeng/tabmenu'
 import { CalendarModule } from "primeng/calendar";
 import { ListArticleComponent } from "./list.article/list.article.component";
 import { DetailArticleComponent } from "./detail.article/detail.article.component";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { DetailArticleComponent } from "./detail.article/detail.article.componen
       TagModule,
       CommonModule,
       AccordionModule,
-      DialogModule
+      DialogModule,
+      InfiniteScrollModule
 
   ],
   exports : [
