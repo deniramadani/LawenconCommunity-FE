@@ -102,7 +102,7 @@
               </p-button>
             </div>
           </div>
-          <pre>{{dataUpdate.value | json}}</pre>
+
         </form>
       </div>
 
@@ -117,32 +117,35 @@
           </nav>
         </div>
         <div class="card">
-          <form class="formgrid grid justify-content-center mt-5 px-5">
+          <form class="formgrid grid justify-content-center mt-5 px-5" [formGroup]="updatePassword"
+            (ngSubmit)="changePassword()">
             <div class="field col-12 md:col-12">
               <label for="curentPassword">Old Password<span class="text-red-500">*</span></label>
-              <p-password id="curentPassword" name="curentPassword" type="password" styleClass="w-full"
-                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+              <p-password id="curentPassword" formControlName="oldPassword" name="curentPassword" type="password"
+                styleClass="w-full" [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required>
+              </p-password>
             </div>
 
             <div class="field col-12 md:col-6">
-              <label for="newPassword">New Password<span class="text-red-500">*</span></label>
-              <p-password id="newPassword" name="newPassword" type="password" styleClass="w-full"
-                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+              <label for="password">New Password<span class="text-red-500">*</span></label>
+              <p-password id="password" formControlName="password" name="password" type="password" styleClass="w-full"
+                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]=" true" required>
+              </p-password>
             </div>
             <div class="field col-12 md:col-6">
-              <label for="confirmNewPassword">Confirm New Password<span class="text-red-500">*</span></label>
-              <p-password id="confirmNewPassword" name="confirmNewPassword" type="password" styleClass="w-full"
-                [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required></p-password>
+              <label for="confirmPassword">Confirm New Password<span class="text-red-500">*</span></label>
+              <p-password id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" type="password"
+                styleClass="w-full" [inputStyle]="{'width':'100%','height':'45px'}" [toggleMask]="true" required>
+              </p-password>
             </div>
             <div class="field ccol-12 md:col-7 flex flex-row gap-2 justify-content-end mt-2">
-              <button pButton pRipple type="button" styleClass="p-button-sm" type="submit" label="Change Password"
+              <button pButton pRipple [disabled]="!updatePassword.valid" type="submit" styleClass="p-button-sm"
+                type="submit" label="Change Password"
                 class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
             </div>
           </form>
         </div>
       </div>
-
-
     </div>
     <div class="col-12 lg:col-2"></div>
   </div>

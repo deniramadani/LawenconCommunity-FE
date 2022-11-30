@@ -40,7 +40,4 @@ export class UsersService {
   userUpdate(data: any): Observable<any> {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/users/`, data)
   }
-
-
-
 }

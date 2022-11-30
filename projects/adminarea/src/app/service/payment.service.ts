@@ -25,7 +25,6 @@ export class PaymentService {
 
   paymentApprove(id : string): Observable<any> {
     return this.http.put(`${BASE_URL.BASE_URL}/payments/valid?id=${id}`,id)
-    // return this.http.put(`${BASE_URL.BASE_URL}/payments/valid?id=${id}`)
   }
 
   paymentRejected(id : string): Observable<Payment> {

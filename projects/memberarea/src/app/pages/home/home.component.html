@@ -77,7 +77,8 @@
                       </ng-template>
                     </div>
                     <div class="col-9 lg:col-9 p-0 m-0">
-                      <label class=" font-semibold">{{post.user.fullname}}</label>
+                      <label class=" font-semibold"
+                        routerLink="/view/profile/{{post.user.id}}">{{post.user.fullname}}</label>
                       <div class="text-secondary font-italic text-xs">{{post.createdAt | timeAgo}} </div>
                     </div>
                     <div class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
@@ -192,6 +193,7 @@
                 </div>
               </ng-template>
             </div>
+
             <div class="p-card-footer p-0">
               <div class="col-12 lg:col-12 sm:col-12 py-0 px-3">
                 <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes &nbsp;&nbsp;{{post.totalComment}}
@@ -215,7 +217,7 @@
                     </ng-template>
                   </div>
                   <div class="col-1 lg:col-1 sm:col-1 ">
-                    <span type="button" class="h4 text-black" routerLink="/thread/comment/{{post.id}}">
+                    <span type="button" class="h4 text-black" routerLink="/thread/detail/{{post.id}}">
                       <i class="bi bi-chat-right-text-fill "></i>
                     </span>
                   </div>
@@ -237,6 +239,8 @@
 
               </div>
             </div>
+
+
           </div>
         </div>
       </div>

@@ -7,8 +7,9 @@ import { Industry } from '../../../../../interface/industry'
 import { ApiService } from '../../service/api.service';
 import { UsersService } from '../../service/users.service';
 import { BASE_URL } from 'projects/api/BaseUrl';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-profile',
@@ -23,7 +24,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   private industrySubscription? : Subscription
   private dataUserSubscription?: Subscription
   private updateUserSubscription?: Subscription
- 
+  private chagenPasswordSubcription?: Subscription
   positions: any[] = []
   industries: any[] = []
   dataPosition : Position[] = []
@@ -35,6 +36,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   linkedin: string = ''
   fotoId: string = ''
   myDate: any 
+ 
   bod: any
   formChangePassword : boolean = false
   formEditProfile : boolean = true
@@ -66,9 +68,29 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     })
   }) 
 
-  constructor(private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
+  updatePassword = this.fb.group({
+    id: ['',[Validators.required]],
+    email: ['',[Validators.required]],
+    role: {
+      id : ''
+    },
+    userType: {
+      id : ''
+    },
+    oldPassword: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+    confirmPassword: ['',[Validators.required]]
+  })
+
+
+
+
+
+  constructor(private toast : ToastrService,private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
     this.onInit()
+   
+    
   }
   onInit() {
     this.getAllPosition()
@@ -114,21 +136,22 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         company: result.company,
         address: result.address,
         phoneNumber: result.phoneNumber,
-        // industry: {
-        //   id : result.industry.id
-        // },
-        // position: {
-        //   id : result.position.id
-        // },
         userType: {
           id : result.userType.id
         },
         dateOfBirth : result.dateOfBirth,
-        // userSocmed: {
-        //   facebook : result.userSocmed.facebook,
-        //   instagram: result.userSocmed.instagram,
-        //   linkedin : result.userSocmed.linkedin
-        // },
+      })
+
+      this.updatePassword.patchValue({
+        id: result.id,
+        email: result.email,
+        role: {
+          id : result.role.id
+        },
+        userType: {
+          id : result.userType.id
+        }
+        
       })
 
     })
@@ -181,8 +204,6 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     })
   }
 
-
-
   btnShowFormChangePassword() {
     this.formChangePassword = true
     this,this.formEditProfile = false
@@ -190,6 +211,14 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   btnShowFormEditProfile() {
     this.formEditProfile = true
     this.formChangePassword = false
+  }
+
+  changePassword() {
+    if(this.updatePassword.get('password')?.value == this.updatePassword.get('confirmPassword')?.value){
+      this.chagenPasswordSubcription = this.userService.userUpdate(this.updatePassword.value).subscribe(() =>{})
+    }else{
+      this.toast.warning('wrong combinate password')
+    }
   }
 
   getAllIndustry() {

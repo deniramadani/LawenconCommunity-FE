@@ -13,7 +13,7 @@ import { CommonModule } from "@angular/common";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageModule } from 'primeng/image';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { GalleriaModule } from 'primeng/galleria';
 import {TabViewModule} from 'primeng/tabview';
 import { PeopleProfileComponent } from "./people.profile.component";
 import { PeopleProfileRouting } from "./peaple.profile.routing";
@@ -24,7 +24,7 @@ import { PeopleProfileRouting } from "./peaple.profile.routing";
     ],
     imports: [
         PeopleProfileRouting,TabViewModule,
-        CardModule,
+        CardModule,GalleriaModule,
         ContentMemberModule,
         AvatarModule,
         BadgeModule,

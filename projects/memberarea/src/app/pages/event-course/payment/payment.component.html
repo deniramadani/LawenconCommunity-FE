@@ -22,7 +22,8 @@
                 </div>
                 <p class="line-height-3 text-white text-lg text-center md:text-left mt-3"> <a></a>
                   Published {{detailProduct.createdAt | date : 'E, dd MM yyyy'}} by
-                  <span class="font-italic" role="button" routerLink="/view/view-profile">
+                  <span class="font-italic" role="button"
+                    routerLink="/view/profile/{{detailProduct.product.ownerId.id}}">
                     {{detailProduct.product.ownerId.fullname}}</span>
 
                 </p>

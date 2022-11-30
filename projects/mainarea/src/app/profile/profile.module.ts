@@ -32,7 +32,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
       InputTextareaModule,
       ImageModule,
       FileUploadModule,
-      HttpClientModule,
+      HttpClientModule,FormsModule,
       ReactiveFormsModule,CommonModule,
       CalendarModule,ReactiveFormsModule
 

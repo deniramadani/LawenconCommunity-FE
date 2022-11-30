@@ -10,11 +10,11 @@ const routes : Routes = [
         component : PostingComponent
     },
     {
-        path : 'comment',
+        path : 'detail',
         component : PostingComponent,
     },
     {
-        path : 'comment/:id',
+        path : 'detail/:id',
         component : CommentComponent,
     },
 ]
