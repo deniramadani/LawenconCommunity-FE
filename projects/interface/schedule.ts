@@ -4,6 +4,7 @@ export interface Schedule extends Product{
 	 id : string
 	 dateTimeStart: string 
 	 dateTimeEnd: string 
-	 product: Product 
+	product: Product 
+	createdAt : string
 } 
 

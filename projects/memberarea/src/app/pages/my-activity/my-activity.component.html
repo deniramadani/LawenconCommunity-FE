@@ -18,10 +18,10 @@
                         </a>
                     </li>
                     <li>
-                        <a pRipple
+                        <a pRipple (click)="showOnGoing()"
                             class="flex align-items-center cursor-pointer p-3 hover:surface-100 border-round transition-colors transition-duration-150">
                             <i class="bi bi-hourglass-split mr-2 text-700"></i>
-                            <span class="font-medium text-700">On Going</span>
+                            <span class="font-medium text-700">Payment</span>
                         </a>
                     </li>
 
@@ -625,18 +625,20 @@
             </p-tabView>
         </div>
 
-        <div class="col-12 lg:col-9 sm:col-9" *ngIf="my_activity">
-            <h4 class="text-700"> <i class="bi bi-pencil-square mr-2 text-700"></i> My Activities</h4>
+        <div class="col-12 lg:col-9 sm:col-9" *ngIf="product">
+            <h4 class="text-700"> <i class="{{icon}} mr-2 text-700"></i>{{title}}</h4>
             <div class="card p-2">
                 <p-panel header="My Events" [toggleable]="true">
-                    <div class="grid">
+                    <!-- <h3>Contoh {{dataEvent[1].product.title}}</h3> -->
+                    <div class="grid p-0 bg-blue-100 border-round">
+
                         <div class="col-12 lg:col-6 sm:col-6 p-3" *ngFor="let d of dataEvent">
                             <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image"
                                 class="border-round-left w-full" style="max-height: 234px;">
                             <div class="p-4 p-card">
                                 <div class="flex justify-content-between mb-3">
                                     <span class="text-orange-500 font-medum">{{d.product.title}}</span>
-                                    <!-- <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span> -->
+                                    <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span>
                                 </div>
 
                                 <table class="pt-0">
@@ -678,15 +680,90 @@
                 </p-panel>
 
                 <p-panel header="My Courses" [toggleable]="true" class="mt-2">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="grid p-0 bg-yellow-100 border-round">
+                        <div class="col-12 lg:col-6 sm:col-6 p-3" *ngFor="let d of dataCourse">
+                            <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image"
+                                class="border-round-left w-full" style="max-height: 234px;">
+                            <div class="p-4 p-card">
+                                <div class="flex justify-content-between mb-3">
+                                    <span class="text-orange-500 font-medum">{{d.product.title}}</span>
+                                    <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span>
+                                </div>
+
+                                <table class="pt-0">
+                                    <tbody class="p-0">
+                                        <tr>
+                                            <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                                    {{d.product.location}}</small>
+                                            </td>
+                                            <td class="pt-1" p><small><i class="bi bi-alarm ml-3"></i> {{d.dateTimeStart
+                                                    |
+                                                    date :
+                                                    'hh:mm'}} -
+                                                    {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pt-1"><small><i class="bi bi-calendar-date"></i>
+                                                    {{d.dateTimeStart |
+                                                    date : 'E, dd MMM yyyy'}} </small></td>
+                                            <td class="pt-1"><small><i class="bi bi-coin ml-3"></i>
+                                                    {{d.product.price}}</small></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <div class="line-height-3 text-700 text-sm mb-3 mt-2">{{d.product.content}}</div>
+                                <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                                <hr>
+                                <div class="flex align-items-center">
+                                    <p-avatar image="{{fileDownload}}{{d.product.ownerId.photo.id}}" shape="circle">
+                                    </p-avatar>
+                                    <span
+                                        class="font-bold text-sm block ml-2 text-blue-600">{{d.product.ownerId.fullname}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </p-panel>
+            </div>
+        </div>
+
+
+        <div class="col-12 lg:col-9 sm:col-9" *ngIf="on_going">
+            <h4 class="text-700"> <i class="{{icon}} mr-2 text-700"></i>{{title}}</h4>
+            <div class="card p-2">
+
+                <div class="p-3">
+                    <!-- <p class="mt-0 p-0 mb-5 text-600 text-2xl">Exclusive Selection</p> -->
+                    <div class="grid -mt-3 -ml-3 -mr-3">
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="p-2">
+                                <div class="shadow-2 p-4 surface-card border-round">
+                                    <div class="relative mb-3">
+                                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute"
+                                            style="border-radius: 1.5rem; left: 1rem; top: 1rem">Category</span>
+                                        <img src="assets/images/blocks/ecommerce/productlist/product-list-4-1.png"
+                                            class="w-full" />
+                                    </div>
+                                    <div class="flex justify-content-between align-items-center mb-3">
+                                        <span class="text-900 font-medium text-xl">Product Name</span>
+                                        <span>
+                                            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
+                                            <span class="font-medium">5.0</span>
+                                        </span>
+                                    </div>
+                                    <p class="mt-0 mb-3 text-600 line-height-3">
+                                        Enim nec dui nunc mattis enim ut tellus. Tincidunt arcu.
+                                    </p>
+                                    <span class="text-primary text-xl font-medium">$140.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
 

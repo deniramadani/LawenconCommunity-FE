@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ContentMemberComponent } from './layout/content/content.member.component';
+import { PeopleProfileComponent } from './pages/people.profile/people.profile.component';
 export const membersAreaRoutes: Routes = [
 
   {
@@ -22,9 +23,23 @@ export const membersAreaRoutes: Routes = [
     component : ContentMemberComponent,
     loadChildren: () => import("./pages/my-activity/my.activity.module").then(d => d.MyActivityModule)
   },
+
   {
-    path: "view",
+    path: 'articles',
     component : ContentMemberComponent,
-    loadChildren: () => import("./pages/people.profile/peaple.profile.module").then(d => d.PeopleProfileModule)
+    loadChildren : () => import('./pages/article/article.module').then(d => d.ArticleModule)
   },
+  
+  {
+    path: 'view',
+    component : ContentMemberComponent,
+    children: [
+      {
+        path: 'profile/:id',
+        component : PeopleProfileComponent
+      }
+    ]
+  }
+
+
 ];

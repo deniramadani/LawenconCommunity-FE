@@ -4,10 +4,7 @@ import { PeopleProfileComponent } from "./people.profile.component";
 
 
 const routes : Routes = [
-    {
-        path : 'profile/:id',
-        component : PeopleProfileComponent
-    }
+
 ]
 
 @NgModule({

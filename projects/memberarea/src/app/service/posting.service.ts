@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BASE_URL } from 'projects/api/BaseUrl';
+import { Payment } from 'projects/interface/payment';
 import { Post } from 'projects/interface/post';
 import { PostLike } from 'projects/interface/post-like';
 import { Schedule } from 'projects/interface/schedule';
@@ -83,5 +84,12 @@ export class PostingService {
     return this.http.get<Schedule[]>(`${BASE_URL.BASE_URL}/products/events/users?start=${start}&limit=${limit}`)
   }
 
+  getProductCourseByOwnerId(start: number, limit: number): Observable<Schedule[]> {
+    return this.http.get<Schedule[]>(`${BASE_URL.BASE_URL}/products/courses/users?start=${start}&limit=${limit}`)
+  }
 
+  getEventCourseBought(start: number, limit: number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/users?start=${start}&limit=${limit}`)
+  }
+  
 }

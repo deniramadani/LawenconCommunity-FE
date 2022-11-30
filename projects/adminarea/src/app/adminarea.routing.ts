@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from 'projects/mainarea/src/app/auth/login/login.component';
 import { ContentAdminComponent } from './layout/content/admin/content.admin.component';
 
 
 export const adminAreaRoutes: Routes = [
-
+    
     {
       path : 'dashboard',
       component : ContentAdminComponent,

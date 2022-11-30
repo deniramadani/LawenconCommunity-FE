@@ -1,17 +1,26 @@
-<header id="header" class="header fixed-top d-flex align-items-center justify-content-end w-full px-5 gap-3">
-   <img src="../../../assets/icons/logo-community.png" alt="Image" height="45" class="">
-   <a pRipple class="cursor-pointer  block lg:hidden align-self-center text-700" pStyleClass="@next" enterClass="hidden"
-      leaveToClass="hidden" [hideOnOutsideClick]="true">
-      <i class="pi pi-bars text-4xl justify-content-end" [style]="{'float':'right'}"></i>
-   </a>
+<header id="header" class="header fixed-top flex justify-content-between w-full  lg:px-8 gap-3">
+   <div class="flex">
+      <img src="../../../assets/icons/logo-community.png" alt="Image" height="45" class="mt-2 ml-3" routerLink="/home"
+         role="button">
+   </div>
+   <div pRipple class="flex cursor-pointer block lg:hidden ml-8 align-self-center text-700" pStyleClass="@next"
+      enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+      <div class="flex justify-content-end">
+         <i class="pi pi-bars text-4xl mr-5" [style]="{'float':'right'}"></i>
+      </div>
+
+   </div>
+
 
    <div
       class="flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
       <ul class="list-none p-0 m-0 flex select-none align-items-center flex-column lg:flex-row">
 
          <a class="p-link lg:ml-4" (click)="showFormPayment()">
-            <span class="text-xs underline font-italic text-yellow-500">Start to premium</span>
+            <span class="text-xs underline font-italic text-yellow-500 {{hidden}} ">Start to premium</span>
          </a>
+
+
       </ul>
       <ul
          class="list-none p-0 m-0 flex select-none flex-column lg:flex-row border-top-1 surface-border lg:border-top-none">
@@ -51,7 +60,6 @@
                <ul class="list-none px-1 py-2 m-0">
                   <li class="dropdown-header text-center w-full">
                      <h6>{{fullname}}</h6>
-                     <!-- <span>{{position}}</span> -->
                   </li>
                   <li>
                      <hr class="dropdown-divider">
@@ -69,7 +77,7 @@
          </li>
       </ul>
    </div>
-   <!-- </div> -->
+
 </header>
 
 <p-dialog header="Start Premium Members" [(visible)]="displayPayment" [breakpoints]="{'960px': '75vw'}"

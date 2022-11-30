@@ -34,6 +34,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   private getPostBookmarkSubscription?: Subscription
   private deletePostSubscription?: Subscription
   private getEventByUserIdSubscription?: Subscription
+  private getCourseByUserIdSubscription?: Subscription
+  private getEventCourseBoughtSubscription?: Subscription
   items : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -44,9 +46,12 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   posts: Post[] = []
   postsLike: Post[] = []
   postsBookmark: Post[] = []
-  dataEvent : Schedule [] = []
+  dataEvent: Schedule[] = []
+  dataCourse : Schedule [] = []
   limit: number = 5
   start: number = 0
+  title: string = ''
+  icon : string = ''
   userType: string | null = this.apiService.getUserType()
   responsiveOptions: any[] = [
     {
@@ -63,7 +68,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     }
   ];
   posting: boolean = true
-  my_activity : boolean = false
+  product: boolean = false
+  on_going : boolean = false
   postId : string = ''
   constructor(private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
@@ -83,21 +89,40 @@ export class MyActivityComponent implements OnInit,OnDestroy {
       this.postsBookmark = result     
     })
 
-    this.getEventByUserIdSubscription = this.postService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
-      this.dataEvent = result
-      console.log(result);
-      
-    })
+  
     
   }
 
   showPost() {
     this.posting = true
+    this.product = false
   }
 
   showMyActivity() {
-    this.my_activity = true
+    this.product = true
     this.posting = false
+    this.on_going = false
+    this.title = 'My Activities'
+    this.icon = 'bi bi-pencil-square'
+
+    this.getEventByUserIdSubscription = this.postService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
+      this.dataEvent = result
+    })
+
+    this.getCourseByUserIdSubscription = this.postService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
+      this.dataCourse = result
+    })
+  }
+
+  showOnGoing() {
+    this.product = false
+    this.posting = false
+    this.on_going = true
+    this.title = 'Payment History'
+    this.icon = 'bi bi-hourglass-split'
+    this.getEventCourseBoughtSubscription = this.postService.getEventCourseBought(this.start, this.limit).subscribe(result => {
+      console.log(result);
+    })
   }
 
   clickConfirmDelete(position: string, id: string,) {
@@ -242,5 +267,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.getPostBookmarkSubscription?.unsubscribe()
     this.deletePostSubscription?.unsubscribe()
     this.getEventByUserIdSubscription?.unsubscribe()
+    this.getCourseByUserIdSubscription?.unsubscribe()
   }
 }

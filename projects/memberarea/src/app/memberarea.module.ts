@@ -14,6 +14,7 @@ import { PeopleProfileModule } from './pages/people.profile/peaple.profile.modul
     HomeModule, ContentMemberModule, ThreadModule, MyActivityModule, PeopleProfileModule,
   ],
   declarations: [
+
   ]
 })
 export class MemberAreaModule { }
