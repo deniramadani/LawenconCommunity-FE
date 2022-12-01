@@ -5,7 +5,7 @@ import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { Subscription } from 'rxjs'
 import { ArticleService } from '../../service/article.service';
 import { Article } from '../../../../../interface/article';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostingService } from '../../service/posting.service';
 import { FormBuilder } from '@angular/forms';

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
 import { Observable } from 'rxjs';
 
@@ -29,6 +29,10 @@ export class PaymentService {
 
   paymentRejected(id : string): Observable<Payment> {
     return this.http.put<Payment>(`${BASE_URL.BASE_URL}/payments/invalid?id=${id}`,id)
+  }
+
+  getAllByProductId(id : string): Observable<Payment> {
+    return this.http.get<Payment>(`${BASE_URL.BASE_URL}/payments/users/products?productId=${id}`)
   }
 
 }

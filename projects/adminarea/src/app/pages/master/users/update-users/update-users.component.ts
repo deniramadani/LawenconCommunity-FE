@@ -4,7 +4,7 @@ import { PositionService } from 'projects/mainarea/src/app/service/position.serv
 import { Subscription } from 'rxjs'
 import {Position} from '../../../../../../../interface/position'
 import {Industry} from '../../../../../../../interface/industry'
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { User } from 'projects/interface/user';
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { ActivatedRoute } from '@angular/router';

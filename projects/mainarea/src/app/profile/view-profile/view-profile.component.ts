@@ -6,7 +6,7 @@ import { IndustryService } from '../../service/industry.service';
 import { Industry } from '../../../../../interface/industry'
 import { ApiService } from '../../service/api.service';
 import { UsersService } from '../../service/users.service';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';

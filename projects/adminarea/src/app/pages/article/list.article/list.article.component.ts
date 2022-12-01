@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
 import { Subscription } from 'rxjs'
 import { Article} from '../../../../../../interface/article'
