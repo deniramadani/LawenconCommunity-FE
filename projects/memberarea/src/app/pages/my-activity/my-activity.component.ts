@@ -39,7 +39,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   private getEventCourseBoughtSubscription?: Subscription
   private getActivityOrdersSubscription?: Subscription
 
-  items : any[] = []
+  items: any[] = []
+  items1 : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
@@ -77,10 +78,29 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   on_going: boolean = false
   empty: boolean = false
   orders : boolean = false
-  postId : string = ''
+  postId: string = ''
+  id : string = ''
   constructor(private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
     this.init();
+    this.items = [
+      {label: 'Income', icon: 'pi pi-euro', routerLink: ['/report/income']},
+      {separator: true},
+      {label: 'Participant', icon: 'pi pi-users', routerLink: ['/report/participants']}
+    ];
+    this.items1 = [
+      {
+        label: 'Delete', icon: 'pi pi-trash', command: () => {
+        console.log('cetak');
+      }},
+      {label: 'Edit', icon: 'pi pi-pencil'}
+      ];
+    
+  }
+
+  cetak() {
+    console.log('cetak');
+    
   }
 
   init(): void {

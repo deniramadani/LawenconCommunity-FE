@@ -19,7 +19,9 @@ import { TabViewModule } from 'primeng/tabview';
 import {PanelModule} from 'primeng/panel';
 import { GalleriaModule } from 'primeng/galleria';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {DividerModule} from 'primeng/divider';
+import { DividerModule } from 'primeng/divider';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import {MenuModule} from 'primeng/menu';
 @NgModule({
     declarations: [
         MyActivityComponent
@@ -28,7 +30,7 @@ import {DividerModule} from 'primeng/divider';
         MyActivityRouting,TabViewModule,GalleriaModule,
         CardModule,PanelMenuModule,ConfirmDialogModule,
         ContentMemberModule,PanelModule,DividerModule,
-        AvatarModule,
+        AvatarModule,SplitButtonModule,MenuModule,
         BadgeModule,
         ButtonModule,
         TagModule,

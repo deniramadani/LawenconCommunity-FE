@@ -23,7 +23,7 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   id: string = ''
   result: string = ''
-  hidden: string = ''
+  premium: string = ''
   dataPremium = this.fb.group({
     product: this.fb.group({
       id: ['']
@@ -35,9 +35,10 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   })
   constructor(private toast: ToastrService, private fb: FormBuilder, private apiService: ApiService, private router: Router, private productService: ProductsService) { }
   ngOnInit(): void {
-    console.log(this.apiService.getTypeUser());
-    if (String(Object.values(this.apiService.getUserType)) == 'UTCPM') {
-     this.hidden = 'hidden'
+   
+    const type = this.apiService.getTypeUser()
+    if (type == 'UTCPM') {
+      this.premium = 'hidden lg:hidden'
     }
     
   }

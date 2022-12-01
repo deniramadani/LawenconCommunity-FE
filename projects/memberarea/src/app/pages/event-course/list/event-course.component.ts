@@ -92,15 +92,18 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   closeForm() {
     this.showFormInsert = false
   }
+  
   insert() {
-  //   function getTimeZone() {
-  //     var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
-      
-  //     return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
-  //   }
+    function getTimeZone() {
+      var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+      return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+    }
 
-  // this.dataInsert.controls.dateTimeStart.setValue(formatDate(this.dataInsert.value.dateTimeStart ?? '', `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
-  // this.dataInsert.controls.dateTimeEnd.setValue(formatDate(this.dataInsert.value.dateTimeEnd ?? '', `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'))
+    this.dataInsert.patchValue({
+      dateTimeStart: formatDate(this.dataInsert.value.dateTimeStart!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'),
+      dateTimeEnd : formatDate(this.dataInsert.value.dateTimeEnd!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+    })
+  
     this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
       this.showFormInsert = false
     })

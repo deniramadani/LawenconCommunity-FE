@@ -120,15 +120,17 @@
 
                   <div class="field col-12 md:col-6">
                     <label for="beginSchedule" class="w-full">Start Schedule<span class="text-red-500">*</span></label>
-                    <p-calendar [showTime]="true" class="w-full" [(ngModel)]="startDate" formControlName="dateTimeStart"
-                      inputId="beginSchedule" clas styleClass="calendar">
+
+                    <p-calendar [showTime]="true" class="w-full" inputId="dateTimeStart" clas styleClass="calendar"
+                      id="dateTimeStart" formControlName="dateTimeStart" [required]="true">
                     </p-calendar>
                   </div>
                   <div class="field col-12 md:col-6">
                     <label for="finishSchedule" class="w-full">Finish Schedule<span
                         class="text-red-500">*</span></label>
-                    <p-calendar [showTime]="true" class="w-full" [(ngModel)]="endDate" formControlName="dateTimeEnd"
-                      inputId="finishSchedule" clas styleClass="calendar">
+
+                    <p-calendar [showTime]="true" class="w-full" inputId="dateTimeEnd" clas styleClass="calendar"
+                      id="dateTimeEnd" formControlName="dateTimeEnd" [required]="true">
                     </p-calendar>
                   </div>
                   <div class="col-12 my-3">

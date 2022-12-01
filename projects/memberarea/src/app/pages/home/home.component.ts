@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   age: string = ''
   fotoProfile: string | null = null;
   images: any = []
+  seeMore: boolean = false
+  verified : boolean = false
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -65,6 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
+   
     this.init();
   }
 
@@ -93,6 +96,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       if (result.photo != null) {
         this.fotoProfile = result.photo.id
+      }
+      if (result.userType.userTypeCode === 'UTCPM') {
+        this.verified = true
       }
 
     })

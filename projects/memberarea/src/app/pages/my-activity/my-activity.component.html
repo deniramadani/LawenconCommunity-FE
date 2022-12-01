@@ -66,28 +66,34 @@
                                                 <div class="text-secondary font-italic text-xs">
                                                     {{calculateDiff(post.createdAt)}} </div>
                                             </div>
-                                            <div class="col-1 lg:col-1 p-0 text-center flex  justify-content-center">
+                                            <div
+                                                class="col-1 lg:col-1 p-0 text-center flex pr-3  justify-content-center">
                                                 <div *ngIf="post.postType.postTypeCode == premium; then premiums ">
                                                 </div>
                                                 <ng-template #premiums>
-                                                    <p-tag icon="bi bi-star-fill" class="mr-2" severity="warning"
+                                                    <p-tag icon="bi bi-star-fill" class="mr-5 mt-1" severity="warning"
                                                         value="Premium" [rounded]="true"></p-tag>
                                                 </ng-template>
 
                                             </div>
 
 
-                                            <div class="col-1 lg:col-1 p-0 text-center">
-                                                <p-tag icon="pi pi-trash" role="button"
+                                            <div class="col-1 lg:col-1 p-0 text-left">
+                                                <!-- <p-tag icon="pi pi-trash" role="button"
                                                     (click)="clickConfirmDelete('top',post.id)" class="ml-2"
                                                     severity="danger" [rounded]="true">
-                                                </p-tag>
+                                                </p-tag> -->
+
+                                                <span
+                                                    class="inline-flex cursor-pointer py-2 px-1 align-items-center surface-100 hover:surface-200 transition-colors transition-duration-150 mb-3 md:mb-0 mr-0 md:mr-3 select-none"
+                                                    style="border-radius: 20px" (click)="menu8_1.toggle($event)"
+                                                    pRipple>
+                                                    <i class="pi pi-ellipsis-v text-900"></i>
+                                                </span>
+                                                <p-menu #menu8_1 [popup]="true" [(ngModel)]="id" [model]="items1">
+                                                </p-menu>
 
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
 
@@ -789,9 +795,49 @@
         </div>
 
         <div class="col-12 lg:col-9 sm:col-9" *ngIf="orders">
-            <h4 class="text-700"> <i class="bi bi-cart4-2 text-700 mr-2 text-700"></i>Activity
-                Orders
-            </h4>
+            <div class="surface-section py-5 md:px-6 px-4 lg:px-4 flex flex-wrap">
+                <div
+                    class="w-full md:w-12 flex flex-row md:flex-row md:align-items-center md:justify-content-end mt-4 md:mt-0">
+                    <div class="w-full md:w-6">
+                        <span
+                            class="inline-flex align-items-center text-700 text-sm lg:text-2xl font-medium mb-3 cursor-pointer">Activity
+                            Orders</span>
+                    </div>
+                    <div class="flex align-items-start mr-3 gap-2">
+                        <span
+                            class="block border-circle flex align-items-center justify-content-center bg-cyan-300 text-cyan-900"
+                            style="width:40px; height: 40px">
+                            <i class="pi pi-users text-xl"></i>
+                        </span>
+                        <div>
+                            <span class="font-medium text-600">Event</span>
+                            <p class=" mb-0 text-900 text-md font-medium">123</p>
+                        </div>
+                    </div>
+                    <div class="flex align-items-start mr-3 gap-2">
+                        <span
+                            class="block border-circle flex align-items-center justify-content-center bg-cyan-300 text-cyan-900"
+                            style="width:40px; height: 40px">
+                            <i class="pi pi-users text-xl"></i>
+                        </span>
+                        <div>
+                            <span class="font-medium text-600">Course</span>
+                            <p class=" mb-0 text-900 text-md font-medium">123</p>
+                        </div>
+                    </div>
+                    <div class="flex align-items-start md:mt-0">
+                        <span
+                            class="block border-circle flex align-items-center justify-content-center bg-yellow-300 text-yellow-900 mr-3"
+                            style="width:40px; height: 40px">
+                            <i class="pi pi-wallet text-xl"></i>
+                        </span>
+                        <div>
+                            <span class="font-medium text-600">Balance</span>
+                            <p class=" mb-0 text-900 text-md font-medium">Rp.14000000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="surface-card grid grid-nogutter border-round shadow-2 p-3">
                 <div class="col-12">
                     <div *ngFor="let o of dataOrders"
@@ -836,10 +882,6 @@
                         </ng-template>
 
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>

@@ -17,7 +17,8 @@
               </p-avatar>
 
             </ng-template>
-            <h5 class="text-lg mt-3">{{fullname}}</h5>
+            <h5 class="text-lg mt-3">{{fullname}} <span class="mr-2 text-xs text-yellow-500" *ngIf="verified"><i
+                  class=" pi pi-check-circle mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
             <hr>
             <div class="grid">
@@ -239,20 +240,22 @@
 
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
 
       <div class="col-12 lg:col-3 px-5 py-2">
         <h6 class="text-xl">Article</h6>
-        <div class="col-12 lg:col-12 p-0 pb-3" *ngFor="let d of data">
+        <div class="col-12 lg:col-12 p-0 pb-3" *ngFor="let d of data" role="button"
+          routerLink="/articles/detail/{{d.id}}">
           <div class="shadow-2 border-round h-full surface-card">
             <img src="{{fileDownload}}{{d.file.id}}" alt="article image" class="h-10rem w-full">
             <div class="py-2 px-3 flex flex-column">
               <span class="block text-900 font-medium">{{d.title}}</span>
-              <p class="text-md text-600 font-xs mb-3 mt-1 line-height-3">{{d.content}}</p>
+              {{ seeMore ? d.content : d.content.substr(0, 50) }}
+              <ng-container *ngIf="d.content.length > 100">...
+                <span> <a type="button" class="a-link text-blue-500 text-sm my-2">Read More -></a></span>
+              </ng-container>
               <div class="flex">
                 <div class="">
                   <div class="text-xs font-semibold text-600 mb-1">Post by Admin Community</div>

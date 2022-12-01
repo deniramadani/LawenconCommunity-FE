@@ -29,6 +29,12 @@ export const membersAreaRoutes: Routes = [
     component : ContentMemberComponent,
     loadChildren : () => import('./pages/article/article.module').then(d => d.ArticleModule)
   },
+
+  {
+    path: 'report',
+    component : ContentMemberComponent,
+    loadChildren : () => import('./pages/report/report.module').then(d => d.ReportModule)
+  },
   
   {
     path: 'view',

@@ -1,55 +1,124 @@
 <div class="container py-6" infinite-scroll (scrolled)="onScroll()">
-    <!-- <div class="grid grid-nogutter card mt-6 p-3">
-        <div class="grid">
-            <ng-container *ngFor="let d of data;">
-                <div class="col-12 lg:col-4 sm:col-4 p-3">
-                    <div class="flex flex-column justify-content-between h-full w-full border-round bg-no-repeat bg-cover bg-center h-14rem"
-                        style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url({{fileDownload}}{{d.file.id}});">
-                        <div class="p-4 align-self-start">
-                            <div class="text-white text-2xl font-bold mb-2">{{d.title}}</div>
-                            <span class="text-white text-lg line-height-3">{{d.content}}</span>
-                        </div>
-                        <div class="p-4 align-self-end">
-                            <a tabindex="0" pRipple
-                                class="text-white font-medium cursor-pointer p-2 flex align-items-center border-round">Show
-                                Now
-                                <i class="pi pi-arrow-right ml-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
-    </div> -->
-    <div class="mt-6">
+    <div class="mt-6 px-5 lg:px-0">
         <div class="grid">
             <div class="col-12 lg:col-8 ">
                 <h3 class="text-xl text-600">Articles</h3>
                 <div class="p-card p-3">
-                    <div
-                        class="p-3 mb-2 border-round flex flex-column lg:flex-row justify-content-between align-items-center">
-                        <div class="flex flex-column lg:flex-row justify-content-center px-2">
-                            <img src="https://www.primefaces.org/primeblocks-ng/assets/images/blocks/ecommerce/productquickview/product-quickview-2-1.png"
-                                alt="product" class="w-12rem h-10rem mr-3 flex-shrink-3 border-round " />
 
-                            <div class="flex flex-column">
-                                <span class="text-900 font-medium my-1 lg:mt-0">q</span>
-                                <span class="text-600 font-xs lg:mt-0">Order by
-                                </span>
+                    <div class="grid px-2">
+                        <div class="col-12 ">
+                            <div class="grid my-3 border-bottom-2 bg-gray-200  border-gray-200 border-round"
+                                *ngFor="let d of data" role="button" routerLink="/articles/detail/{{d.id}}">
+                                <div class="col-12 lg:col-4 ">
+                                    <img src="{{fileDownload}}{{d.file.id}}" alt="product"
+                                        class="w-full h-14rem lg:h-9rem mr-3 flex-shrink-3 border-round " />
+                                </div>
+                                <div class="col-12 lg:col-8 px-2">
+                                    <span class="text-900 font-medium my-2 lg:mt-0">{{d.title}}</span>
+                                    <p class="mt-2">
+                                        <!-- {{ seeMore ? d.content : d.content.substr(0, 100) }}
+                                        <ng-container *ngIf="d.content.length > 100">
+                                            <span> <a type="button" class="a-link text-blue-500">Read More...</a></span> -->
+                                        <!-- <a class="text-primary" (click)="seeMore = !seeMore;">See {{ seeMore ?
+                                                'less' : 'more'}}</a> -->
+                                        <!-- <a class="text-primary" (click)="seeMore = !seeMore;">See {{ seeMore ?
+                                                    'less' : 'more'}}</a> -->
+                                        <!-- </ng-container> -->
+
+                                        {{ seeMore ? d.content : d.content.substr(0, 200) }}
+                                        <ng-container *ngIf="d.content.length > 200">... <br>
+                                            <span> <a type="button" class="a-link text-blue-500 text-sm my-2">
+                                                    Read More -></a>
+                                            </span>
+                                        </ng-container>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <p-divider></p-divider>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 lg:col-4 px-5">
+                <h3 class="text-xl text-600">Latest Event</h3>
+
+                <div class="grid">
+                    <div class="col-12 lg:col-12" *ngFor="let d of dataEvent" role="button"
+                        routerLink="/events-courses/payment/{{d.product.id}}">
+                        <img class="border-round-left w-full" style="max-height: 150px;"
+                            src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                        <div class="card p-3 pb-1">
+                            <div class="grid">
+                                <div class="col-8 lg:col-8 sm:col-8">
+                                    <p class="text-lg font-semibold">{{d.product.title}}</p>
+                                </div>
+                                <div class="col-4 lg:col-4 sm:col-4 text-right">
+                                    <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                                            style="font-size: 0.6rem ;">Events</a></p-tag>
+                                </div>
+                            </div>
+                            <table class="pt-0">
+                                <tbody class="p-0">
+                                    <tr>
+                                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                                {{d.product.location}}</small></td>
+                                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date :
+                                                'hh:mm'}} -
+                                                {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                                                date : 'E, dd MMM yyyy'}} </small></td>
+                                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price | currency
+                                                : 'Rp. '}}</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                        </div>
                     </div>
 
 
-
                 </div>
-            </div>
+                <h3 class="text-xl text-600">Latest Course</h3>
+                <div class="grid">
+                    <div class="col-12 lg:col-12" *ngFor="let d of dataCourse" role="button"
+                        routerLink="/events-courses/payment/{{d.product.id}}">
+                        <img class="border-round-left w-full" style="max-height: 150px;"
+                            src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                        <div class="card p-3 pb-1">
+                            <div class="grid">
+                                <div class="col-8 lg:col-8 sm:col-8">
+                                    <p class="text-lg font-semibold">{{d.product.title}}</p>
+                                </div>
+                                <div class="col-4 lg:col-4 sm:col-4 text-right">
+                                    <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                                            style="font-size: 0.6rem ;">Events</a></p-tag>
+                                </div>
+                            </div>
+                            <table class="pt-0">
+                                <tbody class="p-0">
+                                    <tr>
+                                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                                {{d.product.location}}</small></td>
+                                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date :
+                                                'hh:mm'}} -
+                                                {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                                                date : 'E, dd MMM yyyy'}} </small></td>
+                                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price | currency
+                                                : 'Rp. '}}</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                        </div>
+                    </div>
 
 
-            <div class="col-12 lg:col-4 ">
-                <h3 class="text-xl text-600">Event & Course</h3>
-                <div class="p-card py-3 px-4">
-                    b
                 </div>
             </div>
         </div>

@@ -15,12 +15,9 @@
    <div
       class="flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
       <ul class="list-none p-0 m-0 flex select-none align-items-center flex-column lg:flex-row">
-
          <a class="p-link lg:ml-4" (click)="showFormPayment()">
-            <span class="text-xs underline font-italic text-yellow-500 {{hidden}} ">Start to premium</span>
+            <span class="text-xs underline font-italic text-yellow-500 {{premium}} ">Start to premium</span>
          </a>
-
-
       </ul>
       <ul
          class="list-none p-0 m-0 flex select-none flex-column lg:flex-row border-top-1 surface-border lg:border-top-none">
@@ -58,12 +55,7 @@
             <div
                class="hidden static lg:absolute  w-full surface-overlay left-0 top-100 shadow-none lg:shadow-2 origin-top border-round pl-3 lg:pl-0">
                <ul class="list-none px-1 py-2 m-0">
-                  <li class="dropdown-header text-center w-full">
-                     <h6>{{fullname}}</h6>
-                  </li>
-                  <li>
-                     <hr class="dropdown-divider">
-                  </li>
+
                   <li> <a class="dropdown-item d-flex align-items-center" routerLink="/profile/members"> <i
                            class="bi bi-person"></i> <span>My Profile</span> </a></li>
                   <li>
@@ -83,9 +75,9 @@
 <p-dialog header="Start Premium Members" [(visible)]="displayPayment" [breakpoints]="{'960px': '75vw'}"
    [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
    <div class="flex flex-wrap">
-      <div class="w-full lg:w-6 lg:p-4" style="background-color: rgba(114, 158, 240, 0.7)">
-         <div class="text-xl text-900 font-500 mb-3">Premium Member Benefits</div>
-         <p class="text-600 line-height-3 mt-0 mb-6">Quis vel eros donec ac odio tempor orci dapibus. In hac
+      <div class="w-full lg:w-6 lg:p-4" style="background-color: rgba(105, 146, 221, 0.966)">
+         <div class="text-xl text-white font-500 mb-3">Premium Member Benefits</div>
+         <p class="text-white line-height-3 mt-0 mb-6">Quis vel eros donec ac odio tempor orci dapibus. In hac
             habitasse platea dictumst quisque.</p>
          <ul class="list-none p-0 m-0">
             <li class="flex align-items-start mb-4">
@@ -96,8 +88,8 @@
                   </span>
                </div>
                <div class="ml-3">
-                  <span class="font-medium text-900">Show all posts</span>
-                  <p class="mt-2 mb-0 text-600 line-height-3">premium updates to get wider posts and increase your
+                  <span class="font-medium text-white">Show all posts</span>
+                  <p class="mt-2 mb-0 text-white line-height-3">premium updates to get wider posts and increase your
                      relationships</p>
                </div>
             </li>
