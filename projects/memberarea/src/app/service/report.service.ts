@@ -16,4 +16,22 @@ export class ReportService {
   reportMemberRevenueReport(data : any) : Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/revenue/member`,data)
   }
+
+  getAllMemberRevenueReport(start: number, limit: number): Observable<Report[]> {
+    return this.http.get<Report[]>(`${BASE_URL.BASE_URL}/reports/revenue/member/data-all?start=${start}&limit=${limit}`)
+  }
+
+  getMemberProductivityReport(data : any) : Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/productivity/member`,data)
+  }
+
+  reportMemberProductivityReportData(data : any) : Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/productivity/member/data`,data)
+  }
+
+  getAllProductivityReport(start: number, limit: number): Observable<Report[]> {
+    return this.http.get<Report[]>(`${BASE_URL.BASE_URL}/reports/productivity/member/data-all?start=${start}&limit=${limit}`)
+  }
+
+
 }

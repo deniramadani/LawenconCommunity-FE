@@ -54,7 +54,11 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   
 
   ngOnInit(): void {
+    this.init()
 
+  }
+
+  init() {
     this.getAllProductTypeSubscription = this.productTypeService.getAllProductType().subscribe(result => {
       this.dataProductType = result
       for (let i = 0; i < result.length ; i++) {
@@ -81,11 +85,6 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     })
   }
 
-  getTimeZone() {
-    var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
-    return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
-  }
-
   showInsertProduct() {
     this.showFormInsert = true;
   }
@@ -106,6 +105,7 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   
     this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
       this.showFormInsert = false
+      this.init()
     })
   }
 

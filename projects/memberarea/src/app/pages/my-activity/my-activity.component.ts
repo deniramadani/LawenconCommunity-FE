@@ -57,7 +57,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   limit: number = 5
   start: number = 0
   title: string = ''
-  icon : string = ''
+  icon: string = ''
+  seeMore : boolean =false
   userType: string | null = this.apiService.getUserType()
   responsiveOptions: any[] = [
     {

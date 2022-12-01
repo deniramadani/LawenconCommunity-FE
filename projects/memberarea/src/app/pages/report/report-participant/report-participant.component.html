@@ -15,9 +15,7 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+
                 <th class="text-center">No</th>
                 <th>Type</th>
                 <th>Title</th>
@@ -28,9 +26,6 @@
 
         <ng-template pTemplate="body" let-reportParticipant let-i="rowIndex">
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="reportParticipant"></p-tableCheckbox>
-                </td>
                 <td class="text-center">{{i+1}}</td>
                 <td>{{reportParticipant.type}}</td>
                 <td>{{reportParticipant.title}}</td>

@@ -113,9 +113,7 @@
 
                   <div class="field col-12 md:col-6">
                     <label for="finishSchedule" class="w-full">Upload Foto<span class="text-red-500">*</span></label>
-                    <!-- <p-fileUpload id="file" name="file" accept=".png,.jpeg,.jpg,.jfif" [customUpload]="true"
-                      (uploadHandler)="fileUpload($event)">
-                    </p-fileUpload> -->
+
                     <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
                       styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
                       chooseLabel="Upload Image"></p-fileUpload>

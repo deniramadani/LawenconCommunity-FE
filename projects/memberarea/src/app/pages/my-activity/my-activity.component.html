@@ -681,7 +681,15 @@
                                 </table>
 
 
-                                <div class="line-height-3 text-700 text-sm mb-3 mt-2">{{d.product.content}}</div>
+                                <div class="line-height-3 text-700 text-sm mb-3 mt-2">
+
+                                    {{ seeMore ? d.product.content : d.product.content.substr(0, 200) }}
+                                    <ng-container *ngIf="d.product.content.length > 200">... <br>
+                                        <span> <a type="button" class="a-link text-blue-500 text-sm my-2">
+                                                Read More -></a>
+                                        </span>
+                                    </ng-container>
+                                </div>
                                 <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                                 <hr>
                                 <div class="flex align-items-center">
@@ -831,7 +839,17 @@
                             <img src="{{fileDownload}}{{o.product.photo.id}}" alt="product"
                                 class="w-8rem h-6rem mr-3 flex-shrink-0" />
                             <div class="flex flex-column my-auto text-center md:text-left">
-                                <span class="text-900 font-medium my-1 lg:mt-0">{{o.product.content}}</span>
+                                <span class="text-900 font-medium my-1 lg:mt-0">
+
+
+
+                                    {{ seeMore ? o.product.content : o.product.content.substr(0, 100) }}
+                                    <ng-container *ngIf="o.product.content.length > 100">... <br>
+                                        <span> <a type="button" class="a-link text-blue-500 text-sm my-2">
+                                                Read More -></a>
+                                        </span>
+                                    </ng-container>
+                                </span>
                                 <p-tag severity="warning" styleClass="px-5 mb-2"
                                     value="{{o.product.productType.productTypeName}}" [rounded]="true">
                                 </p-tag>
