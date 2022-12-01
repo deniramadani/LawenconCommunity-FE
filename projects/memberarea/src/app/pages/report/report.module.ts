@@ -12,7 +12,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from "primeng/inputtext";
 import { ReportComponent } from "./report.component";
 import { TabViewModule } from 'primeng/tabview';
-
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -27,8 +27,8 @@ import { TabViewModule } from 'primeng/tabview';
         CalendarModule,
         BreadcrumbModule,
         ToolbarModule,
-        InputTextModule,
-        TabViewModule
+        InputTextModule,FormsModule,
+        TabViewModule,ReactiveFormsModule
     ],
     exports: [
         ReportIncomeComponent, ReportMemberComponent, ReportComponent

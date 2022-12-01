@@ -90,8 +90,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     ];
     this.items1 = [
       {
-        label: 'Delete', icon: 'pi pi-trash', command: () => {
-        console.log('cetak');
+        label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
+        console.log(event);
       }},
       {label: 'Edit', icon: 'pi pi-pencil'}
       ];
@@ -100,7 +100,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
 
   cetak() {
     console.log('cetak');
-    
   }
 
   init(): void {
@@ -116,8 +115,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
       this.postsBookmark = result     
     })
 
-  
-    
   }
 
   showPost() {
@@ -125,6 +122,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.product = false
     this.on_going = false
     this.orders = false
+    this.init()
+    
   }
 
   showMyActivity() {
@@ -142,6 +141,7 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.getCourseByUserIdSubscription = this.postService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
       this.dataCourse = result
     })
+
   }
 
   showOrders() {
