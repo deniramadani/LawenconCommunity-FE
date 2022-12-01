@@ -105,17 +105,20 @@
                     <input pInputText id="locations" formControlName="location" name="locations" type="text"
                       class="w-full p-inputtext-sm" required>
                   </div>
-                  <div class="field col-12 md:col-3" formGroupName="product">
+                  <div class="field col-12 md:col-6" formGroupName="product">
                     <label for="price">Price<span class="text-red-500">*</span></label>
                     <input pInputText id="price" formControlName="price" name="price" type="number"
                       class="w-full p-inputtext-sm" required>
                   </div>
 
-                  <div class="field col-12 md:col-9">
+                  <div class="field col-12 md:col-6">
                     <label for="finishSchedule" class="w-full">Upload Foto<span class="text-red-500">*</span></label>
-                    <p-fileUpload id="file" name="file" accept=".png,.jpeg,.jpg,.jfif" [customUpload]="true"
+                    <!-- <p-fileUpload id="file" name="file" accept=".png,.jpeg,.jpg,.jfif" [customUpload]="true"
                       (uploadHandler)="fileUpload($event)">
-                    </p-fileUpload>
+                    </p-fileUpload> -->
+                    <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                      styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
+                      chooseLabel="Upload Image"></p-fileUpload>
                   </div>
 
                   <div class="field col-12 md:col-6">

@@ -273,5 +273,6 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     this.industrySubscription?.unsubscribe()
     this.dataUserSubscription?.unsubscribe()
     this.updateUserSubscription?.unsubscribe()
+    this.chagenPasswordSubcription?.unsubscribe()
   }
 }

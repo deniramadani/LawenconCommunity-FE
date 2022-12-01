@@ -3,22 +3,24 @@
         [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
+
                 <div>
                     <label class="mr-2">Date Range</label>
-                    <p-calendar class="p-inputtext-sm" selectionMode="range" [readonlyInput]="true" inputId="range">
+                    <p-calendar class="p-inputtext-sm" (onSelect)="getValueDate()" selectionMode="range"
+                        [(ngModel)]="rangeDates" [readonlyInput]="true" inputId="range">
                     </p-calendar>
-                </div>
-                <button pButton pRipple label="Export" icon="pi pi-upload"
-                    class="p-button-sm border-none p-button-primary " routerLink="/report/income"></button>
 
+                </div>
+
+                <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-sm border-none p-button-primary" (click)="btnExport()"></button>
             </div>
+
         </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 4rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+
                 <th class="text-center" style="width: 6rem">No</th>
                 <th>Type</th>
                 <th>Title</th>
@@ -28,9 +30,7 @@
 
         <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
             <tr>
-                <td style="width: 4rem">
-                    <p-tableCheckbox [value]="reportIncome"></p-tableCheckbox>
-                </td>
+
                 <td class="text-center" style="width: 6rem">{{i+1}}</td>
                 <td>{{reportIncome.type}}</td>
                 <td>{{reportIncome.title}}</td>
