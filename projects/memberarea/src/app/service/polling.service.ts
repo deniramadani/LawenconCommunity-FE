@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { PostLike } from 'projects/interface/post-like';
 import { Observable } from 'rxjs';
 

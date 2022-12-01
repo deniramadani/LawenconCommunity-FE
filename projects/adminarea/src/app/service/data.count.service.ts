@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { DashboardAdmin } from 'projects/interface/dashboard-admin';
 import { Subscription } from 'rxjs';
 import { DashboardService } from './dashboard.service';

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
 import { Post } from 'projects/interface/post';
 import { PostLike } from 'projects/interface/post-like';

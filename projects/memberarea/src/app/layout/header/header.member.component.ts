@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, SelectItem } from 'primeng/api';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { Subscription } from "rxjs";
 import { ProductsService } from '../../service/products.service';

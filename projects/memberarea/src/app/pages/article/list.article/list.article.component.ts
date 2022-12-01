@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Article } from 'projects/interface/article';
 import { Schedule } from 'projects/interface/schedule';
 import { Subscription } from 'rxjs';

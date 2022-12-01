@@ -3,7 +3,7 @@ import { } from '../../../../../../interface/payment'
 import { Subscription } from "rxjs";
 import { PaymentService } from '../../../service/payment.service';
 import { Payment } from "../../../../../../interface/payment";
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 @Component({
   selector: 'app-payment-product',
   templateUrl: './payment-product.component.html',

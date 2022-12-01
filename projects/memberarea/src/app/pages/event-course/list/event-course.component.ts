@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import  { Subscription } from 'rxjs'
 import { ProductsService } from '../../../service/products.service';
 import { Schedule } from '../../../../../../interface/schedule'
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { FormBuilder,Validators } from '@angular/forms';
 import { UserTypeService } from '../../../service/user.type.service';
 import { UserType } from "../../../../../../interface/user-type";

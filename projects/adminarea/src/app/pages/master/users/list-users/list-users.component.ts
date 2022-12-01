@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User} from '../../../../../../../interface/user'
 import { Subscription } from 'rxjs'
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',

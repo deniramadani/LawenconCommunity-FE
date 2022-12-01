@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BASE_URL } from 'projects/api/BaseUrl';
+import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Observable } from 'rxjs';
 import { Product } from '../../../../interface/product'
 import { Schedule } from '../../../../interface/schedule'
