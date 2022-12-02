@@ -1,4 +1,4 @@
-<div class="container py-6" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
+<!-- <div class="container py-6" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
     <div class="grid mt-6 flex">
         <div class="col-12 lg:col-3 sm:col-3">
             <div class="surface-card shadow-2 border-round select-none">
@@ -79,11 +79,6 @@
 
 
                                             <div class="col-1 lg:col-1 p-0 text-left">
-                                                <!-- <p-tag icon="pi pi-trash" role="button"
-                                                    (click)="clickConfirmDelete('top',post.id)" class="ml-2"
-                                                    severity="danger" [rounded]="true">
-                                                </p-tag> -->
-
                                                 <span
                                                     class="inline-flex cursor-pointer py-2 px-1 align-items-center surface-100 hover:surface-200 transition-colors transition-duration-150 mb-3 md:mb-0 mr-0 md:mr-3 select-none"
                                                     style="border-radius: 20px" (click)="menu8_1.toggle($event)"
@@ -888,5 +883,56 @@
                 </div>
             </div>
         </div>
+    </div>
+</div> -->
+
+
+<div class="container">
+    <div class="mt-5">
+        <div class="surface-section p-0 shadow-2">
+            <div class="surface-ground px-4 pt-6 pb-4 md:px-6 lg:px-8">
+                <div class="flex flex-wrap relative overflow-hidden"
+                    style="border-radius:1rem; background:radial-gradient(100% 1126.49% at 100% 0%, rgba(87, 123, 221, 0.4) 0%, rgba(33, 33, 33, 0) 100%), #212121;">
+                    <div class="px-6 py-8">
+                        <span class="uppercase text-cyan-500 font-bold">My Activity</span>
+                        <div class="text-white text-medium text-5xl mt-3 mb-5">Explore Your Activity</div>
+                    </div>
+
+                    <img src="" alt="Image" class="static lg:absolute block mx-auto"
+                        style="height: 400px; top: -2rem; right: -1rem">
+                </div>
+            </div>
+            <p-tabView styleClass="tabview-custom" class="p-0">
+                <p-tabPanel>
+                    <ng-template pTemplate="header">
+                        <i class="bi bi-file-earmark-richtext-fill mr-2 text-700"></i>
+                        <span>Post</span>
+                    </ng-template>
+                    <app-post></app-post>
+                </p-tabPanel>
+                <p-tabPanel header="Header II">
+                    <ng-template pTemplate="header">
+                        <i class="bi bi-pencil-square mr-2 text-700"></i>
+                        <span>Activities</span>
+                    </ng-template>
+                    <app-activities></app-activities>
+                </p-tabPanel>
+                <p-tabPanel header="Header III">
+                    <ng-template pTemplate="header">
+                        <i class="bi bi-hourglass-split mr-2 text-700"></i>
+                        <span>Transaction History</span>
+                    </ng-template>
+                    <app-transaction-history></app-transaction-history>
+                </p-tabPanel>
+                <p-tabPanel header="Header IV">
+                    <ng-template pTemplate="header">
+                        <i class="bi bi-cart4 mr-2 text-700"></i>
+                        <span>Activity Orders</span>
+                    </ng-template>
+                    <app-activities-orders></app-activities-orders>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+
     </div>
 </div>

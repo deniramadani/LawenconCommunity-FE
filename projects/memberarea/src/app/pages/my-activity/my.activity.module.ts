@@ -21,10 +21,16 @@ import { GalleriaModule } from 'primeng/galleria';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DividerModule } from 'primeng/divider';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import {MenuModule} from 'primeng/menu';
+import { MenuModule } from 'primeng/menu';
+import { TimeAgoPipe } from "projects/mainarea/src/app/pipe/time-ago.pipe";
+import { PostComponent } from './post/post.component';
+import { TransactionHistoryComponent } from './transaction.history/transaction.history.component';
+import { ActivitiesComponent } from './activities/activities.component';
+import { ActivitiesOrdersComponent } from './activities.orders/activities.orders.component';
 @NgModule({
     declarations: [
-        MyActivityComponent
+        MyActivityComponent,PostComponent, TransactionHistoryComponent, ActivitiesComponent, ActivitiesOrdersComponent
+        
     ],
     imports: [
         MyActivityRouting,TabViewModule,GalleriaModule,
@@ -43,7 +49,7 @@ import {MenuModule} from 'primeng/menu';
         TooltipModule
     ],
     exports: [
-        MyActivityComponent
+        MyActivityComponent,PostComponent,TransactionHistoryComponent
     ]
 })
 export class MyActivityModule { }
