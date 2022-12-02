@@ -84,7 +84,7 @@
       </div>
 
       <div class="col-12 lg:col-4 p-3">
-        <ng-template [ngIf]="paymentStatus !== 'NONE'">
+        <ng-template [ngIf]="paymentStatus !== paymentNone">
           <div class="p-card p-3 my-3">
             <h5 class="text-lg">Transaction History</h5>
             <hr>
@@ -117,7 +117,7 @@
             </p-table>
           </div>
         </ng-template>
-        <ng-template [ngIf]="paymentStatus == 'REJECTED' || paymentStatus == 'NONE'">
+        <ng-template [ngIf]="paymentStatus == paymentRejected || paymentStatus == paymentNone">
           <div class="p-card p-3">
             <h5 class="text-lg">Detail Order</h5>
             <hr>

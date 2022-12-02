@@ -3,5 +3,5 @@ export enum PaymentConst {
     REJECTED = 'REJECTED', //table & payment
     PENDING = 'PENDING', //table
     NONE = 'NONE', //payment
-    ERROR = 'ERROR'
+    ERROR = 'ERROR' //table
 }

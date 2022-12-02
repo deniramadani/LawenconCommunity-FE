@@ -25,6 +25,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   detailPayment: any = new Object
   idProduct: string = ''
   paymentStatus? : string
+  paymentNone : string = PaymentConst.NONE
+  paymentRejected : string = PaymentConst.REJECTED
 
   insertPayment = this.fb.group({
     product: this.fb.group({
@@ -58,8 +60,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
             break
           } else if(this.detailPayment[i].approval == false &&  this.detailPayment[i].isActive == false) {
             paymentStatus = PaymentConst.REJECTED
+            break
           } else if(this.detailPayment[i].approval == false &&  this.detailPayment[i].isActive == true) {
             paymentStatus = PaymentConst.PENDING
+            break
           } else {
             paymentStatus = PaymentConst.ERROR
           }
