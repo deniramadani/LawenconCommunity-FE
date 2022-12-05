@@ -27,7 +27,6 @@ export class ReportIncomeComponent implements OnInit {
     userIdCheckBox: any[] = []
     dataReport: Report[] = []
     selection: any[] = [];
-
     userIDs: any[] = []
     data = this.fb.group({
         startDate : [''],
@@ -50,49 +49,42 @@ export class ReportIncomeComponent implements OnInit {
             }           
         })     
     }
-  
-    checkCheckBoxvalue(event : any){
-        console.log(event.target.checked)
+    checkboxChanged(event : any) {
+        // const id = event.source.id; //Get the id of the checkbox
+        // console.log(event.checked); //true or false
+        // console.log(id); //A, B, C... etc
+        // if (event.checked) this.userId.push(id); //If checked, add to array
+        // else { //if unchecked, remove from the array
+        //     // const i = this.userId.indexOf(id);
+        //     // this.userId.splice(i, 1);
+         
+        // }
         console.log(event);
+        
+        console.log("tempData", this.userId); 
+    }
+    toggleCheckBox(elementId : any){
+        // return (this.userId.indexOf(elementId) != -1) ? true : false;
+        console.log(elementId);
+        
     }
     
-    getValue(event: any,id : string) {
-        
-        // console.log(event.target.value, id);
-        // this.userIDs.push(id)
-        // console.log(this.userIDs);
-
-        this.selection.forEach(s => {
-            console.log(s);
-            
-        })
-        
-        
+    sendRegretMail(id : any) {
         // this.selection.forEach(s => {
         //   console.log(s.id);
-<<<<<<< HEAD
-        // this.userIDs.push(id); // Just push object of id with define array
-        // this.userId.push(id)
-=======
         console.log(id.data)
          this.userIDs.push(id.data); // Just push object of id with define array
    
->>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
      
+        // });
+        // this.data.patchValue({
+        //     userId : this.userIDs.push(id)
+        // })
 
         // this.userId.push(this.fb.group([]))
-        // this.data.patchValue({
-        //     userId : ['1','2']
-        // })
-        // console.log(id);
-        // this.data.patchValue({
-        //     userId : id
-        // })
+        console.log(id);
         
-        // console.log(this.userIDs);
-
-
-
+        console.log(this.userIDs);
         
     }
 
@@ -107,18 +99,6 @@ export class ReportIncomeComponent implements OnInit {
         })
     }
 
-    // findIndexById(id: string): number {
-    //     let index = -1;
-    //     for (let i = 0; i < this.report.length; i++) {
-    //         if (this.report[i].memberName === id) {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-
-    //     return index;
-    // }
-
     // fileUpload(event: any) {
     //     for (let i = 0; i < event.target.files.length; i++) {
     //       this.fileService.fileUploadMultiple(event, i).then(result => {
@@ -132,7 +112,7 @@ export class ReportIncomeComponent implements OnInit {
     //   }
 
     get userId(): FormArray {
-        return this.data.get('userId') as FormArray
+        return this.data.get([]) as FormArray
     }
 
     checkBoxId() {
@@ -162,13 +142,6 @@ export class ReportIncomeComponent implements OnInit {
         console.log(this.userIDs)
         this.data.patchValue({
             startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
-<<<<<<< HEAD
-            endDate: this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),
-        })
-
-        console.log(this.data.value);
-        
-=======
             endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),
         })
         this.data.value.userId = this.userIDs
@@ -182,7 +155,6 @@ export class ReportIncomeComponent implements OnInit {
         } else {
             this.toast.warning('input range date')
         } 
->>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
        
         
     }
@@ -192,5 +164,4 @@ export class ReportIncomeComponent implements OnInit {
         this.getMemberIncomeSuperAdminSubscription?.unsubscribe()
         this.insertIncomeSuperAdminSubscription?.unsubscribe()
     }
-
 }
