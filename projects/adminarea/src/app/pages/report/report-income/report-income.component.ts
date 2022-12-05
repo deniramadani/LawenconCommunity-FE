@@ -70,8 +70,14 @@ export class ReportIncomeComponent implements OnInit {
         
         // this.selection.forEach(s => {
         //   console.log(s.id);
+<<<<<<< HEAD
         // this.userIDs.push(id); // Just push object of id with define array
         // this.userId.push(id)
+=======
+        console.log(id.data)
+         this.userIDs.push(id.data); // Just push object of id with define array
+   
+>>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
      
 
         // this.userId.push(this.fb.group([]))
@@ -89,7 +95,8 @@ export class ReportIncomeComponent implements OnInit {
 
         
     }
-    
+
+   
 
     getData(offset: number, limit: number){
      
@@ -148,14 +155,34 @@ export class ReportIncomeComponent implements OnInit {
     }
 
     btnExport() {
-              
+        this.userIDs.length= 0
+        for(let i =0; i<this.selection.length;i++){
+            this.userIDs.push(this.selection[i].memberId)
+        }
+        console.log(this.userIDs)
         this.data.patchValue({
             startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
+<<<<<<< HEAD
             endDate: this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),
         })
 
         console.log(this.data.value);
         
+=======
+            endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),
+        })
+        this.data.value.userId = this.userIDs
+        if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
+            this.insertIncomeSuperAdminSubscription = this.reportService.reportSuperAdminIncome(this.data.value).subscribe((result) => {
+                const anchor = document.createElement('a');
+                anchor.download = "report_income.pdf";
+                anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
+                anchor.click();
+            })
+        } else {
+            this.toast.warning('input range date')
+        } 
+>>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
        
         
     }

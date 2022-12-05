@@ -10,38 +10,31 @@ import { AuthModule } from "./auth/auth.module";
 import { PagesError404Component } from "./not-found/pages-error404.component";
 import { ProfileModule } from "./profile/profile.module";
 
-export const mainRoutes : Routes = [
-    ...adminAreaRoutes,...membersAreaRoutes,
+export const mainRoutes: Routes = [
+    ...adminAreaRoutes, ...membersAreaRoutes,
     {
-    path : '',
-    redirectTo : '/login',
-    pathMatch : 'full'
-    },
-      
-    {
-        path : 'login',
-        loadChildren : ()=> import('./auth/auth.module').then(u => u.AuthModule)
+        path: '',
+        redirectTo: 'members/login',
+        pathMatch: 'full',
     },
     {
-        path : 'profile',
-        loadChildren : ()=> import('./profile/profile.module').then(u => u.ProfileModule)
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then(u => u.ProfileModule)
     },
     {
-        path : '**',
-        component : PagesError404Component
-    }, 
-    
-    
+        path: '**',
+        component: PagesError404Component
+    },
 ]
 
 @NgModule({
-    imports : [
+    imports: [
         RouterModule.forRoot(mainRoutes),
-        AdminareaModule,AuthModule,MemberAreaModule,ProfileModule,ContentAdminModule,ContentMemberModule
-       
+        AdminareaModule, AuthModule, MemberAreaModule, ProfileModule, ContentAdminModule, ContentMemberModule
+
     ],
-    exports : [
-        RouterModule,AuthModule,AdminareaModule,MemberAreaModule,ProfileModule,ContentMemberModule,ContentAdminModule
+    exports: [
+        RouterModule, AuthModule, AdminareaModule, MemberAreaModule, ProfileModule, ContentMemberModule, ContentAdminModule
     ]
 })
 export class AppRouting { }

@@ -1,11 +1,11 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { ReportService } from "../../../service/report.service";
 import { Subscription } from "rxjs";
 import { Report } from "projects/interface/report";
 import { LazyLoadEvent } from "primeng/api"
 import { ToastrService } from "ngx-toastr";
+import { ReportService } from "../../../service/report.service";
 @Component({
     selector: "report-participant",
     templateUrl: "./report-participant.component.html",

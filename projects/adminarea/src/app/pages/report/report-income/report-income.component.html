@@ -1,6 +1,7 @@
 <main id="main" class="main">
     <div class="container">
         <h3 class="my-4">Member Information Income</h3>
+<<<<<<< HEAD
         <form [formGroup]="data">
             <p-table #dt [value]="reportIncome" [paginator]="true" [rows]="rows" [(first)]="first"
                 [showCurrentPageReport]="true"
@@ -15,6 +16,19 @@
                         </div>
                         <button pButton pRipple label="Export" type="submit" (click)="btnExport()" icon="pi pi-upload"
                             class="p-button-sm border-none p-button-primary"></button>
+=======
+
+        <p-table #dt [value]="reportIncome" [(selection)]="selection" [paginator]="true" [rows]="rows" [(first)]="first"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <div>
+                        <label class="mr-2">Date Range</label>
+                        <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                            [readonlyInput]="true" inputId="range">
+                        </p-calendar>
+>>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
                     </div>
                     <pre>{{data.value | json}}</pre>
 
@@ -35,11 +49,24 @@
                 <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
                     <tr>
 
+<<<<<<< HEAD
                         <td style="width: 4rem">
 
                             <!-- <p-tableCheckbox (onChange)="sendRegretMail(reportIncome.memberId)"
                             [value]="reportIncome.memberId">
                         </p-tableCheckbox> -->
+=======
+                    <td style="width: 4rem">
+                        <!-- <p-tableCheckbox [value]="reportIncome.memberId" formArrayName="userId" >
+                            </p-tableCheckbox> -->
+                        <p-tableCheckbox [value]="reportIncome" [index]="i">
+                        </p-tableCheckbox>
+                    </td>
+                    <td class="text-center" style="width: 6rem">{{i+1}}</td>
+                    <td>{{reportIncome.memberName}}</td>
+                    <td>{{reportIncome.type}}</td>
+                    <td class="text-center">{{reportIncome.totalIncome}}</td>
+>>>>>>> 99d226cf1bc6bc663d927e2b126afb26e294f0b4
 
                             <!-- <p-tableCheckbox (onChange)="getValue($event,reportIncome.memberId)"
                             [value]="reportIncome.memberId">
