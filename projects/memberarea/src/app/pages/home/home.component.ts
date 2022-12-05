@@ -13,12 +13,13 @@ import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-cons
 import { PollingService } from '../../service/polling.service';
 import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
 import { ToastrService } from 'ngx-toastr';
-import { AutoFocus } from 'primeng/autofocus';
 import { FileService } from '../../service/file.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  providers: [ConfirmationService]
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getCommetByIdSubcription?: Subscription
   private insertCommentSubscription?: Subscription
   private insertPostBasicSubscription?: Subscription
-
+  private updatePostSubscription?: Subscription
+  private deletePostSubcription?: Subscription
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fileid: string = ''
   data: Article[] = []
   posts: Post[] = []
+  postId : string = ''
   limit: number = 5
   start: number = 0
   userType: string | null = this.apiService.getUserType()
@@ -98,24 +101,27 @@ export class HomeComponent implements OnInit, OnDestroy {
       numVisible: 1
     }
   ];
+  updatePost = this.fb.group({
+    id : [''],
+    title: ['', [Validators.required]],
+    body: ['', [Validators.required]],
+  })
 
-
+  formUpdatePost : boolean = false
   label: string = 'Post Basic'
   labelStyle: string = ''
   disabledPolling : string = ''
   isChecked = false;
   type: string = ''
-  constructor(private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private confirmationService: ConfirmationService,private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
-    if (this.checked == true) {
-      console.log(this.checked);
-      // this.isChecked = true
-      
-    } else {
-      console.log('basic');
-      console.log(this.checked);
+    // if (this.checked == true) {
+      // console.log(this.checked);
+    // } else {
+      // console.log('basic');
+      // console.log(this.checked);
       // this.isChecked = false
-    }
+    // }
     this.init();
   }
 
@@ -249,7 +255,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
   displayCommentsComponent(id: string, index: any) {
-   
     this.showCommentComponent[index] = !this.showCommentComponent[index];
     this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
       this.comment = result
@@ -272,6 +277,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
     this.insertCommentSubscription = this.postService.insertComment(this.dataComment.value).subscribe(result => {
       this.getCommentByPostId(id, i)
+      this.dataComment.patchValue({
+        content : ''
+      })
     })
   }
   calculateDiff(sentDate: string) {
@@ -352,10 +360,42 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
 
+      console.log(postBookmark.value);
+      
+
       this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
         this.init()
       })
     }
+  }
+
+  showDialogUpdatePost(id: string,title : string,body: string) {
+    this.formUpdatePost = true
+    this.updatePost.patchValue({
+      id: id,
+      title: title,
+      body : body
+    })
+  }
+  btnUpdatePost() {
+    this.updatePostSubscription = this.postService.updatePost(this.updatePost.value).subscribe(result => {
+      this.formUpdatePost = false
+      this.init()
+    })
+  }
+
+  clickConfirmDelete(position: string, id: string,) {
+    this.confirmationService.confirm({
+        message: 'Do you want to delete this post?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        key: "positionDialog",
+        accept: () => {
+          this.deletePostSubcription = this.postService.deletePost(id).subscribe(result => {
+            this.init()
+          })
+        }
+    });
   }
 
   choose(id: string) {

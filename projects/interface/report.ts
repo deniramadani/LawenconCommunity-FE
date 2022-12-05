@@ -6,5 +6,5 @@ export interface Report{
     totalParticipants : number
     memberName : string
     provider : string
-    totalIncome : number
+    totalIncome: number
 } 

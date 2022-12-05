@@ -6,14 +6,17 @@ import { LazyLoadEvent } from "primeng/api";
 import { Report } from "projects/interface/report";
 import { ReportService } from "projects/memberarea/src/app/service/report.service";
 import { Subscription } from "rxjs";
+
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 @Component({
     selector: "report-income",
     templateUrl: "./report-income.component.html",
     providers: [
-        DatePipe
+        DatePipe,MessageService,ConfirmationService
     ],
 })
-export class ReportIncomeComponent implements OnInit,OnDestroy {
+export class ReportIncomeComponent implements OnInit {
     private getAllIncomeSuperAdminSubscription?: Subscription
     private getMemberIncomeSuperAdminSubscription?: Subscription
     private insertIncomeSuperAdminSubscription? : Subscription
@@ -24,6 +27,7 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
     userIdCheckBox: any[] = []
     dataReport: Report[] = []
     selection: any[] = [];
+
     userIDs: any[] = []
     data = this.fb.group({
         startDate : [''],
@@ -46,41 +50,43 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
             }           
         })     
     }
-    checkboxChanged(event : any) {
-        // const id = event.source.id; //Get the id of the checkbox
-        // console.log(event.checked); //true or false
-        // console.log(id); //A, B, C... etc
-        // if (event.checked) this.userId.push(id); //If checked, add to array
-        // else { //if unchecked, remove from the array
-        //     // const i = this.userId.indexOf(id);
-        //     // this.userId.splice(i, 1);
-         
-        // }
+  
+    checkCheckBoxvalue(event : any){
+        console.log(event.target.checked)
         console.log(event);
-        
-        console.log("tempData", this.userId); 
-    }
-    toggleCheckBox(elementId : any){
-        // return (this.userId.indexOf(elementId) != -1) ? true : false;
-        console.log(elementId);
-        
     }
     
-    sendRegretMail(id : any) {
+    getValue(event: any,id : string) {
+        
+        // console.log(event.target.value, id);
+        // this.userIDs.push(id)
+        // console.log(this.userIDs);
+
+        this.selection.forEach(s => {
+            console.log(s);
+            
+        })
+        
+        
         // this.selection.forEach(s => {
         //   console.log(s.id);
-        this.userIDs.push(id); // Just push object of id with define array
-   
+        // this.userIDs.push(id); // Just push object of id with define array
+        // this.userId.push(id)
      
-        // });
-        // this.data.patchValue({
-        //     userId : this.userIDs.push(id)
-        // })
 
         // this.userId.push(this.fb.group([]))
-        console.log(id);
+        // this.data.patchValue({
+        //     userId : ['1','2']
+        // })
+        // console.log(id);
+        // this.data.patchValue({
+        //     userId : id
+        // })
         
-        console.log(this.userIDs);
+        // console.log(this.userIDs);
+
+
+
         
     }
     
@@ -93,6 +99,18 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
             }
         })
     }
+
+    // findIndexById(id: string): number {
+    //     let index = -1;
+    //     for (let i = 0; i < this.report.length; i++) {
+    //         if (this.report[i].memberName === id) {
+    //             index = i;
+    //             break;
+    //         }
+    //     }
+
+    //     return index;
+    // }
 
     // fileUpload(event: any) {
     //     for (let i = 0; i < event.target.files.length; i++) {
@@ -107,7 +125,7 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
     //   }
 
     get userId(): FormArray {
-        return this.data.get([]) as FormArray
+        return this.data.get('userId') as FormArray
     }
 
     checkBoxId() {
@@ -133,18 +151,11 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
               
         this.data.patchValue({
             startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
-            endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd')
+            endDate: this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),
         })
-        // if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
-        //     this.insertIncomeIncomeMemberSubscription = this.reportService.reportMemberRevenueReport(this.date.value).subscribe((result) => {
-        //         const anchor = document.createElement('a');
-        //         anchor.download = "report_income.pdf";
-        //         anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
-        //         anchor.click();
-        //     })
-        // } else {
-        //     this.toast.warning('input range date')
-        // } 
+
+        console.log(this.data.value);
+        
        
         
     }

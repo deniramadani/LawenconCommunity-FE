@@ -19,14 +19,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import {CalendarModule} from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {TreeSelectModule} from 'primeng/treeselect';
+import { TreeSelectModule } from 'primeng/treeselect';
+import {DividerModule} from 'primeng/divider';
 @NgModule({
 
     declarations : [
         ListUsersComponent,InsertUsersComponent,UpdateUsersComponent
     ],
     imports : [
-        UsersRouting, CardModule, TooltipModule,
+        UsersRouting, CardModule, TooltipModule,ReactiveFormsModule,DividerModule,
         ButtonModule, TableModule, InputTextModule,
         CommonModule, FormsModule, FileUploadModule, DropdownModule,
         CheckboxModule, ConfirmDialogModule, InputTextareaModule, ImageModule,

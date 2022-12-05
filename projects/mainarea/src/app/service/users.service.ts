@@ -40,4 +40,10 @@ export class UsersService {
   userUpdate(data: any): Observable<any> {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/users/`, data)
   }
+
+  deleteUser(id : string): Observable<User> {
+    return this.http.put<User>(`${BASE_URL.BASE_URL}/users/delete/${id}`,id)
+  }
+
+
 }

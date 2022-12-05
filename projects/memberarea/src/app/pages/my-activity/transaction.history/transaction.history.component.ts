@@ -25,9 +25,7 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy{
         this.empty = true
       } else {
         this.payments = result
-      }
-      console.log(result);
-      
+      }      
     })
   }
 

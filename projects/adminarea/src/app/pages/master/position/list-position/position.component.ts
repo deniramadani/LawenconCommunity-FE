@@ -47,9 +47,7 @@ export class ListPositionComponent implements OnInit,OnDestroy {
           })
         }
     });
-  
-
-}
+  }
   
 
   ngOnDestroy(): void {

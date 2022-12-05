@@ -9,9 +9,13 @@ import { User } from 'projects/interface/user';
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder , Validators} from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-update-users',
   templateUrl: './update-users.component.html',
+  providers: [
+    DatePipe
+  ],
 })
 export class UpdateUsersComponent implements OnInit {
  
@@ -30,6 +34,11 @@ export class UpdateUsersComponent implements OnInit {
   selectedidPosition : string = ''
   selectedidIndustry: string = ''
   selectedRole: string = ''
+  myDate: any 
+  bod: any
+  fotoId : string = ''
+  selectedPosition: any 
+  selectedIndustry: any 
   dataPhoto = this.fb.group({
     photo: this.fb.group({
       fileEncode: [''],
@@ -40,9 +49,6 @@ export class UpdateUsersComponent implements OnInit {
     id: ['', [Validators.required]],
     fullname: ['', [Validators.required]],
     email: ['', [Validators.required]],
-    role: this.fb.group({
-      id : ['', [Validators.required]]
-    }),
     userType: this.fb.group({
       id : ['', [Validators.required]]
     }),
@@ -56,18 +62,14 @@ export class UpdateUsersComponent implements OnInit {
     phoneNumber: ['', [Validators.required]],
     address: ['', [Validators.required]],
     dateOfBirth: ['', [Validators.required]],
-    userSocmed: this.fb.group({
-      facebook: ['', [Validators.required]],
-      instagram: ['', [Validators.required]],
-      linkedin : ['', [Validators.required]]
-    }),
-    isActive: [true, [Validators.required]],
-    version: [0, [Validators.required]]
-    
+    isActive: [true, [Validators.required]],    
   })
+
+
   constructor(
     private fb : FormBuilder ,
     private userService: UsersService,
+    private datePipe: DatePipe,
     private positionService: PositionService,
     private industryService: IndustryService,
     private activedParam: ActivatedRoute) { }
@@ -77,39 +79,40 @@ export class UpdateUsersComponent implements OnInit {
     this.getUserByIdSubscription = this.activedParam.params.subscribe(id => {
       
       this.userService.getUsersById(String(Object.values(id))).subscribe(result => {
-        this.dataUser = result
-        this.dataUpdate.patchValue({
-          id: result.id,
-          fullname: result.fullname,
-          email: result.email,
-          role: {
-            id : result.role.id
-          },
-          userType: {
-            id : result.userType.id
-          },
-          industry: {
-            id : result.industry.id
-          },
-          position: {
-            id : result.position.id
-          },
-          userSocmed: {
-            facebook: result.userSocmed.facebook,
-            instagram: result.userSocmed.instagram,
-            linkedin : result.userSocmed.linkedin
-          },
-          dateOfBirth : result.dateOfBirth,
-          phoneNumber: result.phoneNumber,
-          address: result.address,
-          company : result.company,
-          isActive: result.isActive,
-          version : result.version
-        })
-        console.log(result);
+        console.log(result);        
+        this.bod = result.dateOfBirth
+      
+        if (result.position != null) {
+          this.selectedPosition = result.position.id
+        } else {
+          this.selectedPosition = null
+        }
+
+        if (result.industry != null) {
+          this.selectedIndustry = result.industry.id
+        } else {
+          this.selectedIndustry = null
+        }
+   
+     
+          this.dataUpdate.patchValue({
+            id : result.id,
+            fullname: result.fullname,
+            email: result.email,
+            company: result.company,
+            address: result.address,
+            phoneNumber: result.phoneNumber,
+            userType: {
+              id : result.userType.id
+            },
+            isActive: result.isActive,
+            dateOfBirth : result.dateOfBirth,
+          })
 
       })
     })
+
+    
     this.role = [
       {name: 'Super Admin', id: 'ROLSA'},
       {name: 'Admin', id: 'ROLAM'},
@@ -122,10 +125,25 @@ export class UpdateUsersComponent implements OnInit {
   }
 
   update() {
+    if (this.bod != null) {
+      this.dataUpdate.patchValue({
+        dateOfBirth : this.bod
+      })
+    }
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {
         
     })
    
+  }
+
+  onSelectMethod(event: any) {
+    if (event != null) {
+      let d = new Date(Date.parse(event));
+      this.myDate = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;  
+      this.bod = this.datePipe.transform(this.myDate, "yyyy-MM-dd")
+    } else {
+      this.bod = ""
+    }
   }
 
   getAllIndustry() {

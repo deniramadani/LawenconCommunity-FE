@@ -20,6 +20,7 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   photoId: string = String(this.apiService.getProfileFoto())
   position: string = String(this.apiService.getPosition())
   fullname: string = String(this.apiService.getProfileName())
+  // fotoProfile : any = String(Object.values(this.apiService.getProfileFoto))
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   id: string = ''
   result: string = ''
@@ -42,8 +43,6 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
     if (type == 'UTCPM') {
       this.premium = 'hidden lg:hidden'
     }
-
-    console.log(this.photoId);
   }
 
   logOut() {

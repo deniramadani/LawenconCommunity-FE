@@ -22,15 +22,17 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadModule } from 'primeng/fileupload';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
     declarations: [
         HomeComponent, TimeAgoPipe
     ],
     imports: [
         HomeRouting,StyleClassModule,InputTextareaModule,HttpClientModule,
-        CardModule,DividerModule,ReactiveFormsModule,
-        ContentMemberModule,FileUploadModule,
+        CardModule,DividerModule,ReactiveFormsModule,DialogModule,
+        ContentMemberModule,FileUploadModule,ConfirmDialogModule,
         AvatarModule,CheckboxModule,
         BadgeModule,
         ButtonModule,

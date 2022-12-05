@@ -37,10 +37,6 @@
 
                             <ng-template pTemplate="body" let-data let-i="rowIndex">
                                 <tr>
-                                    <!-- <td>
-                                        <p-checkbox name="groupname" value="{{data.id}}" [(ngModel)]="selectedValues">
-                                        </p-checkbox>
-                                    </td> -->
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{data.transactionCode}}</td>
                                     <td>{{data.user.fullname}}</td>
@@ -59,13 +55,26 @@
                                             href="{{fileDownload}}{{data.file.id}}" role="button">Download</a>
                                     </td>
                                     <td class=" text-center">
-                                        <button pButton type="button" label="Rejected" (click)="rejected(data.id)"
-                                            class="p-button-text text-red-500" pTooltip="Rejected"><i
-                                                class="pi pi-ban mr-2"></i>
-                                        </button>
-                                        <button pButton type="button" label="Approve" (click)="approve(data.id)"
-                                            class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                class="pi pi-check-square mr-2"></i></button>
+
+                                        <div *ngIf="data.approval == true && data.isActive == true">
+                                            <span class="text-green-500 text-xs">Has been processed</span>
+                                        </div>
+
+                                        <div *ngIf="data.approval == false && data.isActive == false">
+                                            <span class="text-red-500 text-xs">Process is rejected</span>
+                                        </div>
+
+                                        <div *ngIf="data.approval == false && data.isActive == true">
+                                            <button pButton type="button" label="Rejected" (click)="rejected(data.id)"
+                                                class="p-button-text text-red-500" pTooltip="Rejected"><i
+                                                    class="pi pi-ban mr-2"></i>
+                                            </button>
+                                            <button pButton type="button" label="Approve" (click)="approve(data.id)"
+                                                class="p-button-text text-green-500" pTooltip="Approve"><i
+                                                    class="pi pi-check-square mr-2"></i></button>
+                                        </div>
+
+
                                     </td>
                                 </tr>
                             </ng-template>

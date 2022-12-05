@@ -12,7 +12,7 @@ export interface User extends Position,File,Role,Industry,UserType,UserSocmed {
 	 dateOfBirth: string 
 	 address: string 
 	 phoneNumber: string 
-	 company: string 
+	 company: string
 	 ballance: number 
 	 role: Role 
 	 industry: Industry 

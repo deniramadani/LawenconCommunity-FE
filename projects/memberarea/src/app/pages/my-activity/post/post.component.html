@@ -2,7 +2,6 @@
     <div class="surface-section px-4 py-5  mt-3">
         <div class="flex align-items-start flex-column lg:flex-row lg:justify-content-between">
             <div class="flex align-items-start flex-column md:flex-row">
-                <!-- <img src="{{fileDownload}}{{photoId}}" class="mr-5 mb-3 lg:mb-0" style="width:90px;height:90px" /> -->
                 <div *ngIf="photoId == ''; then default else photoProfile"></div>
                 <ng-template #default>
                     <p-avatar class="px-5 mt-5" image="../../../../../assets/img/default.jpg" styleClass="w-5rem h-5rem"
@@ -246,9 +245,20 @@
                                 <div class="grid">
                                     <div
                                         class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
-                                        <p-avatar styleClass="w-2rem h-2rem"
-                                            image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
-                                        </p-avatar>
+
+                                        <div
+                                            *ngIf="postsLike[0].user.photo == null; then defaultUser1 else photoProfileUser1">
+                                        </div>
+                                        <ng-template #defaultUser1>
+                                            <p-avatar styleClass="w-2rem h-2rem"
+                                                image="../../../../../assets/img/default.jpg" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
+                                        <ng-template #photoProfileUser1>
+                                            <p-avatar styleClass="w-2rem h-2rem"
+                                                image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
                                     </div>
                                     <div class="col-9 lg:col-9 p-0 m-0">
                                         <label class=" font-semibold">{{post.user.fullname}}</label>
@@ -435,9 +445,22 @@
                                 <div class="grid">
                                     <div
                                         class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
-                                        <p-avatar styleClass="w-2rem h-2rem"
+                                        <!-- <p-avatar styleClass="w-2rem h-2rem"
                                             image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
-                                        </p-avatar>
+                                        </p-avatar> -->
+                                        <div
+                                            *ngIf="postsBookmark[0].user.photo == null; then defaultUser2 else photoProfileUser2">
+                                        </div>
+                                        <ng-template #defaultUser2>
+                                            <p-avatar styleClass="w-2rem h-2rem"
+                                                image="../../../../../assets/img/default.jpg" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
+                                        <ng-template #photoProfileUser2>
+                                            <p-avatar styleClass="w-2rem h-2rem"
+                                                image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
                                     </div>
                                     <div class="col-9 lg:col-9 p-0 m-0">
                                         <label class=" font-semibold">{{post.user.fullname}}</label>

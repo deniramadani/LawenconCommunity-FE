@@ -11,6 +11,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from "primeng/inputtext";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     imports: [
         CommonModule,FormsModule,
         RouterModule,ReactiveFormsModule,
-        ReportRouting,
+        ReportRouting,FileUploadModule,HttpClientModule,
         TableModule,
         ConfirmDialogModule,
         CalendarModule,

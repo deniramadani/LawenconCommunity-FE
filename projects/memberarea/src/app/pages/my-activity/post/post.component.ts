@@ -62,18 +62,14 @@ export class PostComponent implements OnInit,OnDestroy {
     this.items = [
       {
         label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
-        console.log(event);
       }},
       {label: 'Edit', icon: 'pi pi-pencil'}
       ];
   }
 
   init() {
-   
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
-    
-      this.photoId = result[0].user.photo.id
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
       this.postsLike = result     
@@ -138,7 +134,6 @@ export class PostComponent implements OnInit,OnDestroy {
           id: id
         }
       })
-
       this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
         this.init()
       })
@@ -160,5 +155,12 @@ export class PostComponent implements OnInit,OnDestroy {
     this.getAllPostSubscription?.unsubscribe()
     this.getPostBookmarkSubscription?.unsubscribe()
     this.getPostLikeSubscription?.unsubscribe()
+    
+    this.unlikeSubscription?.unsubscribe()
+    this.likeSubscription?.unsubscribe()
+    this.unbookmarkSubscription?.unsubscribe()
+    this.bookmarkSubscription?.unsubscribe()
+    this.pollingSubscription?.unsubscribe()
+    this.deletePostSubscription?.unsubscribe()
   }
 }

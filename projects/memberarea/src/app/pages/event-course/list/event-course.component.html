@@ -61,8 +61,8 @@
       </div>
       <div class="col-12 lg:col-9 sm:col-9 md:col-9 pt-3">
         <div class="grid">
-          <div class="col-12 lg:col-12 pb-0 sm:col-12 md:col-12" *ngIf="showFormInsert">
-            <div class="grid bg-white px-3">
+          <div class="col-12 lg:col-12 pb-0 sm:col-12 md:col-12 shadow-3 mb-5" *ngIf="showFormInsert">
+            <div class="grid bg-white px-3 border-round ">
               <form class="w-full mx-3 border-0 md:px-4 my-3" [formGroup]="dataInsert" (ngSubmit)="insert()">
                 <div class="grid">
                   <div class="col-10 lg:col-10 text-left">

@@ -30,7 +30,6 @@ import { ActivitiesOrdersComponent } from './activities.orders/activities.orders
 @NgModule({
     declarations: [
         MyActivityComponent,PostComponent, TransactionHistoryComponent, ActivitiesComponent, ActivitiesOrdersComponent
-        
     ],
     imports: [
         MyActivityRouting,TabViewModule,GalleriaModule,

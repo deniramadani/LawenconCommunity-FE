@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderAdminComponent implements OnInit,OnDestroy {
   photoId: string = String(this.apiService.getProfileFoto())
+  fullname: string = String(this.apiService.getProfileName())
   constructor(@Inject(DOCUMENT) private document: Document, private apiService : ApiService,private router : Router) { }
   
   ngOnInit(): void {

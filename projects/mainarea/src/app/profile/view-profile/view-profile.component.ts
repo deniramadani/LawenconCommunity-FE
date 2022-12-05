@@ -172,8 +172,9 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     } else {
       this.bod = ""
     }
-   
   }
+
+  
   getAllPosition() {
     this.positionsSubscription = this.positionService.getPosition(0,100).subscribe(result => {
       this.dataPosition = result

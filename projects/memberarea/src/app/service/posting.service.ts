@@ -96,4 +96,8 @@ export class PostingService {
     return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/owners?start=${start}&limit=${limit}`)
   }
 
+  updatePost(data: any): Observable<any>{
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/posts`,data)
+  }
+
 }

@@ -6,8 +6,20 @@
             </div>
             <div class="col-12 lg:col-4" *ngFor="let p of payments">
                 <div class="shadow-3 border-round h-full bg-gray-200">
-                    <img src="{{fileDownload}}{{p.product.photo.id}}" alt="Image"
-                        class="block w-full border-round-top h-12rem">
+
+                    <div
+                        *ngIf="payments[0].product.photo == null; then defaultTransaction else photoProfileTransaction">
+                    </div>
+                    <ng-template #defaultTransaction>
+
+                        <img src="../../../../../assets/img/default.jpg" alt="Image"
+                            class="block w-full border-round-top h-12rem">
+                    </ng-template>
+                    <ng-template #photoProfileTransaction>
+                        <img src="{{fileDownload}}{{p.product.photo.id}}" alt="Image"
+                            class="block w-full border-round-top h-12rem">
+                    </ng-template>
+
                     <div class="p-3">
                         <p-tag severity="blue" styleClass="px-3" value="{{p.product.productType.productTypeName}}"
                             [rounded]="true">
@@ -26,8 +38,22 @@
                         <div class="flex mt-2 justify-content-between">
 
                             <div class="ml-2 flex ">
-                                <p-avatar image="{{fileDownload}}{{p.product.ownerId.photo.id}}" shape="circle">
-                                </p-avatar>
+
+                                <div
+                                    *ngIf="payments[0].product.ownerId.photo == null; then defaultTransaction1 else photoProfileTransaction1">
+                                </div>
+                                <ng-template #defaultTransaction1>
+                                    <p-avatar image="../../../../../assets/img/default.jpg" shape="circle">
+                                    </p-avatar>
+
+                                </ng-template>
+                                <ng-template #photoProfileTransaction1>
+                                    <p-avatar image="{{fileDownload}}{{p.product.ownerId.photo.id}}" shape="circle">
+                                    </p-avatar>
+                                </ng-template>
+
+
+
                                 <div class="text-xs font-bold text-900 mb-1 ml-2">{{p.product.ownerId.fullname
                                     }}</div>
                             </div>
