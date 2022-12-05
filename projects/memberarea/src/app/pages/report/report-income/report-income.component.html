@@ -6,12 +6,11 @@
 
                 <div>
                     <label class="mr-2">Date Range</label>
-                    <p-calendar class="p-inputtext-sm" (onSelect)="getValueDate()" selectionMode="range"
-                        [(ngModel)]="rangeDates" [readonlyInput]="true" inputId="range">
+
+                    <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                        [readonlyInput]="true" inputId="range">
                     </p-calendar>
-
                 </div>
-
                 <button pButton pRipple label="Export" icon="pi pi-upload"
                     class="p-button-sm border-none p-button-primary" (click)="btnExport()"></button>
             </div>

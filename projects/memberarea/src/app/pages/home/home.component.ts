@@ -8,11 +8,13 @@ import { Article } from '../../../../../interface/article';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostingService } from '../../service/posting.service';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder,Validators } from '@angular/forms';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { PollingService } from '../../service/polling.service';
 import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
 import { ToastrService } from 'ngx-toastr';
+import { AutoFocus } from 'primeng/autofocus';
+import { FileService } from '../../service/file.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +30,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private unbookmarkSubscription?: Subscription
   private bookmarkSubscription?: Subscription
   private pollingSubscription?: Subscription
+  private getCommetByIdSubcription?: Subscription
+  private insertCommentSubscription?: Subscription
+  private insertPostBasicSubscription?: Subscription
 
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -45,11 +50,41 @@ export class HomeComponent implements OnInit, OnDestroy {
   email: string = ''
   phoneNumber: string = ''
   age: string = ''
+  idUser: string = ''
+  seeMore: boolean = false
+  seeMoreNoPremium : boolean =false
   fotoProfile: string | null = null;
   images: any = []
-  seeMore: boolean = false
-  verified : boolean = false
+  verified: boolean = false
+  totalComment: number = 0
+  comment: any[] = []
+  checked: boolean = false;
+  FormPolling : boolean = false
+  showCommentComponent: any[] = []
+
+  dataPosting = this.fb.group({
+    title: ['', [Validators.required]],
+    body: ['', [Validators.required]],
+    question: [''],
+    user: this.fb.group({
+      id: [''],
+    }),
+    pfile: this.fb.array([
+    ]),
+    postPollingOption: this.fb.array([])
+  })
+
+  dataOptions = this.fb.group({
+    details: this.fb.array([])
+  })
+  dataComment = this.fb.group({
+    content: [''],
+    post: this.fb.group({
+      id : ['']
+    })
+  })
   responsiveOptions: any[] = [
+  
     {
       breakpoint: '1024px',
       numVisible: 5
@@ -65,16 +100,113 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
 
-  constructor(private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  label: string = 'Post Basic'
+  labelStyle: string = ''
+  disabledPolling : string = ''
+  isChecked = false;
+  type: string = ''
+  constructor(private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
-   
+    if (this.checked == true) {
+      console.log(this.checked);
+      // this.isChecked = true
+      
+    } else {
+      console.log('basic');
+      console.log(this.checked);
+      // this.isChecked = false
+    }
     this.init();
+  }
+
+  onChange(isChecked : any) {
+    if (isChecked == true) {
+      this.label = 'Post Premium'
+      this.labelStyle = 'text-yellow-500'
+      this.disabledPolling = 'p-disabled'
+    } else {
+      this.label = 'Post Basic'
+      this.labelStyle = ''
+      this.disabledPolling = ''
+    }
+    console.log(isChecked);
+    
+  }
+
+  insertPosting() {
+    this.dataPosting.patchValue({
+      user: {
+        id: this.apiService.getIdUser()
+      }
+    });
+
+    if (this.postPollingOption.value.length != 0) {
+        this.insertPostBasicSubscription = this.postService.postInsertPolling(this.dataPosting.value).subscribe(result => {
+          this.init()
+          this.FormPolling = false
+        })
+    } else {
+      if (this.label == 'Post Premium') {
+        this.insertPostBasicSubscription = this.postService.postInsertPremium(this.dataPosting.value).subscribe(result => {
+          this.init()
+        })
+      } else {
+        this.insertPostBasicSubscription = this.postService.postInsertBasic(this.dataPosting.value).subscribe(result => {
+          this.init()
+        })
+      }
+    }
+    
+   this.dataPosting.reset()
+  }
+
+  fileUpload(event: any) {
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.fileService.fileUploadMultiple(event, i).then(result => {
+        this.detailFoto.push(this.fb.group({ fileExtensions: result[0], fileEncode: result[1] }));
+      })
+    }    
+  }
+
+  get detailFoto(): FormArray {
+    return this.dataPosting.get('pfile') as FormArray
+  }
+
+  addOption() {
+    const newUserReq = this.fb.group({
+      content: [''],
+    })
+    this.postPollingOption.push(newUserReq)
+  }
+
+  get postPollingOption(): FormArray {
+    return this.dataPosting.get('postPollingOption') as FormArray
+  }
+
+  removeReactive(i: number) {
+    if (i < 2) {
+      this.toast.error('Option For Polling min 2 Options.', 'Remove Failed')
+    }
+    else {
+      this.postPollingOption.removeAt(i)
+    }
+  }
+  removeAll() {
+    this.postPollingOption.value.length = 0
+  }
+
+  showFormPolling() {
+    this.FormPolling = true
+  }
+  closeForm() {
+    this.FormPolling = false
   }
 
   init(): void {
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
+      this.idUser = result.id
       this.email = result.email
       this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
@@ -106,12 +238,42 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getAllArticleSubscription = this.articleService.getArticle(0, 4).subscribe(result => {
       this.data = result
     })
+    this.getAllPost()
+  }
+
+  getAllPost() {
     this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).subscribe(result => {
       this.posts = result
       this.loader = false
+      
+    })
+  }
+  displayCommentsComponent(id: string, index: any) {
+   
+    this.showCommentComponent[index] = !this.showCommentComponent[index];
+    this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
+      this.comment = result
     })
   }
 
+  getCommentByPostId(id: string,index : any) {
+    console.log('ini comment id:' ,id);
+    this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
+      this.comment = result
+    })
+  }
+
+
+  replay(id: string, i: any) {
+    this.dataComment.patchValue({
+      post: {
+        id : id
+      }
+    })
+    this.insertCommentSubscription = this.postService.insertComment(this.dataComment.value).subscribe(result => {
+      this.getCommentByPostId(id, i)
+    })
+  }
   calculateDiff(sentDate: string) {
     var date1: any = new Date(sentDate);
     var date2: any = new Date();
@@ -235,5 +397,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getAllUserSubscription?.unsubscribe()
     this.getAllArticleSubscription?.unsubscribe()
+    this.getCommetByIdSubcription?.unsubscribe()
+    this.insertCommentSubscription?.unsubscribe()
+    this.getAllPostSubscription?.unsubscribe()
+    this.unlikeSubscription?.unsubscribe()
+    this.likeSubscription?.unsubscribe()
+    this.unbookmarkSubscription?.unsubscribe()
+    this.bookmarkSubscription?.unsubscribe()
+    this.pollingSubscription?.unsubscribe()
+    this.insertPostBasicSubscription?.unsubscribe()
   }
 }

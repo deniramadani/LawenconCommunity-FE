@@ -5,13 +5,14 @@ import { ArticleModule } from './pages/article/article.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { MasterModule } from './pages/master/master.module';
 import { PaymentModule } from './pages/payment/payment.module';
+import { ReportModule } from './pages/report/report.module';
 
 @NgModule({
   imports: [
-    DashboardModule,ContentAdminModule,ArticleModule,MasterModule,PaymentModule
+    DashboardModule,ContentAdminModule,ArticleModule,MasterModule,PaymentModule,ReportModule
   ],
   exports : [
-    DashboardModule,ContentAdminModule,ArticleModule,MasterModule,PaymentModule
+    DashboardModule,ContentAdminModule,ArticleModule,MasterModule,PaymentModule,ReportModule
 ],
   declarations: [
     

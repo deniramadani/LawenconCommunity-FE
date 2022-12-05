@@ -5,4 +5,13 @@ export interface DashboardAdmin{
     memberPremiumTotal : number
     memberBasicTotal : number
     adminTotal : number
+    articleByAdminTotal : number
+    paymentTotal : number
+    approvedPaymentTotal : number
+    rejectedPaymentTotal : number
+    pendingPaymentTotal : number
+    articleTotal : number
+    postTotal : number
+    memberTotal : number
+    superadminTotal : number
 } 

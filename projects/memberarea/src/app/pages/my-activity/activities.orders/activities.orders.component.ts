@@ -15,12 +15,14 @@ export class ActivitiesOrdersComponent implements OnInit, OnDestroy {
   seeMore: boolean = false
   start = 0
   limit = 6
+  ballance : number = 0
   constructor(private postService : PostingService) { }
   
   ngOnInit(): void {
     this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
       console.log(result);
       this.dataOrders = result
+      this.ballance = this.dataOrders[0].product.ownerId.ballance
     })
   }
 

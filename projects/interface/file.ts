@@ -1,5 +1,5 @@
 export interface File { 
-	 id : string
+	 id : string 
 	 fileEncode: string 
 	 fileExtensions: string 
 } 

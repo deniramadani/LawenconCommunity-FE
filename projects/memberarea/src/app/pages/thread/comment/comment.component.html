@@ -37,8 +37,7 @@
                             <label class="text-lg font-semibold">{{post.title}}</label>
                         </div>
                         <div class="offset-1 lg:offset-1 sm:offset-1 col-10 lg:col-10 sm:col-11 p-0 ">
-                            <p
-                                class="text-md surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                            <p class="text-md text-600">
                                 {{post.body}}</p>
 
                         </div>
@@ -68,7 +67,6 @@
                         <ng-template #voted>
                             <div class="col-12">
                                 <p-card sub header="{{post.question}}">
-
                                     <div class="card-body mt-3">
                                         <div class="grid">
                                             <ng-container *ngFor="let option of post.postPollingOption">

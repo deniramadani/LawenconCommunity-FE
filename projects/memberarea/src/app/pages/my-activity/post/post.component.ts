@@ -33,8 +33,8 @@ export class PostComponent implements OnInit,OnDestroy {
   start = 0
   limit = 6
   id: string = ''
-  name: string = ''
-  photoId : string = ''
+  name: string | null = ''
+  photoId: string  = ''
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
@@ -58,6 +58,7 @@ export class PostComponent implements OnInit,OnDestroy {
   
   ngOnInit() {
     this.init()
+    this.name = this.apiService.getProfileName()
     this.items = [
       {
         label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
@@ -68,11 +69,11 @@ export class PostComponent implements OnInit,OnDestroy {
   }
 
   init() {
+   
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
-      this.name = result[0].user.fullname
+    
       this.photoId = result[0].user.photo.id
-      
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
       this.postsLike = result     

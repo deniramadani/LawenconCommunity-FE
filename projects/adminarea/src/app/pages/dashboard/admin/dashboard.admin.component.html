@@ -16,7 +16,7 @@
                 <h5 class="text-xl text-center">Total My Article</h5>
                 <hr class="mt-2">
                 <ng-template pTemplate="footer p-0">
-                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">{{data.adminTotal}}</span></h3>
+                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">{{data.articleTotal}}</span></h3>
                 </ng-template>
               </p-card>
             </div>
@@ -37,13 +37,19 @@
                 <ng-template pTemplate="header">
                   <img class="w-6 mt-3" src="../../../../assets/icons/users.png" alt="Image">
                 </ng-template>
-                <h5 class="text-xl text-center">Members Basic</h5>
+                <h5 class="text-xl text-center">Payment</h5>
                 <hr class="mt-2">
                 <ng-template pTemplate="footer p-0">
-                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">{{data.memberBasicTotal}}</span></h3>
+                  <label class="text-lg mt-3"> Approve : <span
+                      class="text-primary">{{data.memberBasicTotal}}</span></label>
+                  <label class="text-lg mt-3"> Pending : <span
+                      class="text-primary">{{data.memberBasicTotal}}</span></label>
+                  <label class="text-lg mt-3"> Rejected : <span
+                      class="text-primary">{{data.memberBasicTotal}}</span></label>
                 </ng-template>
               </p-card>
             </div>
+
 
           </div>
         </div>

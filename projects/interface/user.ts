@@ -17,7 +17,7 @@ export interface User extends Position,File,Role,Industry,UserType,UserSocmed {
 	 role: Role 
 	 industry: Industry 
 	 position: Position 
-	 photo: File 
+	 photo: File
 	userType: UserType 
 	userSocmed : UserSocmed
 	oldPassword: string 

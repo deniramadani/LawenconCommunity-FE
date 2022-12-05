@@ -47,6 +47,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   phoneNumber: string = ''
   age: string = ''
   fotoProfile: string = ''
+  showCommentComponent = {};
   dataComment = this.fb.group({
     content: ['', [Validators.required]],
     post: this.fb.group({
@@ -101,6 +102,9 @@ export class CommentComponent implements OnInit, OnDestroy{
 
 
     })
+
+   
+
 
     this.getAllArticleSubscription = this.articleService.getArticle(0, 4).subscribe(result => {
       this.data = result

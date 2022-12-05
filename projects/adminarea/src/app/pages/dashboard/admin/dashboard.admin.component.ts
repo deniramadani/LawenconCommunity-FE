@@ -3,7 +3,7 @@ import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { DashboardService } from '../../../service/dashboard.service';
 import { Subscription } from 'rxjs'
 import { DashboardAdmin  } from "../../../../../../interface/dashboard-admin";
-import { DataCountService } from '../../../service/data.count.service';
+
 @Component({
   selector: 'dashboard-admin',
   templateUrl: './dashboard.admin.component.html',
@@ -13,7 +13,7 @@ export class DashboardAdminComponent implements OnInit,OnDestroy {
   data : any = new Object
   private getDashboardAdminSubscription?: Subscription
   
-  constructor(private apiService : ApiService,private dashboardService : DashboardService,private dataCountService : DataCountService) { }
+  constructor(private apiService : ApiService,private dashboardService : DashboardService) { }
  
   ngOnInit(): void {
     this.fullname = String(this.apiService.getProfileName())

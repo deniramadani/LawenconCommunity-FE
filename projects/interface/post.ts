@@ -3,7 +3,7 @@ import { PostType } from './post-type'
 import { PostAttachment } from './post-attachment'
 import { PostPollingOption } from './post-polling-option'
 
-export interface Post {
+export interface Post extends Comment{
 	id: string
 	title: string
 	body: string
@@ -18,5 +18,7 @@ export interface Post {
 	totalComment: number
 	postPollingOption: PostPollingOption[]
 	createdAt: string
+	createdBy: string
+	comments: Comment[]
 }
 

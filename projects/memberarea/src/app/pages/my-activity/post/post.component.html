@@ -2,8 +2,19 @@
     <div class="surface-section px-4 py-5  mt-3">
         <div class="flex align-items-start flex-column lg:flex-row lg:justify-content-between">
             <div class="flex align-items-start flex-column md:flex-row">
-                <img src="{{fileDownload}}{{photoId}}" class="mr-5 mb-3 lg:mb-0" style="width:90px;height:90px" />
+                <!-- <img src="{{fileDownload}}{{photoId}}" class="mr-5 mb-3 lg:mb-0" style="width:90px;height:90px" /> -->
+                <div *ngIf="photoId == ''; then default else photoProfile"></div>
+                <ng-template #default>
+                    <p-avatar class="px-5 mt-5" image="../../../../../assets/img/default.jpg" styleClass="w-5rem h-5rem"
+                        shape="circle">
+                    </p-avatar>
+                </ng-template>
+                <ng-template #photoProfile>
+                    <img src="{{fileDownload}}{{photoId}}" class="mr-5 mb-3 lg:mb-0" style="width:90px;height:90px" />
+                </ng-template>
+
                 <div>
+
                     <span class="text-900 font-medium text-3xl">{{name}}</span>
                     <i class="pi pi-check-circle text-xl ml-2 mt-2 text-yellow-500"></i>
                     <div class="flex align-items-center flex-wrap text-sm">

@@ -24,6 +24,8 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   id: string = ''
   result: string = ''
   premium: string = ''
+  fotoProfile: boolean = false
+  foto :string=''
   dataPremium = this.fb.group({
     product: this.fb.group({
       id: ['']
@@ -35,12 +37,13 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   })
   constructor(private toast: ToastrService, private fb: FormBuilder, private apiService: ApiService, private router: Router, private productService: ProductsService) { }
   ngOnInit(): void {
-   
+    
     const type = this.apiService.getTypeUser()
     if (type == 'UTCPM') {
       this.premium = 'hidden lg:hidden'
     }
-    
+
+    console.log(this.photoId);
   }
 
   logOut() {

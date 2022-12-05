@@ -61,13 +61,13 @@
               <div class="field col-12 md:col-6" formGroupName="industry">
                 <label for="lastname2" class="text-sm">Select Industry</label>
                 <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName" optionValue="id"
-                  name="industryName" id="industryName" formControlName="industryName" formControlName="id">
+                  name="industryName" id="industryName" [(ngModel)]="selectedIndustry" formControlName="id">
                 </p-dropdown>
               </div>
               <div class="field col-12 md:col-6" formGroupName="position">
                 <label for="lastname2" class="text-sm">Select Position</label>
-                <p-dropdown [options]="positions" styleClass="w-full" optionLabel="positionName" optionValue="id"
-                  name="id" id="positionName" formControlName="id">
+                <p-dropdown [options]="positions" styleClass="w-full" [(ngModel)]="selectedPosition"
+                  optionLabel="positionName" optionValue="id" name="id" id="positionName" formControlName="id">
                 </p-dropdown>
               </div>
             </div>
@@ -102,7 +102,6 @@
               </p-button>
             </div>
           </div>
-
         </form>
       </div>
 

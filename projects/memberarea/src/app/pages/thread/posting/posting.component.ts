@@ -73,7 +73,6 @@ export class PostingComponent implements OnInit, OnDestroy {
       this.btnUploadFile = true
       this.form_polling == false
       this.removeAll()
-
     }
     else if (id == 'POLL') {
       for (let i = 0; i < 2; i++) {
@@ -100,7 +99,7 @@ export class PostingComponent implements OnInit, OnDestroy {
   }
 
   fileUpload(event: any) {
-    for (let i = 0; i < event.target.files.length; i++) {
+    for (let i = 0; i < event.target.files.lenght; i++) {
       this.fileService.fileUploadMultiple(event, i).then(result => {
         this.detailFoto.push(this.fb.group({ fileExtensions: result[0], fileEncode: result[1] }));
       })

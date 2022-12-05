@@ -18,7 +18,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   dataCourse: Schedule[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   start : number = 0;
-  limit: number = 6;
+  limit: number = 3;
   seeMore: boolean = false;
 
   private articleGetAllSubscription?: Subscription
@@ -52,7 +52,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   }
 
   addLimit(): void {
-    this.limit += 6
+    this.limit += 3
   }
 
   ngOnDestroy(): void {

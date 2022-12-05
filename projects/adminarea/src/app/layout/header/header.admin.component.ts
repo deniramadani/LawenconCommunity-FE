@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './header.admin.component.html',
 })
 export class HeaderAdminComponent implements OnInit,OnDestroy {
-
+  photoId: string = String(this.apiService.getProfileFoto())
   constructor(@Inject(DOCUMENT) private document: Document, private apiService : ApiService,private router : Router) { }
   
   ngOnInit(): void {
@@ -26,4 +26,6 @@ export class HeaderAdminComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
    
   }
+
+  
 }

@@ -1,0 +1,53 @@
+<main id="main" class="main">
+    <div class="container">
+        <h3 class="my-4">Member Information Report</h3>
+
+
+        <p-table #dt [value]="reportMember" [paginator]="true" [rows]="rows" [(first)]="first"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <div>
+                        <label class="mr-2">Date Range</label>
+                        <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                            [readonlyInput]="true" inputId="range">
+                        </p-calendar>
+                    </div>
+                    <button pButton pRipple label="Export" icon="pi pi-upload"
+                        class="p-button-sm border-none p-button-primary"></button>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th class="text-center">No</th>
+                    <th>Member Name</th>
+                    <th>Provider Name</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Start Date</th>
+                    <th class="text-center">Total Participant</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-reportMember let-i="rowIndex">
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="reportMember"></p-tableCheckbox>
+                    </td>
+                    <td class="text-center">{{i+1}}</td>
+                    <td>{{reportMember.memberName}}</td>
+                    <td>{{reportMember.providerName}}</td>
+                    <td>{{reportMember.type}}</td>
+                    <td>{{reportMember.title}}</td>
+                    <td>{{reportMember.startDate}}</td>
+                    <td class="text-center">{{reportMember.totalParticipants}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</main>

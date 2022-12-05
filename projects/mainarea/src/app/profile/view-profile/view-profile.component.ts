@@ -139,6 +139,12 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         userType: {
           id : result.userType.id
         },
+        industry: {
+          id : result.industry.id
+        },
+        position: {
+          id : result.position.id
+        },
         dateOfBirth : result.dateOfBirth,
       })
 
