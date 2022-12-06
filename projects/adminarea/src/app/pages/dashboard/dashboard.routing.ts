@@ -1,13 +1,30 @@
-import { ContentChildren, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ContentAdminComponent } from "../../layout/content/content.admin.component";
-import { ContentModule } from "../../layout/content/content.admin.module";
-import { DashboardComponent } from "./dashboard.component";
+import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard";
+import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard";
+import { DashboardAdminComponent } from "./admin/dashboard.admin.component";
+import { DashboardSuperAdminComponent } from "./super-admin/dashboard.super.admin.component";
 
 const routes : Routes = [
     {
-        path : '',
-        component : DashboardComponent
+        path : 'admin',
+        children : [
+            {
+                path : '',
+                component : DashboardAdminComponent
+            }
+        ],
+        canActivate: [AdminGuard]
+    },
+    {
+        path : 'super-admin',
+        children : [
+            {
+                path : '',
+                component : DashboardSuperAdminComponent
+            }
+        ],
+        canActivate: [SuperAdminGuard]
     }
 ]
 
@@ -16,7 +33,7 @@ const routes : Routes = [
         RouterModule.forChild(routes)
     ],
     exports : [
-        RouterModule,ContentModule
+        RouterModule
     ]
 })
 export class DashboardRouting { }

@@ -1,19 +1,18 @@
 import { NgModule } from "@angular/core"
 import { RouterModule } from "@angular/router"
 import { FooterComponent } from "../footer/footer.component"
-import { HeaderComponent } from "../header/header.component"
-import { SidebarComponent } from "../sidebar/sidebar.component"
-import { ContentAdminComponent } from "./content.admin.component"
-
+import { HeaderAdminComponent } from "../header/header.admin.component"
+import { SidebarAdminModule } from "../sidebar/sidebar.admin.module"
+import { ContentAdminComponent } from "./admin/content.admin.component"
 
 @NgModule({
   declarations: [
-    ContentAdminComponent,FooterComponent,HeaderComponent,SidebarComponent
+    ContentAdminComponent,FooterComponent,HeaderAdminComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,SidebarAdminModule
   ],
-  exports: [ContentAdminComponent,FooterComponent,HeaderComponent,SidebarComponent],
+  exports: [ContentAdminComponent,FooterComponent,HeaderAdminComponent],
  
 })
-export class ContentModule { }
+export class ContentAdminModule { }

@@ -1,0 +1,109 @@
+<main id="main" class="main">
+    <div class="container">
+        <form [formGroup]="dataUpdate">
+            <div class="grid formgrid p-fluid card p-5">
+                <div class="flex align-items-center justify-content-between">
+                    <div class="pagetitle">
+                        <h1>Update User</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a routerLink="/master/users">List User</a></li>
+                                <li class="breadcrumb-item active">Update</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Fullname</label>
+                    <input pinputtext="" formControlName="fullname" id="fullname" name="fullname" type="text"
+                        class="p-inputtext p-component p-element">
+                </div>
+
+                <div class="p-fluid p-formgrid grid mt-2">
+                    <div class="field col-12 md:col-6"><label for="bod" class="font-medium text-900">Date Of Birth
+                        </label>
+                        <p-calendar [ngModel]="myDate" placeholder="{{bod}}" (onSelect)="onSelectMethod($event)"
+                            [showIcon]="true" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"
+                            inputId="icon">
+                        </p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="email" class="font-medium text-900">Email</label>
+                        <input pinputtext="" id="email" type="email" formControlName="email" readonly
+                            class="p-inputtext p-component p-element">
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="phone" class="font-medium text-900">Phone
+                            Number</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-phone"></i></span><input type="text" formControlName="phoneNumber"
+                                id="phone" class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field mb-4 col-12">
+                        <label for="bio" class="font-medium text-900">Address</label>
+                        <textarea id="bio" type="text" pInputTextarea rows="5" formControlName="address"
+                            [autoResize]="true"></textarea>
+                    </div>
+                </div>
+                <h4 class="text-lg font-semibold mt-3">Profesional</h4>
+                <hr>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-12"><label for="company" class="text-sm">Company</label>
+                        <input pinputtext="" id="company" formControlName="company" type="text"
+                            class="p-inputtext p-component p-element">
+                    </div>
+                    <div class="field col-12 md:col-6" formGroupName="industry">
+                        <label for="lastname2" class="text-sm">Select Industry</label>
+                        <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName"
+                            optionValue="id" name="industryName" id="industryName" [(ngModel)]="selectedIndustry"
+                            formControlName="id">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-6" formGroupName="position">
+                        <label for="lastname2" class="text-sm">Select Position</label>
+                        <p-dropdown [options]="positions" styleClass="w-full" [(ngModel)]="selectedPosition"
+                            optionLabel="positionName" optionValue="id" name="id" id="positionName"
+                            formControlName="id">
+                        </p-dropdown>
+                    </div>
+                    <div class="field-checkbox col-12 md:col-6">
+                        <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
+                        <label for="binary">Active</label>
+                    </div>
+                </div>
+
+                <!-- <h4 class="text-lg font-semibold mt-3">Sosial Media</h4>
+                <hr>
+                <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
+                    <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-instagram"></i></span><input type="text" id="instagram"
+                                [(ngModel)]="instagram" formControlName="instagram"
+                                class=" p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-linkedin"></i></span><input type="text" id="linkedIn"
+                                [(ngModel)]="linkedin" formControlName="linkedin"
+                                class="p-inputtext p-component p-element">
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
+                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
+                                    class="pi pi-facebook"></i></span><input type="text" id="facebook"
+                                [(ngModel)]="facebook" formControlName="facebook"
+                                class="p-inputtext  p-component p-element">
+                        </div>
+                    </div>
+                </div> -->
+                <hr>
+
+                <div class="field col-12 md:col-12 text-center">
+                    <p-button label="Save" (click)="update()" type="submit" styleClass="p-button-sm w-full"
+                        icon="pi pi-check" iconPos="right">
+                    </p-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>

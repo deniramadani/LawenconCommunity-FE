@@ -1,0 +1,42 @@
+<div class="container">
+    <p-table #dt [value]="reportIncome" [paginator]="true" [rows]="rows" [(first)]="first"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+
+                <div>
+                    <label class="mr-2">Date Range</label>
+
+                    <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                        [readonlyInput]="true" inputId="range">
+                    </p-calendar>
+                </div>
+                <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-sm border-none p-button-primary" (click)="btnExport()"></button>
+            </div>
+
+        </ng-template>
+
+
+
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center" style="width: 6rem">No</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th class="text-center">Total Income</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
+            <tr>
+
+                <td class="text-center" style="width: 6rem">{{i+1}}</td>
+                <td>{{reportIncome.type}}</td>
+                <td>{{reportIncome.title}}</td>
+                <td class="text-center">{{reportIncome.totalIncome}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

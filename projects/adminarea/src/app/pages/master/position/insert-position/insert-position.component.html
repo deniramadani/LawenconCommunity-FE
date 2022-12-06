@@ -1,0 +1,28 @@
+<main id="main" class="main">
+    <div class="container mt-3">
+        <div class="pagetitle">
+            <h1>New Position</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/master/positions">Position</a></li>
+                    <li class="breadcrumb-item active">Insert</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
+            <h3 class="text-center text-3xl mt-4">Add Position</h3>
+            <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="dataInsert" (ngSubmit)="sumbit()">
+                <div class="field col-12 md:col-12">
+                    <label for="positionName">Position Name<span class="text-red-500">*</span></label>
+                    <input pInputText class="w-full" formControlName="positionName" type="text" id="positionName"
+                        name="positionName" required>
+                </div>
+                <div class="field col-12 ">
+                    <button pButton type="submit" id="btnSubmitPosition" [disabled]="!dataInsert.valid"
+                        name="btnSubmitPosition">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>

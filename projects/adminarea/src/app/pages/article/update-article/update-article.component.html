@@ -1,0 +1,43 @@
+<main id="main" class="main">
+    <div class="container mt-3">
+        <div class="pagetitle">
+            <h1>Update Article</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/article/list">Articles</a></li>
+                    <li class="breadcrumb-item active">Update</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card bg-white col-12 lg:col-8 lg:col-offset-2 md:col-10 md:col-offset-1 mt-5">
+            <h3 class="text-center text-3xl mt-4">Update Data Article</h3>
+            <form class="formgrid grid mx-4 md:mx-6 my-5" [formGroup]="dataUpdate" (ngSubmit)=" update()">
+                <div class="field col-12">
+                    <label for="title">Title<span class="text-red-500">*</span></label>
+                    <input pInputText class="w-full p-inputtext p-component p-element" formControlName="title"
+                        type="text" id="title" name="title">
+                </div>
+                <div class="field col-12">
+                    <label for="articleContent">Content<span class="text-red-500">*</span></label>
+                    <textarea rows="8" pInputTextarea class="w-full" formControlName="content" id="articleContent"
+                        name="articleContent"></textarea>
+                </div>
+                <div class="field-checkbox col-12 md:col-6">
+                    <p-checkbox formControlName="isActive" [binary]="true" inputId="binary"></p-checkbox>
+                    <label for="binary">Active</label>
+                </div>
+                <div class="field col-6" aria-disabled="true">
+                    <input class="form-control" name="photoId" accept="image/*" chooseLabel="Upload Image" type="file"
+                        (change)="fileUpload($event)" />
+                </div>
+                <div class="field col-6 text-right" aria-disabled="true">
+                    <p-button label="Publish" [disabled]="!dataUpdate.valid" type="submit" icon="pi pi-check"
+                        styleClass="p-button-sm"></p-button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</main>

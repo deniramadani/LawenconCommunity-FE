@@ -1,0 +1,249 @@
+<div class="py-6">
+  <div class="bg-gray-300 px-4 py-5 md:px-6 lg:px-8">
+    <div class="grid border-round">
+      <div class="col-12 md:col-6">
+        <img
+          src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnQlMjBjb3Vyc2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          alt="Image" class="w-full border-round-3xl">
+      </div>
+      <div class="col-12 md:col-6 md:pl-6">
+        <div class="p-3 inline-flex align-items-center surface-900 text-0 mb-4 font-medium" style="border-radius: 30px">
+          <i class="pi pi-star-fill mr-2"></i>
+          <span>Event & Course</span>
+        </div>
+        <div class="text-4xl font-bold text-900 mb-3">What are community events?</div>
+        <div class="text-700 mb-5 line-height-3 mb-5">Our community events are an opportunity to listen to teachers and
+          experts from the British Council answering questions from learners like you. The events take place on Facebook
+          and on YouTube and each one lasts about 30 minutes.</div>
+
+        <div class="flex align-items-center mb-4">
+          <i class="pi pi-check text-green-600 mr-3"></i>
+          <div>
+            <div class="text-900 font-medium mb-2">What happens in a live event?</div>
+            <div class="text-700 text-sm">Our team of educators lead a discussion about the topic and then answer
+              questions from here on the course or questions from the viewing audience.</div>
+          </div>
+        </div>
+        <div class="flex align-items-center mb-4">
+          <i class="pi pi-check text-green-600 mr-3"></i>
+          <div>
+            <div class="text-900 font-medium mb-2">How do I join in?</div>
+            <div class="text-700 text-sm">You can find a list of events on this page. Look at the event details and if
+              the time is suitable for you, just follow the event meeting link</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full body-color px-6">
+    <div class="grid mt-5">
+      <div class="col-12 lg:col-3 sm:col-12 pr-3">
+        <div class="card px-2 text-center ">
+          <button (click)="showInsertProduct()" pButton pRipple type="button" styleClass="p-button-sm" type="submit"
+            label="Create Event & Course" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+          <hr>
+          <div class="py-2">
+            <p-accordion [multiple]="true">
+              <p-accordionTab header="Course Benefits">
+                <p>At veronus.</p>
+              </p-accordionTab>
+              <p-accordionTab header="Don't Know What To Ask?">
+                <p>Lorem ipsum dolor </p>
+              </p-accordionTab>
+              <p-accordionTab header="Ask Career Advice">
+                <p>Sed ut perspiciatis etur, adipisci velit, sed quia non numquam eius modi.</p>
+              </p-accordionTab>
+
+            </p-accordion>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 lg:col-9 sm:col-9 md:col-9 pt-3">
+        <div class="grid">
+          <div class="col-12 lg:col-12 pb-0 sm:col-12 md:col-12 shadow-3 mb-5" *ngIf="showFormInsert">
+            <div class="grid bg-white px-3 border-round ">
+              <form class="w-full mx-3 border-0 md:px-4 my-3" [formGroup]="dataInsert" (ngSubmit)="insert()">
+                <div class="grid">
+                  <div class="col-10 lg:col-10 text-left">
+                    <h3 class="text-xl">Create Your Event & Course </h3>
+                  </div>
+                  <div class="col-2 lg:col-2 text-right">
+                    <i class="pi pi-times" pTooltip="Close" role="button" (click)="closeForm()"></i>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="formgrid grid">
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="title">Title<span class="text-red-500">*</span></label>
+                    <input pInputText id="title" formControlName="title" name="title" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <div formGroupName="productType">
+                      <label for="title">Product Type<span class="text-red-500">*</span></label>
+                      <p-dropdown [options]="productTypes" [(ngModel)]="selectedProductType" styleClass=" w-full"
+                        placeholder="Select Type" formControlName="id" optionLabel="productTypeName" optionValue="id"
+                        name="id" id="name">
+                      </p-dropdown>
+                    </div>
+
+                  </div>
+                  <div class="field col-12 md:col-12" formGroupName="product">
+                    <label for="articleContent">Content<span class="text-red-500">*</span></label>
+                    <textarea rows="8" pInputTextarea class="w-full" formControlName="content" id="articleContent"
+                      name="articleContent"></textarea>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="location">Provider<span class="text-red-500">*</span></label>
+                    <input pInputText id="provider" formControlName="provider" name="provider" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="locations">Locations<span class="text-red-500">*</span></label>
+                    <input pInputText id="locations" formControlName="location" name="locations" type="text"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+                  <div class="field col-12 md:col-6" formGroupName="product">
+                    <label for="price">Price<span class="text-red-500">*</span></label>
+                    <input pInputText id="price" formControlName="price" name="price" type="number"
+                      class="w-full p-inputtext-sm" required>
+                  </div>
+
+                  <div class="field col-12 md:col-6">
+                    <label for="finishSchedule" class="w-full">Upload Foto<span class="text-red-500">*</span></label>
+
+                    <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                      styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
+                      chooseLabel="Upload Image"></p-fileUpload>
+                  </div>
+
+                  <div class="field col-12 md:col-6">
+                    <label for="beginSchedule" class="w-full">Start Schedule<span class="text-red-500">*</span></label>
+
+                    <p-calendar [showTime]="true" class="w-full" inputId="dateTimeStart" clas styleClass="calendar"
+                      id="dateTimeStart" formControlName="dateTimeStart" [required]="true">
+                    </p-calendar>
+                  </div>
+                  <div class="field col-12 md:col-6">
+                    <label for="finishSchedule" class="w-full">Finish Schedule<span
+                        class="text-red-500">*</span></label>
+
+                    <p-calendar [showTime]="true" class="w-full" inputId="dateTimeEnd" clas styleClass="calendar"
+                      id="dateTimeEnd" formControlName="dateTimeEnd" [required]="true">
+                    </p-calendar>
+                  </div>
+                  <div class="col-12 my-3">
+                    <button pButton type="submit" [disabled]="!dataInsert.valid" label="SUBMIT"
+                      class="p-button-sm"></button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+          <div class="col-12 lg:col-12 pb-0">
+            <div class="grid title-event">
+              <div class="col-6 lg:col-6 text-left pb-0">
+                <h3 class="text-lg font-semibold"> <i><img src="https://cdn-icons-png.flaticon.com/512/1968/1968779.png"
+                      style="width: 5%;" alt=""></i> Events
+                </h3>
+              </div>
+              <div class="col-6 lg:col-6 text-right">
+                <a class="a-link text-xs text-secondary font-italic underline" routerLink="./events" role="button">Views
+                  All</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 lg:col-12">
+            <div class="grid">
+              <div class="col-12 lg:col-4" *ngFor="let d of dataEvent" role="button"
+                routerLink="/events-courses/payment/{{d.product.id}}">
+                <img class="border-round-left w-full" style="max-height: 150px;"
+                  src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                <div class="card p-3 pb-1">
+                  <div class="grid">
+                    <div class="col-8 lg:col-8 sm:col-8">
+                      <p class="text-lg font-semibold">{{d.product.title}}</p>
+                    </div>
+                    <div class="col-4 lg:col-4 sm:col-4 text-right">
+                      <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                          style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </div>
+                  </div>
+                  <table class="pt-0">
+                    <tbody class="p-0">
+                      <tr>
+                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
+                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
+                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                      </tr>
+                      <tr>
+                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                            date : 'E, dd MMM yyyy'}} </small></td>
+                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 lg:col-12 pb-0">
+            <div class="grid title-event">
+              <div class="col-6 lg:col-6 text-left pb-0">
+                <h3 class="text-lg font-semibold"> <i><img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png"
+                      style="width: 5%;" alt=""></i> Course
+                </h3>
+              </div>
+              <div class="col-6 lg:col-6 text-right">
+                <a class="a-link text-xs text-secondary font-italic underline" routerLink="./courses"
+                  role="button">Views All</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 lg:col-12">
+            <div class="grid">
+              <div class="col-12 lg:col-4" *ngFor="let d of dataCourse" role="button"
+                routerLink="/events-courses/payment/{{d.product.id}}">
+                <img class="border-round-left w-full" style="max-height: 150px;"
+                  src="{{fileDownload}}{{d.product.photo.id}}" alt="">
+                <div class="card p-3 pb-1">
+                  <div class="grid">
+                    <div class="col-8 lg:col-8 sm:col-8">
+                      <p class="text-lg font-semibold">{{d.product.title}}</p>
+                    </div>
+                    <div class="col-4 lg:col-4 sm:col-4 text-right">
+                      <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
+                          style="font-size: 0.6rem ;">Courses</a></p-tag>
+                    </div>
+                  </div>
+                  <table class="pt-0">
+                    <tbody class="p-0">
+                      <tr>
+                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
+                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
+                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+                      </tr>
+                      <tr>
+                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                            date : 'E, dd MMM yyyy'}} </small></td>
+                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

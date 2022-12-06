@@ -1,0 +1,156 @@
+<div class="container pb-5">
+  <div class="mt-5 pb-8">
+    <div class="pagetitle">
+      <h3>Payment</h3>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/events-courses">Event & Course</a></li>
+          <li class="breadcrumb-item active">Payment</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="grid">
+      <div class="col-12 lg:col-8 pt-3 pb-3">
+        <div class="surface-section shadow-2">
+          <div
+            class="text-center md:text-left border-round bg-cover h-20rem lg:h-30rem flex flex-column justify-content-end mb-5"
+            style="background: url('{{fileDownload}}{{detailProduct.product.photo.id}}');">
+            <div class="grid">
+              <div class="col lg:col-12 px-5">
+                <div class="text-5xl font-bold text-white">
+                  {{detailProduct.product.title}}
+                </div>
+                <p class="line-height-3 text-white text-lg text-center md:text-left mt-3"> <a></a>
+                  Published {{detailProduct.createdAt | date : 'E, dd MM yyyy'}} by
+                  <span class="font-italic" role="button"
+                    routerLink="/view/profile/{{detailProduct.product.ownerId.id}}">
+                    {{detailProduct.product.ownerId.fullname}}</span>
+
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-12 lg:col-12 lg:px-5">
+              <div class="flex flex-wrap align-items-center justify-content-between mb-5 gap-5">
+                <div class="flex flex-row">
+                  <span class="text-900 bg-blue-200 surface-100 inline-flex font-semibold py-2 px-3 mr-2 border-round">
+                    {{detailProduct.product.productType.productTypeName}}</span>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 pb-2 flex">
+                  <img src="../../../../assets/icons/speaker.png" width="20" height="20" class="mr-2 mt-2">
+                  <div><label class="text-sm">Speacker</label>
+                    <h5 class="text-secondary text-sm" style="margin-top: 5px;">
+                      <b>{{detailProduct.product.ownerId.fullname}}</b>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-6 pb-2 flex">
+                  <img src="../../../../assets/icons/calendar.png" width="20" height="20" class="mr-2 mt-2">
+                  <div><label class="text-sm">SCHEDULE</label>
+                    <h5 class="text-sm" style="color: rgb(53, 53, 53); margin-top: 5px;">
+                      <!-- <strong>Rabu, 30 November 2022 18:30 - 19:50</strong></h5> -->
+                      <strong>{{detailProduct.dateTimeStart | date : 'E, dd-MM-yyyy HH:mm' }}</strong>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-6 pb-2 flex"><img src="../../../../assets/icons/location.png" width="20" height="20"
+                    class="mr-2 mt-2">
+                  <div><label class="text-sm">LOCATION</label>
+                    <h5 class="text-secondary text-sm" style="margin-top: 5px; text-transform: capitalize;"><b>
+                        {{detailProduct.product.location}}</b>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-6 pb-2 flex"><img src="../../../../assets/icons/provider.png" width="20" height="20"
+                    class="mr-2 mt-2">
+                  <div><label class="text-sm">Provider</label>
+                    <h5 class="text-secondary text-sm" style="margin-top: 5px; text-transform: capitalize;"><b>
+                        {{detailProduct.product.provider}}</b>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="line-height-3 text-lg text-900 mb-4">
+                {{detailProduct.product.content}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-4 p-3">
+        <ng-template [ngIf]="paymentStatus !== paymentNone">
+          <div class="p-card p-3 my-3">
+            <h5 class="text-lg">Transaction History</h5>
+            <hr>
+            <p-table [value]="detailPayment" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true"
+              [virtualScrollItemSize]="46">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Code</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-data let-i="rowIndex">
+                <tr>
+                  <td>{{data.transactionCode}}</td>
+                  <td>
+                    <div *ngIf="data.approval == true && data.isActive == true">
+                      Accepted
+                    </div>
+                    <div *ngIf="data.approval == false && data.isActive == true">
+                      Pending
+                    </div>
+                    <div *ngIf="data.approval == false && data.isActive == false">
+                      Rejected
+                    </div>
+                  </td>
+                  <td>{{data.createdAt | date:'E, dd MMM yy'}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="paymentStatus == paymentRejected || paymentStatus == paymentNone">
+          <div class="p-card p-3">
+            <h5 class="text-lg">Detail Order</h5>
+            <hr>
+            <div class="grid">
+              <div class="col-12 pb-2 flex">
+                <div>
+                  <span class="event-type p-2"><img src="https://cdn-icons-png.flaticon.com/512/981/981769.png"
+                      class="w-1"> Total
+                    Payment :
+                  </span>
+                  <span class="text-blue-300 font-bold">{{detailProduct.product.price | currency:'Rp. '}}</span>
+                </div>
+              </div>
+              <div class="col-12 py-2 px-3 border-round text-black text-md">
+                <label class="font-bold">Bank Bca</label>
+                <hr>
+                <span class="text-sm">No Rekening :</span>
+                <p class="text-black font-semibold text-lg" style="letter-spacing: 3px;">141215123</p>
+                <hr>
+                <label class="text-sm font-italic ">make payments and upload proof of payment</label>
+              </div>
+            </div>
+            <form class="text-center mt-3 px-3" [formGroup]="insertPayment" (ngSubmit)="payment()">
+              <input class="form-control" name="photoId" accept="image/*" chooseLabel="Upload Image" type="file"
+                (change)="fileUpload($event)" />
+              <button pButton pRipple type="button" [disabled]="!insertPayment.valid" styleClass="p-button-sm"
+                type="submit" label="Send Payment"
+                class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+            </form>
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="mt-8 p-3">
+  <div class="grid pb-8">
+    <div class="col-12 lg:col-2 sm:col-2 p-0"></div>
+    <div class="col-12 lg:col-8 sm:col-8 py-5 px-5">
+      <p-breadcrumb [model]="items" [home]="home" styleClass="p-0 px-3 py-1 bg-blue-100"></p-breadcrumb>
+
+      <div class="card px-4 pb-4">
+        <div class="mt-3">
+          <h5 class="text-lg mt-5"> <i class="pi pi-comments"></i> Create Thread</h5>
+          <hr>
+          <div class=" field col-12 md:col-12 mt-3 p-0">
+            <p class="text-md">Type Posting</p>
+            <p-dropdown [options]="typePost" [(ngModel)]="selectedTypePost" (click)="getTypePosting(selectedTypePost)"
+              optionLabel="name" optionValue="id" name="id" id="name">
+            </p-dropdown>
+          </div>
+          <form class="mt-2" [formGroup]="dataPosting" (ngSubmit)="insertPosting()">
+            <div class="p-fluid p-formgrid grid pb-0">
+              <div class=" field col-12 md:col-12"><label for="title" class="text-sm">Title</label>
+                <input pinputtext="" formControlName="title" id="title" type="text"
+                  class="p-inputtext p-component p-element">
+              </div>
+              <div class="field col-12 pb-0"><label for="address" class="text-sm">Description</label>
+                <textarea [rows]="5" formControlName="body" [cols]="30" pInputTextarea [autoResize]="true"></textarea>
+              </div>
+            </div>
+            <div class="grid w-full p-3">
+              <div *ngIf="btnUploadFile; else elseBlock">
+                <input class="form-control" type="file" id="file" multiple (change)="fileUpload($event)">
+              </div>
+              <ng-template #elseBlock>
+                <div class="card bg-blue-300 p-3 w-full">
+                  <div class="grid">
+                    <div class="col-10 lg:col-10 text-left">
+                      <h3 class="text-xl">Polling</h3>
+                    </div>
+                    <div class="col-2 lg:col-2 text-right">
+                      <i class="pi pi-times" pTooltip="Close" role="button" (click)="closeForm()"></i>
+                    </div>
+                  </div>
+                  <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-12"><label for="question" class="text-lg">Question</label>
+                      <input pinputtext="" formControlName="question" id="question" type="text"
+                        class="p-inputtext p-component p-element bg-gray-200">
+                    </div>
+                  </div>
+
+                  <div formArrayName="postPollingOption">
+                    <div *ngFor="let data of postPollingOption.controls; index as i" [formGroupName]="i">
+                      <div class="p-inputgroup p-2">
+                        <input type="text" pinputtext="" formControlName="content" placeholder="Option {{i+1}}"
+                          class="p-inputtext p-component p-element">
+                        <button type="button" pbutton="" (click)="removeReactive(i)" pripple="" label="Search"
+                          class="p-element p-button p-component">
+                          <i class="pi pi-times" pTooltip="Delete" role="button"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" (click)="addOption()"
+                      class="p-element p-button p-button-secondary p-button-sm p-component ml-2">Add
+                      Option</button>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="text-center">
+              <p-button label="Post" [disabled]="!dataPosting.valid" type="submit" styleClass="p-button-sm "
+                icon="pi pi-book" iconPos="left">
+              </p-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 lg:col-2 sm:col-2 p-0"></div>
+  </div>
+</div>

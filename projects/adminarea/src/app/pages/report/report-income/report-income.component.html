@@ -1,0 +1,55 @@
+<main id="main" class="main">
+    <div class="container">
+        <h3 class="my-4">Member Information Income</h3>
+
+        <p-table #dt [value]="reportIncome" [(selection)]="selection" [paginator]="true" [rows]="rows" [(first)]="first"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <div>
+                        <label class="mr-2">Date Range</label>
+                        <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                            [readonlyInput]="true" inputId="range">
+                        </p-calendar>
+                    </div>
+                    <button pButton pRipple label="Export" type="submit" (click)="btnExport()" icon="pi pi-upload"
+                        class="p-button-sm border-none p-button-primary"></button>
+                </div>
+                <pre>{{data.value | json}}</pre>
+
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th class="text-center" style="width: 6rem">No</th>
+                    <th>Member Name</th>
+                    <th>Type</th>
+                    <th class="text-center">Total Income</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
+                <tr>
+
+                    <td style="width: 4rem">
+                        <!-- <p-tableCheckbox [value]="reportIncome.memberId" formArrayName="userId" >
+                            </p-tableCheckbox> -->
+                        <p-tableCheckbox [value]="reportIncome" [index]="i">
+                        </p-tableCheckbox>
+                    </td>
+                    <td class="text-center" style="width: 6rem">{{i+1}}</td>
+                    <td>{{reportIncome.memberName}}</td>
+                    <td>{{reportIncome.type}}</td>
+                    <td class="text-center">{{reportIncome.totalIncome}}</td>
+
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
+</main>
