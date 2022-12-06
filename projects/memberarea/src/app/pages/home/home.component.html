@@ -89,13 +89,21 @@
                       class="p-button-rounded p-button-secondary p-button-text {{disabledPolling}}"
                       (click)="showFormPolling()"></button>
 
+                    <ng-container *ngIf="!disabledInput; else elseTemplate">
+                      <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="isChecked"
+                        checked style="margin-bottom:12px;">
+                      <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
+                        style="margin-bottom:12px;">
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <input class="p-checkbox" #inputEl disabled [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
+                        style="margin-bottom:12px;">
+                    </ng-template>
 
-                    <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
-                      [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="isChecked"
-                      checked style="margin-bottom:12px;">
-                    <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
-                      [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
-                      style="margin-bottom:12px;">
+
                     <label class="ml-1 text-sm {{labelStyle}} text-600" for="binary" style="margin-bottom:12px ;">Post
                       Premium</label>
                   </div>
@@ -105,8 +113,8 @@
                   </div>
                 </div>
 
-                <div class="card bg-gray-300 p-3 w-full" *ngIf="FormPolling">
-                  <div class="flex justify-content-end" (click)="closeForm()">
+                <div class="card bg-gray-300 p-3 w-full" (click)="closeForm()" *ngIf="FormPolling">
+                  <div class="flex justify-content-end">
                     <i class=" pi pi-times" pTooltip="Close" role="button"></i>
                   </div>
                   <div class="p-fluid p-formgrid grid">
@@ -139,7 +147,7 @@
 
         <div
           class="shadow-2 my-2 surface-card p-4 pb-0 border-round-lg border-2 border-transparent text-900 hover:surface-200 transition-colors transition-duration-150"
-          *ngFor="let post of posts;index as i" role="button" routerLink="/thread/detail/{{post.id}}">
+          *ngFor="let post of posts;index as i">
           <div class="flex justify-content-between">
             <div class="flex">
               <div *ngIf="post.user.photo == null; then default1 else photoProfile2"></div>
@@ -195,14 +203,11 @@
                 </ng-template>
               </span>
             </div>
-
-
-
           </div>
           <div class=" text-lg text-900 font-medium mb-2 line-height-3 mt-3 ">
             {{post.title}}
           </div>
-          <div class=" text-md line-height-3 mb-3 text-700">
+          <div class=" text-md line-height-3 mb-3 text-700" role="button" routerLink="/thread/detail/{{post.id}}">
             <div *ngIf="post.postType.postTypeCode == premium; then limit else nolimit "></div>
             <ng-template #limit>
               {{ seeMore ? post.body : post.body.substr(0, 80) }}

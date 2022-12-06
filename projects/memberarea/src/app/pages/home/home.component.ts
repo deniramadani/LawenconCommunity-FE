@@ -64,7 +64,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   FormPolling : boolean = false
   showCommentComponent: any[] = []
-  dataUser : any = new Object
+  dataUser: any = new Object
+  disabledInput : boolean = false
 
   dataPosting = this.fb.group({
     title: ['', [Validators.required]],
@@ -201,9 +202,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showFormPolling() {
     this.FormPolling = true
+    this.disabledInput = true
   }
   closeForm() {
     this.FormPolling = false
+    this.disabledInput = false
   }
 
   init(): void {

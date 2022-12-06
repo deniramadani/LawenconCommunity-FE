@@ -212,26 +212,27 @@
                 </div>
 
 
-                <!-- <div class="grid border-round p-0 transition-colors transition-duration-200" id="{{'tasksComment' + i}}"
-                    *ngIf="showCommentComponent[i]">
-                    <div class="col-12 md:col-12">
-                        <form [formGroup]="dataComment" (ngSubmit)="replay(post.id,i)">
-                            <div class="p-fluid pr-0">
-                                <label for="message" class="font-medium"> <i class="pi pi-comments"></i>
-                                    Comments</label>
-                                <div class="flex w-full mt-2 p-0 gap-1">
+                <div class="p-3">
+                    <div class="grid border-round p-3">
+                        <div class="col-12 md:col-12">
+                            <form [formGroup]="dataComment" (ngSubmit)="replay()">
+                                <div class="p-fluid pr-0">
+                                    <label for="message" class="font-medium"> <i class="pi pi-comments"></i>
+                                        Comments</label>
+                                    <div class="field w-full mt-2 p-0">
 
-                                    <textarea id="message" pInputTextarea rows="1" [autoResize]="true"
-                                        class="py-2 px-3 text-sm" formControlName="content"></textarea>
-                                    <button pButton pRipple type="submit" [disabled]="!dataComment.valid"
-                                        class="p-button-sm" icon="pi pi-send" class="p-1"
-                                        style="float: right;"></button>
+                                        <textarea id="message" pInputTextarea rows="1" formControlName="content"
+                                            [autoResize]="true" class="py-3 px-3 text-sm"></textarea>
+                                    </div>
+                                    <button pButton pRipple type="submit" [disabled]="!dataComment.valid" label="Replay"
+                                        icon="pi pi-send" class="w-auto" style="float: right;"></button>
                                 </div>
-                            </div>
-                        </form>
+
+                            </form>
+                        </div>
                     </div>
-                    <div class="grid w-full">
-                        <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment.slice(0,2)">
+                    <div class="grid">
+                        <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment">
                             <div class="p-2">
                                 <div class="border-1 surface-border border-round p-3 bg-gray-100">
                                     <div class="flex">
@@ -239,6 +240,7 @@
                                         <div class="ml-2">
                                             <div class="text-sm font-bold text-900 mb-1">{{c.user.fullname}}</div>
                                             <div class="text-xs flex align-items-center text-700">
+
                                                 <span>{{c.createdAt | date : 'E, dd-MM-yyyy'}}</span>
                                             </div>
                                         </div>
@@ -250,9 +252,9 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
-            </div>
+                </div>
 
+            </div>
         </div>
         <div class="col-12 lg:col-3"></div>
     </div>
