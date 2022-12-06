@@ -4,8 +4,6 @@ import { ProductsService } from '../../../service/products.service';
 import { Schedule } from '../../../../../../interface/schedule'
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { FormBuilder,Validators } from '@angular/forms';
-import { UserTypeService } from '../../../service/user.type.service';
-import { UserType } from "../../../../../../interface/user-type";
 import { Router } from '@angular/router';
 import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from 'projects/interface/product-type';

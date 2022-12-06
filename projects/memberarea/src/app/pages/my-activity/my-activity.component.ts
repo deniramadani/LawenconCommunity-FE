@@ -16,6 +16,7 @@ import { Post } from '../../../../..//interface/post';
 import { ArticleService } from '../../service/article.service';
 import { PollingService } from '../../service/polling.service';
 import { PostingService } from '../../service/posting.service';
+import { ProductsService } from '../../service/products.service';
 
 @Component({
   selector: 'app-my-activity',
@@ -81,7 +82,7 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   orders : boolean = false
   postId: string = ''
   id : string = ''
-  constructor(private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private productService :ProductsService,private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
     this.init();
     this.items = [
@@ -135,11 +136,11 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.title = 'My Activities'
     this.icon = 'bi bi-pencil-square'
 
-    this.getEventByUserIdSubscription = this.postService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
+    this.getEventByUserIdSubscription = this.productService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
       this.dataEvent = result
     })
 
-    this.getCourseByUserIdSubscription = this.postService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
+    this.getCourseByUserIdSubscription = this.productService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
       this.dataCourse = result
     })
 

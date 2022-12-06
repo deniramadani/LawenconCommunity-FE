@@ -29,6 +29,10 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { StyleClassModule } from "primeng/styleclass"
 import { ActivitiesOrdersComponent } from './activities.orders/activities.orders.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CalendarModule } from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext"
 @NgModule({
     declarations: [
         MyActivityComponent,PostComponent, TransactionHistoryComponent, ActivitiesComponent, ActivitiesOrdersComponent
@@ -37,8 +41,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         MyActivityRouting,TabViewModule,GalleriaModule,StyleClassModule,
         CardModule,PanelMenuModule,ConfirmDialogModule,ReactiveFormsModule,
         ContentMemberModule,PanelModule,DividerModule,InputTextareaModule,
-        AvatarModule,SplitButtonModule,MenuModule,
-        BadgeModule,
+        AvatarModule,SplitButtonModule,MenuModule,DialogModule,InputTextModule,
+        BadgeModule,FileUploadModule,CalendarModule,
         ButtonModule,
         TagModule,
         DropdownModule,

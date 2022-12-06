@@ -70,7 +70,7 @@
                 <div class="ml-2 w-full">
                   <textarea placeholder="Title Post" formControlName="title" pInputTextarea rows="1" [autoResize]="true"
                     class="py-1 px-3 text-md w-full"></textarea>
-                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="2" [autoResize]="true"
+                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="3" [autoResize]="false"
                     class="py-1 px-3 text-md w-full"></textarea>
                 </div>
               </div>
@@ -78,9 +78,9 @@
               <div class="w-full lg:pl-5 mt-1">
                 <div class=" w-full grid">
                   <div class="col-1 lg:col-1 sm:col-1">
-                    <button pButton pRipple type="button" icon="pi pi-cloud-upload" pTooltip="Upload Foto"
-                      class="p-button-rounded p-button-secondary p-button-text" style="margin-bottom: 13px ;"
-                      onclick="document.getElementById('file').click();"></button>
+                    <button pButton pRipple uploadLabel="File" type="button" icon="pi pi-cloud-upload"
+                      pTooltip="Upload Foto" class="p-button-rounded p-button-secondary p-button-text"
+                      style="margin-bottom: 13px ;" onclick="document.getElementById('file').click();"></button>
                     <input class="form-control bi bi-upload" accept="image/*" style="display:none;" type="file"
                       id="file" multiple (change)="fileUpload($event)">
                   </div>

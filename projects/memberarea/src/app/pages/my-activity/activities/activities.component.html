@@ -1,7 +1,7 @@
 <div class="py-4" infinite-scroll (scrolled)="onScroll()">
     <p-panel header="My Events" [toggleable]="true">
         <div class="grid p-0 border-round">
-            <div class="col-12 lg:col-4 sm:col-4 p-3 " *ngFor="let d of dataEvent">
+            <div class="col-12 lg:col-4 sm:col-4 p-3 " *ngFor="let d of dataEvent; index as i">
                 <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image" class="border-round-left w-full"
                     style="max-height: 234px;">
                 <div class="p-4 p-card  bg-gray-200 shadow-3">
@@ -42,7 +42,8 @@
                     <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                     <hr>
                     <div class="px-5 w-full">
-                        <p-button label="Edit" icon="pi pi-pencil mr-2" styleClass="p-button-sm w-full"></p-button>
+                        <p-button label="Edit" (click)="showFormUpdate(d.id,i)" icon="pi pi-pencil mr-2"
+                            styleClass="p-button-sm w-full"></p-button>
                     </div>
 
                 </div>
@@ -60,7 +61,6 @@
                         <span class="text-orange-500 font-medum">{{d.product.title}}</span>
                         <span class="text-500 font-medium">{{d.createdAt | date : 'E, dd MMM yyyy'}}</span>
                     </div>
-
                     <table class="pt-0">
                         <tbody class="p-0">
                             <tr>
@@ -94,4 +94,73 @@
             </div>
         </div>
     </p-panel>
+    <p-dialog header="Edit Event & Course" [(visible)]="displayFormUpdate" [breakpoints]="{'960px': '75vw'}"
+        [style]="{width: '70vw'}" [draggable]="false" [resizable]="false">
+        <div class="container bg-gray-300 p-5 border-round shadow-3">
+            <form class="w-full mx-3 border-0 md:px-4 my-3" [formGroup]="dataUpdate">
+                <div class="formgrid grid">
+                    <div class="field col-12 md:col-6" formGroupName="product">
+                        <label for="title">Title<span class="text-red-500">*</span></label>
+                        <input pInputText id="title" formControlName="title" name="title" type="text"
+                            class="w-full p-inputtext-sm" required>
+                    </div>
+                    <div class="field col-12 md:col-6" formGroupName="product">
+                        <div formGroupName="productType" class="mt-1">
+                            <label for="title">Product Type<span class="text-red-500">*</span></label>
+                            <p-dropdown [options]="productType" [(ngModel)]="selectedProductType" styleClass=" w-full"
+                                placeholder="{{selectedProductType}}" formControlName="id" optionLabel="productTypeName"
+                                optionValue="id" name="id" id="name">
+                            </p-dropdown>
+                        </div>
+
+                    </div>
+                    <div class="field col-12 md:col-12" formGroupName="product">
+                        <label for="articleContent">Content<span class="text-red-500">*</span></label>
+                        <textarea rows="8" pInputTextarea class="w-full" formControlName="content" id="articleContent"
+                            name="articleContent"></textarea>
+                    </div>
+                    <div class="field col-12 md:col-6" formGroupName="product">
+                        <label for="location">Provider<span class="text-red-500">*</span></label>
+                        <input pInputText id="provider" formControlName="provider" name="provider" type="text"
+                            class="w-full p-inputtext-sm" required>
+                    </div>
+                    <div class="field col-12 md:col-6" formGroupName="product">
+                        <label for="locations">Locations<span class="text-red-500">*</span></label>
+                        <input pInputText id="locations" formControlName="location" name="locations" type="text"
+                            class="w-full p-inputtext-sm" required>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="finishSchedule" class="w-full">Change Foto<span
+                                class="text-red-500">*</span></label>
+
+                        <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                            styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
+                            chooseLabel="Upload Image"></p-fileUpload>
+                    </div>
+
+                    <div class="field col-12 md:col-6">
+                        <label for="beginSchedule" class="w-full">Start Schedule<span
+                                class="text-red-500">*</span></label>
+
+                        <p-calendar [showTime]="true" class="w-full" inputId="dateTimeStart" clas styleClass="calendar"
+                            id="dateTimeStart" formControlName="dateTimeStart" [required]="true">
+                        </p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="finishSchedule" class="w-full">Finish Schedule<span
+                                class="text-red-500">*</span></label>
+
+                        <p-calendar [showTime]="true" class="w-full" inputId="dateTimeEnd" clas styleClass="calendar"
+                            id="dateTimeEnd" formControlName="dateTimeEnd" [required]="true">
+                        </p-calendar>
+                    </div>
+                </div>
+                <pre>{{dataUpdate.value | json}}</pre>
+            </form>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button (click)="displayFormUpdate=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button (click)="update()" type="submit" label="Update" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
 </div>

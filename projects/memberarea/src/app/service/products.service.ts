@@ -34,4 +34,17 @@ export class ProductsService {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/payments`,data)
   }
 
+  getProductEventByOwnerId(start: number, limit: number): Observable<Schedule[]> {
+    return this.http.get<Schedule[]>(`${BASE_URL.BASE_URL}/products/events/users?start=${start}&limit=${limit}`)
+  }
+
+  getProductCourseByOwnerId(start: number, limit: number): Observable<Schedule[]> {
+    return this.http.get<Schedule[]>(`${BASE_URL.BASE_URL}/products/courses/users?start=${start}&limit=${limit}`)
+  }
+
+  updateProduct(data: any): Observable<any>{
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/products`,data)
+  }
+
+
 }
