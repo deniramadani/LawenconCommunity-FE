@@ -5,7 +5,6 @@ import { NewArticleComponent } from "./new.article/new.article.component";
 import { UpdateArticleComponent } from "./update-article/update-article.component";
 
 const routes : Routes = [
-
     {
         path : 'list',
         component : ListArticleComponent

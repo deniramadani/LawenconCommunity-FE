@@ -9,7 +9,6 @@ const routes: Routes = [
         component: LoginComponent,
         canActivate: [CanActiveAuth]
     },
-
     {
         path: 'positions',
         loadChildren: () => import('../master/position/position.module').then(u => u.PositionModule)

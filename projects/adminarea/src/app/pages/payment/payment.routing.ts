@@ -4,18 +4,14 @@ import { PaymentPremiumComponent } from "./payment-premium/payment-premium.compo
 import { PaymentProductComponent } from "./payment-product/payment-product.component";
 
 const routes : Routes = [
-
     {
         path: 'product',
         component : PaymentProductComponent
     },
-
     {
         path: 'premium',
         component : PaymentPremiumComponent
     }
-
-
 ]
 
 @NgModule({
@@ -26,4 +22,5 @@ const routes : Routes = [
         RouterModule
     ]
 })
+
 export class PaymentRouting { }

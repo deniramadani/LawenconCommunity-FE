@@ -4,8 +4,6 @@ import { ContentAdminComponent } from "../../layout/content/admin/content.admin.
 import { ReportIncomeComponent } from "./report-income/report-income.component";
 import { ReportMemberComponent } from "./report-member/report-member.component";
 
-
-
 const routes: Routes = [
     {
         path: "",
@@ -30,7 +28,6 @@ const routes: Routes = [
     //             path: "member",
     //             component: ReportMemberComponent
     //         }
-
     //     ]
     // }
 ]
