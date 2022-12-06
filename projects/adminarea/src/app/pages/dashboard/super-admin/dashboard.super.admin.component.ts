@@ -10,6 +10,7 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
   private getDataCount?: Subscription
   fullname: string = ''
   data: any;
+  dataDashboard : any = new Object()
   valueAdmin: number = 0;
   valueMember: number = 0;
   chartOptions: any;
@@ -18,6 +19,7 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getDataCount = this.dashboardService.getData().subscribe(result => {
+      this.dataDashboard = result
       const countuser = result.adminTotal + result.memberTotal
       const valueadmin = (result.adminTotal / countuser) * 100
       const valuemember = (result.memberTotal / countuser) * 100
@@ -44,8 +46,6 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
               }
           ]
       };
-      console.log(result);
-      
     })
    
     this.fullname = String(this.apiService.getProfileName())

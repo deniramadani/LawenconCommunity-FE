@@ -212,8 +212,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   init(): void {
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
-      console.log(result);
-      this.ig = result.userSocmed.instagram
+      
       this.dataUser  = result
       this.fullname = result.fullname
       this.idUser = result.id
@@ -267,7 +266,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCommentByPostId(id: string,index : any) {
-    console.log('ini comment id:' ,id);
     this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
       this.comment = result
     })
@@ -364,10 +362,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           id: id
         }
       })
-
-      console.log(postBookmark.value);
-      
-
       this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
         this.init()
       })

@@ -22,8 +22,6 @@ export class DashboardAdminComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.fullname = String(this.apiService.getProfileName())
     this.getDashboardAdminSubscription = this.dashboardService.getData().subscribe(result => {
-      console.log(result);
-      
       this.dataDashboard = result
         this.dataMember = {
           labels: ['Member Premium','Member Basic'],

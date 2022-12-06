@@ -10,8 +10,6 @@
             New</span></button>
       </div>
     </div>
-    <h6 class="text-lg text-600 ml-2">
-      Total Articles : <span class="text-blue-500">{{totalArticle}}</span> </h6>
     <p-table [value]="dataArticle" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true"
       [totalRecords]="totalArticle" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true">
@@ -29,29 +27,37 @@
           <td style="width: 2%; min-width: 3rem;">{{i+1}}</td>
           <td style="width: 35%; min-width: 7rem;">{{article.title}}</td>
           <td style="width: 35%; min-width: 7rem;">
-
-            {{ seeMore ? article.content : article.content.substr(0, 80) }}
-            <ng-container *ngIf="article.content.length > 80">
-              <a class="text-primary text-xs" type="button" (click)="seeMore = !seeMore;">See {{
-                seeMore ?
-                'less' : 'more'}}</a>
+            <ng-container *ngIf="showTextMore[i]; else elseTemplateContent">
+              {{title}}
+              <a class="text-primary text-xs" type="button" (click)="showMore(i)">See less</a>
             </ng-container>
+            <ng-template #elseTemplateContent>
+              {{article.content.substr(0, 80)}}
+              <a class="text-primary text-xs" type="button" (click)="showMore(i)">See More</a>
+
+            </ng-template>
+
+
+            <!-- {{ seeMore ? article.content : article.content.substr(0, 80) }} -->
+            <!-- <ng-container *ngIf="article.content.length > 80"> -->
+            <!-- <a class="text-primary text-xs" type="button" (click)="showMore(i)">See{{seeMore ?'less' :
+                'more'}}</a> -->
+            <!-- <a class="text-primary text-xs" type="button" (click)="showMore(i)">See</a> -->
+            <!-- </ng-container> -->
           </td>
           <td style="width: 15%; min-width: 5rem;"><img width="80" class="shadow-4"
               src="{{fileDownload}}{{article.file.id}}" alt="Bamboo Watch"></td>
-
-
           <td style="width: 15%; min-width: 5rem;">
             <div>
               <button pButton type="button" class="p-button-text" pTooltip="Update"
                 routerLink="/article/edit/{{article.id}}"><i class="pi pi-pencil"></i></button>
-              <button pButton type="button" class="p-button-text text-red-500" pTooltip="Delete"><i
-                  class="pi pi-trash"></i></button>
+              <button pButton type="button" class="p-button-text text-red-500"
+                (click)="clickConfirmDelete('top',article.id)" pTooltip="Delete"><i class="pi pi-trash"></i></button>
             </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
-  <!-- <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="industryId"></p-confirmDialog> -->
+  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="articleId"></p-confirmDialog>
 </main>

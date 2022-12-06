@@ -38,7 +38,7 @@ export class ListUsersComponent implements OnInit {
         for (let i = 0; i < result.length; i++) {
             this.users.push(result[i])
       }
-      console.log(this.users);
+    
       
     })
     this.getDataCount = this.data.getData().subscribe(result => {

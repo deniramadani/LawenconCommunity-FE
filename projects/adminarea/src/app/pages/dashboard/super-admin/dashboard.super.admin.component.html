@@ -12,18 +12,39 @@
         <div class="content-wrapper mt-3">
           <div class="">
             <h3 class="text-600 ml-3">Data Master</h3>
-            <div class="flex flex-wrap flex-row p-card">
+            <div class="flex flex-wrap flex-row p-card p-3">
               <div class="flex">
                 <p-chart type="doughnut" class="p-0" width="300px" height="300px" [responsive]="false" [data]="data"
                   [options]="chartOptions"></p-chart>
 
               </div>
-              <div class="flex flex-column p-5 w-8">
+              <div class="flex flex-column p-5 w-12 lg:w-8">
                 <label class="font-medium">Users Admin</label>
                 <p-progressBar [value]="valueAdmin"></p-progressBar>
                 <span class="font-medium mt-3">Users Member</span>
                 <p-progressBar [value]="valueMember"></p-progressBar>
+                <div class="flex mt-4 w-full">
+                  <table>
+                    <tr>
+                      <td>Total Users</td>
+                      <td><span class="ml-3"> : </span></td>
+                      <td><span class="text-green-500"> {{dataDashboard.userTotal}} </span></td>
+                    </tr>
+                    <tr>
+                      <td>Total Position</td>
+                      <td><span class="ml-3"> : </span></td>
+                      <td><span class="text-green-500"> {{dataDashboard.positionTotal}} </span></td>
+                    </tr>
+                    <tr>
+                      <td>Total Industry</td>
+                      <td><span class="ml-3"> : </span></td>
+                      <td><span class="text-green-500"> {{dataDashboard.industryTotal}} </span></td>
+                    </tr>
+                  </table>
+                </div>
               </div>
+
+
             </div>
 
           </div>

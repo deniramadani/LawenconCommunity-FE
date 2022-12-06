@@ -15,9 +15,7 @@ export class SidebarAdminComponent implements OnInit,OnDestroy {
   constructor(private apiService : ApiService) { }
   
   ngOnInit(): void {
-    const codeRole = String(this.apiService.getRoleCode())
-    console.log(codeRole);
-    
+    const codeRole = String(this.apiService.getRoleCode())    
     if (codeRole == 'ROLSA') {
       this.dashboardSA = true
       this.master = true

@@ -5,6 +5,7 @@ export interface Comment {
 	 content: string 
 	 post: Post 
 	user: User 
-	nama : string
+	nama: string
+	createdAt : string
 } 
 

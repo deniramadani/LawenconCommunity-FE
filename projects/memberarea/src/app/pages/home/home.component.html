@@ -170,11 +170,19 @@
             </div>
             <div class="flex">
               <span class="mb-3">
-                <div *ngIf="post.postType.postTypeCode == premium; then premiums "></div>
+                <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then premiums">
+                </div>
                 <ng-template #premiums>
-                  <p-tag icon="bi bi-star-fill" severity="warning" value="Premium" [rounded]="true"></p-tag>
+                  <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                  </p-tag>
                 </ng-template>
 
+                <div *ngIf="post.postType.postTypeCode == premium && userType == 'UTCPM'; then premiums">
+                </div>
+                <ng-template #premiums>
+                  <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                  </p-tag>
+                </ng-template>
               </span>
               <span class="mb-3">
                 <div *ngIf="idUser == post.createdBy; then premiums1 "></div>
@@ -204,11 +212,12 @@
               </span>
             </div>
           </div>
-          <div class=" text-lg text-900 font-medium mb-2 line-height-3 mt-3 ">
+          <div class=" text-lg text-900 font-medium mb-2 line-height-3 mt-3" routerLink="/thread/detail/{{post.id}}">
             {{post.title}}
           </div>
-          <div class=" text-md line-height-3 mb-3 text-700" role="button" routerLink="/thread/detail/{{post.id}}">
-            <div *ngIf="post.postType.postTypeCode == premium; then limit else nolimit "></div>
+          <div class=" text-md line-height-3 mb-3 text-700">
+
+            <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM' ; then limit else nolimit "></div>
             <ng-template #limit>
               {{ seeMore ? post.body : post.body.substr(0, 80) }}
               <ng-container *ngIf="post.body.length > 80">... <br>
@@ -226,9 +235,11 @@
                     'less' : 'more'}}</a>
                 </ng-container>
             </ng-template>
+
           </div>
           <div class="w-full mt-3">
-            <ng-container *ngIf="post.postType.postTypeCode == premium; then thenTemplateFoto; else elseTemplateFoto">
+            <ng-container
+              *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then thenTemplateFoto; else elseTemplateFoto">
             </ng-container>
             <ng-template #thenTemplateFoto>
               <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
@@ -407,6 +418,12 @@
                   </div>
                 </div>
               </div>
+              <div class="px-5 w-full text-center my-3 text-right">
+                <a class="p-link text-blue-400 font-italic font-medium" routerLink="/thread/detail/{{post.id}}">See more
+                  comment</a>
+              </div>
+
+
             </div>
           </div>
         </div>
@@ -420,8 +437,8 @@
               </div>
               <div class="field col-12 md:col-12">
                 <label for="bio" class="font-medium text-900">Body</label>
-                <textarea id="bio" autofocus type="text" pInputTextarea rows="3" placeholder="Body Post"
-                  formControlName="body" [autoResize]="true"></textarea>
+                <textarea id="bio" autofocus type="text" pInputTextarea [rows]="4" placeholder="Body Post"
+                  formControlName="body" [autoResize]="false"></textarea>
               </div>
             </div>
             <div class="flex justify-content-end">
@@ -430,33 +447,6 @@
             </div>
           </form>
         </p-dialog>
-        <!-- <p-dialog header="Start Premium Members" [(visible)]="formUpdatePost" [breakpoints]="{'960px': '75vw'}"
-          [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
-          <div class="flex flex-wrap">
-
-            <div class="w-fullsurface-card">
-
-              <form [formGroup]="updatePost">
-                <div class="grid formgrid p-fluid">
-                  <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Title</label>
-                    <input pinputtext="" formControlName="title" id="fullname" name="fullname" type="text"
-                      class="p-inputtext p-component p-element text-md py-2 px-3">
-                  </div>
-                  <div class="field col-12 md:col-12">
-                    <label for="bio" class="font-medium text-900">Body</label>
-                    <textarea id="bio" type="text" pInputTextarea rows="3" formControlName="body"
-                      [autoResize]="true"></textarea>
-                  </div>
-                </div>
-                <div class="flex justify-content-end">
-                  <p-button (click)="formUpdatePost=false" label="No" styleClass="p-button-text"></p-button>
-                  <p-button (click)="formUpdatePost=false" label="Yes" styleClass="p-button-text"></p-button>
-                </div>
-              </form>
-
-            </div>
-          </div>
-        </p-dialog> -->
       </div>
 
       <div class="col-12 lg:col-3 px-5 py-2">

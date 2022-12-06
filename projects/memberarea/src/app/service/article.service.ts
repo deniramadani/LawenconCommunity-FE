@@ -25,5 +25,9 @@ export class ArticleService {
   getArticleById(id : string): Observable<Article> {
     return this.http.get<Article>(`${BASE_URL.BASE_URL}/articles/${id}`)
   }
+
+  deleteArticle(id : string): Observable<Article> {
+    return this.http.put<Article>(`${BASE_URL.BASE_URL}/articles/delete/${id}`,id)
+  }
   
 }

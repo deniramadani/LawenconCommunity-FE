@@ -3,12 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BASE_URL } from 'projects/constant/BaseUrl';
-import { Article } from 'projects/interface/article';
+import { Post } from 'projects/interface/post';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { Subscription } from 'rxjs';
+import { Comment } from "../../../../../../interface/comment";
 import { ArticleService } from '../../../service/article.service';
 import { PollingService } from '../../../service/polling.service';
 import { PostingService } from '../../../service/posting.service';
@@ -36,25 +37,26 @@ export class CommentComponent implements OnInit, OnDestroy{
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
+  totalLike: number = 0
+  totalComment: number = 0
+  likeId: string = ''
+  bookmarkId : string = ''
   fileid: string = ''
-  data: Article[] = []
-  post: any = new Object
-  comment : any = new Object
   limit: number = 5
   start: number = 0
   userType: string | null = this.apiService.getUserType()
   fullname: string = ''
-  position: string = ''
-  email: string = ''
-  phoneNumber: string = ''
-  age: string = ''
+  postType: string = ''
+  createAt: string = ''
   loader = false
   fotoProfile: string = ''
+  userId : string =''
   seeMoreNoPremium: boolean = false
   seeMore: boolean = false
   formUpdatePost : boolean = false
   idUser: string = String(this.apiService.getIdUser())
-  showCommentComponent = {};
+  title: string = ''
+  body : string =''
   dataComment = this.fb.group({
     content: ['', [Validators.required]],
     post: this.fb.group({
@@ -80,6 +82,9 @@ export class CommentComponent implements OnInit, OnDestroy{
       numVisible: 1
     }
   ];
+  post! : Post
+  comment: Comment[] = []
+  file : any
 
   constructor(private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
@@ -90,43 +95,28 @@ export class CommentComponent implements OnInit, OnDestroy{
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
-      this.email = result.email
       this.userType = this.apiService.getUserType()
-      if (result.position.positionName != null) {
-        this.position = result.position.positionName
+      if (result.photo != null) {
+        this.fotoProfile = result.photo.id
       } else {
-        this.position = '-'
+        this.fotoProfile = ''
       }
-
-      if (result.phoneNumber != null) {
-        this.phoneNumber = result.phoneNumber
-      } else {
-        this.phoneNumber = '-'
-      }
-
-      if (result.dateOfBirth != null) {
-        this.age = `${String(this.getAge(result.dateOfBirth))} tahun`
-      } else {
-        this.age = '-'
-      }
-
-      this.fotoProfile = result.photo.id
-
-
-    })
-
-   
-
-
-    this.getAllArticleSubscription = this.articleService.getArticle(0, 4).subscribe(result => {
-      this.data = result
+      this.userId = result.id
     })
 
     this.getPostByIdSubscription = this.activedParam.params.subscribe(id => {
+     
       this.postService.getPostById(String(Object.values(id))).subscribe(result => {
-        console.log(result);
+        this.createAt = result.createdAt
+        this.postType = result.postType.postTypeCode
+        this.title = result.title
+        this.totalLike = result.totalLike
+        this.likeId = result.likeId
+        this.bookmarkId = result.bookmarkId
+        this.totalComment = result.totalComment
+        this.body = result.body
+        this.file = result.file
         this.post = result
-
         this.features.push({
           image : result.file
         })
@@ -144,7 +134,7 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.getCommetByIdSubcription = this.activedParam.params.subscribe(id => {
       this.postService.getCommentByIdPost(String(Object.values(id))).subscribe(result => {
         this.comment = result
-        console.log(result);
+        
       })
     })
   }

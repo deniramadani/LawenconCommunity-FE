@@ -57,11 +57,11 @@
                                     <td class=" text-center">
 
                                         <div *ngIf="data.approval == true && data.isActive == true">
-                                            <span class="text-green-500 text-xs">Has been processed</span>
+                                            <span class="text-green-500 text-xs">Payment is approved</span>
                                         </div>
 
                                         <div *ngIf="data.approval == false && data.isActive == false">
-                                            <span class="text-red-500 text-xs">Process is rejected</span>
+                                            <span class="text-red-500 text-xs">Payment is rejected</span>
                                         </div>
 
                                         <div *ngIf="data.approval == false && data.isActive == true">

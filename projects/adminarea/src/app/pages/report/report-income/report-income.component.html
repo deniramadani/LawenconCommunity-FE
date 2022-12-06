@@ -39,7 +39,7 @@
                     </td>
                     <td class="text-center" style="width: 6rem">{{i+1}}</td>
                     <td>{{reportIncome.memberName}}</td>
-                    <td class="text-center">{{reportIncome.totalIncome}}</td>
+                    <td class="text-center">{{reportIncome.totalIncome | currency : 'Rp. ' }}</td>
                 </tr>
             </ng-template>
 

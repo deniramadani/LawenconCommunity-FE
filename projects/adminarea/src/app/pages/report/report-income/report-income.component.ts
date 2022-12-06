@@ -63,7 +63,6 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
 
     checkBoxId() {
         this.userId.push(this.fb.array([]))
-        console.log(this.userId.push(this.fb.array([])));
     }
 
     loadData(event: LazyLoadEvent){
@@ -76,7 +75,6 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
         for(let i =0; i<this.selection.length;i++){
             this.userIDs.push(this.selection[i].memberId)
         }
-        console.log(this.userIDs)
         this.data.patchValue({
             startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
             endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd'),

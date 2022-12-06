@@ -38,6 +38,8 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
     })
   }
 
+
+
   reject(id: string){
     this.rejectPaymentSubscription = this.paymentService.paymentRejected(id).subscribe(() =>{
       console.log(id);
