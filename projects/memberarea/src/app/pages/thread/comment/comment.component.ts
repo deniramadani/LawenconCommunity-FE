@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Article } from 'projects/interface/article';
-import { Post } from 'projects/interface/post';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
 import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-const';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
@@ -29,6 +28,9 @@ export class CommentComponent implements OnInit, OnDestroy{
   private pollingSubscription?: Subscription
   private getCommetByIdSubcription?: Subscription
   private insertCommentSubscription?: Subscription
+  private updatePostSubscription?: Subscription
+  private unbookmarkSubscription?: Subscription
+  private bookmarkSubscription?: Subscription
   features : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -46,13 +48,23 @@ export class CommentComponent implements OnInit, OnDestroy{
   email: string = ''
   phoneNumber: string = ''
   age: string = ''
+  loader = false
   fotoProfile: string = ''
+  seeMoreNoPremium: boolean = false
+  seeMore: boolean = false
+  formUpdatePost : boolean = false
+  idUser: string = String(this.apiService.getIdUser())
   showCommentComponent = {};
   dataComment = this.fb.group({
     content: ['', [Validators.required]],
     post: this.fb.group({
       id : ['']
     })
+  })
+  updatePost = this.fb.group({
+    id : [''],
+    title: ['', [Validators.required]],
+    body: ['', [Validators.required]],
   })
   responsiveOptions: any[] = [
     {
@@ -135,9 +147,21 @@ export class CommentComponent implements OnInit, OnDestroy{
         console.log(result);
       })
     })
+  }
 
-   
-
+  showDialogUpdatePost(id: string,title : string,body: string) {
+    this.formUpdatePost = true
+    this.updatePost.patchValue({
+      id: id,
+      title: title,
+      body : body
+    })
+  }
+  btnUpdatePost() {
+    this.updatePostSubscription = this.postService.updatePost(this.updatePost.value).subscribe(result => {
+      this.formUpdatePost = false
+      this.init()
+    })
   }
 
   replay() {
@@ -145,6 +169,14 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.insertCommentSubscription = this.postService.insertComment(this.dataComment.value).subscribe(() => {
         this.init()
     })
+  }
+
+  premiumPost(id: string) {
+    if (this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.router.navigateByUrl(`/detail/${id}`)
+    }
   }
 
   calculateDiff(sentDate: string) {
@@ -168,6 +200,33 @@ export class CommentComponent implements OnInit, OnDestroy{
       }
     }
   }
+
+  unbookmark(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
+        this.init()
+      })
+    }
+  }
+
+  bookmark(id: string, type: string) {
+    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      const postBookmark = this.fb.group({
+        post: {
+          id: id
+        }
+      })
+      this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
+        this.init()
+      })
+    }
+  }
+
+  
 
 
   cancelLike(id: string, type: string) {
@@ -240,6 +299,10 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.likeSubscription?.unsubscribe()
     this.pollingSubscription?.unsubscribe()
     this.getCommetByIdSubcription?.unsubscribe()
+    this.insertCommentSubscription?.unsubscribe()
+    this.updatePostSubscription?.unsubscribe()
+    this.unbookmarkSubscription?.unsubscribe()
+    this.bookmarkSubscription?.unsubscribe()
   }
 
 }
