@@ -10,7 +10,11 @@ import { DashboardAdmin  } from "../../../../../../interface/dashboard-admin";
 })
 export class DashboardAdminComponent implements OnInit,OnDestroy {
   fullname: string = ''
-  data : any = new Object
+  dataDashboard: any = new Object
+  dataMember: any;
+  dataPayment: any;
+  chartOptions: any;
+  chartOptionsPayment : any
   private getDashboardAdminSubscription?: Subscription
   
   constructor(private apiService : ApiService,private dashboardService : DashboardService) { }
@@ -19,8 +23,45 @@ export class DashboardAdminComponent implements OnInit,OnDestroy {
     this.fullname = String(this.apiService.getProfileName())
     this.getDashboardAdminSubscription = this.dashboardService.getData().subscribe(result => {
       console.log(result);
-      this.data = result
+      
+      this.dataDashboard = result
+        this.dataMember = {
+          labels: ['Member Premium','Member Basic'],
+          datasets: [
+              {
+                  data: [result.memberPremiumTotal, result.memberBasicTotal],
+              backgroundColor: [
+                      "#F49D1A",
+                      "#D23369",
+                  ],
+              hoverBackgroundColor: [
+                      "#F49D1A",
+                      "#D23369",
+                  ]
+              }
+          ]
+      };
+      
+      this.dataPayment = {
+        labels: ['Approve','Rejected','Pending'],
+        datasets: [
+            {
+                data: [result.approvedPaymentTotal, result.rejectedPaymentTotal,result.pendingPaymentTotal],
+            backgroundColor: [
+                    "#9ED5C5",
+                    "#DC3535",
+                    "#009EFF",
+                ],
+            hoverBackgroundColor: [
+                    "#9ED5C5",
+                    "#DC3535",
+                    "#009EFF",
+                ]
+            }
+        ]
+      };
     })   
+
   }
 
   ngOnDestroy(): void {

@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   FormPolling : boolean = false
   showCommentComponent: any[] = []
+  dataUser : any = new Object
 
   dataPosting = this.fb.group({
     title: ['', [Validators.required]],
@@ -112,16 +113,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   labelStyle: string = ''
   disabledPolling : string = ''
   isChecked = false;
+  ig : string =''
   type: string = ''
   constructor(private confirmationService: ConfirmationService,private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
-    // if (this.checked == true) {
-      // console.log(this.checked);
-    // } else {
-      // console.log('basic');
-      // console.log(this.checked);
-      // this.isChecked = false
-    // }
     this.init();
   }
 
@@ -135,8 +130,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.labelStyle = ''
       this.disabledPolling = ''
     }
-    console.log(isChecked);
-    
+  }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+    console.log(url);
   }
 
   insertPosting() {
@@ -211,9 +209,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   init(): void {
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
+      console.log(result);
+      this.ig = result.userSocmed.instagram
+      this.dataUser  = result
       this.fullname = result.fullname
       this.idUser = result.id
       this.email = result.email
+
       this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
         this.position = result.position.positionName

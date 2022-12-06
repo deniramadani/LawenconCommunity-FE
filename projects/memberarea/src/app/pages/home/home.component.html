@@ -20,21 +20,21 @@
                   class=" pi pi-check-circle mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
             <hr>
-            <div class="grid">
-              <div class="col-4 lg:col-4 sm:col-4">
+            <div class="flex flex-row flex-wrap gap-3 justify-content-center">
+              <div class=" flex" role="button">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
                 </p-avatar>
               </div>
-              <div class="col-4 lg:col-4 sm:col-4">
+              <div class="flex" role="button" (click)="goToLink('https://www.instagram.com/fransisko.shb')">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
                 </p-avatar>
               </div>
-              <div class="col-4 lg:col-4 sm:col-4">
+              <div class="flex" role="button">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
                 </p-avatar>
               </div>
             </div>
-            <div class="text-left mt-4">
+            <div class="text-left mt-3">
               <p class="text-sm"> <i class="pi pi-user mr-2"></i>Personal Details</p>
               <div class="px-2 text-xs text-left">
                 <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>

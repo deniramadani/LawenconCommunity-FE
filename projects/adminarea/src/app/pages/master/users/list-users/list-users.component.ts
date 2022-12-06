@@ -19,9 +19,9 @@ export class ListUsersComponent implements OnInit {
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   dataUsers : User[] = []
   users: User[] = []
+  userId : string = ''
   page: number = 1
   first = 0
-  userId : string = ''
   rows = 10
   limit = this.rows
   totalUsers!: number

@@ -1,52 +1,34 @@
 <main id="main" class="main">
-  <h1 class="text-2xl">Dashboard</h1>
-  <section class="section dashboard">
-    <div class="home-page">
-      <div class="col-12 md:col-12 lg:col-12 mt-2">
-        <h5 class="text-xl">Welcome Super Admin , <span class="text-primary">{{fullname}}</span></h5>
-      </div>
-      <div class="content-wrapper mt-3">
-        <div class="content">
-          <div class="feature-boxes grid-nogutter grid">
-            <div class="col-12 lg:col-3 sm:col-12 p-3 text-center ">
-              <p-card>
-                <ng-template pTemplate="header">
-                  <img class="w-6 mt-3" src="../../../../assets/icons/users.png" alt="Image">
-                </ng-template>
-                <h5 class="text-xl text-center">Users</h5>
-                <hr class="mt-2">
-                <ng-template pTemplate="footer p-0">
-                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">142</span></h3>
-                </ng-template>
-              </p-card>
+  <div class="container">
+
+
+    <h1 class="text-2xl">Dashboard</h1>
+    <section class="section dashboard">
+      <div class="home-page">
+        <div class="col-12 md:col-12 lg:col-12 mt-2">
+          <h5 class="text-xl">Welcome Super Admin , <span class="text-primary">{{fullname}}</span></h5>
+        </div>
+        <hr>
+        <div class="content-wrapper mt-3">
+          <div class="">
+            <h3 class="text-600 ml-3">Data Master</h3>
+            <div class="flex flex-wrap flex-row p-card">
+              <div class="flex">
+                <p-chart type="doughnut" class="p-0" width="300px" height="300px" [responsive]="false" [data]="data"
+                  [options]="chartOptions"></p-chart>
+
+              </div>
+              <div class="flex flex-column p-5 w-8">
+                <label class="font-medium">Users Admin</label>
+                <p-progressBar [value]="valueAdmin"></p-progressBar>
+                <span class="font-medium mt-3">Users Member</span>
+                <p-progressBar [value]="valueMember"></p-progressBar>
+              </div>
             </div>
-            <div class="col-12 lg:col-3 sm:col-12 p-3 text-center ">
-              <p-card>
-                <ng-template pTemplate="header">
-                  <img class="w-6 mt-3" src="../../../../assets/icons/industry.png" alt="Image">
-                </ng-template>
-                <h5 class="text-xl text-center">Industry</h5>
-                <hr class="mt-2">
-                <ng-template pTemplate="footer p-0">
-                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">65</span></h3>
-                </ng-template>
-              </p-card>
-            </div>
-            <div class="col-12 lg:col-3 sm:col-12 p-3 text-center ">
-              <p-card>
-                <ng-template pTemplate="header">
-                  <img class="w-6 mt-3" src="../../../../assets/icons/position.png" alt="Image">
-                </ng-template>
-                <h5 class="text-xl text-center">Position</h5>
-                <hr class="mt-2">
-                <ng-template pTemplate="footer p-0">
-                  <h3 class="text-xl mt-3"> Total : <span class="text-primary">65</span></h3>
-                </ng-template>
-              </p-card>
-            </div>
+
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </main>

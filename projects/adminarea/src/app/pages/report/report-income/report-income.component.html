@@ -16,8 +16,6 @@
                     <button pButton pRipple label="Export" type="submit" (click)="btnExport()" icon="pi pi-upload"
                         class="p-button-sm border-none p-button-primary"></button>
                 </div>
-                <pre>{{data.value | json}}</pre>
-
             </ng-template>
 
             <ng-template pTemplate="header">
@@ -27,7 +25,6 @@
                     </th>
                     <th class="text-center" style="width: 6rem">No</th>
                     <th>Member Name</th>
-                    <th>Type</th>
                     <th class="text-center">Total Income</th>
                 </tr>
             </ng-template>
@@ -36,16 +33,13 @@
                 <tr>
 
                     <td style="width: 4rem">
-                        <!-- <p-tableCheckbox [value]="reportIncome.memberId" formArrayName="userId" >
-                            </p-tableCheckbox> -->
+
                         <p-tableCheckbox [value]="reportIncome" [index]="i">
                         </p-tableCheckbox>
                     </td>
                     <td class="text-center" style="width: 6rem">{{i+1}}</td>
                     <td>{{reportIncome.memberName}}</td>
-                    <td>{{reportIncome.type}}</td>
                     <td class="text-center">{{reportIncome.totalIncome}}</td>
-
                 </tr>
             </ng-template>
 

@@ -24,7 +24,7 @@
               <div class="flex align-items-center">
                 <p-avatar image="{{fileDownload}}{{fotoId}}" styleClass="mr-2" size="large" shape="circle">
                 </p-avatar>
-                <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                <p-fileUpload uploadLabel="Image" mode="basic" name="avatar" accept="image/*" [customUpload]="true"
                   styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
                   chooseLabel="Upload Image"></p-fileUpload>
               </div>
@@ -58,11 +58,14 @@
                 <input pinputtext="" id="company" formControlName="company" type="text"
                   class="p-inputtext p-component p-element">
               </div>
+
               <div class="field col-12 md:col-6" formGroupName="industry">
                 <label for="lastname2" class="text-sm">Select Industry</label>
+
                 <p-dropdown [options]="industries" styleClass="w-full" optionLabel="industryName" optionValue="id"
                   name="industryName" id="industryName" [(ngModel)]="selectedIndustry" formControlName="id">
                 </p-dropdown>
+
               </div>
               <div class="field col-12 md:col-6" formGroupName="position">
                 <label for="lastname2" class="text-sm">Select Position</label>

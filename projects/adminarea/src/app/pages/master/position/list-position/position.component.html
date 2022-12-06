@@ -8,13 +8,14 @@
                 <button pButton class="p-button-sm btn-custom  " type=" button" id="insertPosition"
                     name="insertPosition" routerLink="/master/positions/new"><span><i class="pi pi-plus"
                             style="font-size: 12px"></i>
-                        New</span></button>
+                        New</span>
+                </button>
             </div>
-
         </div>
-
-        <p-table [value]="dataPosition" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <p-table [value]="dataPosition" [paginator]="true" [rows]="rows" [(first)]="first"
+            [showCurrentPageReport]="true" [totalRecords]="totalPosition"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+            (onLazyLoad)="loadData($event)" [lazy]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th>No</th>

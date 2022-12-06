@@ -10,9 +10,11 @@
             New</span></button>
       </div>
     </div>
-
-    <p-table [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <h6 class="text-lg text-600 ml-2">
+      Total Articles : <span class="text-blue-500">{{totalArticle}}</span> </h6>
+    <p-table [value]="dataArticle" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true"
+      [totalRecords]="totalArticle" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true">
       <ng-template pTemplate="header">
         <tr>
           <th>No</th>
@@ -26,7 +28,15 @@
         <tr class="ng-star-inserted">
           <td style="width: 2%; min-width: 3rem;">{{i+1}}</td>
           <td style="width: 35%; min-width: 7rem;">{{article.title}}</td>
-          <td style="width: 35%; min-width: 7rem;">{{article.content}}</td>
+          <td style="width: 35%; min-width: 7rem;">
+
+            {{ seeMore ? article.content : article.content.substr(0, 80) }}
+            <ng-container *ngIf="article.content.length > 80">
+              <a class="text-primary text-xs" type="button" (click)="seeMore = !seeMore;">See {{
+                seeMore ?
+                'less' : 'more'}}</a>
+            </ng-container>
+          </td>
           <td style="width: 15%; min-width: 5rem;"><img width="80" class="shadow-4"
               src="{{fileDownload}}{{article.file.id}}" alt="Bamboo Watch"></td>
 

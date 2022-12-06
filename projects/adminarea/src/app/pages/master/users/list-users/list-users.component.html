@@ -12,8 +12,7 @@
             </div>
 
         </div>
-        <!-- <p-table [value]="users" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"> -->
+
         <p-table [value]="users" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true"
             [totalRecords]="totalUsers" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true">

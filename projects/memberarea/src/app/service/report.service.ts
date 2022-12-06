@@ -40,8 +40,16 @@ export class ReportService {
     return this.http.get<Report[]>(`${BASE_URL.BASE_URL}/reports/revenue/super-admin/data-all?start=${start}&limit=${limit}`)
   }
 
-
   reportSuperAdminIncome(data : any) : Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/revenue/super-admin`,data,{responseType : 'blob' as 'json', observe : 'response'})
   }
+
+  getAllSuperAdminParticipantReport(start: number, limit: number): Observable<Report[]> {
+    return this.http.get<Report[]>(`${BASE_URL.BASE_URL}/reports/productivity/super-admin/data-all?start=${start}&limit=${limit}`)
+  }
+
+  reportSuperAdminPartipants(data : any) : Observable<any> {
+    return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/productivity/super-admin`,data,{responseType : 'blob' as 'json', observe : 'response'})
+  }
+
 }
