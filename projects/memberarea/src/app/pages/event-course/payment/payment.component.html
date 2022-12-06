@@ -98,13 +98,13 @@
                   <td>{{data.transactionCode}}</td>
                   <td>
                     <div *ngIf="data.approval == true && data.isActive == true">
-                      Accepted
+                      <p-badge value="Accepted" severity="success"></p-badge>
                     </div>
                     <div *ngIf="data.approval == false && data.isActive == true">
-                      Pending
+                      <p-badge value="Pending" severity="warning"></p-badge>
                     </div>
                     <div *ngIf="data.approval == false && data.isActive == false">
-                      Rejected
+                      <p-badge value="Rejected" severity="danger"></p-badge>
                     </div>
                   </td>
                   <td>{{data.createdAt | date:'E, dd MMM yy'}}</td>
