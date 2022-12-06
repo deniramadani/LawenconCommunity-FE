@@ -12,25 +12,21 @@
     <div class="grid">
       <div class="col-12 lg:col-8 pt-3 pb-3">
         <div class="surface-section shadow-2">
-          <div
-            class="text-center md:text-left border-round bg-cover h-20rem lg:h-30rem flex flex-column justify-content-end mb-5"
-            style="background: url('{{fileDownload}}{{detailProduct.product.photo.id}}');">
-            <div class="grid">
-              <div class="col lg:col-12 px-5">
-                <div class="text-5xl font-bold text-white">
-                  {{detailProduct.product.title}}
-                </div>
-                <p class="line-height-3 text-white text-lg text-center md:text-left mt-3"> <a></a>
-                  Published {{detailProduct.createdAt | date : 'E, dd MM yyyy'}} by
-                  <span class="font-italic" role="button"
-                    routerLink="/view/profile/{{detailProduct.product.ownerId.id}}">
-                    {{detailProduct.product.ownerId.fullname}}</span>
-
-                </p>
-              </div>
-            </div>
+          <div class="text-center md:text-left border-round  flex flex-column justify-content-end mb-5">
+            <img src="{{fileDownload}}{{detailProduct.product.photo.id}}" class="h-25rem" alt="">
           </div>
           <div class="grid">
+            <div class="col lg:col-12 px-5">
+              <div class="text-3xl font-bold text-black">
+                {{detailProduct.product.title}}
+              </div>
+              <p class="line-height-3 text-600 text-md text-center md:text-left mt-1"> <a></a>
+                Published {{detailProduct.createdAt | date : 'E, dd MM yyyy'}} by
+                <span class="font-italic" role="button" routerLink="/view/profile/{{detailProduct.product.ownerId.id}}">
+                  {{detailProduct.product.ownerId.fullname}}</span>
+
+              </p>
+            </div>
             <div class="col-12 lg:col-12 lg:px-5">
               <div class="flex flex-wrap align-items-center justify-content-between mb-5 gap-5">
                 <div class="flex flex-row">
