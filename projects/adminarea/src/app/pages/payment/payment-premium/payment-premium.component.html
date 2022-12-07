@@ -54,13 +54,7 @@
                                             href="{{fileDownload}}{{data.file.id}}" role="button">Download</a>
                                     </td>
                                     <td class=" text-center">
-                                        <!-- <button pButton type="button" label="Rejected" (click)="reject(data.id)"
-                                            class="p-button-text text-red-500" pTooltip="Rejected"><i
-                                                class="pi pi-ban mr-2"></i>
-                                        </button>
-                                        <button pButton type="button" label="Approve" (click)="approve(data.id)"
-                                            class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                class="pi pi-check-square mr-2"></i></button> -->
+                                     
                                         <div *ngIf="data.approval == true && data.isActive == true">
                                             <span class="text-green-500 text-xs">Payment is approved</span>
                                         </div>

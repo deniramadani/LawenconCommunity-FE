@@ -97,33 +97,67 @@
          </ul>
       </div>
       <div class="w-full lg:w-6 lg:p-2 surface-card">
-         <div class="grid">
-            <div class="col-12 pb-2 flex">
-               <div>
-                  <span class="event-type p-2"><img src="https://cdn-icons-png.flaticon.com/512/981/981769.png"
-                        class="w-1"> Total
-                     Payment :
-                  </span>
-                  <span>Rp. 200.000</span>
+         <div class="p-3" *ngIf="paymentStatus == paymentRejected || paymentStatus == paymentNone">
+            <div class="grid">
+               <div class="col-12 pb-2 flex">
+                  <div>
+                     <span class="event-type p-2"><img src="https://cdn-icons-png.flaticon.com/512/981/981769.png"
+                           class="w-1"> Total
+                        Payment :
+                     </span>
+                     <span>Rp. 200.000</span>
+                  </div>
+               </div>
+               <div class="col-12 py-2 px-3 border-round text-black text-md">
+                  <label class="font-bold">Bank Bca</label>
+                  <hr>
+                  <span class="text-sm">No Rekening :</span>
+                  <p class="text-black font-semibold text-lg" style="letter-spacing: 3px;">141215123</p>
+                  <hr>
+                  <label class="text-sm font-italic ">make payments and upload proof of payment</label>
                </div>
             </div>
-            <div class="col-12 py-2 px-3 border-round text-black text-md">
-               <label class="font-bold">Bank Bca</label>
-               <hr>
-               <span class="text-sm">No Rekening :</span>
-               <p class="text-black font-semibold text-lg" style="letter-spacing: 3px;">141215123</p>
-               <hr>
-               <label class="text-sm font-italic ">make payments and upload proof of payment</label>
-            </div>
+            <form class="text-center mt-3 px-3" [formGroup]="dataPremium" (ngSubmit)="submit()">
+               <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
+                  styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)"
+                  chooseLabel="Upload Image">
+               </p-fileUpload>
+               <button pButton icon="pi pi-send" pRipple type="button" styleClass="p-button-sm" type="submit"
+                  label="Send Payment" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
+            </form>
          </div>
-         <form class="text-center mt-3 px-3" [formGroup]="dataPremium" (ngSubmit)="submit()">
-            <p-fileUpload mode="basic" name="avatar" accept="image/*" [customUpload]="true"
-               styleClass="p-button-outlined p-button-plain" (onSelect)="fileUpload($event)" chooseLabel="Upload Image">
-            </p-fileUpload>
-            <button pButton icon="pi pi-send" pRipple type="button" styleClass="p-button-sm" type="submit"
-               label="Send Payment" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
-         </form>
+         <div class="p-card p-3 my-3" *ngIf="paymentStatus !== paymentNone">
+            <h5 class="text-lg">Transaction History</h5>
+            <hr>
+            <p-table [value]="detailPayment" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true"
+               [virtualScrollItemSize]="46">
+               <ng-template pTemplate="header">
+                  <tr>
+                     <th>Code</th>
+                     <th>Status</th>
+                     <th>Created</th>
+                  </tr>
+               </ng-template>
+               <ng-template pTemplate="body" let-data let-i="rowIndex">
+                  <tr>
+                     <td>{{data.transactionCode}}</td>
+                     <td>
+                        <div *ngIf="data.approval == true && data.isActive == true">
+                           <p-badge value="Accepted" severity="success"></p-badge>
+                        </div>
+                        <div *ngIf="data.approval == false && data.isActive == true">
+                           <p-badge value="Pending" severity="warning"></p-badge>
+                        </div>
+                        <div *ngIf="data.approval == false && data.isActive == false">
+                           <p-badge value="Rejected" severity="danger"></p-badge>
+                        </div>
+                     </td>
+                     <td>{{data.createdAt | date:'E, dd MMM yy'}}</td>
+                  </tr>
+               </ng-template>
+            </p-table>
 
+         </div>
       </div>
    </div>
 </p-dialog>

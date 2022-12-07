@@ -16,8 +16,8 @@
                 shape="circle">
               </p-avatar>
             </ng-template>
-            <h5 class="text-lg mt-3">{{fullname}} <span class="mr-2 text-xs text-yellow-500" *ngIf="verified"><i
-                  class=" pi pi-check-circle mr-1"></i></span> </h5>
+            <h5 class="text-lg mt-3">{{fullname}} <span pTooltip="Premium Member" class="mr-2 text-xs text-yellow-500"
+                *ngIf="verified"><i class=" pi pi-check-circle mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
             <hr>
             <div class="flex flex-row flex-wrap gap-3 justify-content-center">

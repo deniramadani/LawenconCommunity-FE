@@ -12,13 +12,16 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StyleClassModule } from 'primeng/styleclass'
 import { ReactiveFormsModule } from "@angular/forms"
+import {BadgeModule} from 'primeng/badge';
+import { TableModule } from 'primeng/table'
+import { CommonModule } from "@angular/common"
 @NgModule({
   declarations: [
     ContentMemberComponent,FooterComponent,HeaderMemberComponent
   ],
   imports: [
-    RouterModule, MenubarModule, ButtonModule,
-    DropdownModule, DialogModule, FileUploadModule,
+    RouterModule, MenubarModule, ButtonModule,TableModule,CommonModule,
+    DropdownModule, DialogModule, FileUploadModule,BadgeModule,
     AvatarModule, AvatarGroupModule,StyleClassModule,ReactiveFormsModule
   ],
   exports: [ContentMemberComponent,FooterComponent,HeaderMemberComponent],

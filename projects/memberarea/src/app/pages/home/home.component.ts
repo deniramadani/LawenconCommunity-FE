@@ -250,9 +250,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       if (result.userType.userTypeCode === 'UTCPM') {
         this.verified = true
-      }
-      console.log('Id User',result.id);
-      
+      }    
 
     })
 

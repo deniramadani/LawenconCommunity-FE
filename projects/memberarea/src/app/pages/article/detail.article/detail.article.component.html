@@ -11,21 +11,17 @@
 
                 <div class="font-normal text-2xl mt-3 mb-3 text-900">{{data.title}}
                 </div>
-                <div class="text-600 font-sm mb-5">Post by Admin Community</div>
+                <div class="text-600 font-sm mb-2">Post by Admin Community</div>
                 <div class="w-full mb-5">
                     <img src="{{fileDownload}}{{data.file.id}}" alt="Image" class="w-full lg:h-25rem">
                     <div class="text-center text-sm font-medium mt-3">
                         Published {{data.createdAt | date : 'E, dd MMM yyyy'}}
                     </div>
                 </div>
-
-                <p class="line-height-3 mt-0 mb-5">
+                <p class="line-height-5 mt-0 mb-5" style="text-indent: 50px;text-transform: capitalize; ">
                     {{data.content}}
                 </p>
             </div>
-            <!-- <div class="w-full pl-0">
-                
-            </div> -->
         </div>
     </div>
 </div>

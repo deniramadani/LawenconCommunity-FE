@@ -43,6 +43,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private paymentService : PaymentService) { }
 
   ngOnInit(): void {
+    this.onInit()
+  }
+
+  onInit() {
     this.insertPaymentSubscription = this.activedParam.params.subscribe(id => {
       this.idProduct = String(Object.values(id))
       this.getProductByIdSubcription = this.productService.productGetById(String(Object.values(id))).subscribe(result => {
@@ -51,7 +55,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     })
     this.getAllByProductIdSubscription = this.paymentService.getAllByProductId(this.idProduct).subscribe(payment => {
       this.detailPayment = payment
-      console.log(payment)
       let paymentStatus
       if(this.detailPayment.length !== 0){
         for (let i = 0; i<= this.detailPayment.length; i++){
@@ -72,13 +75,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
         paymentStatus = PaymentConst.NONE
       }
       this.paymentStatus = paymentStatus
-      console.log(this.paymentStatus);
     })
   }
 
   payment() {
     this.insertPaymentSubscription = this.postService.paymentProduct(this.insertPayment.value).subscribe(result => {
-      this.router.navigateByUrl('/events-courses')
+      this.onInit()
     })
   }
 

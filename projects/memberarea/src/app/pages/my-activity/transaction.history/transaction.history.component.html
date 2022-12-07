@@ -7,8 +7,7 @@
             <div class="col-12 lg:col-4" *ngFor="let p of payments">
                 <div class="shadow-3 border-round h-full bg-gray-200">
 
-                    <div
-                        *ngIf="payments[0].product.photo == null; then defaultTransaction else photoProfileTransaction">
+                    <div *ngIf="p.product.photo == null; then defaultTransaction else photoProfileTransaction">
                     </div>
                     <ng-template #defaultTransaction>
 
@@ -38,9 +37,8 @@
                         <div class="flex mt-2 justify-content-between">
 
                             <div class="ml-2 flex ">
-
                                 <div
-                                    *ngIf="payments[0].product.ownerId.photo == null; then defaultTransaction1 else photoProfileTransaction1">
+                                    *ngIf="p.product.ownerId.photo == null; then defaultTransaction1 else photoProfileTransaction1">
                                 </div>
                                 <ng-template #defaultTransaction1>
                                     <p-avatar image="../../../../../assets/img/default.jpg" shape="circle">
@@ -52,22 +50,24 @@
                                     </p-avatar>
                                 </ng-template>
 
-
-
                                 <div class="text-xs font-bold text-900 mb-1 ml-2">{{p.product.ownerId.fullname
                                     }}</div>
                             </div>
 
-                            <div class="justify-content-end" *ngIf="p.approval; else elseBlock">
-
-                                <p class="text-xs text-green"> <i
-                                        class="pi pi-check-circle text-green-500 pe-2"></i>Approved</p>
+                            <div *ngIf="p.approval == true && p.isActive == true">
+                                <span class="text-green-500 text-sm font-semibold">
+                                    <i class="pi pi-check-circle text-green-500 pe-2"></i>
+                                    Approved
+                                </span>
                             </div>
-                            <ng-template #elseBlock>
 
-                                <p class="text-xs text-danger"><i class="pi pi-spinner text-danger pe-1"></i>Pending</p>
+                            <div *ngIf="p.approval == false && p.isActive == false">
+                                <span class="text-red-500 text-sm font-semibold">Payment is rejected</span>
+                            </div>
 
-                            </ng-template>
+                            <div *ngIf="p.approval == false && p.isActive == true">
+                                <span class="text-yellow-500 text-sm font-semibold">Pending</span>
+                            </div>
                         </div>
                     </div>
                 </div>
