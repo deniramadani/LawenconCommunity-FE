@@ -23,7 +23,7 @@
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <!-- <th pSortableColumn="check" class="text-center"><i class="pi pi-check"></i></th> -->
+
                                     <th pSortableColumn="no" class="text-center">No.</th>
                                     <th pSortableColumn="trxCode">Trx Code</th>
                                     <th pSortableColumn="fullName">Fullname</th>
@@ -35,10 +35,7 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-data let-i="rowIndex">
                                 <tr>
-                                    <!-- <td>
-                                        <p-checkbox name="groupname" value="{{data.id}}" [(ngModel)]="selectedValues">
-                                        </p-checkbox>
-                                    </td> -->
+
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{data.transactionCode}}</td>
                                     <td>{{data.user.fullname}}</td>
@@ -57,13 +54,28 @@
                                             href="{{fileDownload}}{{data.file.id}}" role="button">Download</a>
                                     </td>
                                     <td class=" text-center">
-                                        <button pButton type="button" label="Rejected" (click)="reject(data.id)"
+                                        <!-- <button pButton type="button" label="Rejected" (click)="reject(data.id)"
                                             class="p-button-text text-red-500" pTooltip="Rejected"><i
                                                 class="pi pi-ban mr-2"></i>
                                         </button>
                                         <button pButton type="button" label="Approve" (click)="approve(data.id)"
                                             class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                class="pi pi-check-square mr-2"></i></button>
+                                                class="pi pi-check-square mr-2"></i></button> -->
+                                        <div *ngIf="data.approval == true && data.isActive == true">
+                                            <span class="text-green-500 text-xs">Payment is approved</span>
+                                        </div>
+
+                                        <div *ngIf="data.approval == false && data.isActive == false">
+                                            <span class="text-red-500 text-xs">Payment is rejected</span>
+                                        </div>
+
+                                        <div *ngIf="data.approval == false && data.isActive == true">
+                                            <button pButton type="button" label="Rejected" [loading]="loaderButton" (click)="reject(data.id)"
+                                                class="p-button-text text-red-500" pTooltip="Rejected" icon="pi pi-ban">
+                                            </button>
+                                            <button pButton type="button" label="Approve " icon="pi pi-check-square" [loading]="loaderButton" (click)="approve(data.id)"
+                                                class="p-button-text text-green-500" pTooltip="Approve"></button>
+                                        </div>
                                     </td>
                                 </tr>
                             </ng-template>

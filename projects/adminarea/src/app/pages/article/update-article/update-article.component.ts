@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
-import {Subscription} from 'rxjs'
+import {finalize, Subscription} from 'rxjs'
 
 @Component({
   selector: 'app-update-article',
@@ -11,6 +12,7 @@ import {Subscription} from 'rxjs'
 export class UpdateArticleComponent implements OnInit ,OnDestroy{
   private updateArticleSubscription ?: Subscription
   private getArticleByIdSubscription?: Subscription
+  loaderButton:boolean = false
   dataUpdate = this.fb.group({
     id : ['',[Validators.required]],
     title : ['',[Validators.required]],
@@ -21,7 +23,7 @@ export class UpdateArticleComponent implements OnInit ,OnDestroy{
       fileExtensions : ['']
     }),
   })
-  constructor(private activedParam : ActivatedRoute,private fb : FormBuilder,private articleService : ArticleService,private router : Router) { }
+  constructor(private toast : ToastrService,private activedParam : ActivatedRoute,private fb : FormBuilder,private articleService : ArticleService,private router : Router) { }
  
  
   ngOnInit(): void {
@@ -42,9 +44,14 @@ export class UpdateArticleComponent implements OnInit ,OnDestroy{
   }
 
   update() {
-    this.updateArticleSubscription = this.articleService.updateArticle(this.dataUpdate.value).subscribe(result => {
-      
-    })
+    if (this.dataUpdate.get('file')?.value == null) {
+        this.toast.warning('Please select a photo article')
+    } else {
+      this.loaderButton = true
+      this.updateArticleSubscription = this.articleService.updateArticle(this.dataUpdate.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => {
+      })
+    }
+    
   }
   
 

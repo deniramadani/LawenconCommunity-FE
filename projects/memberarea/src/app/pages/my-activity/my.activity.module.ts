@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { DropdownModule } from 'primeng/dropdown';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageModule } from 'primeng/image';
@@ -26,17 +26,23 @@ import { TimeAgoPipe } from "projects/mainarea/src/app/pipe/time-ago.pipe";
 import { PostComponent } from './post/post.component';
 import { TransactionHistoryComponent } from './transaction.history/transaction.history.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { StyleClassModule } from "primeng/styleclass"
 import { ActivitiesOrdersComponent } from './activities.orders/activities.orders.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CalendarModule } from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext"
 @NgModule({
     declarations: [
         MyActivityComponent,PostComponent, TransactionHistoryComponent, ActivitiesComponent, ActivitiesOrdersComponent
     ],
     imports: [
-        MyActivityRouting,TabViewModule,GalleriaModule,
-        CardModule,PanelMenuModule,ConfirmDialogModule,
-        ContentMemberModule,PanelModule,DividerModule,
-        AvatarModule,SplitButtonModule,MenuModule,
-        BadgeModule,
+        MyActivityRouting,TabViewModule,GalleriaModule,StyleClassModule,
+        CardModule,PanelMenuModule,ConfirmDialogModule,ReactiveFormsModule,
+        ContentMemberModule,PanelModule,DividerModule,InputTextareaModule,
+        AvatarModule,SplitButtonModule,MenuModule,DialogModule,InputTextModule,
+        BadgeModule,FileUploadModule,CalendarModule,
         ButtonModule,
         TagModule,
         DropdownModule,

@@ -1,22 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { Position } from '../../../../../../../interface/position'
 import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
+import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
 @Component({
   selector: 'app-position',
   templateUrl: './position.component.html',
   providers: [ConfirmationService]
 })
 export class ListPositionComponent implements OnInit,OnDestroy {
-
+  private pageChangeSubscription? : Subscription
   private getAllSubscription?: Subscription
   private deletePositionSubscription?: Subscription
+  private getDataCount?:Subscription
   positionId : string = ''
   dataPosition : Position[] = []
   positions: any[] = []
-  page :number = 1
-  constructor(private positionServcie : PositionService,private confirmationService: ConfirmationService) { }
+  page: number = 1
+  first = 0
+  rows = 10
+  limit = this.rows
+  totalPosition!: number
+  loadertable: boolean =  true
+  constructor(private data : DashboardService,private positionServcie : PositionService,private confirmationService: ConfirmationService) { }
   
 
   ngOnInit(): void {
@@ -25,9 +32,15 @@ export class ListPositionComponent implements OnInit,OnDestroy {
 
 
   onInit() {
-    this.getAllSubscription = this.positionServcie.getPosition(0,40).subscribe(result => {
-      this.dataPosition = result
-      console.log(this.dataPosition.length);
+    this.getAllSubscription = this.positionServcie.getPosition(this.first, this.limit).pipe(finalize(()=> this.loadertable = false)).subscribe(result => {
+      this.dataPosition = []
+      for (let i = 0; i < result.length; i++) {
+          this.dataPosition.push(result[i])
+    }
+  
+    })
+    this.getDataCount = this.data.getData().subscribe(result => {
+        this.totalPosition = result.userTotal
     })
   }
 
@@ -48,10 +61,26 @@ export class ListPositionComponent implements OnInit,OnDestroy {
         }
     });
   }
+
+  getData(offset: number, limit: number) {
+    this.pageChangeSubscription = this.positionServcie.getPosition(offset, limit).subscribe(result => {
+        this.dataPosition = []
+        for (let i = 0; i < result.length; i++) {
+            this.dataPosition.push(result[i])
+        }
+    })
+  }
+
+  loadData(event: LazyLoadEvent) {
+      this.getData(event.first!, event.rows!)
+  }
+  
   
 
   ngOnDestroy(): void {
     this.getAllSubscription?.unsubscribe()
+    this.pageChangeSubscription?.unsubscribe()
+    this.getDataCount?.unsubscribe()
     this.deletePositionSubscription?.unsubscribe()
   }
 

@@ -57,21 +57,19 @@
                                     <td class=" text-center">
 
                                         <div *ngIf="data.approval == true && data.isActive == true">
-                                            <span class="text-green-500 text-xs">Has been processed</span>
+                                            <span class="text-green-500 text-xs">Payment is approved</span>
                                         </div>
 
                                         <div *ngIf="data.approval == false && data.isActive == false">
-                                            <span class="text-red-500 text-xs">Process is rejected</span>
+                                            <span class="text-red-500 text-xs">Payment is rejected</span>
                                         </div>
 
                                         <div *ngIf="data.approval == false && data.isActive == true">
-                                            <button pButton type="button" label="Rejected" (click)="rejected(data.id)"
-                                                class="p-button-text text-red-500" pTooltip="Rejected"><i
-                                                    class="pi pi-ban mr-2"></i>
+                                            <button pButton type="button" label="Rejected" [loading]="loaderButton" (click)="reject(data.id)"
+                                                class="p-button-text text-red-500" pTooltip="Rejected" icon="pi pi-ban">
                                             </button>
-                                            <button pButton type="button" label="Approve" (click)="approve(data.id)"
-                                                class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                    class="pi pi-check-square mr-2"></i></button>
+                                            <button pButton type="button" label="Approve " icon="pi pi-check-square" [loading]="loaderButton" (click)="approve(data.id)"
+                                                class="p-button-text text-green-500" pTooltip="Approve"></button>
                                         </div>
 
 

@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private insertPostBasicSubscription?: Subscription
   private updatePostSubscription?: Subscription
   private deletePostSubcription?: Subscription
+  private updateCommentSubscription?: Subscription
+  private deleteCommentSubscription?: Subscription
+
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
@@ -54,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   phoneNumber: string = ''
   age: string = ''
   idUser: string = ''
+  commnetId : string = ''
   seeMore: boolean = false
   seeMoreNoPremium : boolean =false
   fotoProfile: string | null = null;
@@ -64,7 +68,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   FormPolling : boolean = false
   showCommentComponent: any[] = []
-
+  dataUser: any = new Object
+  disabledInput : boolean = false 
+  formCommnetUpdate : any [] = []
   dataPosting = this.fb.group({
     title: ['', [Validators.required]],
     body: ['', [Validators.required]],
@@ -112,16 +118,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   labelStyle: string = ''
   disabledPolling : string = ''
   isChecked = false;
+  ig : string =''
   type: string = ''
+  updateComment = this.fb.group({
+    id: ['', [Validators.required]],
+    content: ['', [Validators.required]],
+    isActive : [true]
+  })
   constructor(private confirmationService: ConfirmationService,private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
-    // if (this.checked == true) {
-      // console.log(this.checked);
-    // } else {
-      // console.log('basic');
-      // console.log(this.checked);
-      // this.isChecked = false
-    // }
     this.init();
   }
 
@@ -135,8 +140,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.labelStyle = ''
       this.disabledPolling = ''
     }
-    console.log(isChecked);
-    
+  }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+    console.log(url);
   }
 
   insertPosting() {
@@ -203,17 +211,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showFormPolling() {
     this.FormPolling = true
+    this.disabledInput = true
   }
   closeForm() {
     this.FormPolling = false
+    this.disabledInput = false
   }
 
   init(): void {
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
+      
+      this.dataUser  = result
       this.fullname = result.fullname
       this.idUser = result.id
       this.email = result.email
+
       this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
         this.position = result.position.positionName
@@ -238,6 +251,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (result.userType.userTypeCode === 'UTCPM') {
         this.verified = true
       }
+      console.log('Id User',result.id);
+      
 
     })
 
@@ -261,13 +276,43 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
+  showFormUpdateCommnet(index : any,content : string,id : string) {
+    this.formCommnetUpdate[index] = !this.formCommnetUpdate[index]
+    console.log(id, content);
+    this.updateComment.patchValue({
+      id: id,
+      content : content
+    })
+  }
+
+  btnUpdateComment(idpost : string,index : any) {
+    this.updateCommentSubscription = this.postService.updateComment(this.updateComment.value).subscribe(result => {
+      this.getCommentByPostId(idpost,index)
+      this.formCommnetUpdate[index] = false
+    })
+  }
+
   getCommentByPostId(id: string,index : any) {
-    console.log('ini comment id:' ,id);
     this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
       this.comment = result
     })
   }
 
+
+  clickConfirmDeleteComment(idpost : string,index : any,idComment : string) {
+    this.confirmationService.confirm({
+        message: `Do you want to delete this comment ?`,
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+       
+        accept: () => {
+          this.deleteCommentSubscription = this.postService.deleteComment(idComment).subscribe(result => {
+            this.getCommentByPostId(idpost,index)
+          })
+        },
+        key: "commentDialog",
+    });
+  }
 
   replay(id: string, i: any) {
     this.dataComment.patchValue({
@@ -359,10 +404,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           id: id
         }
       })
-
-      console.log(postBookmark.value);
-      
-
       this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
         this.init()
       })
@@ -384,17 +425,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
-  clickConfirmDelete(position: string, id: string,) {
+  clickConfirmDelete(position: string, id: string) {
     this.confirmationService.confirm({
-        message: 'Do you want to delete this post?',
+        message: `Do you want to delete this post ?`,
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
-        key: "positionDialog",
+      
         accept: () => {
           this.deletePostSubcription = this.postService.deletePost(id).subscribe(result => {
             this.init()
           })
-        }
+          },
+          key: "positionDialog",
     });
   }
 
@@ -446,5 +488,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.bookmarkSubscription?.unsubscribe()
     this.pollingSubscription?.unsubscribe()
     this.insertPostBasicSubscription?.unsubscribe()
+
+    this.updatePostSubscription?.unsubscribe()
+    this.deletePostSubcription?.unsubscribe()
+    this.updateCommentSubscription?.unsubscribe()
   }
 }

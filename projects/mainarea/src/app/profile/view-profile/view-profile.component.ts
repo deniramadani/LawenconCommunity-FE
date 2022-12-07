@@ -36,10 +36,10 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   linkedin: string = ''
   fotoId: string = ''
   myDate: any 
- 
   bod: any
   formChangePassword : boolean = false
-  formEditProfile : boolean = true
+  formEditProfile: boolean = true
+  dataUser : any = new Object
   dataUpdate = this.fb.group({
     id : ['',[Validators.required]],
     fullname : ['',[Validators.required]],
@@ -82,10 +82,6 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     confirmPassword: ['',[Validators.required]]
   })
 
-
-
-
-
   constructor(private toast : ToastrService,private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
   ngOnInit(): void {
     this.onInit()
@@ -97,8 +93,8 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     this.getAllIndustry()
     const id = this.apiService.getIdUser()
     this.dataUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
-      console.log(result);
-      
+    
+      this.dataUser = result
       this.bod = result.dateOfBirth
       if (result.photo != null) {
         this.fotoId = result.photo.id
@@ -139,15 +135,11 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         userType: {
           id : result.userType.id
         },
-        industry: {
-          id : result.industry.id
-        },
-        position: {
-          id : result.position.id
-        },
         dateOfBirth : result.dateOfBirth,
       })
 
+      this.dataUpdate.patchValue({ industry: { id: this.selectedIndustry } })
+      this.dataUpdate.patchValue({ position: { id: this.selectedPosition }})
       this.updatePassword.patchValue({
         id: result.id,
         email: result.email,
@@ -157,9 +149,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         userType: {
           id : result.userType.id
         }
-        
       })
-
     })
 
   }

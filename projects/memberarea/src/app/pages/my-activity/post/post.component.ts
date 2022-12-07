@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'primeng/api';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
@@ -13,6 +15,7 @@ import { PostingService } from '../../../service/posting.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
+  providers: [ConfirmationService]
 
 })
 export class PostComponent implements OnInit,OnDestroy {
@@ -25,21 +28,29 @@ export class PostComponent implements OnInit,OnDestroy {
   private bookmarkSubscription?: Subscription
   private pollingSubscription?: Subscription
   private deletePostSubscription?: Subscription
-  
+  private updatePostSubscription?: Subscription
+  private getCommetByIdSubcription?: Subscription
+  private insertCommentSubscription?: Subscription
   posts : Post[] = []
   postsLike: Post[] = []
   postsBookmark: Post[] = []
-  items :  any[] = []
+  items: any[] = []
+  showCommentComponent: any[] = []
+  comment: any[] = []
   start = 0
   limit = 6
+  loader = false
   id: string = ''
   name: string | null = ''
-  photoId: string  = ''
+  idUser: string = String(this.apiService.getIdUser())
+  photoId: null | string = ''
+  seeMoreNoPremium : boolean = false
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
   userType: string | null = this.apiService.getUserType()
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
+  seeMore : boolean =false
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -54,7 +65,21 @@ export class PostComponent implements OnInit,OnDestroy {
       numVisible: 1
     }
   ];
-  constructor(private fb : FormBuilder,private pollingService : PollingService,private postService : PostingService,private apiService : ApiService ,private toast : ToastrService) { }
+  updatePost = this.fb.group({
+    id : [''],
+    title: ['', [Validators.required]],
+    body: ['', [Validators.required]],
+  })
+  dataComment = this.fb.group({
+    content: [''],
+    post: this.fb.group({
+      id : ['']
+    })
+  })
+
+  formUpdatePost : boolean = false
+
+  constructor(private router : Router,private confirmationService: ConfirmationService,private fb : FormBuilder,private pollingService : PollingService,private postService : PostingService,private apiService : ApiService ,private toast : ToastrService) { }
   
   ngOnInit() {
     this.init()
@@ -70,6 +95,7 @@ export class PostComponent implements OnInit,OnDestroy {
   init() {
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
+      this.photoId = result[0].user.photo.id      
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
       this.postsLike = result     
@@ -82,6 +108,71 @@ export class PostComponent implements OnInit,OnDestroy {
 
   onScroll() {
     this.start += this.limit
+  }
+
+  premiumPost(id: string) {
+    if (this.userType != UserTypeConst.PREMIUM) {
+      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+    } else {
+      this.router.navigateByUrl(`/detail/${id}`)
+    }
+  }
+
+
+  showDialogUpdatePost(id: string,title : string,body: string) {
+    this.formUpdatePost = true
+    this.updatePost.patchValue({
+      id: id,
+      title: title,
+      body : body
+    })
+  }
+  btnUpdatePost() {
+    this.updatePostSubscription = this.postService.updatePost(this.updatePost.value).subscribe(result => {
+      this.formUpdatePost = false
+      this.init()
+    })
+  }
+
+  displayCommentsComponent(id: string, index: any) {
+    this.showCommentComponent[index] = !this.showCommentComponent[index];
+    this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
+      this.comment = result
+    })
+  }
+  replay(id: string, i: any) {
+    this.dataComment.patchValue({
+      post: {
+        id : id
+      }
+    })
+    this.insertCommentSubscription = this.postService.insertComment(this.dataComment.value).subscribe(result => {
+      this.getCommentByPostId(id, i)
+      this.dataComment.patchValue({
+        content : ''
+      })
+    })
+  }
+
+  getCommentByPostId(id: string,index : any) {
+    console.log('ini comment id:' ,id);
+    this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
+      this.comment = result
+    })
+  }
+
+  clickConfirmDelete(position: string, id: string,) {
+    this.confirmationService.confirm({
+        message: 'Do you want to delete this post?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        key: "positionDialog",
+        accept: () => {
+          this.deletePostSubscription = this.postService.deletePost(id).subscribe(result => {
+            this.init()
+          })
+        }
+    });
   }
 
   tabClick() {
@@ -155,12 +246,14 @@ export class PostComponent implements OnInit,OnDestroy {
     this.getAllPostSubscription?.unsubscribe()
     this.getPostBookmarkSubscription?.unsubscribe()
     this.getPostLikeSubscription?.unsubscribe()
-    
+    this.updatePostSubscription?.unsubscribe()
     this.unlikeSubscription?.unsubscribe()
     this.likeSubscription?.unsubscribe()
     this.unbookmarkSubscription?.unsubscribe()
     this.bookmarkSubscription?.unsubscribe()
     this.pollingSubscription?.unsubscribe()
     this.deletePostSubscription?.unsubscribe()
+    this.getCommetByIdSubcription?.unsubscribe()
+    this.insertCommentSubscription?.unsubscribe()
   }
 }

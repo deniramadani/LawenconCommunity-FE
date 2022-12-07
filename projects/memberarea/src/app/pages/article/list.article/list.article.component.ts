@@ -56,7 +56,10 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.articleGetAllSubscription?.unsubscribe()
+    
+    this.articleGetAllSubscription?.unsubscribe()
+    this.getAllCourseSubscription?.unsubscribe()
+    this.getAllCourseSubscription?.unsubscribe()
   }
 
 }

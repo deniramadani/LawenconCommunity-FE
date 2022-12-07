@@ -45,7 +45,11 @@
           <div class="py-2">
             <p-accordion [multiple]="true">
               <p-accordionTab header="Course Benefits">
-                <p>At veronus.</p>
+                <p>
+                  Earn your certificate after completing the nine courses listed below. Our courses are 100% online and
+                  most can be completed in under 4 hours. Complete each course by successfully completing a virtual exam
+                  included in your course purchase.
+                </p>
               </p-accordionTab>
               <p-accordionTab header="Don't Know What To Ask?">
                 <p>Lorem ipsum dolor </p>
@@ -183,7 +187,8 @@
                       <tr>
                         <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
                             date : 'E, dd MMM yyyy'}} </small></td>
-                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
+                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price | currency : 'Rp. '
+                            }}</small></td>
                       </tr>
                     </tbody>
                   </table>

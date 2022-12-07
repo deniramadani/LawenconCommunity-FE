@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User} from '../../../../../../../interface/user'
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
@@ -16,12 +16,13 @@ export class ListUsersComponent implements OnInit {
   private getDataCount?: Subscription
   private pageChangeSubscription?: Subscription
   private deleteUserSubscription?: Subscription
+  loaderTable: boolean = true
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   dataUsers : User[] = []
   users: User[] = []
+  userId : string = ''
   page: number = 1
   first = 0
-  userId : string = ''
   rows = 10
   limit = this.rows
   totalUsers!: number
@@ -33,12 +34,12 @@ export class ListUsersComponent implements OnInit {
   }
 
   init() {
-    this.getAllSubscription = this.userService.getAllUsers(this.first, this.limit).subscribe(result => {
+    this.getAllSubscription = this.userService.getAllUsers(this.first, this.limit).pipe(finalize(()=> this.loaderTable = false)).subscribe(result => {
         this.users = []
         for (let i = 0; i < result.length; i++) {
             this.users.push(result[i])
       }
-      console.log(this.users);
+    
       
     })
     this.getDataCount = this.data.getData().subscribe(result => {
@@ -61,7 +62,8 @@ export class ListUsersComponent implements OnInit {
   }
 
   getData(offset: number, limit: number) {
-    this.pageChangeSubscription = this.userService.getAllUsers(offset, limit).subscribe(result => {
+    this.loaderTable = true
+    this.pageChangeSubscription = this.userService.getAllUsers(offset, limit).pipe(finalize(()=> this.loaderTable = false)).subscribe(result => {
         this.users = []
         for (let i = 0; i < result.length; i++) {
             this.users.push(result[i])

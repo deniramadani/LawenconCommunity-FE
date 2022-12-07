@@ -20,21 +20,21 @@
                   class=" pi pi-check-circle mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
             <hr>
-            <div class="grid">
-              <div class="col-4 lg:col-4 sm:col-4">
+            <div class="flex flex-row flex-wrap gap-3 justify-content-center">
+              <div class=" flex" role="button">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
                 </p-avatar>
               </div>
-              <div class="col-4 lg:col-4 sm:col-4">
+              <div class="flex" role="button" (click)="goToLink('https://www.instagram.com/fransisko.shb')">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
                 </p-avatar>
               </div>
-              <div class="col-4 lg:col-4 sm:col-4">
+              <div class="flex" role="button">
                 <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
                 </p-avatar>
               </div>
             </div>
-            <div class="text-left mt-4">
+            <div class="text-left mt-3">
               <p class="text-sm"> <i class="pi pi-user mr-2"></i>Personal Details</p>
               <div class="px-2 text-xs text-left">
                 <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
@@ -70,7 +70,7 @@
                 <div class="ml-2 w-full">
                   <textarea placeholder="Title Post" formControlName="title" pInputTextarea rows="1" [autoResize]="true"
                     class="py-1 px-3 text-md w-full"></textarea>
-                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="2" [autoResize]="true"
+                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="3" [autoResize]="false"
                     class="py-1 px-3 text-md w-full"></textarea>
                 </div>
               </div>
@@ -78,9 +78,9 @@
               <div class="w-full lg:pl-5 mt-1">
                 <div class=" w-full grid">
                   <div class="col-1 lg:col-1 sm:col-1">
-                    <button pButton pRipple type="button" icon="pi pi-cloud-upload" pTooltip="Upload Foto"
-                      class="p-button-rounded p-button-secondary p-button-text" style="margin-bottom: 13px ;"
-                      onclick="document.getElementById('file').click();"></button>
+                    <button pButton pRipple uploadLabel="File" type="button" icon="pi pi-cloud-upload"
+                      pTooltip="Upload Foto" class="p-button-rounded p-button-secondary p-button-text"
+                      style="margin-bottom: 13px ;" onclick="document.getElementById('file').click();"></button>
                     <input class="form-control bi bi-upload" accept="image/*" style="display:none;" type="file"
                       id="file" multiple (change)="fileUpload($event)">
                   </div>
@@ -89,13 +89,21 @@
                       class="p-button-rounded p-button-secondary p-button-text {{disabledPolling}}"
                       (click)="showFormPolling()"></button>
 
+                    <ng-container *ngIf="!disabledInput; else elseTemplate">
+                      <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="isChecked"
+                        checked style="margin-bottom:12px;">
+                      <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
+                        style="margin-bottom:12px;">
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <input class="p-checkbox" #inputEl disabled [ngModelOptions]="{standalone: true}" type="checkbox"
+                        [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
+                        style="margin-bottom:12px;">
+                    </ng-template>
 
-                    <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
-                      [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="isChecked"
-                      checked style="margin-bottom:12px;">
-                    <input class="p-checkbox" #inputEl [ngModelOptions]="{standalone: true}" type="checkbox"
-                      [name]="label" [(ngModel)]="isChecked" (change)="onChange(inputEl.checked)" *ngIf="!isChecked"
-                      style="margin-bottom:12px;">
+
                     <label class="ml-1 text-sm {{labelStyle}} text-600" for="binary" style="margin-bottom:12px ;">Post
                       Premium</label>
                   </div>
@@ -105,9 +113,8 @@
                   </div>
                 </div>
 
-
-                <div class="card bg-gray-300 p-3 w-full" *ngIf="FormPolling">
-                  <div class="flex justify-content-end" (click)="closeForm()">
+                <div class="card bg-gray-300 p-3 w-full" (click)="closeForm()" *ngIf="FormPolling">
+                  <div class="flex justify-content-end">
                     <i class=" pi pi-times" pTooltip="Close" role="button"></i>
                   </div>
                   <div class="p-fluid p-formgrid grid">
@@ -139,7 +146,7 @@
         </div>
 
         <div
-          class="shadow-2 my-2 surface-card p-4 pb-0 border-round-lg border-2 border-transparent text-900 hover:surface-200 transition-colors transition-duration-150"
+          class="shadow-2 my-2 surface-card p-4 pb-0 border-round-lg border-2 border-transparent text-900 hover:surface-100 transition-colors transition-duration-150"
           *ngFor="let post of posts;index as i">
           <div class="flex justify-content-between">
             <div class="flex">
@@ -163,11 +170,19 @@
             </div>
             <div class="flex">
               <span class="mb-3">
-                <div *ngIf="post.postType.postTypeCode == premium; then premiums "></div>
+                <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then premiums">
+                </div>
                 <ng-template #premiums>
-                  <p-tag icon="bi bi-star-fill" severity="warning" value="Premium" [rounded]="true"></p-tag>
+                  <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                  </p-tag>
                 </ng-template>
 
+                <div *ngIf="post.postType.postTypeCode == premium && userType == 'UTCPM'; then premiums">
+                </div>
+                <ng-template #premiums>
+                  <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                  </p-tag>
+                </ng-template>
               </span>
               <span class="mb-3">
                 <div *ngIf="idUser == post.createdBy; then premiums1 "></div>
@@ -196,15 +211,13 @@
                 </ng-template>
               </span>
             </div>
-
-
-
           </div>
-          <div class=" text-lg text-900 font-medium mb-2 line-height-3 mt-3 ">
+          <div class=" text-lg text-900 font-medium mb-2 line-height-3 mt-3" routerLink="/thread/detail/{{post.id}}">
             {{post.title}}
           </div>
           <div class=" text-md line-height-3 mb-3 text-700">
-            <div *ngIf="post.postType.postTypeCode == premium; then limit else nolimit "></div>
+
+            <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM' ; then limit else nolimit "></div>
             <ng-template #limit>
               {{ seeMore ? post.body : post.body.substr(0, 80) }}
               <ng-container *ngIf="post.body.length > 80">... <br>
@@ -222,9 +235,11 @@
                     'less' : 'more'}}</a>
                 </ng-container>
             </ng-template>
+
           </div>
           <div class="w-full mt-3">
-            <ng-container *ngIf="post.postType.postTypeCode == premium; then thenTemplateFoto; else elseTemplateFoto">
+            <ng-container
+              *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then thenTemplateFoto; else elseTemplateFoto">
             </ng-container>
             <ng-template #thenTemplateFoto>
               <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
@@ -384,28 +399,101 @@
                 </div>
               </form>
             </div>
-            <div class="grid w-full">
-              <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment.slice(0,2)">
-                <div class="p-2">
-                  <div class="border-1 surface-border border-round p-3 bg-gray-100">
+            <div class="grid w-full mt-2">
+              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment;index as j">
+                <div class="border-1 surface-border border-round p-2 pr-0 bg-gray-100">
+                  <div class="flex justify-content-between ml-1">
                     <div class="flex">
-                      <p-avatar image="{{fileDownload}}{{c.user.photo.id}}" shape="circle"></p-avatar>
+                      <div *ngIf="post.user.photo == null; then default1 else photoProfile2"></div>
+                      <ng-template #default1>
+                        <p-avatar styleClass="w-2rem h-2rem" image="../../../../assets/img/default.jpg" shape="circle">
+                        </p-avatar>
+                      </ng-template>
+                      <ng-template #photoProfile2>
+                        <p-avatar image="{{fileDownload}}{{c.user.photo.id}}" shape="circle"></p-avatar>
+                      </ng-template>
                       <div class="ml-2">
-                        <div class="text-sm font-bold text-900 mb-1">{{c.user.fullname}}</div>
+                        <div class="text-xs font-bold text-900 mb-1" role="button"
+                          routerLink="/view/profile/{{c.user.id}}">
+                          {{c.user.fullname}}</div>
                         <div class="text-xs flex align-items-center text-700">
-                          <span>{{c.createdAt | date : 'E, dd-MM-yyyy'}}</span>
+                          <span class="text-xs font-italic">{{c.createdAt | timeAgo}}</span>
                         </div>
                       </div>
                     </div>
-                    <p class="m-0 p-0 line-height-3 mt-3 text-600">
+                    <div class="flex">
+                      <span class="mb-3">
+                        <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then premiums">
+                        </div>
+                        <ng-template #premiums>
+                          <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                          </p-tag>
+                        </ng-template>
+
+                        <div *ngIf="post.postType.postTypeCode == premium && userType == 'UTCPM'; then premiums">
+                        </div>
+                        <ng-template #premiums>
+                          <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                          </p-tag>
+                        </ng-template>
+                      </span>
+                      <span class="mb-3">
+                        <div *ngIf="c.user.id == idUser; then commentBy "></div>
+                        <ng-template #commentBy>
+                          <div class="relative">
+                            <a pRipple
+                              class="cursor-pointer  h-full inline-flex align-items-center text-600 py-3 lg:py-0 px-3  transition-colors transition-duration-150"
+                              pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" leaveActiveClass="fadeout"
+                              [hideOnOutsideClick]="true">
+                              <i class=" pi pi-ellipsis-v mt-1"></i>
+                            </a>
+                            <div class="absolute border-round right-0 py-1 shadow-2 w-12rem bg-white hidden">
+                              <ul class="list-none px-1 py-2 m-0">
+                                <li (click)="showFormUpdateCommnet(j,c.content,c.id)">
+                                  <a class="dropdown-item d-flex align-items-center" role="button">
+                                    <i class="pi pi-pencil text-blue-500 mr-2"></i> <span class="text-sm">Edit</span>
+                                  </a>
+                                </li>
+                                <li (click)="clickConfirmDeleteComment(post.id,j,c.id)"> <a
+                                    class="dropdown-item d-flex align-items-center mt-1" role="button">
+                                    <i class="pi pi-trash text-red-500 mr-2"></i> <span class="text-sm">Delete</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </span>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
+                    <form [formGroup]="updateComment">
+                      <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
+                        <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
+                          class="py-2 px-3 text-sm w-full"></textarea>
+                        <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
+                          class="p-button-sm  p-1" icon="pi pi-pencil" style="float: right;"></button>
+                      </div>
+                    </form>
+
+                  </ng-container>
+                  <ng-template #showComment>
+                    <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6">
                       {{c.content}}
                     </p>
-                  </div>
+                  </ng-template>
                 </div>
               </div>
+              <div class="px-5 w-full text-center my-3 text-right">
+                <a class="p-link text-blue-400 font-italic font-medium" routerLink="/thread/detail/{{post.id}}">See more
+                  comment</a>
+              </div>
+
             </div>
           </div>
         </div>
+
+
         <p-dialog header="Edit Post" [(visible)]="formUpdatePost" [breakpoints]="{'960px': '75vw'}"
           [style]="{width: '40vw'}" [draggable]="false" [resizable]="false">
           <form [formGroup]="updatePost" (ngSubmit)="btnUpdatePost()">
@@ -416,8 +504,8 @@
               </div>
               <div class="field col-12 md:col-12">
                 <label for="bio" class="font-medium text-900">Body</label>
-                <textarea id="bio" autofocus type="text" pInputTextarea rows="3" placeholder="Body Post"
-                  formControlName="body" [autoResize]="true"></textarea>
+                <textarea id="bio" autofocus type="text" pInputTextarea [rows]="4" placeholder="Body Post"
+                  formControlName="body" [autoResize]="false"></textarea>
               </div>
             </div>
             <div class="flex justify-content-end">
@@ -426,33 +514,7 @@
             </div>
           </form>
         </p-dialog>
-        <!-- <p-dialog header="Start Premium Members" [(visible)]="formUpdatePost" [breakpoints]="{'960px': '75vw'}"
-          [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
-          <div class="flex flex-wrap">
 
-            <div class="w-fullsurface-card">
-
-              <form [formGroup]="updatePost">
-                <div class="grid formgrid p-fluid">
-                  <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Title</label>
-                    <input pinputtext="" formControlName="title" id="fullname" name="fullname" type="text"
-                      class="p-inputtext p-component p-element text-md py-2 px-3">
-                  </div>
-                  <div class="field col-12 md:col-12">
-                    <label for="bio" class="font-medium text-900">Body</label>
-                    <textarea id="bio" type="text" pInputTextarea rows="3" formControlName="body"
-                      [autoResize]="true"></textarea>
-                  </div>
-                </div>
-                <div class="flex justify-content-end">
-                  <p-button (click)="formUpdatePost=false" label="No" styleClass="p-button-text"></p-button>
-                  <p-button (click)="formUpdatePost=false" label="Yes" styleClass="p-button-text"></p-button>
-                </div>
-              </form>
-
-            </div>
-          </div>
-        </p-dialog> -->
       </div>
 
       <div class="col-12 lg:col-3 px-5 py-2">
@@ -487,5 +549,8 @@
       </div>
     </div>
   </div>
-  <p-confirmDialog [style]="{width: '40vw'}" key="positionDialog" [position]="postId"></p-confirmDialog>
+
+  <p-confirmDialog [style]="{width: '40vw'}" key="positionDialog" [position]="position"></p-confirmDialog>
+  <p-confirmDialog [style]="{width: '40vw'}" key="commentDialog" [position]="position"></p-confirmDialog>
+
 </div>

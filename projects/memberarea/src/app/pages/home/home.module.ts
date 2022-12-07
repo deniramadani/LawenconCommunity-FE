@@ -25,6 +25,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AnimateModule } from 'primeng/animate';
+import {InplaceModule} from 'primeng/inplace';
 @NgModule({
     declarations: [
         HomeComponent, TimeAgoPipe
@@ -33,8 +35,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         HomeRouting,StyleClassModule,InputTextareaModule,HttpClientModule,
         CardModule,DividerModule,ReactiveFormsModule,DialogModule,
         ContentMemberModule,FileUploadModule,ConfirmDialogModule,
-        AvatarModule,CheckboxModule,
-        BadgeModule,
+        AvatarModule,CheckboxModule,InplaceModule,
+        BadgeModule,AnimateModule,
         ButtonModule,
         TagModule,
         DropdownModule,

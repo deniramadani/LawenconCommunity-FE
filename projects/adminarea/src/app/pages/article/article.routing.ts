@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AdminGuard } from "projects/mainarea/src/app/guard/admin.guard";
 import { ListArticleComponent } from "./list.article/list.article.component";
 import { NewArticleComponent } from "./new.article/new.article.component";
 import { UpdateArticleComponent } from "./update-article/update-article.component";
@@ -7,15 +8,18 @@ import { UpdateArticleComponent } from "./update-article/update-article.componen
 const routes : Routes = [
     {
         path : 'list',
-        component : ListArticleComponent
+        component : ListArticleComponent,
+        canActivate: [AdminGuard]
     },
     {
         path : 'new',
-        component : NewArticleComponent
+        component : NewArticleComponent,
+        canActivate: [AdminGuard]
     },
     {
         path : 'edit/:id',
-        component : UpdateArticleComponent
+        component : UpdateArticleComponent,
+        canActivate: [AdminGuard]
     }
 ]
 

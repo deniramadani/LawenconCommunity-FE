@@ -1,15 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder ,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 @Component({
   selector: 'app-new.article',
   templateUrl: './new.article.component.html',
 })
 export class NewArticleComponent implements OnInit,OnDestroy {
   private insertArticleSubscription ?: Subscription
-
+  loaderButton = false
+  result : string = ''
   dataInsert = this.fb.group({
     title : ['',[Validators.required]],
     content : ['',[Validators.required]],
@@ -18,17 +20,23 @@ export class NewArticleComponent implements OnInit,OnDestroy {
       fileExtensions : ['']
     }),
   })
-  constructor(private fb : FormBuilder,private articleService : ArticleService,private router : Router) { }
+  constructor(private toast : ToastrService,private fb : FormBuilder,private articleService : ArticleService,private router : Router) { }
  
  
   ngOnInit(): void {
    
   }
 
-  insertArticle(){
-    this.insertArticleSubscription = this.articleService.insertArticle(this.dataInsert.value).subscribe(result => {
-        this.router.navigateByUrl('/article')
-    })
+  insertArticle() {
+    if (this.result == '') {
+      this.toast.warning('Please upload a photo of the article')
+    } else {
+      this.loaderButton = true
+      this.insertArticleSubscription = this.articleService.insertArticle(this.dataInsert.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => {
+        this.router.navigateByUrl('/article/list')
+      })
+    }
+  
   }
   
 
@@ -43,7 +51,8 @@ export class NewArticleComponent implements OnInit,OnDestroy {
       reader.onerror = error => reject(error)
   })
 
-    toBase64(event.target.files[0]).then(result =>{
+    toBase64(event.target.files[0]).then(result => {
+      this.result = result
         const resulltStr = result.substring(result.indexOf(",")+1,result.length)
         const resultExtension = result.split(";")[0].split('/')[1]
           this.dataInsert.patchValue({

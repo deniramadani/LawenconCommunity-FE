@@ -23,7 +23,8 @@ import { MenuModule } from 'primeng/menu'
 import { TabMenuModule } from 'primeng/tabmenu'
 import { CalendarModule } from "primeng/calendar";
 import { EventComponent } from './event/event.component';
-import { CourseComponent } from './course/course.component'
+import { CourseComponent } from './course/course.component';
+import {BadgeModule} from 'primeng/badge';
 
 @NgModule({
   declarations : [
@@ -45,8 +46,8 @@ import { CourseComponent } from './course/course.component'
       TagModule,
       CommonModule,
       AccordionModule,
-      DialogModule
-
+      DialogModule,
+      BadgeModule
   ],
   exports : [
     EventCourseComponent,PaymentComponent

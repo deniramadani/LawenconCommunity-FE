@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import {Position} from '../../../../../../../interface/position'
 import {Industry} from '../../../../../../../interface/industry'
 import {DatePipe} from '@angular/common';
@@ -21,6 +21,7 @@ export class InsertUsersComponent implements OnInit,OnDestroy {
   private industrySubscription?: Subscription
   resultExtension!: string
   resultFile !: string
+  loaderButton: boolean = false
   positions: any[] = []
   industries: any[] = []
   role: any[] = []
@@ -99,7 +100,8 @@ export class InsertUsersComponent implements OnInit,OnDestroy {
         fileExtensions: this.resultExtension
       }
     });
-    this.insertUsersSubscription = this.userService.insertUser(this.dataInsert.value).subscribe(result => {
+    this.loaderButton = true
+    this.insertUsersSubscription = this.userService.insertUser(this.dataInsert.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => {
         this.router.navigateByUrl('/master/users')
     })
   }

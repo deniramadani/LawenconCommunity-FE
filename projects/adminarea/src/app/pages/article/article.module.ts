@@ -11,12 +11,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload'
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 @NgModule({
     declarations : [
         ListArticleComponent,NewArticleComponent, UpdateArticleComponent
     ],
     imports : [
-        ArticleRouting,
+        ArticleRouting,ConfirmDialogModule,
         CardModule,
         TableModule,
         ButtonModule,

@@ -18,7 +18,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from "primeng/card";
 import { BadgeModule } from 'primeng/badge';
-
+import { StyleClassModule } from "primeng/styleclass"
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GalleriaModule } from 'primeng/galleria';
@@ -29,7 +29,7 @@ import { GalleriaModule } from 'primeng/galleria';
   imports : [
       ThreadRouting,TableModule,CarouselModule,BadgeModule,TagModule,CardModule,
       ContentMemberModule,FormsModule,ProgressSpinnerModule,GalleriaModule,
-      ButtonModule,CommonModule,ReactiveFormsModule,
+      ButtonModule,CommonModule,ReactiveFormsModule,StyleClassModule,
       AvatarModule,SplitButtonModule,
       DropdownModule,
       TreeSelectModule,

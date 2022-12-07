@@ -4,8 +4,6 @@ import { ProductsService } from '../../../service/products.service';
 import { Schedule } from '../../../../../../interface/schedule'
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { FormBuilder,Validators } from '@angular/forms';
-import { UserTypeService } from '../../../service/user.type.service';
-import { UserType } from "../../../../../../interface/user-type";
 import { Router } from '@angular/router';
 import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from 'projects/interface/product-type';
@@ -29,7 +27,7 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   resultExtension!: string
   resultFile !: string
   startDate: string = ''
-  endDate : string =''
+  endDate: string = ''
   productTypes : any [] = []
   selectedProductType : string = ''
   dataInsert = this.fb.group({
@@ -55,7 +53,6 @@ export class EventCourseComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.init()
-
   }
 
   init() {
@@ -67,8 +64,6 @@ export class EventCourseComponent implements OnInit,OnDestroy {
             productTypeName: this.dataProductType[i].productTypeName,
         })
       }
-      console.log(result);
-      
     })
 
     this.productType = [
@@ -122,7 +117,6 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     toBase64(event.files[0].name).then(result => {
       this.resultFile = result.substring(result.indexOf(",") + 1, result.length)
       this.resultExtension = result.split(";")[0].split('/')[1]
-      console.log(result);
        this.dataInsert.patchValue({
           product: {
             photo: {

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-insert-industry',
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs'
 })
 export class InsertIndustryComponent implements OnInit,OnDestroy {
   private insertIndustrySubscription?: Subscription
+  loaderButton: boolean = false
   dataInsert = this.fb.group({
     industryName: ['',[Validators.required]]
   })
@@ -21,7 +22,8 @@ export class InsertIndustryComponent implements OnInit,OnDestroy {
   }
 
   submit() {
-    this.insertIndustrySubscription = this.industryService.insertIndustry(this.dataInsert.value).subscribe(result => {
+    this.loaderButton = true
+    this.insertIndustrySubscription = this.industryService.insertIndustry(this.dataInsert.value).pipe(finalize(()=>this.loaderButton = false)).subscribe(result => {
       this.router.navigateByUrl('/master/industries')
     })
   }

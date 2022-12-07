@@ -2,13 +2,12 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AdminareaModule } from "projects/adminarea/src/app/adminarea.module";
 import { adminAreaRoutes } from "projects/adminarea/src/app/adminarea.routing";
-import { ContentAdminModule } from "projects/adminarea/src/app/layout/content/content.admin.module";
-import { ContentMemberModule } from "projects/memberarea/src/app/layout/content/content.member.module";
 import { MemberAreaModule } from "projects/memberarea/src/app/memberarea.module";
 import { membersAreaRoutes } from "projects/memberarea/src/app/memberarea.routing";
 import { AuthModule } from "./auth/auth.module";
 import { PagesError404Component } from "./not-found/pages-error404.component";
 import { ProfileModule } from "./profile/profile.module";
+import { SiteMapComponent } from "./site-map/site-map.component";
 
 export const mainRoutes: Routes = [
     ...adminAreaRoutes, ...membersAreaRoutes,
@@ -22,6 +21,10 @@ export const mainRoutes: Routes = [
         loadChildren: () => import('./profile/profile.module').then(u => u.ProfileModule)
     },
     {
+        path: 'site-map',
+        component: SiteMapComponent
+    },
+    {
         path: '**',
         component: PagesError404Component
     },
@@ -30,11 +33,11 @@ export const mainRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(mainRoutes),
-        AdminareaModule, AuthModule, MemberAreaModule, ProfileModule, ContentAdminModule, ContentMemberModule
+        AdminareaModule, AuthModule, MemberAreaModule, ProfileModule
 
     ],
     exports: [
-        RouterModule, AuthModule, AdminareaModule, MemberAreaModule, ProfileModule, ContentMemberModule, ContentAdminModule
+        RouterModule, AuthModule, AdminareaModule, MemberAreaModule, ProfileModule
     ]
 })
 export class AppRouting { }
