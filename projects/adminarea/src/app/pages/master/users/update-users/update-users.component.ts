@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import {Position} from '../../../../../../../interface/position'
 import {Industry} from '../../../../../../../interface/industry'
 import { BASE_URL } from 'projects/constant/BaseUrl';
@@ -23,6 +23,7 @@ export class UpdateUsersComponent implements OnInit {
   private getUserByIdSubscription?: Subscription
   private positionsSubscription?: Subscription
   private industrySubscription?: Subscription
+  loaderButton: boolean = false
   resultExtension!: string
   resultFile !: string
   positions: any[] = []
@@ -130,8 +131,8 @@ export class UpdateUsersComponent implements OnInit {
         dateOfBirth : this.bod
       })
     }
-    this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {
-        
+    this.loaderButton = true
+    this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => { 
     })
    
   }

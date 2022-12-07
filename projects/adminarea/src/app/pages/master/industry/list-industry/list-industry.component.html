@@ -13,7 +13,7 @@
         </div>
 
         
-        <p-table [value]="dataindustry" [paginator]="true" [rows]="rows" [(first)]="first"
+        <p-table [value]="dataindustry" [loading]="loaderTable" [paginator]="true" [rows]="rows" [(first)]="first"
             [showCurrentPageReport]="true" [totalRecords]="totalindustry"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
             (onLazyLoad)="loadData($event)" [lazy]="true">

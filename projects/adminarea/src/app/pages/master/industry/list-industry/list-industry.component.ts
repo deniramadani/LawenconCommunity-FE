@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Industry } from '../../../../../../../interface/industry'
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
@@ -15,6 +15,7 @@ export class ListIndustryComponent implements OnInit {
   private pageChangeSubscription?: Subscription
   private getDataCount?:Subscription
   dataindustry: Industry[] = []
+  loaderTable: boolean = true
   industryId : string =''
   industries: any[] = []
   page: number = 1
@@ -30,7 +31,7 @@ export class ListIndustryComponent implements OnInit {
   }
 
   onInit() {
-    this.getAllSubscription = this.industryService.getIndustry(this.first, this.limit).subscribe(result => {
+    this.getAllSubscription = this.industryService.getIndustry(this.first, this.limit).pipe(finalize(()=>this.loaderTable = false)).subscribe(result => {
       this.dataindustry = []
       for (let i = 0; i < result.length; i++) {
           this.dataindustry.push(result[i])

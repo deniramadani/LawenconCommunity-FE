@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 @Component({
   selector: 'app-update-position',
   templateUrl: './update-position.component.html',
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs'
 export class UpdatePositionComponent implements OnInit,OnDestroy {
   private getPositionByIdSubscription?: Subscription
   private updatePositionSubscription?: Subscription
+  loaderButton: boolean = false
   dataUpdate = this.fb.group({
     id: [''],
     positionName: ['', [Validators.required]],
@@ -34,7 +35,8 @@ export class UpdatePositionComponent implements OnInit,OnDestroy {
   }
 
   update() {
-    this.updatePositionSubscription = this.positionService.updatePosition(this.dataUpdate.value).subscribe(result => {
+    this.loaderButton = true
+    this.updatePositionSubscription = this.positionService.updatePosition(this.dataUpdate.value).pipe(finalize(()=>this.loaderButton =false)).subscribe(result => {
 
     })
   }
