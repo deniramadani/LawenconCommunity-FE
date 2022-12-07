@@ -24,7 +24,7 @@
                     <label for="binary">Active</label>
                 </div>
                 <div class="field col-12 ">
-                    <button pButton type="submit" [disabled]="!dataUpdate.valid" id="btnSubmitPosition"
+                    <button pButton type="submit" [loading]="loaderButton" [disabled]="!dataUpdate.valid" id="btnSubmitPosition"
                         name="btnSubmitPosition">Save</button>
                 </div>
             </form>

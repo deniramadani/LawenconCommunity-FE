@@ -13,7 +13,7 @@
             </div>
         </div>
         <p-table [value]="dataPosition" [paginator]="true" [rows]="rows" [(first)]="first"
-            [showCurrentPageReport]="true" [totalRecords]="totalPosition"
+            [showCurrentPageReport]="true" [loading]="loadertable" [totalRecords]="totalPosition"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
             (onLazyLoad)="loadData($event)" [lazy]="true">
             <ng-template pTemplate="header">
