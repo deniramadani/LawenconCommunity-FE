@@ -146,7 +146,7 @@
         </div>
 
         <div
-          class="shadow-2 my-2 surface-card p-4 pb-0 border-round-lg border-2 border-transparent text-900 hover:surface-200 transition-colors transition-duration-150"
+          class="shadow-2 my-2 surface-card p-4 pb-0 border-round-lg border-2 border-transparent text-900 hover:surface-100 transition-colors transition-duration-150"
           *ngFor="let post of posts;index as i">
           <div class="flex justify-content-between">
             <div class="flex">
@@ -399,23 +399,89 @@
                 </div>
               </form>
             </div>
-            <div class="grid w-full">
-              <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment.slice(0,2)">
-                <div class="p-2">
-                  <div class="border-1 surface-border border-round p-3 bg-gray-100">
+            <div class="grid w-full mt-2">
+              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment;index as j">
+                <div class="border-1 surface-border border-round p-2 pr-0 bg-gray-100">
+                  <div class="flex justify-content-between ml-1">
                     <div class="flex">
-                      <p-avatar image="{{fileDownload}}{{c.user.photo.id}}" shape="circle"></p-avatar>
+                      <div *ngIf="post.user.photo == null; then default1 else photoProfile2"></div>
+                      <ng-template #default1>
+                        <p-avatar styleClass="w-2rem h-2rem" image="../../../../assets/img/default.jpg" shape="circle">
+                        </p-avatar>
+                      </ng-template>
+                      <ng-template #photoProfile2>
+                        <p-avatar image="{{fileDownload}}{{c.user.photo.id}}" shape="circle"></p-avatar>
+                      </ng-template>
                       <div class="ml-2">
-                        <div class="text-sm font-bold text-900 mb-1">{{c.user.fullname}}</div>
+                        <div class="text-xs font-bold text-900 mb-1" role="button"
+                          routerLink="/view/profile/{{c.user.id}}">
+                          {{c.user.fullname}}</div>
                         <div class="text-xs flex align-items-center text-700">
-                          <span>{{c.createdAt | date : 'E, dd-MM-yyyy'}}</span>
+                          <span class="text-xs font-italic">{{c.createdAt | timeAgo}}</span>
                         </div>
                       </div>
                     </div>
-                    <p class="m-0 p-0 line-height-3 mt-3 text-600">
+                    <div class="flex">
+                      <span class="mb-3">
+                        <div *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then premiums">
+                        </div>
+                        <ng-template #premiums>
+                          <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                          </p-tag>
+                        </ng-template>
+
+                        <div *ngIf="post.postType.postTypeCode == premium && userType == 'UTCPM'; then premiums">
+                        </div>
+                        <ng-template #premiums>
+                          <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium" [rounded]="true">
+                          </p-tag>
+                        </ng-template>
+                      </span>
+                      <span class="mb-3">
+                        <div *ngIf="c.user.id == idUser; then commentBy "></div>
+                        <ng-template #commentBy>
+                          <div class="relative">
+                            <a pRipple
+                              class="cursor-pointer  h-full inline-flex align-items-center text-600 py-3 lg:py-0 px-3  transition-colors transition-duration-150"
+                              pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" leaveActiveClass="fadeout"
+                              [hideOnOutsideClick]="true">
+                              <i class=" pi pi-ellipsis-v mt-1"></i>
+                            </a>
+                            <div class="absolute border-round right-0 py-1 shadow-2 w-12rem bg-white hidden">
+                              <ul class="list-none px-1 py-2 m-0">
+                                <li (click)="showFormUpdateCommnet(j,c.content,c.id)">
+                                  <a class="dropdown-item d-flex align-items-center" role="button">
+                                    <i class="pi pi-pencil text-blue-500 mr-2"></i> <span class="text-sm">Edit</span>
+                                  </a>
+                                </li>
+                                <li (click)="clickConfirmDeleteComment(post.id,j,c.id)"> <a
+                                    class="dropdown-item d-flex align-items-center mt-1" role="button">
+                                    <i class="pi pi-trash text-red-500 mr-2"></i> <span class="text-sm">Delete</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </span>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
+                    <form [formGroup]="updateComment">
+                      <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
+                        <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
+                          class="py-2 px-3 text-sm w-full"></textarea>
+                        <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
+                          class="p-button-sm  p-1" icon="pi pi-pencil" style="float: right;"></button>
+                      </div>
+                    </form>
+
+                  </ng-container>
+                  <ng-template #showComment>
+                    <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6">
                       {{c.content}}
                     </p>
-                  </div>
+                  </ng-template>
                 </div>
               </div>
               <div class="px-5 w-full text-center my-3 text-right">
@@ -423,10 +489,11 @@
                   comment</a>
               </div>
 
-
             </div>
           </div>
         </div>
+
+
         <p-dialog header="Edit Post" [(visible)]="formUpdatePost" [breakpoints]="{'960px': '75vw'}"
           [style]="{width: '40vw'}" [draggable]="false" [resizable]="false">
           <form [formGroup]="updatePost" (ngSubmit)="btnUpdatePost()">
@@ -447,6 +514,7 @@
             </div>
           </form>
         </p-dialog>
+
       </div>
 
       <div class="col-12 lg:col-3 px-5 py-2">
@@ -481,5 +549,8 @@
       </div>
     </div>
   </div>
-  <p-confirmDialog [style]="{width: '40vw'}" key="positionDialog" [position]="postId"></p-confirmDialog>
+
+  <p-confirmDialog [style]="{width: '40vw'}" key="positionDialog" [position]="position"></p-confirmDialog>
+  <p-confirmDialog [style]="{width: '40vw'}" key="commentDialog" [position]="position"></p-confirmDialog>
+
 </div>

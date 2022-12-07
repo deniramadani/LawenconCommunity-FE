@@ -91,4 +91,12 @@ export class PostingService {
     return this.http.put<any>(`${BASE_URL.BASE_URL}/posts`,data)
   }
 
+  updateComment(data: any): Observable<any>{
+    return this.http.put<any>(`${BASE_URL.BASE_URL}/comments`,data)
+  }
+
+  deleteComment(id: string): Observable<Comment>{
+    return this.http.delete<Comment>(`${BASE_URL.BASE_URL}/comments/delete/${id}`)
+  }
+
 }

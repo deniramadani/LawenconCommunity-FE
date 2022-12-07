@@ -6,6 +6,7 @@ export interface Comment {
 	 post: Post 
 	user: User 
 	nama: string
-	createdAt : string
+	createdAt: string
+	createdBy : string
 } 
 
