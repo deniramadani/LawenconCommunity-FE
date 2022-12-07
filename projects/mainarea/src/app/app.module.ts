@@ -9,10 +9,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { PagesError404Component } from './not-found/pages-error404.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { SiteMapComponent } from './site-map/site-map.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent, PagesError404Component
+    AppComponent, PagesError404Component, SiteMapComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,9 @@ import { CardModule } from 'primeng/card';
     ButtonModule,
     CardModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    CommonModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: FilterTokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -7,6 +7,7 @@ import { membersAreaRoutes } from "projects/memberarea/src/app/memberarea.routin
 import { AuthModule } from "./auth/auth.module";
 import { PagesError404Component } from "./not-found/pages-error404.component";
 import { ProfileModule } from "./profile/profile.module";
+import { SiteMapComponent } from "./site-map/site-map.component";
 
 export const mainRoutes: Routes = [
     ...adminAreaRoutes, ...membersAreaRoutes,
@@ -18,6 +19,10 @@ export const mainRoutes: Routes = [
     {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then(u => u.ProfileModule)
+    },
+    {
+        path: 'site-map',
+        component: SiteMapComponent
     },
     {
         path: '**',

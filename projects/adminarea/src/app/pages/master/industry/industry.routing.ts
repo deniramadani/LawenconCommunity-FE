@@ -1,32 +1,37 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { SuperAdminGuard } from "projects/mainarea/src/app/guard/super-admin.guard";
 import { InsertIndustryComponent } from "./insert-industry/insert-industry.component";
 import { ListIndustryComponent } from "./list-industry/list-industry.component";
 import { UpdateIndustryComponent } from "./update-industry/update-industry.component";
 
-const routes : Routes = [
+const routes: Routes = [
 
     {
         path: '',
-        component : ListIndustryComponent 
+        component: ListIndustryComponent,
+        canActivate: [SuperAdminGuard]
     },
     {
         path: 'new',
-        component : InsertIndustryComponent 
+        component: InsertIndustryComponent,
+        canActivate: [SuperAdminGuard]
     },
     {
         path: 'industries/:id',
-        component : UpdateIndustryComponent 
+        component: UpdateIndustryComponent,
+        canActivate: [SuperAdminGuard]
     },
-   
+
 ]
 
 @NgModule({
-    imports : [
+    imports: [
         RouterModule.forChild(routes)
     ],
-    exports : [
+    exports: [
         RouterModule
     ]
 })
+
 export class IndustryRouting { }

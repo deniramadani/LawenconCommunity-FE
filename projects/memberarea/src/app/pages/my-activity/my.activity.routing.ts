@@ -1,5 +1,6 @@
 import {  NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { MemberGuard } from "projects/mainarea/src/app/guard/member.guard";
 import { ContentMemberComponent } from "../../layout/content/content.member.component";
 import { MyActivityComponent } from "./my-activity.component";
 
@@ -7,7 +8,8 @@ import { MyActivityComponent } from "./my-activity.component";
 const routes : Routes = [
     {
         path : '',
-        component : MyActivityComponent
+        component : MyActivityComponent,
+        canActivate: [MemberGuard]
     }
 ]
 
