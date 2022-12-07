@@ -18,7 +18,7 @@
                         name="positionName" required>
                 </div>
                 <div class="field col-12 ">
-                    <button pButton type="submit" id="btnSubmitPosition" [disabled]="!dataInsert.valid"
+                    <button pButton type="submit" [loading]="loaderButton" id="btnSubmitPosition" [disabled]="!dataInsert.valid"
                         name="btnSubmitPosition">Submit</button>
                 </div>
             </form>

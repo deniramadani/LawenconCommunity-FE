@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-update-industry',
@@ -12,6 +12,7 @@ export class UpdateIndustryComponent implements OnInit,OnDestroy {
 
   private getIndustryByIdSubscription?: Subscription
   private updateIndustrySubscription?: Subscription
+  loaderButton: boolean = false
   dataUpdate = this.fb.group({
     id: [''],
     industryName: ['', [Validators.required]],
@@ -38,7 +39,8 @@ export class UpdateIndustryComponent implements OnInit,OnDestroy {
   }
 
   update() {
-    this.updateIndustrySubscription = this.industryService.updateIndustry(this.dataUpdate.value).subscribe(result => {
+    this.loaderButton = true
+    this.updateIndustrySubscription = this.industryService.updateIndustry(this.dataUpdate.value).pipe(finalize(()=>this.loaderButton = false)).subscribe(result => {
     })
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { Position } from '../../../../../../../interface/position'
 import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
 import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
@@ -22,6 +22,7 @@ export class ListPositionComponent implements OnInit,OnDestroy {
   rows = 10
   limit = this.rows
   totalPosition!: number
+  loadertable: boolean =  true
   constructor(private data : DashboardService,private positionServcie : PositionService,private confirmationService: ConfirmationService) { }
   
 
@@ -31,7 +32,7 @@ export class ListPositionComponent implements OnInit,OnDestroy {
 
 
   onInit() {
-    this.getAllSubscription = this.positionServcie.getPosition(this.first, this.limit).subscribe(result => {
+    this.getAllSubscription = this.positionServcie.getPosition(this.first, this.limit).pipe(finalize(()=> this.loadertable = false)).subscribe(result => {
       this.dataPosition = []
       for (let i = 0; i < result.length; i++) {
           this.dataPosition.push(result[i])

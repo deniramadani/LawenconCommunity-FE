@@ -70,36 +70,10 @@
                         <label for="binary">Active</label>
                     </div>
                 </div>
-
-                <!-- <h4 class="text-lg font-semibold mt-3">Sosial Media</h4>
-                <hr>
-                <div class="p-fluid p-formgrid grid" formGroupName="userSocmed">
-                    <div class="field col-12 md:col-6"><label for="instagram" class="text-sm">Instagram</label>
-                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
-                                    class="pi pi-instagram"></i></span><input type="text" id="instagram"
-                                [(ngModel)]="instagram" formControlName="instagram"
-                                class=" p-inputtext p-component p-element">
-                        </div>
-                    </div>
-                    <div class="field col-12 md:col-6"><label for="linkedIn" class="text-sm">LinkedIn</label>
-                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
-                                    class="pi pi-linkedin"></i></span><input type="text" id="linkedIn"
-                                [(ngModel)]="linkedin" formControlName="linkedin"
-                                class="p-inputtext p-component p-element">
-                        </div>
-                    </div>
-                    <div class="field col-12 md:col-6"><label for="facebook" class="text-sm">Facebook</label>
-                        <div class="p-inputgroup"><span class="p-inputgroup-addon"><i
-                                    class="pi pi-facebook"></i></span><input type="text" id="facebook"
-                                [(ngModel)]="facebook" formControlName="facebook"
-                                class="p-inputtext  p-component p-element">
-                        </div>
-                    </div>
-                </div> -->
                 <hr>
 
                 <div class="field col-12 md:col-12 text-center">
-                    <p-button label="Save" (click)="update()" type="submit" styleClass="p-button-sm w-full"
+                    <p-button label="Save" [loading]="loaderButton" (click)="update()" type="submit" styleClass="p-button-sm w-full"
                         icon="pi pi-check" iconPos="right">
                     </p-button>
                 </div>
