@@ -65,13 +65,11 @@
                                         </div>
 
                                         <div *ngIf="data.approval == false && data.isActive == true">
-                                            <button pButton type="button" label="Rejected" (click)="rejected(data.id)"
-                                                class="p-button-text text-red-500" pTooltip="Rejected"><i
-                                                    class="pi pi-ban mr-2"></i>
+                                            <button pButton type="button" label="Rejected" [loading]="loaderButton" (click)="reject(data.id)"
+                                                class="p-button-text text-red-500" pTooltip="Rejected" icon="pi pi-ban">
                                             </button>
-                                            <button pButton type="button" label="Approve" (click)="approve(data.id)"
-                                                class="p-button-text text-green-500" pTooltip="Approve"><i
-                                                    class="pi pi-check-square mr-2"></i></button>
+                                            <button pButton type="button" label="Approve " icon="pi pi-check-square" [loading]="loaderButton" (click)="approve(data.id)"
+                                                class="p-button-text text-green-500" pTooltip="Approve"></button>
                                         </div>
 
 

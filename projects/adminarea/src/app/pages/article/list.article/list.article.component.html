@@ -12,7 +12,7 @@
     </div>
     <p-table [value]="dataArticle" [paginator]="true" [rows]="rows" [(first)]="first" [showCurrentPageReport]="true"
       [totalRecords]="totalArticle" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      paginatorPosition="both" (onLazyLoad)="loadData($event)" [lazy]="true">
+      paginatorPosition="both"  (onLazyLoad)="loadData($event)" [lazy]="true">
       <ng-template pTemplate="header">
         <tr>
           <th>No</th>

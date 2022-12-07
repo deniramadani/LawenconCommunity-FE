@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { Article} from '../../../../../../interface/article'
 import { DashboardService } from '../../../service/dashboard.service';
 
@@ -16,6 +16,7 @@ export class ListArticleComponent implements OnInit,OnDestroy {
   private pageChangeSubscription?: Subscription
   private getDataCount?: Subscription
   private deleteArticleSubscription? : Subscription
+  loaderTable:boolean = false
   dataArticle : Article[] = []
   articles: Article[] = []
   articleId : string =''
@@ -50,7 +51,8 @@ export class ListArticleComponent implements OnInit,OnDestroy {
   }
   
   getData(offset: number, limit: number) {
-    this.pageChangeSubscription = this.articleService.getArticle(offset, limit).subscribe(result => {
+    this.loaderTable = true
+    this.pageChangeSubscription = this.articleService.getArticle(offset, limit).pipe(finalize(()=> this.loaderTable = false)).subscribe(result => {
         this.dataArticle = []
         for (let i = 0; i < result.length; i++) {
             this.dataArticle.push(result[i])
