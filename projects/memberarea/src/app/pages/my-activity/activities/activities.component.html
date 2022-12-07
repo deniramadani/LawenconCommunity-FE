@@ -42,8 +42,8 @@
                     <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                     <hr>
                     <div class="px-5 w-full">
-                        <p-button label="Edit" (click)="showFormUpdate(d.id,i)" icon="pi pi-pencil mr-2"
-                            styleClass="p-button-sm w-full"></p-button>
+                        <p-button label="Edit" (click)="showFormUpdate(d.product.productType.productTypeName,i)"
+                            icon="pi pi-pencil mr-2" styleClass="p-button-sm w-full"></p-button>
                     </div>
 
                 </div>
@@ -53,7 +53,7 @@
 
     <p-panel header="My Courses" [toggleable]="true" class="pt-3">
         <div class="grid p-0  border-round">
-            <div class="col-12 lg:col-4 sm:col-4 p-3" *ngFor="let d of dataCourse">
+            <div class="col-12 lg:col-4 sm:col-4 p-3" *ngFor="let d of dataCourse; index as i">
                 <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image" class="border-round-left w-full"
                     style="max-height: 234px;">
                 <div class="p-4 p-card  bg-gray-200 shadow-3">
@@ -88,13 +88,14 @@
                     <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                     <hr>
                     <div class="px-5 w-full">
-                        <p-button label="Edit" icon="pi pi-pencil mr-2" styleClass="p-button-sm w-full"></p-button>
+                        <p-button label="Edit" (click)="showFormUpdate(d.product.productType.productTypeName,i)"
+                            icon=" pi pi-pencil mr-2" styleClass="p-button-sm w-full"></p-button>
                     </div>
                 </div>
             </div>
         </div>
     </p-panel>
-    <p-dialog header="Edit Event & Course" [(visible)]="displayFormUpdate" [breakpoints]="{'960px': '75vw'}"
+    <p-dialog header="Edit {{label}}" [(visible)]="displayFormUpdate" [breakpoints]="{'960px': '75vw'}"
         [style]="{width: '70vw'}" [draggable]="false" [resizable]="false">
         <div class="container bg-gray-300 p-5 border-round shadow-3">
             <form class="w-full mx-3 border-0 md:px-4 my-3" [formGroup]="dataUpdate">
@@ -108,7 +109,7 @@
                         <div formGroupName="productType" class="mt-1">
                             <label for="title">Product Type<span class="text-red-500">*</span></label>
                             <p-dropdown [options]="productType" [(ngModel)]="selectedProductType" styleClass=" w-full"
-                                placeholder="{{selectedProductType}}" formControlName="id" optionLabel="productTypeName"
+                                placeholder="{{label}}" formControlName="id" optionLabel="productTypeName"
                                 optionValue="id" name="id" id="name">
                             </p-dropdown>
                         </div>

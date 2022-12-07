@@ -28,6 +28,7 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
   displayFormUpdate : boolean = false
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   seeMore: boolean = false
+  label : string = ''
   dataUpdate = this.fb.group({
     id : ['',[Validators.required]],
     dateTimeStart: ['',[Validators.required]],
@@ -123,32 +124,62 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
     })
   }
 
-  showFormUpdate(id:string,i : any) {
+  showFormUpdate(type: string, i: any) {
     this.displayFormUpdate = true
-    console.log(this.dataEvent[i]);
-    this.dataUpdate.patchValue({
-      id : this.dataEvent[i].id,
-      dateTimeStart: this.dataEvent[i].dateTimeStart,
-      dateTimeEnd: this.dataEvent[i].dateTimeEnd,
-      product: {
-        id : this.dataEvent[i].product.id,
-        title: this.dataEvent[i].product.title,
-        content: this.dataEvent[i].product.content,
-        provider: this.dataEvent[i].product.provider,
-        location: this.dataEvent[i].product.location,
-        price : this.dataEvent[i].product.price,
-        productType: {
-          id : this.selectedProductType
+    this.label = type
+    if (type === 'Event') {
+      this.dataUpdate.patchValue({
+        id : this.dataEvent[i].id,
+        dateTimeStart: this.dataEvent[i].dateTimeStart,
+        dateTimeEnd: this.dataEvent[i].dateTimeEnd,
+        product: {
+          id : this.dataEvent[i].product.id,
+          title: this.dataEvent[i].product.title,
+          content: this.dataEvent[i].product.content,
+          provider: this.dataEvent[i].product.provider,
+          location: this.dataEvent[i].product.location,
+          price : this.dataEvent[i].product.price,
+          productType: {
+            id : this.selectedProductType
+          },
+          photo: {
+            fileEncode: this.dataEvent[i].product.photo.fileEncode,
+            fileExtensions :this.dataEvent[i].product.photo.fileExtensions
+          },
+          ownerId: {
+            id : this.dataEvent[i].product.ownerId.id
+          }
         },
-        photo: {
-          fileEncode: this.dataEvent[i].product.photo.fileEncode,
-          fileExtensions :this.dataEvent[i].product.photo.fileExtensions
+      })
+    } else {
+      this.dataUpdate.patchValue({
+        id : this.dataCourse[i].id,
+        dateTimeStart: this.dataCourse[i].dateTimeStart,
+        dateTimeEnd: this.dataCourse[i].dateTimeEnd,
+        product: {
+          id : this.dataCourse[i].product.id,
+          title: this.dataCourse[i].product.title,
+          content: this.dataCourse[i].product.content,
+          provider: this.dataCourse[i].product.provider,
+          location: this.dataCourse[i].product.location,
+          price : this.dataCourse[i].product.price,
+          productType: {
+            id : this.selectedProductType
+          },
+          photo: {
+            fileEncode: this.dataCourse[i].product.photo.fileEncode,
+            fileExtensions :this.dataCourse[i].product.photo.fileExtensions
+          },
+          ownerId: {
+            id : this.dataCourse[i].product.ownerId.id
+          }
         },
-        ownerId: {
-          id : this.dataEvent[i].product.ownerId.id
-        }
-      },
-    })
+      })
+    }
+   
+   
+
+
   }
 
   onScroll() {
