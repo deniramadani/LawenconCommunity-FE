@@ -113,8 +113,8 @@
                   </div>
                 </div>
 
-                <div class="card bg-gray-300 p-3 w-full" (click)="closeForm()" *ngIf="FormPolling">
-                  <div class="flex justify-content-end">
+                <div class="card bg-gray-300 p-3 w-full" *ngIf="FormPolling">
+                  <div class="flex justify-content-end" (click)="closeForm()">
                     <i class=" pi pi-times" pTooltip="Close" role="button"></i>
                   </div>
                   <div class="p-fluid p-formgrid grid">
@@ -466,6 +466,7 @@
                       </span>
                     </div>
                   </div>
+
                   <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
                     <form [formGroup]="updateComment">
                       <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
@@ -482,6 +483,7 @@
                       {{c.content}}
                     </p>
                   </ng-template>
+
                 </div>
               </div>
               <div class="px-5 w-full text-center my-3 text-right">
