@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { PaymentService } from '../../../service/payment.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
   private getAllPaymentSubscribeSubscription?: Subscription
   private approvePaymentSubscription?: Subscription
   private rejectPaymentSubscription?: Subscription
+  loaderButton:boolean = false
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   dataPaymentPremium: Payment[] = []
   selectedValues: string[] = []
@@ -22,7 +23,6 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
 
   onInit(): void {
     this.getAllPaymentSubscribeSubscription = this.paymentService.getAllPaymentSubscribe(0, 10).subscribe(result => {
-      console.log(result)
       this.dataPaymentPremium = result
     })
   }
@@ -32,8 +32,8 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
   }
 
   approve(id: string){
-    this.approvePaymentSubscription = this.paymentService.paymentApprove(id).subscribe(() =>{
-      console.log(id)
+    this.loaderButton = true
+    this.approvePaymentSubscription = this.paymentService.paymentApprove(id).pipe(finalize(()=>this.loaderButton= false)).subscribe(() =>{
       this.onInit()
     })
   }
@@ -41,8 +41,8 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
 
 
   reject(id: string){
-    this.rejectPaymentSubscription = this.paymentService.paymentRejected(id).subscribe(() =>{
-      console.log(id);
+    this.loaderButton = true
+    this.rejectPaymentSubscription = this.paymentService.paymentRejected(id).pipe(finalize(()=>this.loaderButton= false)).subscribe(() =>{
       this.onInit()
     })
   }

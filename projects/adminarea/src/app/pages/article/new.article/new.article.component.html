@@ -27,7 +27,7 @@
             (change)="fileUpload($event)" />
         </div>
         <div class="field col-6 text-right" aria-disabled="true">
-          <p-button label="Publish" [disabled]="!dataInsert.valid" type="submit" icon="pi pi-check"
+          <p-button label="Publish" [loading]="loaderButton" [disabled]="!dataInsert.valid" type="submit" icon="pi pi-check"
             styleClass="p-button-sm"></p-button>
         </div>
 

@@ -3,13 +3,14 @@ import { FormBuilder ,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 @Component({
   selector: 'app-new.article',
   templateUrl: './new.article.component.html',
 })
 export class NewArticleComponent implements OnInit,OnDestroy {
   private insertArticleSubscription ?: Subscription
+  loaderButton = false
   result : string = ''
   dataInsert = this.fb.group({
     title : ['',[Validators.required]],
@@ -30,7 +31,8 @@ export class NewArticleComponent implements OnInit,OnDestroy {
     if (this.result == '') {
       this.toast.warning('Please upload a photo of the article')
     } else {
-      this.insertArticleSubscription = this.articleService.insertArticle(this.dataInsert.value).subscribe(result => {
+      this.loaderButton = true
+      this.insertArticleSubscription = this.articleService.insertArticle(this.dataInsert.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => {
         this.router.navigateByUrl('/article/list')
       })
     }
