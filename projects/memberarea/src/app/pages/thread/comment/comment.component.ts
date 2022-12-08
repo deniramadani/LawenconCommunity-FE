@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'primeng/api';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Post } from 'projects/interface/post';
 import { PostTypeConst } from 'projects/mainarea/src/app/constant/post-type-const';
@@ -17,7 +18,7 @@ import { PostingService } from '../../../service/posting.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-
+  providers: [ConfirmationService]
 })
 export class CommentComponent implements OnInit, OnDestroy{
   
@@ -32,6 +33,8 @@ export class CommentComponent implements OnInit, OnDestroy{
   private updatePostSubscription?: Subscription
   private unbookmarkSubscription?: Subscription
   private bookmarkSubscription?: Subscription
+  private deleteCommentSubscription?: Subscription
+  private updateCommentSubscription?:Subscription
   features : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -40,9 +43,11 @@ export class CommentComponent implements OnInit, OnDestroy{
   totalLike: number = 0
   totalComment: number = 0
   likeId: string = ''
-  bookmarkId : string = ''
+  bookmarkId: string = ''
+  position : string = ''
   fileid: string = ''
   limit: number = 5
+  formCommnetUpdate : any [] = []
   start: number = 0
   userType: string | null = this.apiService.getUserType()
   fullname: string = ''
@@ -62,6 +67,11 @@ export class CommentComponent implements OnInit, OnDestroy{
     post: this.fb.group({
       id : ['']
     })
+  })
+  updateComment = this.fb.group({
+    id: ['', [Validators.required]],
+    content: ['', [Validators.required]],
+    isActive : [true]
   })
   updatePost = this.fb.group({
     id : [''],
@@ -86,7 +96,7 @@ export class CommentComponent implements OnInit, OnDestroy{
   comment: Comment[] = []
   file : any
 
-  constructor(private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private confirmationService: ConfirmationService,private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
     this.init();
   }
@@ -216,6 +226,43 @@ export class CommentComponent implements OnInit, OnDestroy{
     }
   }
 
+  showFormUpdateCommnet(index : any,content : string,id : string) {
+    this.formCommnetUpdate[index] = !this.formCommnetUpdate[index]
+    console.log(id, content);
+    this.updateComment.patchValue({
+      id: id,
+      content : content
+    })
+  }
+
+  clickConfirmDeleteComment(idpost : string,index : any,idComment : string) {
+    this.confirmationService.confirm({
+        message: `Do you want to delete this comment ?`,
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+       
+        accept: () => {
+          this.deleteCommentSubscription = this.postService.deleteComment(idComment).subscribe(result => {
+            this.getCommentByPostId(idpost,index)
+          })
+        },
+        key: "commentDialog",
+    });
+  }
+
+  getCommentByPostId(id: string,index : any) {
+    this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
+      this.comment = result
+    })
+  }
+
+  btnUpdateComment(idpost : string,index : any) {
+    this.updateCommentSubscription = this.postService.updateComment(this.updateComment.value).subscribe(result => {
+      this.getCommentByPostId(idpost,index)
+      this.formCommnetUpdate[index] = false
+    })
+  }
+
   
 
 
@@ -293,6 +340,8 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.updatePostSubscription?.unsubscribe()
     this.unbookmarkSubscription?.unsubscribe()
     this.bookmarkSubscription?.unsubscribe()
+    this.deleteCommentSubscription?.unsubscribe()
+    this.updateCommentSubscription?.unsubscribe()
   }
 
 }

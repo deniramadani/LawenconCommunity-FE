@@ -14,6 +14,7 @@ import { ReportComponent } from "./report.component";
 import { TabViewModule } from 'primeng/tabview';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+
 @NgModule({
     declarations: [
         ReportIncomeComponent, ReportMemberComponent, ReportComponent

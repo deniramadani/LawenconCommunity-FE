@@ -17,11 +17,11 @@ export class ReportMemberComponent implements OnInit,OnDestroy{
     private getAllParticipantMemberSubscription?: Subscription
     private getMemberParticipantMemberSubscription?: Subscription
     private insertParticipantMemberSubscription? : Subscription
-   
+    loaderButton : boolean = false
     first = 0
     rows = 10
     reportParticipant: any[] = []
-    dateRanges: any[] = []
+    dateRangesParticipant: any[] = []
     dataReport : Report[] = []
     date = this.fb.group({
        
@@ -61,12 +61,14 @@ export class ReportMemberComponent implements OnInit,OnDestroy{
 
 
     btnExportParticipant() {
+        this.loaderButton = true
         this.date.patchValue({
-            startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
-            endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd')
+            startDate: this.datePipe.transform(this.dateRangesParticipant[0], 'yyyy-MM-dd'),
+            endDate : this.datePipe.transform(this.dateRangesParticipant[1], 'yyyy-MM-dd')
         })
-        if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
+        if (this.dateRangesParticipant[0] != null && this.dateRangesParticipant[1] != null) {
             this.insertParticipantMemberSubscription = this.reportService.reportMemberProductivityReportData(this.date.value).subscribe((result) => {
+                this.loaderButton = false
                 const anchor = document.createElement('a');
                 anchor.download = "report_participant.pdf";
                 anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);

@@ -155,7 +155,6 @@ export class PostComponent implements OnInit,OnDestroy {
   }
 
   getCommentByPostId(id: string,index : any) {
-    console.log('ini comment id:' ,id);
     this.getCommetByIdSubcription  = this.postService.getCommentByIdPost(id).subscribe(result => {
       this.comment = result
     })

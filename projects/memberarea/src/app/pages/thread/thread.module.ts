@@ -22,6 +22,7 @@ import { StyleClassModule } from "primeng/styleclass"
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GalleriaModule } from 'primeng/galleria';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
   declarations : [
     CommentComponent,PostingComponent
@@ -30,7 +31,7 @@ import { GalleriaModule } from 'primeng/galleria';
       ThreadRouting,TableModule,CarouselModule,BadgeModule,TagModule,CardModule,
       ContentMemberModule,FormsModule,ProgressSpinnerModule,GalleriaModule,
       ButtonModule,CommonModule,ReactiveFormsModule,StyleClassModule,
-      AvatarModule,SplitButtonModule,
+      AvatarModule,SplitButtonModule,ConfirmDialogModule,
       DropdownModule,
       TreeSelectModule,
       InputTextareaModule,

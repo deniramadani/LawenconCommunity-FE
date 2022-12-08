@@ -5,11 +5,11 @@
             <div class="flex align-items-center justify-content-between">
                 <div>
                     <label class="mr-2">Date Range</label>
-                    <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRanges" selectionMode="range"
+                    <p-calendar class="p-inputtext-sm" [(ngModel)]="dateRangesParticipant" selectionMode="range"
                         [readonlyInput]="true" inputId="range">
                     </p-calendar>
                 </div>
-                <button pButton pRipple label="Export" icon="pi pi-upload"
+                <button pButton pRipple [loading]="loaderButton" label="Export" icon="pi pi-upload"
                     class="p-button-sm border-none p-button-primary " type="submit"
                     (click)="btnExportParticipant()"></button>
             </div>

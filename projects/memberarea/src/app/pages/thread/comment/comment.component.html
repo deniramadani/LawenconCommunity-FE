@@ -227,7 +227,108 @@
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment">
+                        <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment;index as j">
+                            <div class="border-1 surface-border border-round p-2 pr-0 bg-gray-100">
+                                <div class="flex justify-content-between ml-1">
+                                    <div class="flex">
+                                        <div *ngIf="post.user.photo == null; then default1 else photoProfile2"></div>
+                                        <ng-template #default1>
+                                            <p-avatar styleClass="w-2rem h-2rem"
+                                                image="../../../../assets/img/default.jpg" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
+                                        <ng-template #photoProfile2>
+                                            <p-avatar image="{{fileDownload}}{{c.user.photo.id}}" shape="circle">
+                                            </p-avatar>
+                                        </ng-template>
+                                        <div class="ml-2">
+                                            <div class="text-xs font-bold text-900 mb-1" role="button"
+                                                routerLink="/view/profile/{{c.user.id}}">
+                                                {{c.user.fullname}}</div>
+                                            <div class="text-xs flex align-items-center text-700">
+                                                <span class="text-xs font-italic">
+                                                    {{c.createdAt | date : 'E,dd MMM yyyy HH:ss'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="mb-3">
+                                            <div
+                                                *ngIf="post.postType.postTypeCode == premium && userType != 'UTCPM'; then premiums">
+                                            </div>
+                                            <ng-template #premiums>
+                                                <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium"
+                                                    [rounded]="true">
+                                                </p-tag>
+                                            </ng-template>
+
+                                            <div
+                                                *ngIf="post.postType.postTypeCode == premium && userType == 'UTCPM'; then premiums">
+                                            </div>
+                                            <ng-template #premiums>
+                                                <p-tag icon=" bi bi-star-fill" severity="warning" value="Premium"
+                                                    [rounded]="true">
+                                                </p-tag>
+                                            </ng-template>
+                                        </span>
+                                        <span class="mb-3">
+                                            <div *ngIf="c.user.id == idUser; then commentBy "></div>
+                                            <ng-template #commentBy>
+                                                <div class="relative">
+                                                    <a pRipple
+                                                        class="cursor-pointer  h-full inline-flex align-items-center text-600 py-3 lg:py-0 px-3  transition-colors transition-duration-150"
+                                                        pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
+                                                        leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+                                                        <i class=" pi pi-ellipsis-v mt-1"></i>
+                                                    </a>
+                                                    <div
+                                                        class="absolute border-round right-0 py-1 shadow-2 w-12rem bg-white hidden">
+                                                        <ul class="list-none px-1 py-2 m-0">
+                                                            <li (click)="showFormUpdateCommnet(j,c.content,c.id)">
+                                                                <a class="dropdown-item d-flex align-items-center"
+                                                                    role="button">
+                                                                    <i class="pi pi-pencil text-blue-500 mr-2"></i>
+                                                                    <span class="text-sm">Edit</span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="clickConfirmDeleteComment(post.id,j,c.id)"> <a
+                                                                    class="dropdown-item d-flex align-items-center mt-1"
+                                                                    role="button">
+                                                                    <i class="pi pi-trash text-red-500 mr-2"></i> <span
+                                                                        class="text-sm">Delete</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
+                                    <form [formGroup]="updateComment">
+                                        <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
+                                            <textarea id="message" pInputTextarea rows="1" formControlName="content"
+                                                [autoResize]="true" class="py-2 px-3 text-sm w-full"></textarea>
+                                            <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
+                                                class="p-button-sm  p-1" icon="pi pi-pencil"
+                                                style="float: right;"></button>
+                                        </div>
+                                    </form>
+
+                                </ng-container>
+                                <ng-template #showComment>
+                                    <div class="pr-3 p-0">
+                                        <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6"
+                                            style="word-wrap: break-word ;">
+                                            {{c.content}}
+                                        </p>
+                                    </div>
+                                </ng-template>
+
+                            </div>
+                        </div>
+                        <!-- <div class="col-12 lg:col-12 py-0" *ngFor="let c of comment">
                             <div class="p-2">
                                 <div class="border-1 surface-border border-round p-3 bg-gray-100">
                                     <div class="flex">
@@ -240,12 +341,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="m-0 p-0 line-height-3 mt-3 text-600">
+                                    <p class="m-0 p-0 line-height-3 mt-3 text-600" style="word-wrap: break-word ;">
                                         {{c.content}}
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -253,4 +354,5 @@
         </div>
         <div class="col-12 lg:col-3"></div>
     </div>
+    <p-confirmDialog [style]="{width: '40vw'}" key="commentDialog" [position]="position"></p-confirmDialog>
 </div>

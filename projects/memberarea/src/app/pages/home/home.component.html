@@ -1,4 +1,4 @@
-<div class="px-2 lg:px-5 py-8" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
+<div class="px-2 lg:px-7 py-8" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
   <div class="mt-2 p-0">
     <div class="grid">
       <div class="col-12 lg:col-3 py-3 px-3">
@@ -17,21 +17,27 @@
               </p-avatar>
             </ng-template>
             <h5 class="text-lg mt-3">{{fullname}} <span pTooltip="Premium Member" class="mr-2 text-xs text-yellow-500"
-                *ngIf="verified"><i class=" pi pi-check-circle mr-1"></i></span> </h5>
+                *ngIf="verified"><i class=" pi pi-verified mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
-            <hr>
+
             <div class="flex flex-row flex-wrap gap-3 justify-content-center">
               <div class=" flex" role="button">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
-                </p-avatar>
-              </div>
-              <div class="flex" role="button" (click)="goToLink('https://www.instagram.com/fransisko.shb')">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
-                </p-avatar>
+                <a href="https://facebook.com/{{facebook}}" target="_blank">
+                  <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
+                  </p-avatar>
+                </a>
               </div>
               <div class="flex" role="button">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
-                </p-avatar>
+                <a href="https://www.instagram.com/{{ig}}" target="_blank">
+                  <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
+                  </p-avatar>
+                </a>
+              </div>
+              <div class="flex" role="button">
+                <a href="https://www.linkedin.com//{{linkedin}}" target="_blank">
+                  <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
+                  </p-avatar>
+                </a>
               </div>
             </div>
             <div class="text-left mt-3">
@@ -294,6 +300,7 @@
                         </div>
                       </div>
                     </ng-template>
+
                     <ng-template #notChoosed>
                       <div class="p-button-label pl-3 col-12 bg-primary shadow mb-1 bg-body rounded ">
                         <div class="grid w-full">
@@ -306,12 +313,13 @@
                         </div>
                       </div>
                     </ng-template>
+
                   </ng-container>
                 </div>
               </div>
             </ng-template>
             <ng-template #notVoted>
-              <div class="col-12">
+              <div class=" col-12">
                 <div class="p-5 bg-gray-200 border-round">
                   <div class="card-header bg-primary-900 text-white ">
                     <p>{{post.question}}</p>
@@ -466,7 +474,6 @@
                       </span>
                     </div>
                   </div>
-
                   <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
                     <form [formGroup]="updateComment">
                       <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
@@ -479,9 +486,11 @@
 
                   </ng-container>
                   <ng-template #showComment>
-                    <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6">
-                      {{c.content}}
-                    </p>
+                    <div class="pr-3 p-0">
+                      <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6" style="word-wrap: break-word ;">
+                        {{c.content}}
+                      </p>
+                    </div>
                   </ng-template>
 
                 </div>
@@ -529,7 +538,7 @@
               <span class="block text-900 font-medium">{{d.title}}</span>
               {{ seeMore ? d.content : d.content.substr(0, 50) }}
               <ng-container *ngIf="d.content.length > 100">...
-                <span> <a type="button" class="a-link text-blue-500 text-sm my-2">Read More -></a></span>
+                <span> <a type="button" class="a-link text-blue-500 text-xs my-2">Read More -></a></span>
               </ng-container>
               <div class="flex">
                 <div class="">

@@ -118,7 +118,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   labelStyle: string = ''
   disabledPolling : string = ''
   isChecked = false;
-  ig : string =''
+  ig: string = ''
+  facebook: string = ''
+  linkedin : string =''
   type: string = ''
   updateComment = this.fb.group({
     id: ['', [Validators.required]],
@@ -226,6 +228,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fullname = result.fullname
       this.idUser = result.id
       this.email = result.email
+      
+      if (result.userSocmed != null) {
+        this.ig = result.userSocmed.instagram
+        this.facebook = result.userSocmed.facebook
+        this.linkedin = result.userSocmed.linkedin
+      }
+      console.log(this.ig);
+      
 
       this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
@@ -263,8 +273,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAllPost() {
     this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).subscribe(result => {
       this.posts = result
-      this.loader = false
-      
+      this.loader = false   
     })
   }
   displayCommentsComponent(id: string, index: any) {
@@ -486,7 +495,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.bookmarkSubscription?.unsubscribe()
     this.pollingSubscription?.unsubscribe()
     this.insertPostBasicSubscription?.unsubscribe()
-
+    this.deleteCommentSubscription?.unsubscribe()
     this.updatePostSubscription?.unsubscribe()
     this.deletePostSubcription?.unsubscribe()
     this.updateCommentSubscription?.unsubscribe()
