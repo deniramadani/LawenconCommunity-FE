@@ -28,7 +28,6 @@ export class FilterTokenInterceptor implements HttpInterceptor {
             tap({
                 next: data => {
                     if (data instanceof HttpResponse) {
-
                         if (data.body.message) {
                             this.toast.success(data.body.message, 'Information')
                         }
