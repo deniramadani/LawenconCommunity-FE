@@ -5,5 +5,6 @@ export interface PostLike {
 	id: string
 	post: Post
 	user: User
+	
 }
 

@@ -20,5 +20,6 @@ export interface Post extends Comment{
 	createdAt: string
 	createdBy: string
 	comments: Comment[]
+	totalPolling : number
 }
 

@@ -122,6 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   facebook: string = ''
   linkedin : string =''
   type: string = ''
+  persentation : number = 82
   updateComment = this.fb.group({
     id: ['', [Validators.required]],
     content: ['', [Validators.required]],
@@ -274,6 +275,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).subscribe(result => {
       this.posts = result
       this.loader = false   
+      
     })
   }
   displayCommentsComponent(id: string, index: any) {
@@ -392,6 +394,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   unbookmark(id: string, type: string) {
+    console.log(id,type);
+    
     if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
       this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
     } else {
