@@ -296,19 +296,21 @@
                     <ng-template #choosed>
                       <div
                         class="p-button-label pr-0 mb-2 py-0 pl-3 col-12 bg-blue-900 shadow bg-body rounded  text-white ">
-                        <div class="grid w-full p-button-label mt-1">
-
+                        <div class="flex flex-column w-full p-button-label mt-1">
                           <label>{{option.content}}</label>
-                          <div class="p-0 py-2 w-10">
-                            <p-progressBar [showValue]="false" p-progressbar-value="12"
-                              [value]="(option.totalResponse/post.totalPolling)*100">
-                            </p-progressBar>
+                          <div class="flex flex-row p-0">
+                            <div class="p-0 py-2 w-10">
+                              <p-progressBar [showValue]="false" p-progressbar-value="12"
+                                [value]="(option.totalResponse/post.totalPolling)*100">
+                              </p-progressBar>
+                            </div>
+                            <div class="pl-0 py-2 w-2 text-center">
+                              <span class="text-sm"> {{ ((option.totalResponse/post.totalPolling)*100).toFixed(1)
+                                }}%<i class="pi pi-check-circle ml-1"></i>
+                              </span>
+                            </div>
                           </div>
-                          <div class="pl-0 py-2 w-2 text-center">
-                            <span class="ml-2 text-sm"> {{ ((option.totalResponse/post.totalPolling)*100).toFixed(1)
-                              }}%<i class="pi pi-check-circle ml-1 mt-1"></i>
-                            </span>
-                          </div>
+
                         </div>
                       </div>
                     </ng-template>
@@ -316,7 +318,7 @@
                     <ng-template #notChoosed>
                       <div class="p-button-label pl-3 pr-0 col-12 bg-primary-200 py-1 mb-1 bg-body rounded">
                         <label>{{option.content }}</label>
-                        <div class="grid w-full p-button-label mt-1">
+                        <div class="grid w-full p-button-label">
                           <div class="p-0 py-2 w-10">
                             <p-progressBar [showValue]="false" p-progressbar-label="lalalala"
                               [value]="(option.totalResponse/post.totalPolling)*100">
