@@ -300,7 +300,7 @@
                           <label>{{option.content}}</label>
                           <div class="flex flex-row p-0">
                             <div class="p-0 py-2 w-10">
-                              <p-progressBar [showValue]="false" p-progressbar-value="12"
+                              <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
                                 [value]="(option.totalResponse/post.totalPolling)*100">
                               </p-progressBar>
                             </div>
@@ -320,7 +320,7 @@
                         <label>{{option.content }}</label>
                         <div class="grid w-full p-button-label">
                           <div class="p-0 py-2 w-10">
-                            <p-progressBar [showValue]="false" p-progressbar-label="lalalala"
+                            <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
                               [value]="(option.totalResponse/post.totalPolling)*100">
                             </p-progressBar>
                           </div>
