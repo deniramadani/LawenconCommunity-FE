@@ -2,7 +2,8 @@
     <div class="p-2">
         <div class="grid nogutter p-3">
             <div class="col-12 p-3 text-center" *ngIf="empty">
-                <h5 class="text-900 text-xl">Data is empty</h5>
+                <h5 class="text-900 text-xl">Empty Transactions</h5>
+                <a class="p-link text-lg text-blue-600" routerLink="/events-courses">Join events & courses</a>
             </div>
             <div class="col-12 lg:col-4" *ngFor="let p of payments">
                 <div class="shadow-3 border-round h-full bg-gray-200">

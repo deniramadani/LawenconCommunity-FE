@@ -13,8 +13,8 @@
                             [readonlyInput]="true" inputId="range">
                         </p-calendar>
                     </div>
-                    <button pButton pRipple label="Export" type="submit" (click)="btnExport()" icon="pi pi-upload"
-                        class="p-button-sm border-none p-button-primary"></button>
+                    <button [loading]="loaderButton" pButton pRipple label="Export" type="submit" (click)="btnExport()"
+                        icon="pi pi-upload" class="p-button-sm border-none p-button-primary"></button>
                 </div>
             </ng-template>
 
@@ -31,9 +31,7 @@
 
             <ng-template pTemplate="body" let-reportIncome let-i="rowIndex">
                 <tr>
-
                     <td style="width: 4rem">
-
                         <p-tableCheckbox [value]="reportIncome" [index]="i">
                         </p-tableCheckbox>
                     </td>

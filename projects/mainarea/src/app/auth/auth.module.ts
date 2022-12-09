@@ -9,13 +9,15 @@ import {DialogModule} from 'primeng/dialog';
 import { VerificationCodeComponent } from "./verification-code/verification-code.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CarouselModule } from 'primeng/carousel';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+
 @NgModule({
   declarations : [
     LoginComponent,RegisterComponent,VerificationCodeComponent
   ],
   imports : [
-    AuthRouting, CardModule, ButtonModule, DialogModule,CarouselModule,
+    AuthRouting, CardModule, ButtonModule, DialogModule,CarouselModule,PasswordModule,
     BrowserAnimationsModule, ReactiveFormsModule, FormsModule,InputTextModule
   ],
   exports : [

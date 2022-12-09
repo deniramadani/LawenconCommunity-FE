@@ -112,8 +112,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     title: ['', [Validators.required]],
     body: ['', [Validators.required]],
   })
-
-  formUpdatePost : boolean = false
+  loaderButton : boolean = false
+  formUpdatePost: boolean = false
   label: string = 'Post Basic'
   labelStyle: string = ''
   disabledPolling : string = ''
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   facebook: string = ''
   linkedin : string =''
   type: string = ''
-  persentation : number = 82
+
   updateComment = this.fb.group({
     id: ['', [Validators.required]],
     content: ['', [Validators.required]],
@@ -131,7 +131,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private confirmationService: ConfirmationService,private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
   ngOnInit(): void {
     this.init();
+  
   }
+
 
   onChange(isChecked : any) {
     if (isChecked == true) {
@@ -151,6 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   insertPosting() {
+    this.loader = true
     this.dataPosting.patchValue({
       user: {
         id: this.apiService.getIdUser()
@@ -159,21 +162,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (this.postPollingOption.value.length != 0) {
         this.insertPostBasicSubscription = this.postService.postInsertPolling(this.dataPosting.value).subscribe(result => {
+          this.loader = false
           this.init()
           this.FormPolling = false
         })
     } else {
       if (this.label == 'Post Premium') {
         this.insertPostBasicSubscription = this.postService.postInsertPremium(this.dataPosting.value).subscribe(result => {
+          this.loader = false
           this.init()
         })
       } else {
         this.insertPostBasicSubscription = this.postService.postInsertBasic(this.dataPosting.value).subscribe(result => {
+          this.loader = false
           this.init()
+          
         })
       }
     }
-    
+  
    this.dataPosting.reset()
   }
 
@@ -387,6 +394,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       })
 
       this.likeSubscription = this.postService.like(postLike.value).subscribe(() => {
+       
         this.init()
       })
     }

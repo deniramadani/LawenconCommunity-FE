@@ -31,6 +31,8 @@ export class PostComponent implements OnInit,OnDestroy {
   private updatePostSubscription?: Subscription
   private getCommetByIdSubcription?: Subscription
   private insertCommentSubscription?: Subscription
+  private updateCommentSubscription?: Subscription
+  private deleteCommentSubscription?:Subscription
   posts : Post[] = []
   postsLike: Post[] = []
   postsBookmark: Post[] = []
@@ -38,16 +40,18 @@ export class PostComponent implements OnInit,OnDestroy {
   showCommentComponent: any[] = []
   comment: any[] = []
   start = 0
-  limit = 6
+  limit = 3
   loader = false
   id: string = ''
   name: string | null = ''
+  position : string =''
   idUser: string = String(this.apiService.getIdUser())
   photoId: null | string = ''
   seeMoreNoPremium : boolean = false
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
+  formCommnetUpdate : any [] = []
   userType: string | null = this.apiService.getUserType()
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   seeMore : boolean =false
@@ -75,6 +79,11 @@ export class PostComponent implements OnInit,OnDestroy {
     post: this.fb.group({
       id : ['']
     })
+  })
+  updateComment = this.fb.group({
+    id: ['', [Validators.required]],
+    content: ['', [Validators.required]],
+    isActive : [true]
   })
 
   formUpdatePost : boolean = false
@@ -105,9 +114,15 @@ export class PostComponent implements OnInit,OnDestroy {
       this.postsBookmark = result     
     })
   }
-
+  btnUpdateComment(idpost : string,index : any) {
+    this.updateCommentSubscription = this.postService.updateComment(this.updateComment.value).subscribe(result => {
+      this.getCommentByPostId(idpost,index)
+      this.formCommnetUpdate[index] = false
+    })
+  }
   onScroll() {
-    this.start += this.limit
+    this.limit += 3
+    this.init()
   }
 
   premiumPost(id: string) {
@@ -132,6 +147,7 @@ export class PostComponent implements OnInit,OnDestroy {
       this.formUpdatePost = false
       this.init()
     })
+    
   }
 
   displayCommentsComponent(id: string, index: any) {
@@ -151,6 +167,31 @@ export class PostComponent implements OnInit,OnDestroy {
       this.dataComment.patchValue({
         content : ''
       })
+    })
+  }
+
+  clickConfirmDeleteComment(idpost : string,index : any,idComment : string) {
+    this.confirmationService.confirm({
+        message: `Do you want to delete this comment ?`,
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+       
+        accept: () => {
+          this.deleteCommentSubscription = this.postService.deleteComment(idComment).subscribe(result => {
+            this.getCommentByPostId(idpost,index)
+          })
+        },
+        key: "commentDialog",
+    });
+  }
+
+  
+  showFormUpdateCommnet(index : any,content : string,id : string) {
+    this.formCommnetUpdate[index] = !this.formCommnetUpdate[index]
+    console.log(id, content);
+    this.updateComment.patchValue({
+      id: id,
+      content : content
     })
   }
 
@@ -254,5 +295,7 @@ export class PostComponent implements OnInit,OnDestroy {
     this.deletePostSubscription?.unsubscribe()
     this.getCommetByIdSubcription?.unsubscribe()
     this.insertCommentSubscription?.unsubscribe()
+    this.updateCommentSubscription?.unsubscribe()
+    this.deleteCommentSubscription?.unsubscribe()
   }
 }

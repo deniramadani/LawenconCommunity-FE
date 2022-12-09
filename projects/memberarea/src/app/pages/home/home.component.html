@@ -81,7 +81,7 @@
                 <div class="ml-2 w-full">
                   <textarea placeholder="Title Post" formControlName="title" pInputTextarea rows="1" [autoResize]="true"
                     class="py-1 px-3 text-md w-full"></textarea>
-                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="3" [autoResize]="false"
+                  <textarea placeholder="Body" formControlName="body" a pInputTextarea rows="3" [autoResize]="false"
                     class="py-1 px-3 text-md w-full"></textarea>
                 </div>
               </div>
@@ -119,8 +119,9 @@
                       Premium</label>
                   </div>
                   <div class="col-3 lg:col-3 sm:col-3 text-right">
-                    <button pButton pRipple [disabled]="!dataPosting.valid" type="submit" label="Post" icon="pi pi-send"
-                      class="p-button-outlined p-button-rounded p-1 px-2 lg:px-4" iconPos="right"></button>
+                    <button pButton [loading]="loaderButton" pRipple [disabled]="!dataPosting.valid" type="submit"
+                      label="Post" icon="pi pi-send" class="p-button-outlined p-button-rounded p-1 px-2 lg:px-4"
+                      iconPos="right"></button>
                   </div>
                 </div>
 
@@ -490,18 +491,24 @@
                                 </li>
                               </ul>
                             </div>
+
                           </div>
+
                         </ng-template>
                       </span>
                     </div>
                   </div>
                   <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
                     <form [formGroup]="updateComment">
-                      <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
-                        <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
-                          class="py-2 px-3 text-sm w-full"></textarea>
-                        <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
-                          class="p-button-sm  p-1" icon="pi pi-pencil" style="float: right;"></button>
+                      <div class="grid">
+                        <div class="col-12 lg:col-10">
+                          <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
+                            class="py-2 px-3 text-sm w-full"></textarea>
+                        </div>
+                        <div class="col-12 lg:col-2 text-left">
+                          <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
+                            class="p-button-sm p-2" icon="pi pi-pencil"></button>
+                        </div>
                       </div>
                     </form>
 

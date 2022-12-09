@@ -34,7 +34,8 @@ export class CommentComponent implements OnInit, OnDestroy{
   private unbookmarkSubscription?: Subscription
   private bookmarkSubscription?: Subscription
   private deleteCommentSubscription?: Subscription
-  private updateCommentSubscription?:Subscription
+  private updateCommentSubscription?: Subscription
+  private deletePostSubcription?:Subscription
   features : any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -47,7 +48,8 @@ export class CommentComponent implements OnInit, OnDestroy{
   position : string = ''
   fileid: string = ''
   limit: number = 5
-  formCommnetUpdate : any [] = []
+  formCommnetUpdate: any[] = []
+  formUpdatePost : boolean = false
   start: number = 0
   userType: string | null = this.apiService.getUserType()
   fullname: string = ''
@@ -58,7 +60,6 @@ export class CommentComponent implements OnInit, OnDestroy{
   userId : string =''
   seeMoreNoPremium: boolean = false
   seeMore: boolean = false
-  formUpdatePost : boolean = false
   idUser: string = String(this.apiService.getIdUser())
   title: string = ''
   body : string =''
@@ -148,6 +149,22 @@ export class CommentComponent implements OnInit, OnDestroy{
       })
     })
   }
+
+  clickConfirmDelete(position: string, id: string) {
+    this.confirmationService.confirm({
+        message: `Do you want to delete this post ?`,
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+      
+        accept: () => {
+          this.deletePostSubcription = this.postService.deletePost(id).subscribe(result => {
+            this.router.navigateByUrl('/home')
+          })
+          },
+          key: "positionDialog",
+    });
+  }
+
 
   showDialogUpdatePost(id: string,title : string,body: string) {
     this.formUpdatePost = true
@@ -328,6 +345,8 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.router.navigateByUrl('/thread')
   }
 
+  
+
   ngOnDestroy(): void {
     this.getAllUserSubscription?.unsubscribe()
     this.getAllArticleSubscription?.unsubscribe()
@@ -342,6 +361,7 @@ export class CommentComponent implements OnInit, OnDestroy{
     this.bookmarkSubscription?.unsubscribe()
     this.deleteCommentSubscription?.unsubscribe()
     this.updateCommentSubscription?.unsubscribe()
+    this.deletePostSubcription?.unsubscribe()
   }
 
 }

@@ -5,7 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { LazyLoadEvent } from "primeng/api";
 import { Report } from "projects/interface/report";
 import { ReportService } from "projects/memberarea/src/app/service/report.service";
-import { Subscription } from "rxjs";
+import { Subscription,finalize } from "rxjs";
 
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -28,6 +28,7 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
     dataReport: Report[] = []
     selection: any[] = [];
     userIDs: any[] = []
+    loaderButton : boolean = false
     data = this.fb.group({
         startDate : [''],
         endDate: [''],
@@ -71,6 +72,7 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
     }
 
     btnExport() {
+        this.loaderButton = true
         this.userIDs.length= 0
         for(let i =0; i<this.selection.length;i++){
             this.userIDs.push(this.selection[i].memberId)
@@ -81,11 +83,12 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
         })
         this.data.value.userId = this.userIDs
         if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
-            this.insertIncomeSuperAdminSubscription = this.reportService.reportSuperAdminIncome(this.data.value).subscribe((result) => {
+            this.insertIncomeSuperAdminSubscription = this.reportService.reportSuperAdminIncome(this.data.value).pipe(finalize(()=>this.loaderButton = false)).subscribe((result) => {
                 const anchor = document.createElement('a');
                 anchor.download = "report_income.pdf";
                 anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
                 anchor.click();
+                this.loaderButton = false
             })
         } else {
             this.toast.warning('input range date')
