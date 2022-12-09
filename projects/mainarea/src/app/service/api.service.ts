@@ -52,16 +52,6 @@ export class ApiService {
     }
     return result
   }
-
-  getPosition(): string | null {
-    const data = localStorage.getItem('data')
-    let result: null | string = ''
-    if (data) {
-      result = JSON.parse(data).position
-    }
-    return result
-  }
-
   getTypeUser(): string | null {
     const data = localStorage.getItem('data')
     let result: null | string = ''
