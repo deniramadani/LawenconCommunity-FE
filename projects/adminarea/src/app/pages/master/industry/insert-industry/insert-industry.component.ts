@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { finalize, Subscription } from 'rxjs'
@@ -14,7 +15,10 @@ export class InsertIndustryComponent implements OnInit,OnDestroy {
   dataInsert = this.fb.group({
     industryName: ['',[Validators.required]]
   })
-  constructor(private industryService : IndustryService,private fb : FormBuilder,private router : Router) { }
+  constructor(private industryService: IndustryService, private fb: FormBuilder,
+    private router: Router, private title: Title) {
+    this.title.setTitle('New Industry')
+     }
   
 
   ngOnInit(): void {

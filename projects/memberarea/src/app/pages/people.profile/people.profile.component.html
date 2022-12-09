@@ -10,11 +10,21 @@
                 style="margin-top:-2rem; top:-70px; margin-bottom:-70px">
                 <div>
                     <div style="width:140px; height: 140px;" class="mb-3">
-                        <img src="{{fileDownload}}{{data.photo.id}}" alt="Image" class="img-fluid h-full border-circle">
+                        <div *ngIf="photoId == ''; then default2 else photoProfile3"></div>
+                        <ng-template #default2>
+                            <!-- <p-avatar styleClass="w-2rem h-2rem" image="../../../../../assets/img/default.jpg"
+                                shape="circle">
+                            </p-avatar> -->
+                            <img src="../../../../../assets/img/default.jpg" alt="Image"
+                                class="img-fluid h-full border-circle">
+                        </ng-template>
+                        <ng-template #photoProfile3>
+                            <img src="{{fileDownload}}{{photoId}}" alt="Image" class="img-fluid h-full border-circle">
+                        </ng-template>
+
                     </div>
-                    <div class="text-900 text-3xl font-medium mb-3">{{data.fullname}}</div>
-                    <p class="mt-0 mb-3 text-700 text-xl"> <i
-                            class="bi bi-geo-fill mr-2"></i>{{data.position.positionName}}</p>
+                    <div class="text-900 text-3xl font-medium mb-3">{{fullnameUser}}</div>
+                    <p class="mt-0 mb-3 text-700 text-xl"> <i class="bi bi-geo-fill mr-2"></i>{{positionName}}</p>
 
                 </div>
 
@@ -30,21 +40,21 @@
                     <hr>
                     <div class="px-2 text-xs text-left">
                         <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
-                            {{data.email}}</p>
+                            {{email}}</p>
                         <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
-                            {{data.phoneNumber}}</p>
+                            {{phoneNumber}}</p>
                         <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
-                            {{data.dateOfBirth | date : 'E , dd-MM-yyyy' }}</p>
+                            {{dateOfBirth | date : 'E , dd-MM-yyyy' }}</p>
                         <p class="text-secondary"><i class="bi bi-geo-alt-fill pe-1"></i>
-                            {{data.address}}</p>
+                            {{address}}</p>
                     </div>
                     <span class="text-900 block text-xl">Profesional</span>
                     <hr>
                     <div class="px-2 text-xs text-left">
                         <p class="text-secondary"><i class="bi bi-globe text-lg pe-1"></i>
-                            {{data.company}}</p>
+                            {{company}}</p>
                         <p class="text-secondary"><i class="bi bi-geo-fill text-lg pe-1"></i>
-                            {{data.industry.industryName}}</p>
+                            {{industryName}}</p>
 
                     </div>
                     <span class="text-900 block text-xl">Sosial Media</span>
@@ -80,9 +90,18 @@
                                     <div class="grid">
                                         <div
                                             class="col-1 lg:col-1 p-0 text-center flex align-items-center justify-content-center">
-                                            <p-avatar styleClass="w-2rem h-2rem"
-                                                image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
-                                            </p-avatar>
+                                            <div *ngIf="post.user.photo === null; then default3 else photoProfile4">
+                                            </div>
+                                            <ng-template #default3>
+                                                <p-avatar styleClass="w-2rem h-2rem"
+                                                    image="../../../../assets/img/default.jpg" shape="circle">
+                                                </p-avatar>
+                                            </ng-template>
+                                            <ng-template #photoProfile4>
+                                                <p-avatar styleClass="w-2rem h-2rem"
+                                                    image="{{fileDownload}}{{post.user.photo.id}}" shape="circle">
+                                                </p-avatar>
+                                            </ng-template>
                                         </div>
                                         <div class="col-9 lg:col-9 p-0 m-0">
                                             <label class=" font-semibold ">{{post.user.fullname}}</label>

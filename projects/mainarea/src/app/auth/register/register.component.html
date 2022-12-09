@@ -44,8 +44,8 @@
                   </div>
                 </div>
 
-                <p-button type="submit" icon="pi pi-arrow-right" [disabled]="!dataRegister.valid" class="ml-2"
-                  styleClass="p-button-sm" label="Sign Up">
+                <p-button type="submit" [loading]="loaderButton" icon="pi pi-arrow-right"
+                  [disabled]="!dataRegister.valid" class="ml-2" styleClass="p-button-sm" label="Sign Up">
                 </p-button>
                 <p-dialog header="Verification" [(visible)]="displayBasic2" [style]="{width: '30vw'}">
 

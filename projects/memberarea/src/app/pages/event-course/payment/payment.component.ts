@@ -8,6 +8,7 @@ import { ProductsService } from '../../../service/products.service';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { PaymentService } from 'projects/adminarea/src/app/service/payment.service';
 import { PaymentConst } from 'projects/constant/PaymentConst';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment',
@@ -40,7 +41,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   constructor(private productService: ProductsService, private toast: ToastrService, private router: Router, 
     private activedParam: ActivatedRoute, private fb: FormBuilder, private postService: PostingService,
-    private paymentService : PaymentService) { }
+    private paymentService : PaymentService,private title : Title) { this.title.setTitle('Payment') }
 
   ngOnInit(): void {
     this.onInit()

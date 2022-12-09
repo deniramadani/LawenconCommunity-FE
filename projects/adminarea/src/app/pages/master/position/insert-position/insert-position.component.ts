@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PositionService } from 'projects/mainarea/src/app/service/position.service';
 import { finalize, Subscription } from 'rxjs'
@@ -13,7 +14,10 @@ export class InsertPositionComponent implements OnInit,OnDestroy {
   dataInsert = this.fb.group({
     positionName : ['',[Validators.required]]
   })
-  constructor(private positionService : PositionService,private fb : FormBuilder,private router : Router) { }
+  constructor(private positionService: PositionService, private fb: FormBuilder,
+    private router: Router, private title: Title) { 
+        this.title.setTitle('New Position')
+     }
   
   ngOnInit(): void {
     

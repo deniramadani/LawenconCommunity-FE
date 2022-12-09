@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -82,7 +83,10 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   orders : boolean = false
   postId: string = ''
   id : string = ''
-  constructor(private productService :ProductsService,private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private productService: ProductsService, private confirmationService: ConfirmationService,
+    private toast: ToastrService, private pollingService: PollingService,
+    private postService: PostingService, private fb: FormBuilder,private titlePage : Title,
+    private router: Router, private apiService: ApiService) {this.titlePage.setTitle('Activities') }
   ngOnInit(): void {
     this.init();
     this.items = [

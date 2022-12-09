@@ -10,6 +10,7 @@ import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-profile',
@@ -37,6 +38,8 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   fotoId: string = ''
   myDate: any 
   bod: any
+  samePassword : boolean = false
+  buttonLoader : boolean =false
   formChangePassword : boolean = false
   formEditProfile: boolean = true
   dataUser : any = new Object
@@ -82,7 +85,10 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     confirmPassword: ['',[Validators.required]]
   })
 
-  constructor(private toast : ToastrService,private datePipe: DatePipe,private userService : UsersService,private apiService : ApiService,private positionService : PositionService,private industryService : IndustryService,private fb : FormBuilder ){}
+  constructor(private toast: ToastrService, private datePipe: DatePipe,
+    private userService: UsersService, private apiService: ApiService,
+    private positionService: PositionService, private industryService: IndustryService,
+    private fb: FormBuilder,private title : Title) { this.title.setTitle('Profile') }
   ngOnInit(): void {
     this.onInit()
    
@@ -199,10 +205,20 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
   }
 
   changePassword() {
-    if(this.updatePassword.get('password')?.value == this.updatePassword.get('confirmPassword')?.value){
-      this.chagenPasswordSubcription = this.userService.userUpdate(this.updatePassword.value).subscribe(() =>{})
+
+    if (this.updatePassword.get('password')?.value == this.updatePassword.get('confirmPassword')?.value) {
+      if (this.updatePassword.get('oldPassword')?.value == this.updatePassword.get('password')?.value) {
+        this.samePassword = true
+      } else {
+        this.buttonLoader = true
+        this.chagenPasswordSubcription = this.userService.userUpdate(this.updatePassword.value).subscribe(result => {
+          this.buttonLoader = false
+          this.samePassword = false
+        })
+      }
+     
     }else{
-      this.toast.warning('wrong combinate password')
+      this.toast.warning('Wrong combinate password')
     }
   }
 

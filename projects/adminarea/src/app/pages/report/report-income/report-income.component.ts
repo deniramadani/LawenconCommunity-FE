@@ -9,6 +9,7 @@ import { Subscription,finalize } from "rxjs";
 
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { Title } from "@angular/platform-browser";
 @Component({
     selector: "report-income",
     templateUrl: "./report-income.component.html",
@@ -35,7 +36,9 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
         userId: this.fb.array([
         ]),
     })
-    constructor(private toast : ToastrService,private reportService: ReportService,private fb : FormBuilder,private datePipe: DatePipe) { }
+    constructor(private title: Title, private toast: ToastrService, private reportService: ReportService, private fb: FormBuilder, private datePipe: DatePipe) {
+        this.title.setTitle('Report Income')
+     }
     
     ngOnInit(): void {
         this.init()
@@ -72,7 +75,7 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
     }
 
     btnExport() {
-        this.loaderButton = true
+        
         this.userIDs.length= 0
         for(let i =0; i<this.selection.length;i++){
             this.userIDs.push(this.selection[i].memberId)
@@ -83,13 +86,19 @@ export class ReportIncomeComponent implements OnInit,OnDestroy {
         })
         this.data.value.userId = this.userIDs
         if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
-            this.insertIncomeSuperAdminSubscription = this.reportService.reportSuperAdminIncome(this.data.value).pipe(finalize(()=>this.loaderButton = false)).subscribe((result) => {
-                const anchor = document.createElement('a');
-                anchor.download = "report_income.pdf";
-                anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
-                anchor.click();
-                this.loaderButton = false
-            })
+            if (this.userIDs.length > 0) {
+                this.loaderButton = true
+                this.insertIncomeSuperAdminSubscription = this.reportService.reportSuperAdminIncome(this.data.value).pipe(finalize(()=>this.loaderButton = false)).subscribe((result) => {
+                    const anchor = document.createElement('a');
+                    anchor.download = "report_income.pdf";
+                    anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
+                    anchor.click();
+                    this.loaderButton = false
+                })
+            } else {
+                this.toast.warning('Select Members')
+            }
+           
         } else {
             this.toast.warning('input range date')
         } 

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
 import { finalize, Subscription } from 'rxjs';
@@ -19,10 +20,12 @@ export class PaymentPremiumComponent implements OnInit, OnDestroy {
   dataPaymentPremium: Payment[] = []
   selectedValues: string[] = []
   dataProduct: any[] = []
-  constructor(private paymentService: PaymentService) { }
+  constructor(private paymentService: PaymentService, private title: Title) { 
+    this.title.setTitle('Payment Premium')
+   }
 
   onInit(): void {
-    this.getAllPaymentSubscribeSubscription = this.paymentService.getAllPaymentSubscribe(0, 10).subscribe(result => {
+    this.getAllPaymentSubscribeSubscription = this.paymentService.getAllPaymentSubscribe(0, 40).subscribe(result => {
       this.dataPaymentPremium = result
     })
   }

@@ -3,6 +3,7 @@ import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { DashboardService } from '../../../service/dashboard.service';
 import { Subscription } from 'rxjs'
 import { DashboardAdmin  } from "../../../../../../interface/dashboard-admin";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'dashboard-admin',
@@ -17,7 +18,10 @@ export class DashboardAdminComponent implements OnInit,OnDestroy {
   chartOptionsPayment : any
   private getDashboardAdminSubscription?: Subscription
   
-  constructor(private apiService : ApiService,private dashboardService : DashboardService) { }
+  constructor(private apiService: ApiService, private dashboardService: DashboardService,
+    private title: Title) {
+    this.title.setTitle('Dashboard Admin')
+     }
  
   ngOnInit(): void {
     this.fullname = String(this.apiService.getProfileName())

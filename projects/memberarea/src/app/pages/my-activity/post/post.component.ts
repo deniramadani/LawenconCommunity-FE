@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -88,7 +89,12 @@ export class PostComponent implements OnInit,OnDestroy {
 
   formUpdatePost : boolean = false
 
-  constructor(private router : Router,private confirmationService: ConfirmationService,private fb : FormBuilder,private pollingService : PollingService,private postService : PostingService,private apiService : ApiService ,private toast : ToastrService) { }
+  constructor(private router: Router, private confirmationService: ConfirmationService,
+    private fb: FormBuilder, private pollingService: PollingService,
+    private postService: PostingService, private apiService: ApiService,
+    private toast: ToastrService, private title: Title) { 
+      this.title.setTitle('Activities')
+    }
   
   ngOnInit() {
     this.init()

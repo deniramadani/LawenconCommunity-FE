@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PrimeNGConfig } from 'primeng/api';
 
-import { Subscription } from "rxjs"
+import { Subscription,finalize} from "rxjs"
 import { UsersService } from '../../service/users.service';
 @Component({
   selector: 'app-register',
@@ -28,7 +29,10 @@ export class RegisterComponent implements OnInit,OnDestroy {
     code: new FormControl('', Validators.required),
   })
 
-  constructor(private router : Router ,private toast : ToastrService,private fb : FormBuilder,private primengConfig: PrimeNGConfig,private userService : UsersService) {}
+  constructor(private router: Router, private toast: ToastrService, private fb: FormBuilder,
+    private primengConfig: PrimeNGConfig, private userService: UsersService, private title: Title) {
+        this.title.setTitle('Register')
+     }
  
   ngOnInit() {
     this.primengConfig.ripple = true;
@@ -37,9 +41,9 @@ export class RegisterComponent implements OnInit,OnDestroy {
   btnGenerateCode() {
     this.loaderButton = true
     if(this.dataRegister.get('password')?.value == this.dataRegister.get('confirmPassword')?.value){
-          this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).subscribe(result => {
-      
+          this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).pipe(finalize(()=> this.loaderButton = false)).subscribe(result => {
             this.displayBasic2 = true;
+            // this.loaderButton = false
             this.loaderButton = false
         })
     }else{
@@ -52,15 +56,16 @@ export class RegisterComponent implements OnInit,OnDestroy {
   }
 
   btnVerificationCode() {
-    this.loaderButton = true
   this.dataCode.addControl('email', this.fb.control(this.dataRegister.get('email')?.value, [Validators.required]));
     this.validateSubscription = this.userService.validateCode(this.dataCode.value).subscribe(result => {
         if(result){
-          this.insertDataSubscription = this.userService.register(this.dataRegister.value).subscribe(result =>{
+          this.insertDataSubscription = this.userService.register(this.dataRegister.value).pipe(finalize(()=> this.loaderButton =false)).subscribe(result =>{
             this.displayBasic2 = false;
             this.router.navigateByUrl('/members/login')
             this.loaderButton = false
           })
+        } else {
+          this.loaderButton = false
         }
     })
   }

@@ -4,6 +4,7 @@ import { finalize, Subscription } from 'rxjs'
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-list-industry',
   templateUrl: './list-industry.component.html',
@@ -23,7 +24,10 @@ export class ListIndustryComponent implements OnInit {
   rows = 10
   limit = this.rows
   totalindustry!: number
-  constructor(private data : DashboardService,private industryService : IndustryService,private confirmationService: ConfirmationService) { }
+  constructor(private data: DashboardService, private industryService: IndustryService,
+    private confirmationService: ConfirmationService, private title: Title) {
+      this.title.setTitle('Industry')
+     }
   
 
   ngOnInit(): void {

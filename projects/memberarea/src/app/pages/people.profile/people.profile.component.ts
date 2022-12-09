@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -21,10 +22,6 @@ import { PostingService } from '../../service/posting.service';
   templateUrl: './people.profile.component.html',
 })
 export class PeopleProfileComponent implements OnInit,OnDestroy {
-
-
- 
-
   private getAllPostSubscription?: Subscription
   private unlikeSubscription?: Subscription
   private likeSubscription?: Subscription
@@ -39,10 +36,11 @@ export class PeopleProfileComponent implements OnInit,OnDestroy {
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
   fileid: string = ''
-  data! : User
+  data : any = new Object()
   posts: Post[] = []
   postsLike: Post[] = []
   postsBookmark: Post[] = []
+  photoId = ''
   limit: number = 5
   start: number = 0
   userType: string | null = this.apiService.getUserType()
@@ -61,8 +59,21 @@ export class PeopleProfileComponent implements OnInit,OnDestroy {
     }
   ];
   posting: boolean = false
-  postId : string = ''
-  constructor(private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  postId: string = ''
+  fullnameUser = ''
+  positionName = '-'
+  email = ''
+  phoneNumber = '-'
+  dateOfBirth = ''
+  address = ''
+  company = ''
+  industryName = ''
+  constructor(private activedParam: ActivatedRoute, private toast: ToastrService,
+    private pollingService: PollingService, private postService: PostingService,
+    private fb: FormBuilder, private router: Router,
+    private apiService: ApiService, private userService: UsersService, private title: Title) { 
+     
+     }
   ngOnInit(): void {
     this.init();
   }
@@ -71,9 +82,35 @@ export class PeopleProfileComponent implements OnInit,OnDestroy {
     this.getAllPostSubscription = this.activedParam.params.subscribe(id => {
       this.postService.getPostByOwnerId(String(Object.values(id)),this.start,this.limit).subscribe(result => {
         this.posts = result
+
       })
       this.userService.getUsersById(String(Object.values(id))).subscribe(result => {
-        this.data = result
+        if (result.photo != null) {
+          this.photoId = result.photo.id
+        }
+        this.fullnameUser = result.fullname
+        this.title.setTitle(result.fullname)
+           
+        this.email = result.email
+        if (result.position != null) {
+          this.positionName = result.position.positionName
+        }
+        if (result.phoneNumber != null) {
+          this.phoneNumber = result.phoneNumber
+        }
+        if (result.dateOfBirth != null) {
+          this.dateOfBirth = result.dateOfBirth
+        }
+        if (result.address != null) {
+          this.address = result.address
+        }
+        if (result.company != null) {
+          this.company = result.company
+        }
+        if (result.industry != null) {
+          this.industryName = result.industry.industryName
+        }
+        
       })
     
     })

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Report } from "projects/interface/report";
 import { LazyLoadEvent } from "primeng/api"
 import { ToastrService } from "ngx-toastr";
+import { Title } from "@angular/platform-browser";
 @Component({
     selector: "report-income",
     templateUrl: "./report-income.component.html",
@@ -32,8 +33,9 @@ export class ReportIncomeComponent implements OnInit, OnDestroy {
     })
 
   
-    constructor(private toast : ToastrService,private reportService: ReportService,private fb : FormBuilder,private datePipe: DatePipe) { }
-    
+    constructor(private title: Title, private toast: ToastrService, private reportService: ReportService, private fb: FormBuilder, private datePipe: DatePipe) {
+        this.title.setTitle('Report Income')
+    }
     ngOnInit(): void {
         this.init()
     }

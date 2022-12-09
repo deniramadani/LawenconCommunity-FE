@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
 import { Subscription } from "rxjs";
@@ -16,7 +17,9 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy{
   limit = 6
   seeMore : boolean = true
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
-  constructor(private postService : PostingService) { }
+  constructor(private postService: PostingService, private title: Title) { 
+    this.title.setTitle('Activities')
+  }
  
 
   ngOnInit(): void {

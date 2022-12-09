@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { IndustryService } from 'projects/mainarea/src/app/service/industry.service';
 import { finalize, Subscription } from 'rxjs'
@@ -20,7 +21,10 @@ export class UpdateIndustryComponent implements OnInit,OnDestroy {
     version: [0, [Validators.required]]
   })
 
-  constructor(private industryService : IndustryService,private activedParam : ActivatedRoute,private fb : FormBuilder) { }
+  constructor(private industryService: IndustryService, private activedParam: ActivatedRoute,
+    private fb: FormBuilder, private title: Title) { 
+    this.title.setTitle('Update Industry')
+    }
  
 
   ngOnInit(): void {

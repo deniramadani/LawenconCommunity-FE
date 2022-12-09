@@ -15,6 +15,7 @@ import { UserTypeConst } from 'projects/mainarea/src/app/constant/user-type-cons
 import { ToastrService } from 'ngx-toastr';
 import { FileService } from '../../service/file.service';
 import { ConfirmationService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -68,6 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   FormPolling : boolean = false
   showCommentComponent: any[] = []
+  disableUpload : boolean = false
   dataUser: any = new Object
   disabledInput : boolean = false 
   formCommnetUpdate : any [] = []
@@ -126,9 +128,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   updateComment = this.fb.group({
     id: ['', [Validators.required]],
     content: ['', [Validators.required]],
-    isActive : [true]
+    isActive: [true],
   })
-  constructor(private confirmationService: ConfirmationService,private  fileService : FileService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private confirmationService: ConfirmationService, private fileService: FileService,
+    private toast: ToastrService, private pollingService: PollingService,
+    private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService,
+    private router: Router, private apiService: ApiService,
+    private userService: UsersService,private title : Title) { this.title.setTitle('Home') }
   ngOnInit(): void {
     this.init();
   
@@ -166,17 +172,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.insertPostBasicSubscription = this.postService.postInsertPremium(this.dataPosting.value).subscribe(result => {
           this.loader = false
           this.init()
+          this.dataPosting.reset()
         })
       } else {
         this.insertPostBasicSubscription = this.postService.postInsertBasic(this.dataPosting.value).subscribe(result => {
           this.loader = false
           this.init()
-          
+          this.dataPosting.reset()
         })
       }
     }
-  
-   this.dataPosting.reset()
   }
 
   fileUpload(event: any) {
@@ -217,10 +222,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   showFormPolling() {
     this.FormPolling = true
     this.disabledInput = true
+    this.disableUpload = true
   }
   closeForm() {
     this.FormPolling = false
     this.disabledInput = false
+    this.disableUpload = false
   }
 
   init(): void {

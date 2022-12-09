@@ -29,6 +29,9 @@ export class UpdateUsersComponent implements OnInit {
   positions: any[] = []
   industries: any[] = []
   role: any[] = []
+  instagram = ''
+  linkedin = ''
+  facebook =''
   dataUser : any = new Object
   dataPosition : Position[] = []
   dataIndustry: Industry[] = []
@@ -46,25 +49,35 @@ export class UpdateUsersComponent implements OnInit {
       fileExtensions : ['']
     })
   })
+
   dataUpdate = this.fb.group({
-    id: ['', [Validators.required]],
-    fullname: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    userType: this.fb.group({
-      id : ['', [Validators.required]]
-    }),
-    company: ['', [Validators.required]],
+    id : ['',[Validators.required]],
+    fullname : ['',[Validators.required]],
+    email : ['',[Validators.required]],
+    phoneNumber : [''],
+    address : [''],
+    company: [''],
+    dateOfBirth: [''],
+    isActive: [true, [Validators.required]],    
     industry: this.fb.group({
-      id : ['', [Validators.required]]
+      id : ['']
     }),
     position: this.fb.group({
-      id : ['', [Validators.required]]
+      id : ['']
     }),
-    phoneNumber: ['', [Validators.required]],
-    address: ['', [Validators.required]],
-    dateOfBirth: ['', [Validators.required]],
-    isActive: [true, [Validators.required]],    
-  })
+    userSocmed: this.fb.group({
+      facebook : [''],
+      instagram : [''],
+      linkedin :[''],
+    }),
+    userType: this.fb.group({
+      id : ['']
+    }),
+    photo: this.fb.group({
+      fileEncode : [''],
+      fileExtensions : [''],
+    })
+  }) 
 
 
   constructor(
@@ -93,21 +106,8 @@ export class UpdateUsersComponent implements OnInit {
         } else {
           this.selectedIndustry = null
         }
-   
-     
-          this.dataUpdate.patchValue({
-            id : result.id,
-            fullname: result.fullname,
-            email: result.email,
-            company: result.company,
-            address: result.address,
-            phoneNumber: result.phoneNumber,
-            userType: {
-              id : result.userType.id
-            },
-            isActive: result.isActive,
-            dateOfBirth : result.dateOfBirth,
-          })
+  
+        this.dataUpdate.patchValue(result)
 
       })
     })
@@ -125,12 +125,28 @@ export class UpdateUsersComponent implements OnInit {
   }
 
   update() {
+    this.loaderButton = true
     if (this.bod != null) {
       this.dataUpdate.patchValue({
         dateOfBirth : this.bod
       })
     }
-    this.loaderButton = true
+
+    this.dataUpdate.patchValue({
+      userSocmed: {
+        instagram: this.instagram,
+        facebook: this.facebook,
+        linkedin : this.linkedin
+      },
+      industry: {
+        id: this.selectedIndustry
+      },
+      position: {
+        id : this.selectedPosition
+      }
+
+    })
+ 
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => { 
     })
    

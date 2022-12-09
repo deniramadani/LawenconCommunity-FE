@@ -91,7 +91,8 @@
                   <div class="col-1 lg:col-1 sm:col-1">
                     <button pButton pRipple uploadLabel="File" type="button" icon="pi pi-cloud-upload"
                       pTooltip="Upload Foto" class="p-button-rounded p-button-secondary p-button-text"
-                      style="margin-bottom: 13px ;" onclick="document.getElementById('file').click();"></button>
+                      [disabled]="disableUpload" style="margin-bottom: 13px ;"
+                      onclick="document.getElementById('file').click();"></button>
                     <input class="form-control bi bi-upload" accept="image/*" style="display:none;" type="file"
                       id="file" multiple (change)="fileUpload($event)">
                   </div>
@@ -302,7 +303,7 @@
                           <div class="flex flex-row p-0">
                             <div class="p-0 py-2 w-10">
                               <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
-                                [value]="(option.totalResponse/post.totalPolling)*100">
+                                [value]="((option.totalResponse/post.totalPolling)*100)">
                               </p-progressBar>
                             </div>
                             <div class="pl-0 py-2 w-2 text-center">

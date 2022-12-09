@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Subscription } from "rxjs";
 import { ProductsService } from '../../../service/products.service';
@@ -13,7 +14,9 @@ export class EventComponent implements OnInit,OnDestroy {
   start: number = 0
   data: any = new Object
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
-  constructor(private productService : ProductsService) { }
+  constructor(private productService: ProductsService, private title: Title) { 
+    this.title.setTitle('Events')
+   }
   
 
   ngOnInit(): void {

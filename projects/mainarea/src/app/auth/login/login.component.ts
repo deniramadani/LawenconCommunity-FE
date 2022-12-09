@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subscription,finalize } from 'rxjs';
 import { ApiService } from '../../service/api.service';
@@ -18,7 +19,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email,Validators.maxLength(40)]],
     password: ['', [Validators.required]]
   })
-  constructor(private fb: FormBuilder, private userService: UsersService, private apiService: ApiService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UsersService,
+    private apiService: ApiService, private router: Router, private title: Title) {
+        this.title.setTitle('Login')
+     }
   ngOnInit(): void {
     this.features = [
       {
