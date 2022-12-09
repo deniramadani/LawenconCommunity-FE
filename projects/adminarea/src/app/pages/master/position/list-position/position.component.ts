@@ -44,10 +44,6 @@ export class ListPositionComponent implements OnInit,OnDestroy {
     })
   }
 
-  getAllPosition() {
-    
-  }
-
   clickConfirmDelete(position: string, id: string,) {
     this.confirmationService.confirm({
         message: 'Do you want to delete this record?',

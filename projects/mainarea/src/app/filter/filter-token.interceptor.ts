@@ -22,21 +22,29 @@ export class FilterTokenInterceptor implements HttpInterceptor {
                     Authorization: `Bearer ${this.apiService.getData()}`
                 }
             })
-        }
+        } 
+
+      
 
         return next.handle(reqClone).pipe(
             tap({
                 next: data => {
                     if (data instanceof HttpResponse) {
-
-                        if (data.body.message) {
-                            this.toast.success(data.body.message, 'Information')
+                        if (data.body.message == 'You Bookmarked This Post' || data.body.message == 'You Success Canceling Bookmark This Post' ||data.body.message == 'Deleted'||data.body.message == 'You Success Canceling like This Post' || data.body.message == 'You Liked This Post') {
+                            
+                        }else {
+                            if (data.body.message) {
+                                this.toast.success(data.body.message, 'Information')
+                            }
                         }
+                       
                     }
                 },
                 error: err => {
                     if (err instanceof HttpErrorResponse) {
-                        this.toast.error(err.error.message, 'Information ')
+                       
+                        this.toast.error(err.error.message, 'Information ')   
+                        
                     }
                 }
             })

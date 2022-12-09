@@ -19,27 +19,36 @@
             </ng-template>
 
             <ng-template pTemplate="header">
-                <tr>
+                <!-- <tr>
                     <th style="width: 4rem">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     <th class="text-center" style="width: 6rem">No</th>
                     <th>Member Name</th>
                     <th class="text-center">Total Income</th>
+                </tr> -->
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th class="text-center" style="width: 6rem">No</th>
+                    <th>Member Name</th>
+                    <th class="text-center">Total Participant</th>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-reportPartipant let-i="rowIndex">
                 <tr>
-
+                <tr>
                     <td style="width: 4rem">
-                        <p-tableCheckbox [value]="reportParticipant" [index]="i">
+                        <p-tableCheckbox [value]="reportPartipant" [index]="i">
                         </p-tableCheckbox>
                     </td>
                     <td class="text-center" style="width: 6rem">{{i+1}}</td>
                     <td>{{reportPartipant.memberName}}</td>
-                    <td class="text-center">{{reportPartipant.totalParticipants}}</td>
+                    <td class="text-center">{{reportPartipant.totalParticipants }}</td>
                 </tr>
+
             </ng-template>
 
         </p-table>

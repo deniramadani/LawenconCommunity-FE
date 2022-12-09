@@ -1,10 +1,10 @@
-<div class="px-2 lg:px-5 py-8" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
+<div class="px-2 lg:px-7 py-8" style="font-family:Inter" infinite-scroll (scrolled)="onScroll()">
   <div class="mt-2 p-0">
     <div class="grid">
-      <div class="col-12 lg:col-3 py-3 px-3">
+      <div class="col-12 lg:col-3 p-0 px-3">
         <h6 class="text-xl">My Profile</h6>
         <div class="">
-          <div class="card px-4 text-center">
+          <div class="card px-4 text-center border-round shadow-3">
             <div *ngIf="fotoProfile == null; then default else photoProfile"></div>
             <ng-template #default>
               <p-avatar class="px-5 mt-5" image="../../../../assets/img/default.jpg" styleClass="w-5rem h-5rem"
@@ -16,40 +16,51 @@
                 shape="circle">
               </p-avatar>
             </ng-template>
-            <h5 class="text-lg mt-3">{{fullname}} <span class="mr-2 text-xs text-yellow-500" *ngIf="verified"><i
-                  class=" pi pi-check-circle mr-1"></i></span> </h5>
+            <h5 class="text-lg mt-3">{{fullname}} <span pTooltip="Premium Member" class="mr-2 text-xs text-yellow-500"
+                *ngIf="verified"><i class=" pi pi-verified mr-1"></i></span> </h5>
             <p class="text-secondary text-sm">{{position}}</p>
-            <hr>
-            <div class="flex flex-row flex-wrap gap-3 justify-content-center">
-              <div class=" flex" role="button">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
-                </p-avatar>
-              </div>
-              <div class="flex" role="button" (click)="goToLink('https://www.instagram.com/fransisko.shb')">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
-                </p-avatar>
-              </div>
-              <div class="flex" role="button">
-                <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png" shape="circle">
-                </p-avatar>
-              </div>
-            </div>
-            <div class="text-left mt-3">
-              <p class="text-sm"> <i class="pi pi-user mr-2"></i>Personal Details</p>
-              <div class="px-2 text-xs text-left">
-                <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
-                  {{email}}</p>
-                <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
-                  {{phoneNumber}}</p>
-                <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
-                  {{age}}</p>
-              </div>
+            <div class="hidden lg:block">
 
+              <div class="flex flex-row flex-wrap gap-3 justify-content-center">
+                <div class=" flex" role="button">
+                  <a href="https://facebook.com/{{facebook}}" target="_blank">
+                    <p-avatar class="pt-2" image="../../../../assets/icons/icons8-facebook-48.png" shape="circle">
+                    </p-avatar>
+                  </a>
+                </div>
+                <div class="flex" role="button">
+                  <a href="https://www.instagram.com/{{ig}}" target="_blank">
+                    <p-avatar class="pt-2" image="../../../../assets/icons/icons8-instagram-48.png" shape="circle">
+                    </p-avatar>
+                  </a>
+                </div>
+                <div class="flex" role="button">
+                  <a href="https://www.linkedin.com//{{linkedin}}" target="_blank">
+                    <p-avatar class="pt-2" image="../../../../assets/icons/icons8-linkedin-circled-48.png"
+                      shape="circle">
+                    </p-avatar>
+                  </a>
+                </div>
+              </div>
+              <div class="text-left mt-3">
+                <p class="text-sm"> <i class="pi pi-user mr-2"></i>Personal Details</p>
+                <div class="px-2 text-xs text-left">
+                  <p class="text-secondary"><i class="pi pi-envelope pe-1"></i>
+                    {{email}}</p>
+                  <p class="text-secondary"><i class="pi pi-phone pe-1"></i>
+                    {{phoneNumber}}</p>
+                  <p class="text-secondary"><i class="pi pi-calendar pe-1"></i>
+                    {{age}}</p>
+                </div>
+
+              </div>
             </div>
+
+
           </div>
         </div>
       </div>
-      <div class="col-12 lg:col-6 pt-3 pb-3 ">
+      <div class="col-12 lg:col-6 p-0 px-3">
         <h6 class="text-xl">Thread & Discuss</h6>
         <div class="shadow-2 surface-card p-3 border-round">
           <h6 class="text-lg"> <i class="pi pi-pencil mr-2"></i> Create New Thread</h6>
@@ -70,7 +81,7 @@
                 <div class="ml-2 w-full">
                   <textarea placeholder="Title Post" formControlName="title" pInputTextarea rows="1" [autoResize]="true"
                     class="py-1 px-3 text-md w-full"></textarea>
-                  <textarea placeholder="Body" formControlName="body" pInputTextarea rows="3" [autoResize]="false"
+                  <textarea placeholder="Body" formControlName="body" a pInputTextarea rows="3" [autoResize]="false"
                     class="py-1 px-3 text-md w-full"></textarea>
                 </div>
               </div>
@@ -108,13 +119,14 @@
                       Premium</label>
                   </div>
                   <div class="col-3 lg:col-3 sm:col-3 text-right">
-                    <button pButton pRipple [disabled]="!dataPosting.valid" type="submit" label="Post" icon="pi pi-send"
-                      class="p-button-outlined p-button-rounded p-1 px-2 lg:px-4" iconPos="right"></button>
+                    <button pButton [loading]="loaderButton" pRipple [disabled]="!dataPosting.valid" type="submit"
+                      label="Post" icon="pi pi-send" class="p-button-outlined p-button-rounded p-1 px-2 lg:px-4"
+                      iconPos="right"></button>
                   </div>
                 </div>
 
-                <div class="card bg-gray-300 p-3 w-full" (click)="closeForm()" *ngIf="FormPolling">
-                  <div class="flex justify-content-end">
+                <div class="card bg-gray-300 p-3 w-full" *ngIf="FormPolling">
+                  <div class="flex justify-content-end" (click)="closeForm()">
                     <i class=" pi pi-times" pTooltip="Close" role="button"></i>
                   </div>
                   <div class="p-fluid p-formgrid grid">
@@ -276,42 +288,60 @@
             <div *ngIf="post.optionId != null; then voted else notVoted"></div>
             <ng-template #voted>
               <div class="col-12">
-                <div class="flex flex-column w-full px-3 bg-gray-200 p-3 border-round">
+                <div class="flex flex-column w-full px-3 py-1 border-round">
                   <span class="text-900 font-medium text-md border-200 pb-2" style="border-bottom:1px solid;">Category
                     {{post.question}}
                   </span>
                   <ng-container *ngFor="let option of post.postPollingOption">
                     <div *ngIf="post.optionId == option.id; then choosed else notChoosed"></div>
                     <ng-template #choosed>
-                      <div class="p-button-label pl-3 col-12 bg-primary-900 shadow mb-1 bg-body rounded  text-white ">
-                        <div class="grid w-full p-button-label ">
-                          <div class="col-11 lg:col-11 sm:col-11 text-left">
-                            {{option.content}}
+                      <div
+                        class="p-button-label pr-0 mb-2 py-0 pl-3 col-12 bg-blue-900 shadow bg-body rounded  text-white ">
+                        <div class="flex flex-column w-full p-button-label mt-1">
+                          <label>{{option.content}}</label>
+                          <div class="flex flex-row p-0">
+                            <div class="p-0 py-2 w-10">
+                              <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
+                                [value]="(option.totalResponse/post.totalPolling)*100">
+                              </p-progressBar>
+                            </div>
+                            <div class="pl-0 py-2 w-2 text-center">
+                              <span class="text-sm"> {{ ((option.totalResponse/post.totalPolling)*100).toFixed(1)
+                                }}%<i class="pi pi-check-circle ml-1"></i>
+                              </span>
+                            </div>
                           </div>
-                          <div class="col-1 lg:col-1 sm:col-1  text-left">
-                            {{option.totalResponse}}
-                          </div>
+
                         </div>
                       </div>
                     </ng-template>
+
                     <ng-template #notChoosed>
-                      <div class="p-button-label pl-3 col-12 bg-primary shadow mb-1 bg-body rounded ">
-                        <div class="grid w-full">
-                          <div class="col-11 lg:col-11 sm:col-11 text-left">
-                            {{option.content }}
+                      <div class="p-button-label pl-3 pr-0 col-12 bg-primary-200 py-1 mb-1 bg-body rounded">
+                        <label>{{option.content }}</label>
+                        <div class="grid w-full p-button-label">
+                          <div class="p-0 py-2 w-10">
+                            <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
+                              [value]="(option.totalResponse/post.totalPolling)*100">
+                            </p-progressBar>
                           </div>
-                          <div class="col-1 lg:col-1 sm:col-1  text-left">
-                            {{option.totalResponse}}
+                          <div class="pl-0 py-2 w-2 text-center">
+                            <span class="text-sm">
+                              {{((option.totalResponse/post.totalPolling)*100).toFixed(1)}}%</span>
                           </div>
                         </div>
                       </div>
                     </ng-template>
+
                   </ng-container>
+                  <div class="text-right pr-1">
+                    <span class="text-md text-600 ">{{post.totalPolling}} Votes</span>
+                  </div>
                 </div>
               </div>
             </ng-template>
             <ng-template #notVoted>
-              <div class="col-12">
+              <div class=" col-12">
                 <div class="p-5 bg-gray-200 border-round">
                   <div class="card-header bg-primary-900 text-white ">
                     <p>{{post.question}}</p>
@@ -333,7 +363,7 @@
               </div>
             </ng-template>
           </div>
-          <div class="mt-4 px-2">
+          <div class="mt-1 px-2">
             <p class="text-secondary font-italic text-xs">{{post.totalLike}} Likes
               &nbsp;&nbsp;{{post.totalComment}}
               Comments</p>
@@ -362,7 +392,7 @@
                   </span>
                 </div>
                 <div class="col-1 lg:col-1 sm:col-1 text-right ">
-                  <div *ngIf=" post.bookmarkId !=null; then cancelBookmark else saveBookmark"></div>
+                  <div *ngIf=" post.bookmarkId != null; then cancelBookmark else saveBookmark"></div>
                   <ng-template #cancelBookmark>
                     <span type="button" (click)="unbookmark(post.bookmarkId, post.postType.postTypeCode)"
                       class=" text-black">
@@ -461,27 +491,36 @@
                                 </li>
                               </ul>
                             </div>
+
                           </div>
+
                         </ng-template>
                       </span>
                     </div>
                   </div>
                   <ng-container *ngIf="formCommnetUpdate[j]; else showComment">
                     <form [formGroup]="updateComment">
-                      <div class="flex w-full mt-2 p-0 gap-1 lg:pl-6 pr-2 z-0">
-                        <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
-                          class="py-2 px-3 text-sm w-full"></textarea>
-                        <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
-                          class="p-button-sm  p-1" icon="pi pi-pencil" style="float: right;"></button>
+                      <div class="grid">
+                        <div class="col-12 lg:col-10">
+                          <textarea id="message" pInputTextarea rows="1" formControlName="content" [autoResize]="true"
+                            class="py-2 px-3 text-sm w-full"></textarea>
+                        </div>
+                        <div class="col-12 lg:col-2 text-left">
+                          <button pButton pRipple type="submit" (click)="btnUpdateComment(post.id,j)"
+                            class="p-button-sm p-2" icon="pi pi-pencil"></button>
+                        </div>
                       </div>
                     </form>
 
                   </ng-container>
                   <ng-template #showComment>
-                    <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6">
-                      {{c.content}}
-                    </p>
+                    <div class="pr-3 p-0">
+                      <p class="m-0 p-0 line-height-3 mt-2 text-600 lg:ml-6" style="word-wrap: break-word ;">
+                        {{c.content}}
+                      </p>
+                    </div>
                   </ng-template>
+
                 </div>
               </div>
               <div class="px-5 w-full text-center my-3 text-right">
@@ -517,7 +556,7 @@
 
       </div>
 
-      <div class="col-12 lg:col-3 px-5 py-2">
+      <div class="col-12 lg:col-3 p-0 px-3">
         <h6 class="text-xl">Article</h6>
         <div class="col-12 lg:col-12 p-0 pb-3" *ngFor="let d of data" role="button"
           routerLink="/articles/detail/{{d.id}}">
@@ -527,7 +566,7 @@
               <span class="block text-900 font-medium">{{d.title}}</span>
               {{ seeMore ? d.content : d.content.substr(0, 50) }}
               <ng-container *ngIf="d.content.length > 100">...
-                <span> <a type="button" class="a-link text-blue-500 text-sm my-2">Read More -></a></span>
+                <span> <a type="button" class="a-link text-blue-500 text-xs my-2">Read More -></a></span>
               </ng-container>
               <div class="flex">
                 <div class="">

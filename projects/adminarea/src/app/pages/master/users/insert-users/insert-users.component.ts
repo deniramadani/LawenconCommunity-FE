@@ -119,8 +119,6 @@ export class InsertUsersComponent implements OnInit,OnDestroy {
     toBase64(event.files[0].name).then(result => {
       this.resultFile = result.substring(result.indexOf(",") + 1, result.length)
       this.resultExtension = result.split(";")[0].split('/')[1]
-      console.log(result);
-      
     })
   }
 

@@ -55,21 +55,27 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
   constructor(private productService : ProductsService,private postService : PostingService,private fb : FormBuilder,private productTypeService : ProductTypeService) { }
   
   ngOnInit(): void {
-  
     this.onInit()
+    this.initGetProductType()
   }
 
-  onInit() {
-    this.initGetEvent()
-    this.initGetCourse()
-   
-
+  initGetProductType() {
     this.getAllProductTypeSubscription = this.productTypeService.getAllProductType().subscribe(result => {
       this.dataProductType = result
       for (let i = 0; i < result.length; i++) {
         this.productType.push(result[i])
       }
     })
+  }
+
+  onInit() {
+    this.getEventByUserIdSubscription = this.productService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
+      this.dataEvent = result
+    })
+    this.getCourseByUserIdSubscription = this.productService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
+      this.dataCourse = result
+    })
+   
   }
 
   initGetEvent() {
@@ -108,6 +114,7 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
   }
 
   update() {
+
     function getTimeZone() {
       var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
       return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
@@ -119,12 +126,12 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
     })
   
     this.updateProductSubscription = this.productService.updateProduct(this.dataUpdate.value).subscribe(result => {
-      this.displayFormUpdate = false
-      this.initGetEvent()
+        this.onInit()
     })
   }
 
   showFormUpdate(type: string, i: any) {
+    
     this.displayFormUpdate = true
     this.label = type
     if (type === 'Event') {
@@ -140,7 +147,7 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
           location: this.dataEvent[i].product.location,
           price : this.dataEvent[i].product.price,
           productType: {
-            id : this.selectedProductType
+            id : this.dataEvent[i].product.productType.id
           },
           photo: {
             fileEncode: this.dataEvent[i].product.photo.fileEncode,

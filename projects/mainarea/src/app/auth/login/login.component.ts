@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription,finalize } from 'rxjs';
 import { ApiService } from '../../service/api.service';
 import { UsersService } from '../../service/users.service';
 
@@ -12,9 +12,10 @@ import { UsersService } from '../../service/users.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private loginSubscription?: Subscription
-  features : any [] = []
+  features: any[] = []
+  loaderButton : boolean = false
   dataLogin = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email,Validators.maxLength(40)]],
     password: ['', [Validators.required]]
   })
   constructor(private fb: FormBuilder, private userService: UsersService, private apiService: ApiService, private router: Router) { }
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.loginSubscription = this.userService.login(this.dataLogin.value).subscribe(result => {
+    this.loaderButton = true
+    this.loginSubscription = this.userService.login(this.dataLogin.value).pipe(finalize(() => this.loaderButton = false)).subscribe(result => {
       this.apiService.saveData(result)
       if (this.apiService.getRoleCode() == 'ROLSA') {
         this.router.navigateByUrl('/dashboard/super-admin')
@@ -49,7 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       }else if(this.apiService.getRoleCode() == 'ROLAM'){
         this.router.navigateByUrl('/dashboard/admin')
       }
-    })
+      this.loaderButton = false
+  })
     
   }
   ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 <div class="container pb-5">
-  <div class="mt-5 pb-8">
+  <div class="mt-8 pb-8">
     <div class="pagetitle">
       <h3>Payment</h3>
       <nav>
@@ -10,7 +10,7 @@
       </nav>
     </div>
     <div class="grid">
-      <div class="col-12 lg:col-8 pt-3 pb-3">
+      <div class="col-12 lg:col-8 pt-0 pb-3">
         <div class="surface-section shadow-2">
           <div class="text-center md:text-left border-round  flex flex-column justify-content-end mb-5">
             <img src="{{fileDownload}}{{detailProduct.product.photo.id}}" class="h-25rem" alt="">
@@ -24,7 +24,6 @@
                 Published {{detailProduct.createdAt | date : 'E, dd MM yyyy'}} by
                 <span class="font-italic" role="button" routerLink="/view/profile/{{detailProduct.product.ownerId.id}}">
                   {{detailProduct.product.ownerId.fullname}}</span>
-
               </p>
             </div>
             <div class="col-12 lg:col-12 lg:px-5">
@@ -71,7 +70,7 @@
               </div>
               <hr>
 
-              <div class="line-height-3 text-lg text-900 mb-4">
+              <div class="line-height-3 text-md text-900 mb-4 text-justify" style="text-indent: 20px ;">
                 {{detailProduct.product.content}}
               </div>
             </div>
@@ -79,9 +78,9 @@
         </div>
       </div>
 
-      <div class="col-12 lg:col-4 p-3">
+      <div class="col-12 lg:col-4">
         <ng-template [ngIf]="paymentStatus !== paymentNone">
-          <div class="p-card p-3 my-3">
+          <div class="p-card p-3 ">
             <h5 class="text-lg">Transaction History</h5>
             <hr>
             <p-table [value]="detailPayment" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true"

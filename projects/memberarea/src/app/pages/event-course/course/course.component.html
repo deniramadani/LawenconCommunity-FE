@@ -10,43 +10,64 @@
     </div>
     <hr>
     <div class="grid mt-5 px-5">
-        <div class="col-12 lg:col-4 sm:col-4 p-3" *ngFor="let d of data" role="button"
+        <div class="col-12 lg:col-4" *ngFor="let d of data" role="button"
             routerLink="/events-courses/payment/{{d.product.id}}">
+            <div class="shadow-2 border-round surface-card"><img src="{{fileDownload}}{{d.product.photo.id}}"
+                    alt="Image" class="block w-full border-round-top h-9rem">
+                <div class="p-3 "><span class="block font-medium text-blue-600 mb-1">
+                        <p-tag severity="warning" [rounded]="true"><a class="p-link text-white"
+                                style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </span>
+                    <div class="text-md font-semibold text-900 font-medium mb-3 line-height-3">
+                        <ng-container *ngIf="d.product.title.length > 30; else elseTemplatetitle">
+                            {{d.product.title.substr(0,30)}}...
+                        </ng-container>
+                        <ng-template #elseTemplatetitle>
+                            {{d.product.title}}
+                        </ng-template>
+                    </div>
+                    <div class="line-height-3 mb-3 text-700">
+                        <table class="pt-0">
+                            <tbody class="p-0">
+                                <tr>
+                                    <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                            <ng-container
+                                                *ngIf="d.product.location.length > 15; else elseTemplateLocation">
+                                                {{d.product.location.substr(0,15)}}...
+                                            </ng-container>
+                                            <ng-template #elseTemplateLocation>
+                                                {{d.product.location}}
+                                            </ng-template>
+                                        </small></td>
+                                    <td><small class="ml-3"><i class="bi bi-coin"></i> {{d.product.price | currency :
+                                            'Rp. '
+                                            }}</small></td>
 
-            <img src="{{fileDownload}}{{d.product.photo.id}}" alt="Image" class="border-round-left w-full"
-                style="max-height: 234px;">
-            <div class="p-4 p-card">
-                <div class="flex justify-content-between mb-3">
-                    <span class="text-orange-500 font-medum">{{d.product.title}}</span>
-                    <span class="text-500 font-medium">{{calculateDiff(d.createdAt)}}</span>
+                                </tr>
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                                            date : 'E, dd MMM yyyy'}} </small></td>
+                                    <td><small class="ml-3"><i class="bi bi-alarm"></i> {{d.dateTimeStart | date :
+                                            'hh:mm'}} -
+                                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="text-sm font-bold text-blue-500 text-900 mb-1">
+                        <ng-container *ngIf="d.product.provider.length > 30; else elseTemplateProvider">
+                            {{d.product.provider.substr(0,30)}}...
+                        </ng-container>
+                        <ng-template #elseTemplateProvider>
+                            {{d.product.provider}}
+                        </ng-template>
+
+                    </div>
                 </div>
-
-                <table class="pt-0">
-                    <tbody class="p-0">
-                        <tr>
-                            <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small>
-                            </td>
-                            <td class="pt-1" p><small><i class="bi bi-alarm ml-3"></i> {{d.dateTimeStart | date :
-                                    'hh:mm'}} -
-                                    {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
-                        </tr>
-                        <tr>
-                            <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
-                                    date : 'E, dd MMM yyyy'}} </small></td>
-                            <td class="pt-1"><small><i class="bi bi-coin ml-3"></i> {{d.product.price}}</small></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <div class="line-height-3 text-700 text-sm mb-3 mt-2">{{d.product.content}}</div>
-                <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
-                <hr>
-                <div class="flex align-items-center">
-                    <p-avatar image="{{fileDownload}}{{d.product.ownerId.photo.id}}" shape="circle"></p-avatar>
-                    <span class="font-bold text-sm block ml-2 text-blue-600">{{d.product.ownerId.fullname}}</span>
-                </div>
-
             </div>
         </div>
     </div>

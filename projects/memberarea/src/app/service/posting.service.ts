@@ -26,8 +26,8 @@ export class PostingService {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/payments`, data)
   }
 
-  getAll(start: number, limit: number): Observable<any> {
-    return this.http.get<any>(`${BASE_URL.BASE_URL}/posts?start=${start}&limit=${limit}`)
+  getAll(start: number, limit: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${BASE_URL.BASE_URL}/posts?start=${start}&limit=${limit}`)
   }
   unlike(id: string): Observable<any> {
     return this.http.delete(`${BASE_URL.BASE_URL}/post-likes/${id}`)

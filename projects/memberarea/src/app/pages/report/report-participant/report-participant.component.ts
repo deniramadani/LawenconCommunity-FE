@@ -1,7 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { Subscription,finalize } from "rxjs";
 import { Report } from "projects/interface/report";
 import { LazyLoadEvent } from "primeng/api"
 import { ToastrService } from "ngx-toastr";
@@ -16,12 +16,15 @@ import { ReportService } from "../../../service/report.service";
 export class ReportMemberComponent implements OnInit,OnDestroy{
     private getAllParticipantMemberSubscription?: Subscription
     private getMemberParticipantMemberSubscription?: Subscription
-    private insertParticipantMemberSubscription? : Subscription
-   
+    private insertParticipantMemberSubscription?: Subscription
+    private getDataCount?:Subscription
+    loaderButton : boolean = false
     first = 0
     rows = 10
+    totalRow: number = 0
+    loadertable: boolean =  true
     reportParticipant: any[] = []
-    dateRanges: any[] = []
+    dateRangesParticipant: any[] = []
     dataReport : Report[] = []
     date = this.fb.group({
        
@@ -37,12 +40,15 @@ export class ReportMemberComponent implements OnInit,OnDestroy{
     }
 
     init(){
-    
-        this.getAllParticipantMemberSubscription = this.reportService.getAllProductivityReport(this.first,this.rows).subscribe(result=>{
-            for(let i=0;i<result.length;i++){
+        this.getAllParticipantMemberSubscription = this.reportService.getAllProductivityReport(this.first, this.rows).pipe(finalize(()=> this.loadertable = false)).subscribe(result => {
+            for (let i = 0; i < result.length; i++) {
                 this.reportParticipant.push(result[i])
-            }
-        })     
+             }
+        
+          })
+          this.getDataCount = this.reportService.countReportRevenueMember().subscribe(result => {
+              this.totalRow = result.totalRow
+          })
     }
 
     getData(offset: number, limit: number){
@@ -61,12 +67,14 @@ export class ReportMemberComponent implements OnInit,OnDestroy{
 
 
     btnExportParticipant() {
+        this.loaderButton = true
         this.date.patchValue({
-            startDate: this.datePipe.transform(this.dateRanges[0], 'yyyy-MM-dd'),
-            endDate : this.datePipe.transform(this.dateRanges[1], 'yyyy-MM-dd')
+            startDate: this.datePipe.transform(this.dateRangesParticipant[0], 'yyyy-MM-dd'),
+            endDate : this.datePipe.transform(this.dateRangesParticipant[1], 'yyyy-MM-dd')
         })
-        if (this.dateRanges[0] != null && this.dateRanges[1] != null) {
-            this.insertParticipantMemberSubscription = this.reportService.reportMemberProductivityReportData(this.date.value).subscribe((result) => {
+        if (this.dateRangesParticipant[0] != null && this.dateRangesParticipant[1] != null) {
+            this.insertParticipantMemberSubscription = this.reportService.reportMemberProductivityReportData(this.date.value).pipe(finalize(()=> this.loaderButton = false )).subscribe((result) => {
+                this.loaderButton = false
                 const anchor = document.createElement('a');
                 anchor.download = "report_participant.pdf";
                 anchor.href = (window.webkitURL || window.URL).createObjectURL(result.body as any);
@@ -82,6 +90,7 @@ export class ReportMemberComponent implements OnInit,OnDestroy{
         this.getAllParticipantMemberSubscription?.unsubscribe()
         this.getMemberParticipantMemberSubscription?.unsubscribe()
         this.insertParticipantMemberSubscription?.unsubscribe()
+        this.getDataCount?.unsubscribe()
     }
 
 }

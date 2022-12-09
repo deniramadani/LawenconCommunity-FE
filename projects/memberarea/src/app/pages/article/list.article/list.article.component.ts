@@ -34,7 +34,6 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   init(): void {
     this.articleGetAllSubscription = this.articleService.getArticle(this.start, this.limit).subscribe(result => {
       this.data = result
-      console.log(this.data);
     })
 
     this.getAllEventSubscription = this.productService.getAllEvents(0,1).subscribe(result => {

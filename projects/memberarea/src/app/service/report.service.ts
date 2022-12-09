@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Observable } from 'rxjs';
 import { Report } from "../../../../interface/report";
+import { DtoCount } from "../../../../interface/dto-count";
 @Injectable({
   providedIn: 'root'
 })
@@ -50,6 +51,14 @@ export class ReportService {
 
   reportSuperAdminPartipants(data : any) : Observable<any> {
     return this.http.post<any>(`${BASE_URL.BASE_URL}/reports/productivity/super-admin`,data,{responseType : 'blob' as 'json', observe : 'response'})
+  }
+
+  countReportRevenueMember(): Observable<DtoCount>{
+    return this.http.get<DtoCount>(`${BASE_URL.BASE_URL}/reports/revenue/member/count`);
+  }
+
+  countReportParticipantMember(): Observable<DtoCount>{
+    return this.http.get<DtoCount>(`${BASE_URL.BASE_URL}/reports/productivity/member/count`);
   }
 
 }

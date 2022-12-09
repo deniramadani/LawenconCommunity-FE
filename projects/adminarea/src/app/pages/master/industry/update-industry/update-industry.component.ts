@@ -32,8 +32,6 @@ export class UpdateIndustryComponent implements OnInit,OnDestroy {
           industryName: result.industryName,
           version : result.version
         })
-        console.log(id);
-        
       })
     })
   }

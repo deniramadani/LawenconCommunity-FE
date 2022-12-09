@@ -31,8 +31,8 @@ export class PaymentService {
     return this.http.put<Payment>(`${BASE_URL.BASE_URL}/payments/invalid?id=${id}`,id)
   }
 
-  getAllByProductId(id : string): Observable<Payment> {
-    return this.http.get<Payment>(`${BASE_URL.BASE_URL}/payments/users/products?productId=${id}`)
+  getAllByProductId(id : string): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${BASE_URL.BASE_URL}/payments/users/products?productId=${id}`)
   }
 
 }

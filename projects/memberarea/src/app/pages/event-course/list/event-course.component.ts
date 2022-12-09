@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from 'projects/interface/product-type';
 import { formatDate } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-event-course',
   templateUrl: './event-course.component.html',
@@ -29,7 +30,8 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   startDate: string = ''
   endDate: string = ''
   productTypes : any [] = []
-  selectedProductType : string = ''
+  selectedProductType: string = ''
+  result : string = ''
   dataInsert = this.fb.group({
     dateTimeStart: ['',[Validators.required]],
     dateTimeEnd : ['',[Validators.required]],
@@ -48,7 +50,7 @@ export class EventCourseComponent implements OnInit,OnDestroy {
       }),
     })
   })
-  constructor(private router : Router,private productTypeService : ProductTypeService,private productService : ProductsService,private fb : FormBuilder) { }
+  constructor(private toast : ToastrService,private productTypeService : ProductTypeService,private productService : ProductsService,private fb : FormBuilder) { }
   
 
   ngOnInit(): void {
@@ -88,20 +90,25 @@ export class EventCourseComponent implements OnInit,OnDestroy {
   }
   
   insert() {
-    function getTimeZone() {
-      var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
-      return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
-    }
-
-    this.dataInsert.patchValue({
-      dateTimeStart: formatDate(this.dataInsert.value.dateTimeStart!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'),
-      dateTimeEnd : formatDate(this.dataInsert.value.dateTimeEnd!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
-    })
+    if (this.result != '') {
+      function getTimeZone() {
+        var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+        return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+      }
   
-    this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
-      this.showFormInsert = false
-      this.init()
-    })
+      this.dataInsert.patchValue({
+        dateTimeStart: formatDate(this.dataInsert.value.dateTimeStart!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en'),
+        dateTimeEnd : formatDate(this.dataInsert.value.dateTimeEnd!, `yyyy-MM-dd'T'HH:mm:ss.SSS${getTimeZone()}`, 'en')
+      })
+    
+      this.insertProductSubscription = this.productService.insertProduct(this.dataInsert.value).subscribe(result => {
+        this.showFormInsert = false
+        this.init()
+      })
+    } else {
+      this.toast.warning('please upload image')
+    }
+   
   }
 
   fileUpload(event: any): void {
@@ -115,6 +122,7 @@ export class EventCourseComponent implements OnInit,OnDestroy {
     })
 
     toBase64(event.files[0].name).then(result => {
+      this.result = result
       this.resultFile = result.substring(result.indexOf(",") + 1, result.length)
       this.resultExtension = result.split(";")[0].split('/')[1]
        this.dataInsert.patchValue({

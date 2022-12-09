@@ -1,5 +1,5 @@
 <div class="py-6">
-  <div class="bg-gray-300 px-4 py-5 md:px-6 lg:px-8">
+  <div class="bg-gray-300 px-4 py-5 lg:px-6 lg:px-8">
     <div class="grid border-round">
       <div class="col-12 md:col-6">
         <img
@@ -43,7 +43,7 @@
             label="Create Event & Course" class="p-button-outlined p-button-rounded mt-3 p-0 p-2 w-full"></button>
           <hr>
           <div class="py-2">
-            <p-accordion [multiple]="true">
+            <p-accordion [multiple]="true" class="text-left">
               <p-accordionTab header="Course Benefits">
                 <p>
                   Earn your certificate after completing the nine courses listed below. Our courses are 100% online and
@@ -51,11 +51,32 @@
                   included in your course purchase.
                 </p>
               </p-accordionTab>
-              <p-accordionTab header="Don't Know What To Ask?">
-                <p>Lorem ipsum dolor </p>
+              <p-accordionTab header="Join With The Biggest Developer Community">
+                <p>The biggest developer community is a group of developers who are the largest in number or have the
+                  most influence in the field of software development. This could refer to a specific programming
+                  language, platform, or technology, and the community is often comprised of members who are passionate
+                  about sharing knowledge, learning from one another, and collaborating on projects. A strong developer
+                  community can be a valuable resource for developers, providing support, guidance, and opportunities
+                  for networking and professional growth.</p>
               </p-accordionTab>
               <p-accordionTab header="Ask Career Advice">
-                <p>Sed ut perspiciatis etur, adipisci velit, sed quia non numquam eius modi.</p>
+                <div>
+                  <p>It's great that you're thinking about your career! Here are a few pieces of advice that might be
+                    helpful</p>
+                  <ol>
+                    <li>Start by gaining a solid understanding of your interests and strengths. This will help you
+                      identify career paths that align with your passions and abilities.</li>
+                    <li>Network and build relationships with people in your field. Connecting with other professionals
+                      can provide valuable insights, advice, and opportunities for collaboration.</li>
+                    <li>Keep learning and expanding your skills. The technology industry is constantly evolving, so it's
+                      important to stay up-to-date on the latest tools, technologies, and best practices.</li>
+                    <li>Don't be afraid to take risks and try new things. Experimenting with new ideas and approaches
+                      can lead to breakthroughs and help you grow both personally and professionally.</li>
+                    <li>Finally, don't be afraid to ask for help or advice when you need it. There are many people who
+                      are willing to help and support you on your career journey.</li>
+                  </ol>
+                </div>
+
               </p-accordionTab>
 
             </p-accordion>
@@ -111,7 +132,7 @@
                   </div>
                   <div class="field col-12 md:col-6" formGroupName="product">
                     <label for="price">Price<span class="text-red-500">*</span></label>
-                    <input pInputText id="price" formControlName="price" name="price" type="number"
+                    <input pInputText id="price" formControlName="price" min="0" name="price" type="number"
                       class="w-full p-inputtext-sm" required>
                   </div>
 
@@ -165,34 +186,61 @@
             <div class="grid">
               <div class="col-12 lg:col-4" *ngFor="let d of dataEvent" role="button"
                 routerLink="/events-courses/payment/{{d.product.id}}">
-                <img class="border-round-left w-full" style="max-height: 150px;"
-                  src="{{fileDownload}}{{d.product.photo.id}}" alt="">
-                <div class="card p-3 pb-1">
-                  <div class="grid">
-                    <div class="col-8 lg:col-8 sm:col-8">
-                      <p class="text-lg font-semibold">{{d.product.title}}</p>
-                    </div>
-                    <div class="col-4 lg:col-4 sm:col-4 text-right">
+                <div class="shadow-2 border-round surface-card"><img src="{{fileDownload}}{{d.product.photo.id}}"
+                    alt="Image" class="block w-full border-round-top h-9rem">
+                  <div class="p-3 "><span class="block font-medium text-blue-600 mb-1">
                       <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
                           style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </span>
+                    <div class="text-md font-semibold text-900 font-medium mb-3 line-height-3">
+                      <ng-container *ngIf="d.product.title.length > 30; else elseTemplatetitle">
+                        {{d.product.title.substr(0,30)}}...
+                      </ng-container>
+                      <ng-template #elseTemplatetitle>
+                        {{d.product.title}}
+                      </ng-template>
+                    </div>
+                    <div class="line-height-3 mb-3 text-700">
+                      <table class="pt-0">
+                        <tbody class="p-0">
+                          <tr>
+                            <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                <ng-container *ngIf="d.product.location.length > 15; else elseTemplateLocation">
+                                  {{d.product.location.substr(0,15)}}...
+                                </ng-container>
+                                <ng-template #elseTemplateLocation>
+                                  {{d.product.location}}
+                                </ng-template>
+                              </small></td>
+                            <td><small class="ml-3"><i class="bi bi-coin"></i> {{d.product.price | currency :
+                                'Rp. '
+                                }}</small></td>
+
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                            <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                                date : 'E, dd MMM yyyy'}} </small></td>
+                            <td><small class="ml-3"><i class="bi bi-alarm"></i> {{d.dateTimeStart | date :
+                                'hh:mm'}} -
+                                {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr>
+                    <div class="text-sm font-bold text-blue-500 text-900 mb-1">
+                      <ng-container *ngIf="d.product.provider.length > 30; else elseTemplateProvider">
+                        {{d.product.provider.substr(0,30)}}...
+                      </ng-container>
+                      <ng-template #elseTemplateProvider>
+                        {{d.product.provider}}
+                      </ng-template>
+
                     </div>
                   </div>
-                  <table class="pt-0">
-                    <tbody class="p-0">
-                      <tr>
-                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
-                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
-                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
-                      </tr>
-                      <tr>
-                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
-                            date : 'E, dd MMM yyyy'}} </small></td>
-                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price | currency : 'Rp. '
-                            }}</small></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                 </div>
               </div>
             </div>
@@ -215,33 +263,61 @@
             <div class="grid">
               <div class="col-12 lg:col-4" *ngFor="let d of dataCourse" role="button"
                 routerLink="/events-courses/payment/{{d.product.id}}">
-                <img class="border-round-left w-full" style="max-height: 150px;"
-                  src="{{fileDownload}}{{d.product.photo.id}}" alt="">
-                <div class="card p-3 pb-1">
-                  <div class="grid">
-                    <div class="col-8 lg:col-8 sm:col-8">
-                      <p class="text-lg font-semibold">{{d.product.title}}</p>
+                <div class="shadow-2 border-round surface-card"><img src="{{fileDownload}}{{d.product.photo.id}}"
+                    alt="Image" class="block w-full border-round-top h-9rem">
+                  <div class="p-3 "><span class="block font-medium text-blue-600 mb-1">
+                      <p-tag severity="warning" [rounded]="true"><a class="p-link text-white"
+                          style="font-size: 0.6rem ;">Events</a></p-tag>
+                    </span>
+                    <div class="text-md font-semibold text-900 font-medium mb-3 line-height-3">
+                      <ng-container *ngIf="d.product.title.length > 30; else elseTemplatetitle">
+                        {{d.product.title.substr(0,30)}}...
+                      </ng-container>
+                      <ng-template #elseTemplatetitle>
+                        {{d.product.title}}
+                      </ng-template>
                     </div>
-                    <div class="col-4 lg:col-4 sm:col-4 text-right">
-                      <p-tag severity="info" [rounded]="true"><a class="p-link text-white"
-                          style="font-size: 0.6rem ;">Courses</a></p-tag>
+                    <div class="line-height-3 mb-3 text-700">
+                      <table class="pt-0">
+                        <tbody class="p-0">
+                          <tr>
+                            <td class="pt-1" p><small><i class="bi bi-geo-alt"></i>
+                                <ng-container *ngIf="d.product.location.length > 15; else elseTemplateLocation">
+                                  {{d.product.location.substr(0,15)}}...
+                                </ng-container>
+                                <ng-template #elseTemplateLocation>
+                                  {{d.product.location}}
+                                </ng-template>
+                              </small></td>
+                            <td><small class="ml-3"><i class="bi bi-coin"></i> {{d.product.price | currency :
+                                'Rp. '
+                                }}</small></td>
+
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                            <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
+                                date : 'E, dd MMM yyyy'}} </small></td>
+                            <td><small class="ml-3"><i class="bi bi-alarm"></i> {{d.dateTimeStart | date :
+                                'hh:mm'}} -
+                                {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr>
+                    <div class="text-sm font-bold text-blue-500 text-900 mb-1">
+                      <ng-container *ngIf="d.product.provider.length > 30; else elseTemplateProvider">
+                        {{d.product.provider.substr(0,30)}}...
+                      </ng-container>
+                      <ng-template #elseTemplateProvider>
+                        {{d.product.provider}}
+                      </ng-template>
+
                     </div>
                   </div>
-                  <table class="pt-0">
-                    <tbody class="p-0">
-                      <tr>
-                        <td class="pt-1" p><small><i class="bi bi-geo-alt"></i> {{d.product.location}}</small></td>
-                        <td class="pt-1" p><small><i class="bi bi-alarm"></i> {{d.dateTimeStart | date : 'hh:mm'}} -
-                            {{d.dateTimeEnd| date : 'hh:mm'}}</small></td>
-                      </tr>
-                      <tr>
-                        <td class="pt-1"><small><i class="bi bi-calendar-date"></i> {{d.dateTimeStart |
-                            date : 'E, dd MMM yyyy'}} </small></td>
-                        <td class="pt-1"><small><i class="bi bi-coin"></i> {{d.product.price}}</small></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p class="text-sm font-semibold text-primary text-right mt-3">{{d.product.provider}}</p>
                 </div>
               </div>
             </div>

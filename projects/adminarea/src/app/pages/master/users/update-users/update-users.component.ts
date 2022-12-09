@@ -80,7 +80,6 @@ export class UpdateUsersComponent implements OnInit {
     this.getUserByIdSubscription = this.activedParam.params.subscribe(id => {
       
       this.userService.getUsersById(String(Object.values(id))).subscribe(result => {
-        console.log(result);        
         this.bod = result.dateOfBirth
       
         if (result.position != null) {

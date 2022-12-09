@@ -15,13 +15,13 @@ export class RegisterComponent implements OnInit,OnDestroy {
   private sendVerifiationCodeSubscription?: Subscription
   private validateSubscription?: Subscription
   private insertDataSubscription?: Subscription
-
+  loaderButton : boolean = false
   displayBasic2: boolean = false;
   dataRegister = this.fb.group({
-    fullname : ['',[Validators.required]],
-    email : ['',[Validators.required]],
-    password : ['',[Validators.required]],
-    confirmPassword : ['',[Validators.required]]
+    fullname : ['',[Validators.required,Validators.maxLength(50)]],
+    email : ['',[Validators.required,Validators.maxLength(40),Validators.email]],
+    password : ['',[Validators.required,Validators.maxLength(40)]],
+    confirmPassword : ['',[Validators.required,Validators.maxLength(40)]]
   }) 
 
   dataCode : any = this.fb.group({
@@ -35,11 +35,12 @@ export class RegisterComponent implements OnInit,OnDestroy {
   }
 
   btnGenerateCode() {
+    this.loaderButton = true
     if(this.dataRegister.get('password')?.value == this.dataRegister.get('confirmPassword')?.value){
-      console.log(this.dataRegister.value);
           this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).subscribe(result => {
-            console.log(result);
+      
             this.displayBasic2 = true;
+            this.loaderButton = false
         })
     }else{
       this.toast.warning('wrong combinate password')
@@ -50,13 +51,15 @@ export class RegisterComponent implements OnInit,OnDestroy {
     this.router.navigateByUrl('/members/login')
   }
 
-  btnVerificationCode(){
+  btnVerificationCode() {
+    this.loaderButton = true
   this.dataCode.addControl('email', this.fb.control(this.dataRegister.get('email')?.value, [Validators.required]));
     this.validateSubscription = this.userService.validateCode(this.dataCode.value).subscribe(result => {
         if(result){
           this.insertDataSubscription = this.userService.register(this.dataRegister.value).subscribe(result =>{
             this.displayBasic2 = false;
             this.router.navigateByUrl('/members/login')
+            this.loaderButton = false
           })
         }
     })

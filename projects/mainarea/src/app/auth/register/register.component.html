@@ -12,22 +12,40 @@
             <form [formGroup]="dataRegister" (ngSubmit)="btnGenerateCode()">
               <div class="col-12">
                 <div class="p-fluid p-formgrid grid">
-                  <div class="field col-12 md:col-6"><label htmlfor="fullname">Fullname</label><input pinputtext=""
-                      formControlName="fullname" id="fullname" type="text" class="p-inputtext p-component p-element">
+                  <div class="field col-12 md:col-6"><label htmlfor="fullname">Fullname <span
+                        class="text-red-400">*</span> </label><input pinputtext="" formControlName="fullname" required
+                      id="fullname" type="text" class="p-inputtext p-component p-element">
                   </div>
-                  <div class="field col-12 md:col-6"><label htmlfor="email">Email</label><input formControlName="email"
-                      pinputtext="" id="email" type="email" class="p-inputtext p-component p-element"></div>
-                  <div class="field col-12 md:col-6"><label htmlfor="password">Password</label><input pinputtext=""
-                      id="password" formControlName="password" type="password"
-                      class="p-inputtext p-component p-element"></div>
-                  <div class="field col-12 md:col-6"><label htmlfor="confirm-password">Confirm Password</label><input
-                      formControlName="confirmPassword" pinputtext="" id="confirm-password" type="password"
-                      class="p-inputtext p-component p-element">
+                  <div class="field col-12 md:col-6">
+                    <label for="email">Email Address</label>
+                    <input pInputText id="email" name="email" formControlName="email" type="email"
+                      class="w-full p-inputtext-sm">
+                    <small
+                      *ngIf="dataRegister.controls['email'].touched && dataRegister.controls['email'].errors?.['required']"
+                      id="email-help" class="p-error block">Please enter your email.</small>
+                    <small
+                      *ngIf="dataRegister.controls['email'].errors?.['email'] && dataRegister.controls['email'].dirty"
+                      id="email-help" class="p-error block">Please enter the correct email format</small>
+
+                  </div>
+                  <div class="field col-12 md:col-6"><label htmlfor="password">Password <span
+                        class="text-red-400">*</span></label>
+                    <p-password id="password" name="password" type="password" styleClass="w-full"
+                      [inputStyle]="{'width':'100%','height':'45px'}" formControlName="password" [feedback]="false"
+                      [toggleMask]="true" required></p-password>
+
+                  </div>
+                  <div class="field col-12 md:col-6"><label htmlfor="confirm-password">Confirm Password <span
+                        class="text-red-400">*</span></label>
+
+                    <p-password id="password" name="password" type="password" styleClass="w-full"
+                      [inputStyle]="{'width':'100%','height':'45px'}" formControlName="confirmPassword"
+                      [feedback]="false" [toggleMask]="true" required></p-password>
                   </div>
                 </div>
 
-                <p-button type="submit" [disabled]="!dataRegister.valid" class="ml-2" styleClass="p-button-sm"
-                  label="Sign Up">
+                <p-button type="submit" icon="pi pi-arrow-right" [disabled]="!dataRegister.valid" class="ml-2"
+                  styleClass="p-button-sm" label="Sign Up">
                 </p-button>
                 <p-dialog header="Verification" [(visible)]="displayBasic2" [style]="{width: '30vw'}">
 
@@ -47,7 +65,8 @@
                     <form action="" [formGroup]="dataCode" (ngSubmit)="btnVerificationCode()">
                       <div class="p-inputgroup mt-3 px-4"><input type="text" pinputtext="" formControlName="code"
                           placeholder="Verification Code" class="p-inputtext p-component p-element">
-                        <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"></button>
+                        <button [loading]="loaderButton" type="submit" pButton pRipple icon="pi pi-send"
+                          styleClass="p-button-warn"></button>
                       </div>
                     </form>
                   </div>
