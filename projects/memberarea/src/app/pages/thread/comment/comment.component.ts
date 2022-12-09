@@ -245,7 +245,6 @@ export class CommentComponent implements OnInit, OnDestroy{
 
   showFormUpdateCommnet(index : any,content : string,id : string) {
     this.formCommnetUpdate[index] = !this.formCommnetUpdate[index]
-    console.log(id, content);
     this.updateComment.patchValue({
       id: id,
       content : content

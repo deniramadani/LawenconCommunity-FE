@@ -93,15 +93,11 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.items1 = [
       {
         label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
-        console.log(event);
+       
       }},
       {label: 'Edit', icon: 'pi pi-pencil'}
       ];
     
-  }
-
-  cetak() {
-    console.log('cetak');
   }
 
   init(): void {
@@ -152,7 +148,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     this.on_going = false
     this.orders = true
     this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
-      console.log(result);
       this.dataOrders = result
     })
   }
@@ -170,8 +165,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
       } else {
         this.payments = result
       }
-      console.log(result);
-      
     })
    
   }

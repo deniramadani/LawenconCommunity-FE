@@ -43,8 +43,6 @@ export class ReportMemberComponent implements OnInit,OnDestroy {
             for(let i=0;i<result.length;i++){
                 this.reportParticipant.push(result[i])
             }           
-            console.log(this.reportParticipant);
-            
         })     
     }
 
@@ -63,7 +61,6 @@ export class ReportMemberComponent implements OnInit,OnDestroy {
 
     checkBoxId() {
         this.userId.push(this.fb.array([]))
-        console.log(this.userId.push(this.fb.array([])));
     }
 
     loadData(event: LazyLoadEvent){

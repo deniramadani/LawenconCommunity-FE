@@ -37,9 +37,8 @@ export class RegisterComponent implements OnInit,OnDestroy {
   btnGenerateCode() {
     this.loaderButton = true
     if(this.dataRegister.get('password')?.value == this.dataRegister.get('confirmPassword')?.value){
-      console.log(this.dataRegister.value);
           this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).subscribe(result => {
-            console.log(result);
+      
             this.displayBasic2 = true;
             this.loaderButton = false
         })

@@ -147,11 +147,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToLink(url: string){
-    window.open(url, "_blank");
-    console.log(url);
-  }
-
   insertPosting() {
     this.loader = true
     this.dataPosting.patchValue({
@@ -242,8 +237,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.facebook = result.userSocmed.facebook
         this.linkedin = result.userSocmed.linkedin
       }
-      console.log(this.ig);
-      
 
       this.userType = this.apiService.getUserType()
       if (result.position.positionName != null) {
@@ -294,7 +287,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showFormUpdateCommnet(index : any,content : string,id : string) {
     this.formCommnetUpdate[index] = !this.formCommnetUpdate[index]
-    console.log(id, content);
+    
     this.updateComment.patchValue({
       id: id,
       content : content
@@ -402,8 +395,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   unbookmark(id: string, type: string) {
-    console.log(id,type);
-    
+  
     if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
       this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
     } else {

@@ -16,8 +16,7 @@
             </div>
             <hr>
             <div class="field col-12 md:col-12"><label for="fullname" class="font-medium text-900">Fullname</label>
-              <input pinputtext="" formControlName="fullname" id="fullname" name="fullname" type="text"
-                class="p-inputtext p-component p-element">
+              <input pinputtext="" formControlName="fullname" type="text" class="p-inputtext p-component p-element">
             </div>
             <div class="field mb-4 col-12">
               <label for="avatar" class="font-medium text-900">Foto Profile</label>
@@ -32,8 +31,8 @@
 
             <div class="p-fluid p-formgrid grid mt-2">
               <div class="field col-12 md:col-6"><label for="bod" class="font-medium text-900">Date Of Birth </label>
-                <p-calendar [ngModel]="myDate" placeholder="{{bod}}" (onSelect)="onSelectMethod($event)"
-                  [showIcon]="true" dateFormat="yy-mm-dd" inputId="icon">
+                <p-calendar [ngModel]="myDate" [ngModelOptions]="{standalone: true}" placeholder="{{bod}}"
+                  (onSelect)="onSelectMethod($event)" [showIcon]="true" dateFormat="yy-mm-dd" inputId="icon">
                 </p-calendar>
               </div>
               <div class="field col-12 md:col-6"><label for="email" class="font-medium text-900">Email</label>
@@ -105,6 +104,7 @@
               </p-button>
             </div>
           </div>
+
         </form>
       </div>
 

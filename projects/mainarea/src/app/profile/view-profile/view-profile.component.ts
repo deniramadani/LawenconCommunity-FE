@@ -124,19 +124,7 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         this.selectedIndustry = null
       }
    
-     
-      this.dataUpdate.patchValue({
-        id : result.id,
-        fullname: result.fullname,
-        email: result.email,
-        company: result.company,
-        address: result.address,
-        phoneNumber: result.phoneNumber,
-        userType: {
-          id : result.userType.id
-        },
-        dateOfBirth : result.dateOfBirth,
-      })
+      this.dataUpdate.patchValue(result)
 
       this.dataUpdate.patchValue({ industry: { id: this.selectedIndustry } })
       this.dataUpdate.patchValue({ position: { id: this.selectedPosition }})
@@ -258,13 +246,6 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
     })
   }
 
-  getPosisitonId(id: string) {
-    console.log(id);
-  }
-
-  onBasicUploadAuto(event:any) {
-      console.log("berhasil");
-  }
   ngOnDestroy(): void {
     this.positionsSubscription?.unsubscribe()
     this.industrySubscription?.unsubscribe()

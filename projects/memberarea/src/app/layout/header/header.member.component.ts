@@ -56,7 +56,7 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   onInit() {
     this.getIdPremiumSubscription = this.productService.getIdSubcription().subscribe(result => {
       this.id = result.id
-      this.getAllByProductIdSubscription = this.paymentService.getAllByProductId(result.id).subscribe(result => {
+      this.paymentService.getAllByProductId(result.id).subscribe(result => {
         this.detailPayment = result
         let paymentStatus
         if(this.detailPayment.length !== 0){
@@ -114,7 +114,6 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
     })
 
     toBase64(event.files[0].name).then(result => {
-      console.log(result);
       this.result = result
       this.dataPremium.patchValue({
         product: {
