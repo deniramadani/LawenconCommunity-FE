@@ -431,7 +431,7 @@
               </form>
             </div>
             <div class="grid w-full mt-2">
-              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment;index as j">
+              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment.slice(0,4);index as j">
                 <div class="border-1 surface-border border-round p-2 pr-0 bg-gray-100">
                   <div class="flex justify-content-between ml-1">
                     <div class="flex">

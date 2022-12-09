@@ -110,7 +110,11 @@ export class PostComponent implements OnInit,OnDestroy {
   init() {
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
-      this.photoId = result[0].user.photo.id      
+      // if (result[0].user.photo != null) {
+      //   this.photoId = result[0].user.photo.id   
+      // }
+      
+         
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
       this.postsLike = result     
