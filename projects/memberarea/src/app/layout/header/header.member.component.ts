@@ -21,9 +21,7 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   private getAllByProductIdSubscription?: Subscription
   displayPayment: boolean = false
   photoId: string = String(this.apiService.getProfileFoto())
-  position: string = String(this.apiService.getPosition())
   fullname: string = String(this.apiService.getProfileName())
-  // fotoProfile : any = String(Object.values(this.apiService.getProfileFoto))
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   id: string = ''
   result: string = ''
