@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { UsersService } from 'projects/mainarea/src/app/service/users.service';
-import { Subscription } from 'rxjs'
+import { finalize, Subscription } from 'rxjs'
 import { ArticleService } from '../../service/article.service';
 import { Article } from '../../../../../interface/article';
 import { BASE_URL } from 'projects/constant/BaseUrl';
@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FileService } from '../../service/file.service';
 import { ConfirmationService } from 'primeng/api';
 import { Title } from '@angular/platform-browser';
+import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private deletePostSubcription?: Subscription
   private updateCommentSubscription?: Subscription
   private deleteCommentSubscription?: Subscription
+  private dashboardSubscription?: Subscription
 
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   premium = PostTypeConst.PREMIUM
@@ -55,6 +57,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   fullname: string = ''
   position: string = ''
   email: string = ''
+  totalPost: number = 0
+  loadScroll: boolean = false
   phoneNumber: string = ''
   age: string = ''
   idUser: string = ''
@@ -134,8 +138,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     private toast: ToastrService, private pollingService: PollingService,
     private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService,
     private router: Router, private apiService: ApiService,
-    private userService: UsersService,private title : Title) { this.title.setTitle('Home') }
+    private userService: UsersService,private title : Title, private dashboardService : DashboardService) { this.title.setTitle('Home') }
   ngOnInit(): void {
+    
+    this.dashboardSubscription = this.dashboardService.getData().subscribe(result=>{
+      this.totalPost = result.postTotal
+    })
     this.init();
   
   }
@@ -231,9 +239,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   init(): void {
+    this.loadScroll = true
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
-      
       this.dataUser  = result
       this.fullname = result.fullname
       this.idUser = result.id
@@ -279,7 +287,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getAllPost() {
-    this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).subscribe(result => {
+    this.getAllPostSubscription = this.postService.getAll(this.start, this.limit).pipe(finalize(()=>this.loadScroll = false)).subscribe(result => {
       this.posts = result
       this.loader = false   
       
@@ -481,12 +489,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onScroll(): void {
+    
+    if(this.limit < this.totalPost){
     this.addLimit()
-    this.init()
+    this.init()}
   }
 
   addLimit(): void {
-    this.limit += 5
+      this.limit += 5
+    
   }
 
 
