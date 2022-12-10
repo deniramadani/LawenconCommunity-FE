@@ -7,6 +7,7 @@ import { PaymentService } from 'projects/adminarea/src/app/service/payment.servi
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { PaymentConst } from 'projects/constant/PaymentConst';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
+import { UsersService } from 'projects/mainarea/src/app/service/users.service';
 import { Subscription } from "rxjs";
 import { ProductsService } from '../../service/products.service';
 
@@ -19,8 +20,9 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
   private getIdPremiumSubscription?: Subscription
   private insertPaymentPremiumSubscription?: Subscription
   private getAllByProductIdSubscription?: Subscription
+  private getUserByIdSubscription?:Subscription
   displayPayment: boolean = false
-  photoId: string = String(this.apiService.getProfileFoto())
+  photoId : string = ''
   fullname: string = String(this.apiService.getProfileName())
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
   id: string = ''
@@ -41,7 +43,7 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
       fileExtensions: ['']
     })
   })
-  constructor(private paymentService : PaymentService,private toast: ToastrService, private fb: FormBuilder, private apiService: ApiService, private router: Router, private productService: ProductsService) { }
+  constructor(private userService : UsersService,private paymentService : PaymentService,private toast: ToastrService, private fb: FormBuilder, private apiService: ApiService, private router: Router, private productService: ProductsService) { }
   ngOnInit(): void {
     
     const type = this.apiService.getTypeUser()
@@ -49,6 +51,15 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
       this.premium = 'hidden lg:hidden'
     }
     this.onInit()
+    
+    this.getUserByIdSubscription = this.userService.getUsersById(String(this.apiService.getIdUser())).subscribe(result => {
+      if (result.photo != null) {
+        this.photoId = result.photo.id
+      } else {
+        this.photoId = ''
+      }      
+    })
+   
   }
 
   onInit() {
@@ -79,6 +90,8 @@ export class HeaderMemberComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  
 
   logOut() {
     this.apiService.logout()

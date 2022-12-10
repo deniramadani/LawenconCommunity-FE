@@ -43,11 +43,11 @@ export class RegisterComponent implements OnInit,OnDestroy {
     if(this.dataRegister.get('password')?.value == this.dataRegister.get('confirmPassword')?.value){
           this.sendVerifiationCodeSubscription = this.userService.generateCode(this.dataRegister.value).pipe(finalize(()=> this.loaderButton = false)).subscribe(result => {
             this.displayBasic2 = true;
-            // this.loaderButton = false
             this.loaderButton = false
         })
     }else{
       this.toast.warning('wrong combinate password')
+      this.loaderButton = false
     }
   }
 
@@ -64,10 +64,9 @@ export class RegisterComponent implements OnInit,OnDestroy {
             this.router.navigateByUrl('/members/login')
             this.loaderButton = false
           })
-        } else {
-          this.loaderButton = false
-        }
+        } 
     })
+    this.dataCode.reset()
   }
 
   ngOnDestroy(): void {

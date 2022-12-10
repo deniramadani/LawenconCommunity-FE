@@ -534,12 +534,13 @@
         </div>
         <div class="col-12 text-center">
           <div *ngIf="loadScroll; then thenBlock else elseBlock"></div>
-            <ng-template #thenBlock>
-              <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-            </ng-template>
-            <ng-template #elseBlock>
-              <p>End Of Post</p>
-            </ng-template>
+          <ng-template #thenBlock>
+            <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+              fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+          </ng-template>
+          <ng-template #elseBlock>
+            <p>End Of Post</p>
+          </ng-template>
         </div>
 
 

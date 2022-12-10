@@ -52,6 +52,7 @@ export class PostComponent implements OnInit,OnDestroy {
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
+  verified : boolean = false
   formCommnetUpdate : any [] = []
   userType: string | null = this.apiService.getUserType()
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
@@ -112,19 +113,17 @@ export class PostComponent implements OnInit,OnDestroy {
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
       if (result.length > 0) {
-        this.photoId =result[0].user.photo.id
+        if (result[0].user.photo != null) {
+          this.photoId = result[0].user.photo.id
+        }
+       
+        if (result[0].user.userType.userTypeCode == 'UTCPM') {
+          this.verified = true
+        }
       } else {
         this.photoId = ''
       }
-      
-      // if (result[0].user.photo != null) {
-      // this.photoId =result[0].user.photo.id
-      // if (result[0].user.photo != null) {
-      //   this.photoId = result[0].user.photo.id   
-      //   console.log('Photo',this.photoId);
-      // } else {
-      //   console.log('Photo',this.photoId);
-      // }
+
 
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {

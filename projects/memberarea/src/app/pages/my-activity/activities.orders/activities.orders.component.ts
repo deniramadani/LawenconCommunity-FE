@@ -24,10 +24,11 @@ export class ActivitiesOrdersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
       this.dataOrders = result
-      // if (result.length > 0) {
-      //   this.dataOrders = result
-      // }
-      this.ballance = this.dataOrders[0].product.ownerId.ballance
+      if (result.length > 0) {
+        // this.dataOrders = result
+        this.ballance = this.dataOrders[0].product.ownerId.ballance
+      }
+      // this.ballance = this.dataOrders[0].product.ownerId.ballance
     })
   }
 

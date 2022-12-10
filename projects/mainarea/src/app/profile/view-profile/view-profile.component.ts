@@ -118,22 +118,21 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         this.linkedin = result.userSocmed.linkedin
       } 
 
-      if (result.position != null) {
-        this.selectedPosition = result.position.id
-      } else {
-        this.selectedPosition = null
-      }
+      // if (result.position != null) {
+      //   this.selectedPosition = result.position.id
+      // } else {
+      //   this.selectedPosition = null
+      // }
 
-      if (result.industry != null) {
-        this.selectedIndustry = result.industry.id
-      } else {
-        this.selectedIndustry = null
-      }
+      // if (result.industry != null) {
+      //   this.selectedIndustry = result.industry.id
+      // } else {
+      //   this.selectedIndustry = null
+      // }
    
       this.dataUpdate.patchValue(result)
 
-      this.dataUpdate.patchValue({ industry: { id: this.selectedIndustry } })
-      this.dataUpdate.patchValue({ position: { id: this.selectedPosition }})
+    
       this.updatePassword.patchValue({
         id: result.id,
         email: result.email,
@@ -247,14 +246,9 @@ export class ViewProfileComponent implements OnInit,OnDestroy{
         facebook: this.facebook,
         linkedin : this.linkedin
       },
-      industry: {
-        id: this.selectedIndustry
-      },
-      position: {
-        id : this.selectedPosition
-      }
-
     })
+      this.dataUpdate.patchValue({ industry: { id: this.selectedIndustry } })
+      this.dataUpdate.patchValue({ position: { id: this.selectedPosition }})
 
     
     this.updateUserSubscription = this.userService.updateProfile(this.dataUpdate.value).subscribe(result => {

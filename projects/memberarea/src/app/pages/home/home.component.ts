@@ -236,6 +236,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.FormPolling = false
     this.disabledInput = false
     this.disableUpload = false
+    this.postPollingOption.value.length = 0
   }
 
   init(): void {
@@ -254,7 +255,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
 
       this.userType = this.apiService.getUserType()
-      if (result.position.positionName != null) {
+      if (result.position != null) {
         this.position = result.position.positionName
       } else {
         this.position = '-'
@@ -521,5 +522,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.updatePostSubscription?.unsubscribe()
     this.deletePostSubcription?.unsubscribe()
     this.updateCommentSubscription?.unsubscribe()
+    this.dashboardSubscription?.unsubscribe()
   }
 }
