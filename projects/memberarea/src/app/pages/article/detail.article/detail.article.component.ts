@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Article } from 'projects/interface/article';
@@ -18,7 +19,9 @@ export class DetailArticleComponent implements OnInit,OnDestroy {
   title: string = ''
   fileId: string = ''
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
-  constructor(private articleService : ArticleService,private activedParam : ActivatedRoute) { }
+  constructor(private articleService: ArticleService, private activedParam: ActivatedRoute, private titlePage: Title) {
+      this.titlePage.setTitle('Articles')
+   }
   
 
   ngOnInit(): void {

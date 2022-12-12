@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Article } from 'projects/interface/article';
 import { Schedule } from 'projects/interface/schedule';
@@ -25,7 +26,9 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   private getAllEventSubscription?: Subscription
   private getAllCourseSubscription?: Subscription
 
-  constructor(private articleService : ArticleService,private productService : ProductsService) { }
+  constructor(private articleService: ArticleService, private productService: ProductsService, private title: Title) { 
+    this.title.setTitle('Articles')
+  }
 
   ngOnInit(): void {
     this.init()

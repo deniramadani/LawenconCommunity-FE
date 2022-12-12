@@ -8,6 +8,7 @@ import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from "../../../../../../interface/product-type";
 import { formatDate } from '@angular/common';
 import { ProductsService } from '../../../service/products.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
@@ -52,7 +53,10 @@ export class ActivitiesComponent implements OnInit,OnDestroy {
       })
     })
   })
-  constructor(private productService : ProductsService,private postService : PostingService,private fb : FormBuilder,private productTypeService : ProductTypeService) { }
+  constructor(private productService: ProductsService, private postService: PostingService,
+    private fb: FormBuilder, private productTypeService: ProductTypeService, private title: Title) { 
+    this.title.setTitle('Activities')
+     }
   
   ngOnInit(): void {
     this.onInit()

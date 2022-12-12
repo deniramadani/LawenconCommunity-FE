@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
@@ -30,7 +31,10 @@ export class ListArticleComponent implements OnInit,OnDestroy {
   showTextMore : any[] = []
   limit = this.rows
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
-  constructor(private articleService : ArticleService,private dataService :DashboardService,private confirmationService: ConfirmationService) { }
+  constructor(private articleService: ArticleService, private dataService: DashboardService,
+    private confirmationService: ConfirmationService,private titlePage : Title) { 
+      this.titlePage.setTitle('Articles')
+    } 
   
 
   ngOnInit(): void {

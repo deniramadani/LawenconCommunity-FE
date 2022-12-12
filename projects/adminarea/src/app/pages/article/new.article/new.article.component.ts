@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder ,Validators} from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ArticleService } from 'projects/memberarea/src/app/service/article.service';
@@ -20,7 +21,10 @@ export class NewArticleComponent implements OnInit,OnDestroy {
       fileExtensions : ['']
     }),
   })
-  constructor(private toast : ToastrService,private fb : FormBuilder,private articleService : ArticleService,private router : Router) { }
+  constructor(private toast: ToastrService, private fb: FormBuilder,
+    private articleService: ArticleService, private router: Router,private title : Title) { 
+      this.title.setTitle('New Article')
+    }
  
  
   ngOnInit(): void {

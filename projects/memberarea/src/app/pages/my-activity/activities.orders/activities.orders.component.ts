@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { Payment } from 'projects/interface/payment';
 import { Subscription } from "rxjs";
@@ -16,12 +17,18 @@ export class ActivitiesOrdersComponent implements OnInit, OnDestroy {
   start = 0
   limit = 6
   ballance : number = 0
-  constructor(private postService : PostingService) { }
+  constructor(private postService: PostingService, private title: Title) {
+    this.title.setTitle('Activities')
+   }
   
   ngOnInit(): void {
     this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
       this.dataOrders = result
-      this.ballance = this.dataOrders[0].product.ownerId.ballance
+      if (result.length > 0) {
+        // this.dataOrders = result
+        this.ballance = this.dataOrders[0].product.ownerId.ballance
+      }
+      // this.ballance = this.dataOrders[0].product.ownerId.ballance
     })
   }
 

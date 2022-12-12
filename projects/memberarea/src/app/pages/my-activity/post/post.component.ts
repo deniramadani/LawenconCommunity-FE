@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -51,6 +52,7 @@ export class PostComponent implements OnInit,OnDestroy {
   premium = PostTypeConst.PREMIUM
   basic = PostTypeConst.BASIC
   polling = PostTypeConst.POLLING
+  verified : boolean = false
   formCommnetUpdate : any [] = []
   userType: string | null = this.apiService.getUserType()
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
@@ -88,10 +90,16 @@ export class PostComponent implements OnInit,OnDestroy {
 
   formUpdatePost : boolean = false
 
-  constructor(private router : Router,private confirmationService: ConfirmationService,private fb : FormBuilder,private pollingService : PollingService,private postService : PostingService,private apiService : ApiService ,private toast : ToastrService) { }
+  constructor(private router: Router, private confirmationService: ConfirmationService,
+    private fb: FormBuilder, private pollingService: PollingService,
+    private postService: PostingService, private apiService: ApiService,
+    private toast: ToastrService, private title: Title) { 
+      this.title.setTitle('Activities')
+    }
   
   ngOnInit() {
     this.init()
+
     this.name = this.apiService.getProfileName()
     this.items = [
       {
@@ -104,7 +112,19 @@ export class PostComponent implements OnInit,OnDestroy {
   init() {
     this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
       this.posts = result
-      this.photoId = result[0].user.photo.id      
+      if (result.length > 0) {
+        if (result[0].user.photo != null) {
+          this.photoId = result[0].user.photo.id
+        }
+       
+        if (result[0].user.userType.userTypeCode == 'UTCPM') {
+          this.verified = true
+        }
+      } else {
+        this.photoId = ''
+      }
+
+
     })
     this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
       this.postsLike = result     

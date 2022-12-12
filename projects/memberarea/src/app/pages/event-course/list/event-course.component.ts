@@ -9,6 +9,7 @@ import { ProductTypeService } from '../../../service/product.type.service';
 import { ProductType } from 'projects/interface/product-type';
 import { formatDate } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-event-course',
   templateUrl: './event-course.component.html',
@@ -50,7 +51,10 @@ export class EventCourseComponent implements OnInit,OnDestroy {
       }),
     })
   })
-  constructor(private toast : ToastrService,private productTypeService : ProductTypeService,private productService : ProductsService,private fb : FormBuilder) { }
+  constructor(private toast: ToastrService, private productTypeService: ProductTypeService,
+    private productService: ProductsService, private fb: FormBuilder, private title: Title) { 
+    this.title.setTitle('Events & Courses')
+     }
   
 
   ngOnInit(): void {

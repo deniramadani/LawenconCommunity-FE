@@ -91,7 +91,8 @@
                   <div class="col-1 lg:col-1 sm:col-1">
                     <button pButton pRipple uploadLabel="File" type="button" icon="pi pi-cloud-upload"
                       pTooltip="Upload Foto" class="p-button-rounded p-button-secondary p-button-text"
-                      style="margin-bottom: 13px ;" onclick="document.getElementById('file').click();"></button>
+                      [disabled]="disableUpload" style="margin-bottom: 13px ;"
+                      onclick="document.getElementById('file').click();"></button>
                     <input class="form-control bi bi-upload" accept="image/*" style="display:none;" type="file"
                       id="file" multiple (change)="fileUpload($event)">
                   </div>
@@ -302,7 +303,7 @@
                           <div class="flex flex-row p-0">
                             <div class="p-0 py-2 w-10">
                               <p-progressBar [showValue]="false" pTooltip="{{option.totalResponse}} Votes"
-                                [value]="(option.totalResponse/post.totalPolling)*100">
+                                [value]="((option.totalResponse/post.totalPolling)*100)">
                               </p-progressBar>
                             </div>
                             <div class="pl-0 py-2 w-2 text-center">
@@ -430,7 +431,7 @@
               </form>
             </div>
             <div class="grid w-full mt-2">
-              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment;index as j">
+              <div class="col-12 lg:col-12 py-0 my-1" *ngFor="let c of comment.slice(0,4);index as j">
                 <div class="border-1 surface-border border-round p-2 pr-0 bg-gray-100">
                   <div class="flex justify-content-between ml-1">
                     <div class="flex">
@@ -530,6 +531,16 @@
 
             </div>
           </div>
+        </div>
+        <div class="col-12 text-center">
+          <div *ngIf="loadScroll; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+              fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+          </ng-template>
+          <ng-template #elseBlock>
+            <p>End Of Post</p>
+          </ng-template>
         </div>
 
 

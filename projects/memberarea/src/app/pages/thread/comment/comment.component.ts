@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -97,7 +98,12 @@ export class CommentComponent implements OnInit, OnDestroy{
   comment: Comment[] = []
   file : any
 
-  constructor(private confirmationService: ConfirmationService,private activedParam : ActivatedRoute,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private confirmationService: ConfirmationService, private activedParam: ActivatedRoute,
+    private toast: ToastrService, private pollingService: PollingService,
+    private postService: PostingService, private fb: FormBuilder, private router: Router,
+    private apiService: ApiService, private userService: UsersService, private titlePage: Title) { 
+      
+    }
   ngOnInit(): void {
     this.init();
   }
@@ -106,6 +112,7 @@ export class CommentComponent implements OnInit, OnDestroy{
     const id = this.apiService.getIdUser()
     this.getAllUserSubscription = this.userService.getUsersById(String(id)).subscribe(result => {
       this.fullname = result.fullname
+      this.titlePage.setTitle(result.fullname)
       this.userType = this.apiService.getUserType()
       if (result.photo != null) {
         this.fotoProfile = result.photo.id

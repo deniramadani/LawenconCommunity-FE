@@ -13,20 +13,13 @@
                             [readonlyInput]="true" inputId="range">
                         </p-calendar>
                     </div>
-                    <button pButton pRipple label="Export" type="submit" (click)="btnExport()" icon="pi pi-upload"
-                        class="p-button-sm border-none p-button-primary"></button>
+                    <button pButton [loading]="loaderButton" pRipple label="Export" type="submit" (click)="btnExport()"
+                        icon="pi pi-upload" class="p-button-sm border-none p-button-primary"></button>
                 </div>
             </ng-template>
 
             <ng-template pTemplate="header">
-                <!-- <tr>
-                    <th style="width: 4rem">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                    </th>
-                    <th class="text-center" style="width: 6rem">No</th>
-                    <th>Member Name</th>
-                    <th class="text-center">Total Income</th>
-                </tr> -->
+
                 <tr>
                     <th style="width: 4rem">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>

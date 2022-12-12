@@ -27,6 +27,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AnimateModule } from 'primeng/animate';
 import {InplaceModule} from 'primeng/inplace';
+
 @NgModule({
     declarations: [
         HomeComponent, TimeAgoPipe

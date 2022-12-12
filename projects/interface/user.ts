@@ -9,14 +9,14 @@ export interface User extends Position,File,Role,Industry,UserType,UserSocmed {
 	 fullname: string 
 	 email: string 
 	 password: string 
-	 dateOfBirth: string 
-	 address: string 
-	 phoneNumber: string 
-	 company: string
+	 dateOfBirth: string  | null
+	 address: string  | null
+	 phoneNumber: string  | null
+	 company: string | null
 	 ballance: number 
 	 role: Role 
 	 industry: Industry 
-	 position: Position 
+	 position: Position   
 	 photo: File
 	userType: UserType 
 	userSocmed : UserSocmed

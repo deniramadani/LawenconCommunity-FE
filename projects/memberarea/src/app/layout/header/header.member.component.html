@@ -48,8 +48,16 @@
                pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" leaveActiveClass="fadeout"
                [hideOnOutsideClick]="true">
 
-               <p-avatar class="pt-2" image="{{fileDownload}}{{photoId}}" shape="circle" shape="circle">
-               </p-avatar>
+
+               <div *ngIf="photoId == ''; then default else photoProfile"></div>
+               <ng-template #default>
+                  <p-avatar class="pt-2" image="../../../assets/img/default.jpg" shape="circle" shape="circle">
+                  </p-avatar>
+               </ng-template>
+               <ng-template #photoProfile>
+                  <p-avatar class="pt-2" image="{{fileDownload}}{{photoId}}" shape="circle" shape="circle">
+                  </p-avatar>
+               </ng-template>
                <span class="mx-2 font-medium text-900">{{fullname}}</span>
                <i class="pi pi-angle-down"></i>
             </a>

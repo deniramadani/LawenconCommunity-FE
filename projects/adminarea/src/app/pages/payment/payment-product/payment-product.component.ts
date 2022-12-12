@@ -5,6 +5,7 @@ import { PaymentService } from '../../../service/payment.service';
 import { Payment } from "../../../../../../interface/payment";
 import { BASE_URL } from 'projects/constant/BaseUrl';
 import { LazyLoadEvent } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-payment-product',
   templateUrl: './payment-product.component.html',
@@ -19,7 +20,9 @@ export class PaymentProductComponent implements OnInit,OnDestroy {
   selectedValues: string[] = [];
   dataProduct: any[] = []
   fileDownload = `${BASE_URL.BASE_URL}/files/download/`
-  constructor(private paymentService : PaymentService) { }
+  constructor(private paymentService: PaymentService, private title: Title) {
+    this.title.setTitle('Payment Event & Course')
+   }
   first = 0
   rows = 10
 

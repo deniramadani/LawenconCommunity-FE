@@ -4,6 +4,7 @@ import { finalize, Subscription } from 'rxjs'
 import { Position } from '../../../../../../../interface/position'
 import { ConfirmationService, LazyLoadEvent, PrimeNGConfig } from "primeng/api"
 import { DashboardService } from 'projects/adminarea/src/app/service/dashboard.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-position',
   templateUrl: './position.component.html',
@@ -23,7 +24,10 @@ export class ListPositionComponent implements OnInit,OnDestroy {
   limit = this.rows
   totalPosition!: number
   loadertable: boolean =  true
-  constructor(private data : DashboardService,private positionServcie : PositionService,private confirmationService: ConfirmationService) { }
+  constructor(private data: DashboardService, private positionServcie: PositionService,
+    private confirmationService: ConfirmationService, private title: Title) { 
+    this.title.setTitle('Position')
+     }
   
 
   ngOnInit(): void {

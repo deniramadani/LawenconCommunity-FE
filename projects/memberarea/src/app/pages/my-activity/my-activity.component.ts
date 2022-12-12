@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -82,221 +83,227 @@ export class MyActivityComponent implements OnInit,OnDestroy {
   orders : boolean = false
   postId: string = ''
   id : string = ''
-  constructor(private productService :ProductsService,private confirmationService: ConfirmationService,private toast: ToastrService, private pollingService: PollingService, private postService: PostingService, private fb: FormBuilder, private articleService: ArticleService, private router: Router, private apiService: ApiService, private userService: UsersService) { }
+  constructor(private productService: ProductsService, private confirmationService: ConfirmationService,
+    private toast: ToastrService, private pollingService: PollingService,
+    private postService: PostingService, private fb: FormBuilder,private titlePage : Title,
+    private router: Router, private apiService: ApiService) { this.titlePage.setTitle('Activities') }
+  
+  
   ngOnInit(): void {
-    this.init();
-    this.items = [
-      {label: 'Income', icon: 'pi pi-euro', routerLink: ['/report/income']},
-      {separator: true},
-      {label: 'Participant', icon: 'pi pi-users', routerLink: ['/report/participants']}
-    ];
-    this.items1 = [
-      {
-        label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
+    // this.init();
+    // this.items = [
+    //   {label: 'Income', icon: 'pi pi-euro', routerLink: ['/report/income']},
+    //   {separator: true},
+    //   {label: 'Participant', icon: 'pi pi-users', routerLink: ['/report/participants']}
+    // ];
+    // this.items1 = [
+    //   {
+    //     label: 'Delete', icon: 'pi pi-trash', command: (event: any) => {
        
-      }},
-      {label: 'Edit', icon: 'pi pi-pencil'}
-      ];
+    //   }},
+    //   {label: 'Edit', icon: 'pi pi-pencil'}
+    //   ];
     
   }
 
   init(): void {
    
-    this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
-      this.posts = result
-    })
-    this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
-      this.postsLike = result     
-    })
+    // this.getAllPostSubscription = this.postService.getPostByIdUser(this.start,this.limit).subscribe(result => {
+    //   this.posts = result
+    // })
+    // this.getPostLikeSubscription = this.postService.getPostLikeByIdUser(this.start,this.limit).subscribe(result => {
+    //   this.postsLike = result     
+    // })
 
-    this.getPostBookmarkSubscription = this.postService.getBookmarkByIdUser(this.start,this.limit).subscribe(result => {
-      this.postsBookmark = result     
-    })
+    // this.getPostBookmarkSubscription = this.postService.getBookmarkByIdUser(this.start,this.limit).subscribe(result => {
+    //   this.postsBookmark = result     
+    // })
 
   }
 
-  showPost() {
-    this.posting = true
-    this.product = false
-    this.on_going = false
-    this.orders = false
-    this.init()
+  // showPost() {
+  //   this.posting = true
+  //   this.product = false
+  //   this.on_going = false
+  //   this.orders = false
+  //   this.init()
     
-  }
+  // }
 
-  showMyActivity() {
-    this.product = true
-    this.posting = false
-    this.on_going = false
-    this.orders = false
-    this.title = 'My Activities'
-    this.icon = 'bi bi-pencil-square'
+  // showMyActivity() {
+  //   this.product = true
+  //   this.posting = false
+  //   this.on_going = false
+  //   this.orders = false
+  //   this.title = 'My Activities'
+  //   this.icon = 'bi bi-pencil-square'
 
-    this.getEventByUserIdSubscription = this.productService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
-      this.dataEvent = result
-    })
+  //   this.getEventByUserIdSubscription = this.productService.getProductEventByOwnerId(this.start,this.limit).subscribe(result => {
+  //     this.dataEvent = result
+  //   })
 
-    this.getCourseByUserIdSubscription = this.productService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
-      this.dataCourse = result
-    })
+  //   this.getCourseByUserIdSubscription = this.productService.getProductCourseByOwnerId(this.start,this.limit).subscribe(result => {
+  //     this.dataCourse = result
+  //   })
 
-  }
+  // }
 
-  showOrders() {
-    this.product = false
-    this.posting = false
-    this.on_going = false
-    this.orders = true
-    this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
-      this.dataOrders = result
-    })
-  }
+  // showOrders() {
+  //   this.product = false
+  //   this.posting = false
+  //   this.on_going = false
+  //   this.orders = true
+  //   this.getActivityOrdersSubscription = this.postService.getActivityOrders(this.start, this.limit).subscribe(result => {
+  //     this.dataOrders = result
+  //   })
+  // }
 
-  showOnGoing() {
-    this.product = false
-    this.posting = false
-    this.on_going = true
-    this.orders = false
-    this.title = 'Trasaction History'
-    this.icon = 'bi bi-hourglass-split'
-    this.getEventCourseBoughtSubscription = this.postService.getEventCourseBought(this.start, this.limit).subscribe(result => {
-      if (result.length <= 0) {
-        this.empty = true
-      } else {
-        this.payments = result
-      }
-    })
+  // showOnGoing() {
+  //   this.product = false
+  //   this.posting = false
+  //   this.on_going = true
+  //   this.orders = false
+  //   this.title = 'Trasaction History'
+  //   this.icon = 'bi bi-hourglass-split'
+  //   this.getEventCourseBoughtSubscription = this.postService.getEventCourseBought(this.start, this.limit).subscribe(result => {
+  //     if (result.length <= 0) {
+  //       this.empty = true
+  //     } else {
+  //       this.payments = result
+  //     }
+  //   })
    
-  }
+  // }
 
-  clickConfirmDelete(position: string, id: string,) {
-    this.confirmationService.confirm({
-        message: 'Do you want to delete post?',
-        header: 'Delete Confirmation',
-        icon: 'pi pi-info-circle',
-        key: "positionDialog",
-        accept: () => {
-          this.deletePostSubscription = this.postService.deletePost(id).subscribe(result => {
-            this.init()
-          })
-        }
-    });
-  }
+  // clickConfirmDelete(position: string, id: string,) {
+  //   this.confirmationService.confirm({
+  //       message: 'Do you want to delete post?',
+  //       header: 'Delete Confirmation',
+  //       icon: 'pi pi-info-circle',
+  //       key: "positionDialog",
+  //       accept: () => {
+  //         this.deletePostSubscription = this.postService.deletePost(id).subscribe(result => {
+  //           this.init()
+  //         })
+  //       }
+  //   });
+  // }
 
   
 
 
-  calculateDiff(sentDate: string) {
-    var date1: any = new Date(sentDate);
-    var date2: any = new Date();
-    var diff: any = Math.floor((date2 - date1) / (1000));
-    if (diff < 60) {
-      return diff + " seconds ago";
-    } else {
-      diff = Math.floor(diff / 60)
-      if (diff < 60) {
-        return diff + " minutes ago";
-      } else {
-        diff = Math.floor(diff / 60)
-        if (diff < 24) {
-          return diff + " hours ago";
-        } else {
-          diff = Math.floor(diff / 24)
-          return diff + " days ago"
-        }
-      }
-    }
-  }
+  // calculateDiff(sentDate: string) {
+  //   var date1: any = new Date(sentDate);
+  //   var date2: any = new Date();
+  //   var diff: any = Math.floor((date2 - date1) / (1000));
+  //   if (diff < 60) {
+  //     return diff + " seconds ago";
+  //   } else {
+  //     diff = Math.floor(diff / 60)
+  //     if (diff < 60) {
+  //       return diff + " minutes ago";
+  //     } else {
+  //       diff = Math.floor(diff / 60)
+  //       if (diff < 24) {
+  //         return diff + " hours ago";
+  //       } else {
+  //         diff = Math.floor(diff / 24)
+  //         return diff + " days ago"
+  //       }
+  //     }
+  //   }
+  // }
 
 
-  cancelLike(id: string, type: string) {
-    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
-      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
-    } else {
-      this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
-        this.init()
-      })
-    }
-  }
+  // cancelLike(id: string, type: string) {
+  //   if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+  //     this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+  //   } else {
+  //     this.unlikeSubscription = this.postService.unlike(id).subscribe(() => {
+  //       this.init()
+  //     })
+  //   }
+  // }
 
-  like(id: string, type: string) {
-    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
-      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
-    } else {
-      const postLike = this.fb.group({
-        post: {
-          id: id
-        }
-      })
+  // like(id: string, type: string) {
+  //   if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+  //     this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+  //   } else {
+  //     const postLike = this.fb.group({
+  //       post: {
+  //         id: id
+  //       }
+  //     })
 
-      this.likeSubscription = this.postService.like(postLike.value).subscribe(() => {
-        this.init()
-      })
-    }
+  //     this.likeSubscription = this.postService.like(postLike.value).subscribe(() => {
+  //       this.init()
+  //     })
+  //   }
 
-  }
+  // }
 
-  unbookmark(id: string, type: string) {
-    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
-      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
-    } else {
-      this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
-        this.init()
-      })
-    }
-  }
+  // unbookmark(id: string, type: string) {
+  //   if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+  //     this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+  //   } else {
+  //     this.unbookmarkSubscription = this.postService.unbookmark(id).subscribe(() => {
+  //       this.init()
+  //     })
+  //   }
+  // }
 
-  bookmark(id: string, type: string) {
-    if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
-      this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
-    } else {
-      const postBookmark = this.fb.group({
-        post: {
-          id: id
-        }
-      })
+  // bookmark(id: string, type: string) {
+  //   if (type == PostTypeConst.PREMIUM && this.userType != UserTypeConst.PREMIUM) {
+  //     this.toast.error("Please Subscribe to Access Full Features", "Premium Access Only!")
+  //   } else {
+  //     const postBookmark = this.fb.group({
+  //       post: {
+  //         id: id
+  //       }
+  //     })
 
-      this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
-        this.init()
-      })
-    }
-  }
+  //     this.bookmarkSubscription = this.postService.bookmark(postBookmark.value).subscribe(() => {
+  //       this.init()
+  //     })
+  //   }
+  // }
 
-  choose(id: string) {
-    const postPollingResponse = this.fb.group({
-      postPollingOption: {
-        id: id
-      }
-    })
-    this.pollingSubscription = this.pollingService.polling(postPollingResponse.value).subscribe(() => {
-      this.init()
-    })
-  }
-  getAge(dateString: string) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
+  // choose(id: string) {
+  //   const postPollingResponse = this.fb.group({
+  //     postPollingOption: {
+  //       id: id
+  //     }
+  //   })
+  //   this.pollingSubscription = this.pollingService.polling(postPollingResponse.value).subscribe(() => {
+  //     this.init()
+  //   })
+  // }
 
-    return age;
-  }
+  // getAge(dateString: string) {
+  //   var today = new Date();
+  //   var birthDate = new Date(dateString);
+  //   var age = today.getFullYear() - birthDate.getFullYear();
+  //   var m = today.getMonth() - birthDate.getMonth();
+  //   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  //     age--;
+  //   }
 
-  onScroll(): void {
-    this.addLimit()
-    this.init()
-  }
+  //   return age;
+  // }
 
-  addLimit(): void {
-    this.limit += 5
-  }
+  // onScroll(): void {
+  //   this.addLimit()
+  //   this.init()
+  // }
+
+  // addLimit(): void {
+  //   this.limit += 5
+  // }
 
 
-  createNewThread() {
-    this.router.navigateByUrl('/thread')
-  }
+  // createNewThread() {
+  //   this.router.navigateByUrl('/thread')
+  // }
 
   ngOnDestroy(): void {
     this.getAllUserSubscription?.unsubscribe()

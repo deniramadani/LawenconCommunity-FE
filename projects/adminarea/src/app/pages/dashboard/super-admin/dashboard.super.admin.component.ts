@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ApiService } from 'projects/mainarea/src/app/service/api.service';
 import { Subscription } from "rxjs";
 import { DashboardService } from '../../../service/dashboard.service';
@@ -14,7 +15,9 @@ export class DashboardSuperAdminComponent implements OnInit, OnDestroy {
   valueAdmin: number = 0;
   valueMember: number = 0;
   chartOptions: any;
-  constructor(private apiService : ApiService,private dashboardService : DashboardService) { }
+  constructor(private apiService: ApiService, private dashboardService: DashboardService, private title: Title) {
+    this.title.setTitle('Dashboard Super Admin')
+   }
   
 
   ngOnInit(): void {
