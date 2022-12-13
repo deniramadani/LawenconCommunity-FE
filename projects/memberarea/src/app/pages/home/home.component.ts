@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fullname: string = ''
   position: string = ''
   email: string = ''
+  showImage : boolean = false
   totalPost: number = 0
   loadScroll: boolean = false
   phoneNumber: string = ''
@@ -128,6 +129,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   facebook: string = ''
   linkedin : string =''
   type: string = ''
+  displayBasic: boolean =false
+  activeIndex: number = 0;
+
 
   updateComment = this.fb.group({
     id: ['', [Validators.required]],
@@ -352,6 +356,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  // imageClick(index: number) {
+  //   this.activeIndex = index;
+  //   this.displayCustom = true;
+  // }
+
+  displayImage() {
+    this.displayBasic = true
+  }
+
   calculateDiff(sentDate: string) {
     var date1: any = new Date(sentDate);
     var date2: any = new Date();
