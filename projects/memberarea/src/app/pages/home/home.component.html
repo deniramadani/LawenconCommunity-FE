@@ -269,11 +269,12 @@
                 </ng-template>
               </p-galleria>
             </ng-template>
+
             <ng-template #elseTemplateFoto>
               <p-galleria [value]="post.file" [responsiveOptions]="responsiveOptions"
                 [containerStyle]="{'max-width': '100%'}" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
-                  <img src="{{fileDownload}}{{item.file.id}}" style="width: 100%; height: 300px; display: block;" />
+                  <p-image src="{{fileDownload}}{{item.file.id}}" alt="Image" width="400" [preview]="true"></p-image>
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                   <div class="grid grid-nogutter justify-content-center">
@@ -282,6 +283,7 @@
                 </ng-template>
               </p-galleria>
             </ng-template>
+
 
 
           </div>
